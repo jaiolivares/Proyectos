@@ -1,0 +1,10 @@
+USE AppGastosJo
+GO
+CREATE TABLE Usuarios
+(
+	idUsuario	INT			PRIMARY KEY IDENTITY(1,1),
+	usuario		VARCHAR(20)	NOT NULL DEFAULT '',
+	email		VARCHAR(50)	NOT NULL DEFAULT '',
+	password	VARCHAR(50)	NOT NULL DEFAULT '',
+	activo		BIT			NOT NULL DEFAULT 1,
+)
