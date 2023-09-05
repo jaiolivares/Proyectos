@@ -1,25 +1,46 @@
+﻿using Microsoft.EntityFrameworkCore;
+using GastosJo_Api.Data;
+using GastosJo_Api.Interfaces;
+using GastosJo_Api.Services;
+
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
+ConfigureDb();
+ConfigureServices();
+ConfigureApp();
 
-builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
-
-var app = builder.Build();
-
-// Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
+void ConfigureDb()
 {
-    app.UseSwagger();
-    app.UseSwaggerUI();
+    builder.Services.AddDbContext<GastosJo_ApiContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("GastosJo_ApiContext") ?? throw new InvalidOperationException("Connection string 'GastosJo_ApiContext' not found.")));
 }
 
-app.UseHttpsRedirection();
+void ConfigureServices()
+{
+    builder.Services.AddControllers();
+    // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+    builder.Services.AddEndpointsApiExplorer();
+    builder.Services.AddSwaggerGen();
 
-app.UseAuthorization();
+    builder.Services.AddScoped<IBancoService, BancoService>();
+}
 
-app.MapControllers();
+void ConfigureApp()
+{
+    var app = builder.Build();
 
-app.Run();
+    // Configure the HTTP request pipeline.
+    if (app.Environment.IsDevelopment())
+    {
+        app.UseSwagger();
+        app.UseSwaggerUI();
+    }
+
+    app.UseHttpsRedirection();
+
+    app.UseAuthorization();
+
+    app.MapControllers();
+
+    app.Run();
+}
