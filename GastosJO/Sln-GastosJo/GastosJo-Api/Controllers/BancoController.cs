@@ -1,14 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using GastosJo_Api.Data;
 using GastosJo_Api.Models;
 using GastosJo_Api.Interfaces;
-using GastosJo_Api.Services;
+using GastosJo_Api.Models.Helpers;
+using GastosJo_Api.Models.Enums;
 
 namespace GastosJo_Api.Controllers
 {
@@ -26,22 +22,30 @@ namespace GastosJo_Api.Controllers
         }
 
         // GET: api/Bancos
-        [HttpGet]
-        public async Task<ActionResult<IEnumerable<Banco>>> GetBancos()
+        [HttpGet("Bancos")]
+        public async Task<ActionResult<IQueryable<Banco>>> GetBancos([FromQuery] Paginado paginado, Estados estado)
         {
-            var bancos = await _bancoService.GetBancos();
-
-            if (bancos == null || !bancos.Any())
+            try
             {
-                return NotFound();
-            }
+                var bancos = await _bancoService.GetBancos(paginado, estado);
 
-            return Ok(bancos);
+                if (bancos == null)
+                    return StatusCode(StatusCodes.Status404NotFound);
+
+                if (!bancos.Any())
+                    return StatusCode(StatusCodes.Status204NoContent);
+
+                return StatusCode(StatusCodes.Status200OK, bancos);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, "Error TryCatch: " + ex);
+            }
         }
 
         // GET: api/Bancos/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Banco>> GetBancos(int id)
+        public async Task<ActionResult<Banco>> GetBanco(int id)
         {
             if (_context.Bancos == null)
             {
