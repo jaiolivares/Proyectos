@@ -47,18 +47,20 @@ namespace GastosJo_Api.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<Banco>> GetBanco(int id)
         {
-            if (_context.Bancos == null)
+            //TODO: Probar GET-ID, ver que pasa con el null
+            try
             {
-                return NotFound();
-            }
-            var bancos = await _context.Bancos.FindAsync(id);
+                var banco = await _bancoService.GetBanco(id);
 
-            if (bancos == null)
+                if (banco == null)
+                    return StatusCode(StatusCodes.Status404NotFound);
+
+                return StatusCode(StatusCodes.Status200OK, banco);
+            }
+            catch (Exception ex)
             {
-                return NotFound();
+                return StatusCode(StatusCodes.Status500InternalServerError, "Error TryCatch: " + ex);
             }
-
-            return bancos;
         }
 
         // PUT: api/Bancos/5

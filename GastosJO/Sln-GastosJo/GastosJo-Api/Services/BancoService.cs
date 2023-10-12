@@ -35,5 +35,12 @@ namespace GastosJo_Api.Services
 
             return bancos.AsQueryable();
         }
+
+        public async Task<Banco?> GetBanco(int id)
+        {
+            Banco? banco = await _context.Bancos.FindAsync(id);
+
+            return banco;
+        }
     }
 }
