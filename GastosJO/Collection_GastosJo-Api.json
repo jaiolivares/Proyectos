@@ -1,0 +1,49 @@
+{
+	"info": {
+		"_postman_id": "0db6ec7c-0578-4389-a864-c23713ec1131",
+		"name": "Proyectos_GastosJo-Api",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "28055006"
+	},
+	"item": [
+		{
+			"name": "Banco",
+			"item": [
+				{
+					"name": "api/Banco/Bancos",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:7158/api/Banco?PaginaActual=-0&RegistrosPorPagina=6&estado=2",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "7158",
+							"path": [
+								"api",
+								"Banco"
+							],
+							"query": [
+								{
+									"key": "PaginaActual",
+									"value": "-0"
+								},
+								{
+									"key": "RegistrosPorPagina",
+									"value": "6"
+								},
+								{
+									"key": "estado",
+									"value": "2"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
