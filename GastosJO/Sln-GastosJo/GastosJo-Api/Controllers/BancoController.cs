@@ -21,8 +21,10 @@ namespace GastosJo_Api.Controllers
             _bancoService = bancoService;
         }
 
+        //TODO: Ver los nombres de los EndPoint, por ejemplo GET: api/Bancos, GET: api/Bancos/5
+
         // GET: api/Bancos
-        [HttpGet("Bancos")]
+        [HttpGet()]
         public async Task<ActionResult<IQueryable<Banco>>> GetBancos([FromQuery] Paginado paginado, Estados estado)
         {
             try
@@ -63,75 +65,60 @@ namespace GastosJo_Api.Controllers
             }
         }
 
-        // PUT: api/Bancos/5
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutBancos(int id, Banco bancos)
+        // POST: api/Bancos
+        [HttpPost]
+        public async Task<ActionResult<Banco>> PostBanco(Banco banco)
         {
-            if (id != bancos.IdBanco)
-            {
-                return BadRequest();
-            }
-
-            _context.Entry(bancos).State = EntityState.Modified;
-
             try
             {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!BancosExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
+                var nuevoBanco = await _bancoService.AddBanco(banco);
 
-            return NoContent();
+                //TODO: Verificar que estado se devuelve si no puede grabar
+                if (nuevoBanco == null)
+                    return StatusCode(StatusCodes.Status500InternalServerError, nuevoBanco);
+
+                return StatusCode(StatusCodes.Status201Created, nuevoBanco);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, "Error TryCatch: " + ex);
+            }
         }
 
-        // POST: api/Bancos
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPost]
-        public async Task<ActionResult<Banco>> PostBancos(Banco bancos)
+        // PUT: api/Bancos/5
+        [HttpPut("{id}")]
+        public async Task<IActionResult> PutBancos(int id, Banco banco)
         {
-            if (_context.Bancos == null)
+            try
             {
-                return Problem("Entity set 'GastosJo_ApiContext.Bancos'  is null.");
-            }
-            _context.Bancos.Add(bancos);
-            await _context.SaveChangesAsync();
+                //Verificar si es necesario enviar el ID, ya que en el objeto banco puede venir
+                var bancoModificado = await _bancoService.UpdateBanco(banco);
 
-            return CreatedAtAction("GetBancos", new { id = bancos.IdBanco }, bancos);
+                return StatusCode(StatusCodes.Status200OK, banco);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, "Error TryCatch: " + ex);
+            }
         }
 
         // DELETE: api/Bancos/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteBancos(int id)
+        public async Task<IActionResult> DeleteBanco(int id)
         {
-            if (_context.Bancos == null)
+            try
             {
-                return NotFound();
+                return null;
             }
-            var bancos = await _context.Bancos.FindAsync(id);
-            if (bancos == null)
+            catch (Exception ex)
             {
-                return NotFound();
+                return StatusCode(StatusCodes.Status500InternalServerError, "Error TryCatch: " + ex);
             }
-
-            _context.Bancos.Remove(bancos);
-            await _context.SaveChangesAsync();
-
-            return NoContent();
         }
 
-        private bool BancosExists(int id)
-        {
-            return (_context.Bancos?.Any(e => e.IdBanco == id)).GetValueOrDefault();
-        }
+        //private bool BancosExists(int id)
+        //{
+        //    return (_context.Bancos?.Any(e => e.IdBanco == id)).GetValueOrDefault();
+        //}
     }
 }
