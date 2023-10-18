@@ -15,16 +15,12 @@ namespace GastosJo_Api.Controllers
         private readonly GastosJo_ApiContext _context;
         private readonly IBancoService _bancoService;
 
-        public BancoController(GastosJo_ApiContext context, IBancoService bancoService)
+        public BancoController(IBancoService bancoService)
         {
-            _context = context;
             _bancoService = bancoService;
         }
 
-        //TODO: Ver los nombres de los EndPoint, por ejemplo GET: api/Bancos, GET: api/Bancos/5
-
-        // GET: api/Bancos
-        [HttpGet()]
+        [HttpGet("Listar")]
         public async Task<ActionResult<IQueryable<Banco>>> GetBancos([FromQuery] Paginado paginado, Estados estado)
         {
             try
@@ -45,11 +41,9 @@ namespace GastosJo_Api.Controllers
             }
         }
 
-        // GET: api/Bancos/5
-        [HttpGet("{id}")]
+        [HttpGet("Obtener/{id}")]
         public async Task<ActionResult<Banco>> GetBanco(int id)
         {
-            //TODO: Probar GET-ID, ver que pasa con el null
             try
             {
                 var banco = await _bancoService.GetBanco(id);
@@ -65,8 +59,7 @@ namespace GastosJo_Api.Controllers
             }
         }
 
-        // POST: api/Bancos
-        [HttpPost]
+        [HttpPost("Insertar")]
         public async Task<ActionResult<Banco>> PostBanco(Banco banco)
         {
             try
@@ -85,14 +78,18 @@ namespace GastosJo_Api.Controllers
             }
         }
 
-        // PUT: api/Bancos/5
-        [HttpPut("{id}")]
+        [HttpPut("Modificar/{id}")]
         public async Task<IActionResult> PutBancos(int id, Banco banco)
         {
             try
             {
-                //Verificar si es necesario enviar el ID, ya que en el objeto banco puede venir
-                var bancoModificado = await _bancoService.UpdateBanco(banco);
+                if (id <= 0)
+                    return StatusCode(StatusCodes.Status400BadRequest, "El Id es obligatorio");
+
+                if (banco == null)
+                    return StatusCode(StatusCodes.Status400BadRequest, "El json Banco es obligatorio");
+
+                var bancoModificado = await _bancoService.UpdateBanco(id, banco);
 
                 return StatusCode(StatusCodes.Status200OK, banco);
             }
@@ -102,13 +99,17 @@ namespace GastosJo_Api.Controllers
             }
         }
 
-        // DELETE: api/Bancos/5
-        [HttpDelete("{id}")]
+        [HttpDelete("Eliminar/{id}")]
         public async Task<IActionResult> DeleteBanco(int id)
         {
             try
             {
-                return null;
+                var bancoEliminado = await _bancoService.DeleteBanco(id);
+
+                if (bancoEliminado == null)
+                    return StatusCode(StatusCodes.Status404NotFound);
+
+                return StatusCode(StatusCodes.Status200OK, bancoEliminado);
             }
             catch (Exception ex)
             {

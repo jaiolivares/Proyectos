@@ -9,12 +9,12 @@ namespace GastosJo_Api.Interfaces
     {
         Task<IQueryable<Banco>> GetBancos(Paginado paginado, Estados estado);
 
-        Task<Banco?> GetBanco(int id);
+        Task<Banco> GetBanco(int id);
 
         Task<Banco> AddBanco(Banco banco);
 
-        Task<Banco> UpdateBanco(Banco banco);
+        Task<Banco> UpdateBanco(int id, Banco banco);
 
-        Task<IActionResult> DeleteBanco(int id);
+        Task<Banco> DeleteBanco(int id);
     }
 }

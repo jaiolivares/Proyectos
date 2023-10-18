@@ -4,8 +4,6 @@ using GastosJo_Api.Models;
 using GastosJo_Api.Models.Enums;
 using GastosJo_Api.Models.Helpers;
 using GastosJo_Api.Services.Helpers;
-using Microsoft.AspNetCore.Http.HttpResults;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace GastosJo_Api.Services
@@ -35,12 +33,9 @@ namespace GastosJo_Api.Services
             return bancos.AsQueryable();
         }
 
-        public async Task<Banco?> GetBanco(int id)
+        public async Task<Banco> GetBanco(int id)
         {
-            //TODO: revisar si no encuentra el ID "?"
-            Banco? banco = await _context.Bancos.FindAsync(id);
-
-            return banco;
+            return await _context.Bancos.FindAsync(id);
         }
 
         public async Task<Banco> AddBanco(Banco banco)
@@ -61,13 +56,19 @@ namespace GastosJo_Api.Services
             //return CreatedAtAction("GetBancos", new { id = bancos.IdBanco }, bancos);
         }
 
-        public async Task<Banco> UpdateBanco(Banco banco)
+        public async Task<Banco> UpdateBanco(int id, Banco bancoModificado)
         {
-            _context.Entry(banco).State = EntityState.Modified;
+            //_context.Entry(banco).State = EntityState.Modified;
+
+            var bancoActual = await GetBanco(id);
+
+            bancoActual.Codigo = bancoModificado.Codigo;
+            bancoActual.Nombre = bancoModificado.Nombre;
+            bancoActual.Activo = bancoModificado.Activo;
 
             await _context.SaveChangesAsync();
 
-            return banco;
+            return bancoActual;
 
             //if (id != bancos.IdBanco)
             //{
@@ -95,15 +96,17 @@ namespace GastosJo_Api.Services
             //return NoContent();
         }
 
-        public async Task<IActionResult> DeleteBanco(int id)
+        public async Task<Banco> DeleteBanco(int id)
         {
-            return null;
-            //var banco = await _context.Bancos.FindAsync(id);
+            var banco = await GetBanco(id);
 
-            //if (banco == null)
+            if (banco == null)
+                return banco;
 
-            //return StatusCodes.Status200OK();
+            _context.Bancos.Remove(banco);
+            await _context.SaveChangesAsync();
 
+            return banco;
             //if (_context.Bancos == null)
             //{
             //    return NotFound();
