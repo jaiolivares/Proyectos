@@ -1,8 +1,9 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using GastosJo_Api.Models.Helpers;
+using System.ComponentModel.DataAnnotations;
 
 namespace GastosJo_Api.Models
 {
-    public class Banco
+    public class Banco : Resultado
     {
         [Key]
         public int IdBanco { get; set; }

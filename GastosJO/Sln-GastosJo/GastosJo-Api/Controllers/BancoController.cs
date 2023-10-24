@@ -66,7 +66,6 @@ namespace GastosJo_Api.Controllers
             {
                 var nuevoBanco = await _bancoService.AddBanco(banco);
 
-                //TODO: Verificar que estado se devuelve si no puede grabar
                 if (nuevoBanco == null)
                     return StatusCode(StatusCodes.Status500InternalServerError, nuevoBanco);
 

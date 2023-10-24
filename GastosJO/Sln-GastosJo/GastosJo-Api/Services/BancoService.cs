@@ -40,20 +40,19 @@ namespace GastosJo_Api.Services
 
         public async Task<Banco> AddBanco(Banco banco)
         {
-            //TODO: Ver método Problem del return
-            //if (_context.Bancos == null)
-            //{
-            //    return Problem("Entity set 'GastosJo_ApiContext.Bancos'  is null.");
-            //}
+            banco.IdBanco = 0;
 
-            //TODO: Validar datos de entrada y ver si "Activo" llega como True o False
+            if (string.IsNullOrEmpty(banco.Codigo))
+            {
+                banco.ResultadoEjecucion = ResultadoEjecucion.InsertarErrorEjecucion(false, "El Código e obligatorio");
+
+                throw new Exception();
+            }
 
             _context.Bancos.Add(banco);
             await _context.SaveChangesAsync();
 
             return banco;
-
-            //return CreatedAtAction("GetBancos", new { id = bancos.IdBanco }, bancos);
         }
 
         public async Task<Banco> UpdateBanco(int id, Banco bancoModificado)
