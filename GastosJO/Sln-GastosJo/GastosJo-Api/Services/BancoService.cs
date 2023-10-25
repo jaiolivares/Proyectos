@@ -44,9 +44,14 @@ namespace GastosJo_Api.Services
 
             if (string.IsNullOrEmpty(banco.Codigo))
             {
-                banco.ResultadoEjecucion = ResultadoEjecucion.InsertarErrorEjecucion(false, "El Código e obligatorio");
+                banco.ResultadoEjecucion = Helpers.Resultado.InsertarErrorEjecucion(false, "El Código es obligatorio");
+                return banco;
+            }
 
-                throw new Exception();
+            if (string.IsNullOrEmpty(banco.Nombre))
+            {
+                banco.ResultadoEjecucion = Helpers.Resultado.InsertarErrorEjecucion(false, "El Nombre es obligatorio");
+                return banco;
             }
 
             _context.Bancos.Add(banco);

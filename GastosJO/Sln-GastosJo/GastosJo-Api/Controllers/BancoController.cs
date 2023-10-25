@@ -64,6 +64,7 @@ namespace GastosJo_Api.Controllers
         {
             try
             {
+                //TODO: verificar variable y resultado.ejecucion
                 var nuevoBanco = await _bancoService.AddBanco(banco);
 
                 if (nuevoBanco == null)
