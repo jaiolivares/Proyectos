@@ -2,19 +2,13 @@
 {
     public class Resultado
     {
-        public static Models.Helpers.ResultadoEjecucion InsertarErrorEjecucion(bool ejecucionCorrecta, string mensajeEjecucion)
+        public static Models.Helpers.Resultado InsertarEjecucionIncorrecta(bool ejecucionCorrecta, string mensajeEjecucion)
         {
-            Models.Helpers.ResultadoEjecucion resultadoEjecucion = new();
-
-            var resultadoModels = new Models.Helpers.ResultadoModels
+            return new Models.Helpers.Resultado
             {
                 EjecucionCorrecta = ejecucionCorrecta,
                 MensajeEjecucion = mensajeEjecucion
             };
-
-            resultadoEjecucion.ResultadoModels = resultadoModels;
-
-            return resultadoEjecucion;
         }
     }
 }

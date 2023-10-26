@@ -1,8 +1,10 @@
-﻿using GastosJo_Api.Data;
+﻿using AutoMapper;
+using GastosJo_Api.Data;
 using GastosJo_Api.Interfaces;
 using GastosJo_Api.Models;
 using GastosJo_Api.Models.Enums;
 using GastosJo_Api.Models.Helpers;
+using GastosJo_Api.Models.Respuesta;
 using GastosJo_Api.Services.Helpers;
 using Microsoft.EntityFrameworkCore;
 
@@ -11,10 +13,12 @@ namespace GastosJo_Api.Services
     public class BancoService : IBancoService
     {
         private readonly GastosJo_ApiContext _context;
+        private readonly IMapper _mapper;
 
-        public BancoService(GastosJo_ApiContext context)
+        public BancoService(IMapper mapper, GastosJo_ApiContext context)
         {
             _context = context;
+            _mapper = mapper;
         }
 
         public async Task<IQueryable<Banco>> GetBancos(Paginado paginado, Estados estado)
@@ -38,26 +42,34 @@ namespace GastosJo_Api.Services
             return await _context.Bancos.FindAsync(id);
         }
 
-        public async Task<Banco> AddBanco(Banco banco)
+        public async Task<BancoContratoResponse> AddBanco(BancoContratoRequest bancoRequest)
         {
+            //TODO: Probar método desde Swagger
+
+            BancoContratoResponse bancoResponse = new();
+
+            if (string.IsNullOrEmpty(bancoRequest.Banco.Codigo))
+            {
+                bancoResponse.Resultado = Helpers.Resultado.InsertarEjecucionIncorrecta(false, "El Código es obligatorio");
+                return bancoResponse;
+            }
+
+            if (string.IsNullOrEmpty(bancoRequest.Banco.Nombre))
+            {
+                bancoResponse.Resultado = Helpers.Resultado.InsertarEjecucionIncorrecta(false, "El Nombre es obligatorio");
+                return bancoResponse;
+            }
+
+            Banco banco = _mapper.Map<Banco>(bancoRequest.Banco);
+
             banco.IdBanco = 0;
-
-            if (string.IsNullOrEmpty(banco.Codigo))
-            {
-                banco.ResultadoEjecucion = Helpers.Resultado.InsertarErrorEjecucion(false, "El Código es obligatorio");
-                return banco;
-            }
-
-            if (string.IsNullOrEmpty(banco.Nombre))
-            {
-                banco.ResultadoEjecucion = Helpers.Resultado.InsertarErrorEjecucion(false, "El Nombre es obligatorio");
-                return banco;
-            }
 
             _context.Bancos.Add(banco);
             await _context.SaveChangesAsync();
 
-            return banco;
+            bancoResponse.Banco = banco;
+
+            return bancoResponse;
         }
 
         public async Task<Banco> UpdateBanco(int id, Banco bancoModificado)

@@ -1,7 +1,7 @@
 ﻿using GastosJo_Api.Models;
 using GastosJo_Api.Models.Enums;
 using GastosJo_Api.Models.Helpers;
-using Microsoft.AspNetCore.Mvc;
+using GastosJo_Api.Models.Respuesta;
 
 namespace GastosJo_Api.Interfaces
 {
@@ -11,7 +11,7 @@ namespace GastosJo_Api.Interfaces
 
         Task<Banco> GetBanco(int id);
 
-        Task<Banco> AddBanco(Banco banco);
+        Task<BancoContratoResponse> AddBanco(BancoContratoRequest bancoRequest);
 
         Task<Banco> UpdateBanco(int id, Banco banco);
 

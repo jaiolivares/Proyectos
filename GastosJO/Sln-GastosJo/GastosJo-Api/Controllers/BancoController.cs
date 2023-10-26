@@ -5,6 +5,7 @@ using GastosJo_Api.Models;
 using GastosJo_Api.Interfaces;
 using GastosJo_Api.Models.Helpers;
 using GastosJo_Api.Models.Enums;
+using GastosJo_Api.Models.Respuesta;
 
 namespace GastosJo_Api.Controllers
 {
@@ -60,15 +61,17 @@ namespace GastosJo_Api.Controllers
         }
 
         [HttpPost("Insertar")]
-        public async Task<ActionResult<Banco>> PostBanco(Banco banco)
+        public async Task<ActionResult<BancoContratoResponse>> PostBanco(BancoContratoRequest bancoRequest)
         {
             try
             {
-                //TODO: verificar variable y resultado.ejecucion
-                var nuevoBanco = await _bancoService.AddBanco(banco);
+                var nuevoBanco = await _bancoService.AddBanco(bancoRequest);
 
                 if (nuevoBanco == null)
                     return StatusCode(StatusCodes.Status500InternalServerError, nuevoBanco);
+
+                if (!nuevoBanco.Resultado.EjecucionCorrecta)
+                    return StatusCode(StatusCodes.Status400BadRequest, nuevoBanco);
 
                 return StatusCode(StatusCodes.Status201Created, nuevoBanco);
             }
