@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using GastosJo_Api.Models.Respuesta;
+using GastosJo_Api.Models.Data;
 
 namespace GastosJo_Api.Models.Mapper
 {
@@ -7,7 +7,7 @@ namespace GastosJo_Api.Models.Mapper
     {
         public BancoMapper()
         {
-            CreateMap<BancoContratoRequest, Banco>();
+            CreateMap<BancoRequest, Banco>();
         }
     }
 }

@@ -5,7 +5,7 @@ using GastosJo_Api.Models;
 using GastosJo_Api.Interfaces;
 using GastosJo_Api.Models.Helpers;
 using GastosJo_Api.Models.Enums;
-using GastosJo_Api.Models.Respuesta;
+using GastosJo_Api.Models.Data;
 
 namespace GastosJo_Api.Controllers
 {
@@ -61,7 +61,7 @@ namespace GastosJo_Api.Controllers
         }
 
         [HttpPost("Insertar")]
-        public async Task<ActionResult<BancoContratoResponse>> PostBanco(BancoContratoRequest bancoRequest)
+        public async Task<ActionResult<BancoResponse>> PostBanco(BancoRequest bancoRequest)
         {
             try
             {
@@ -82,19 +82,22 @@ namespace GastosJo_Api.Controllers
         }
 
         [HttpPut("Modificar/{id}")]
-        public async Task<IActionResult> PutBancos(int id, Banco banco)
+        public async Task<ActionResult<BancoResponse>> PutBancos(int id, BancoRequest bancoRequest)
         {
             try
             {
                 if (id <= 0)
                     return StatusCode(StatusCodes.Status400BadRequest, "El Id es obligatorio");
 
-                if (banco == null)
+                if (bancoRequest == null)
                     return StatusCode(StatusCodes.Status400BadRequest, "El json Banco es obligatorio");
 
-                var bancoModificado = await _bancoService.UpdateBanco(id, banco);
+                var bancoModificado = await _bancoService.UpdateBanco(id, bancoRequest);
 
-                return StatusCode(StatusCodes.Status200OK, banco);
+                if (!bancoModificado.Resultado.EjecucionCorrecta)
+                    return StatusCode(StatusCodes.Status400BadRequest, bancoModificado);
+
+                return StatusCode(StatusCodes.Status200OK, bancoModificado);
             }
             catch (Exception ex)
             {

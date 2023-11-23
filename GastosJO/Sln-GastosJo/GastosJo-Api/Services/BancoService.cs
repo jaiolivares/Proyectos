@@ -2,9 +2,9 @@
 using GastosJo_Api.Data;
 using GastosJo_Api.Interfaces;
 using GastosJo_Api.Models;
+using GastosJo_Api.Models.Data;
 using GastosJo_Api.Models.Enums;
 using GastosJo_Api.Models.Helpers;
-using GastosJo_Api.Models.Respuesta;
 using GastosJo_Api.Services.Helpers;
 using Microsoft.EntityFrameworkCore;
 
@@ -42,41 +42,49 @@ namespace GastosJo_Api.Services
             return await _context.Bancos.FindAsync(id);
         }
 
-        public async Task<BancoContratoResponse> AddBanco(BancoContratoRequest bancoRequest)
+        public async Task<BancoResponse> AddBanco(BancoRequest bancoRequest)
         {
-            //TODO: Probar método desde Swagger
+            BancoResponse bancoResponse = new();
 
-            BancoContratoResponse bancoResponse = new();
-
-            if (string.IsNullOrEmpty(bancoRequest.Banco.Codigo))
+            if (string.IsNullOrEmpty(bancoRequest.Banco.Codigo) || bancoRequest.Banco.Codigo.Trim() == "string")
             {
                 bancoResponse.Resultado = Helpers.Resultado.InsertarEjecucionIncorrecta(false, "El Código es obligatorio");
                 return bancoResponse;
             }
 
-            if (string.IsNullOrEmpty(bancoRequest.Banco.Nombre))
+            if (string.IsNullOrEmpty(bancoRequest.Banco.Nombre) || bancoRequest.Banco.Nombre.Trim() == "string")
             {
                 bancoResponse.Resultado = Helpers.Resultado.InsertarEjecucionIncorrecta(false, "El Nombre es obligatorio");
                 return bancoResponse;
             }
 
-            Banco banco = _mapper.Map<Banco>(bancoRequest.Banco);
+            Banco bancoNuevo = _mapper.Map<Banco>(bancoRequest.Banco);
 
-            banco.IdBanco = 0;
+            bancoNuevo.IdBanco = 0;
 
-            _context.Bancos.Add(banco);
+            _context.Bancos.Add(bancoNuevo);
             await _context.SaveChangesAsync();
 
-            bancoResponse.Banco = banco;
+            bancoResponse.Banco = bancoNuevo;
 
             return bancoResponse;
         }
 
-        public async Task<Banco> UpdateBanco(int id, Banco bancoModificado)
+        public async Task<BancoResponse> UpdateBanco(int id, BancoRequest bancoRequest)
         {
             //_context.Entry(banco).State = EntityState.Modified;
 
-            var bancoActual = await GetBanco(id);
+            BancoResponse bancoResponse = new();
+
+            Banco bancoModificado = _mapper.Map<Banco>(bancoRequest.Banco);
+
+            Banco bancoActual = await GetBanco(id);
+
+            if (bancoActual == null)
+            {
+                bancoResponse.Resultado = Helpers.Resultado.InsertarEjecucionIncorrecta(false, "El Banco con el id: " + id + " no fue encontrado");
+                return bancoResponse;
+            }
 
             bancoActual.Codigo = bancoModificado.Codigo;
             bancoActual.Nombre = bancoModificado.Nombre;
@@ -84,7 +92,9 @@ namespace GastosJo_Api.Services
 
             await _context.SaveChangesAsync();
 
-            return bancoActual;
+            bancoResponse.Banco = bancoActual;
+
+            return bancoResponse;
 
             //if (id != bancos.IdBanco)
             //{

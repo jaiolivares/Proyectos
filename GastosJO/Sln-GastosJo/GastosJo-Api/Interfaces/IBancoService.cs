@@ -1,7 +1,7 @@
 ﻿using GastosJo_Api.Models;
 using GastosJo_Api.Models.Enums;
 using GastosJo_Api.Models.Helpers;
-using GastosJo_Api.Models.Respuesta;
+using GastosJo_Api.Models.Data;
 
 namespace GastosJo_Api.Interfaces
 {
@@ -11,9 +11,9 @@ namespace GastosJo_Api.Interfaces
 
         Task<Banco> GetBanco(int id);
 
-        Task<BancoContratoResponse> AddBanco(BancoContratoRequest bancoRequest);
+        Task<BancoResponse> AddBanco(BancoRequest bancoRequest);
 
-        Task<Banco> UpdateBanco(int id, Banco banco);
+        Task<BancoResponse> UpdateBanco(int id, BancoRequest bancoRequest);
 
         Task<Banco> DeleteBanco(int id);
     }
