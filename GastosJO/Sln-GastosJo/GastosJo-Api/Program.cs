@@ -23,6 +23,7 @@ void ConfigureServices()
     builder.Services.AddSwaggerGen();
 
     builder.Services.AddScoped<IBancoService, BancoService>();
+    builder.Services.AddScoped<ICuentaBancariaService, CuentaBancariaService>();
 }
 
 void ConfigureApp()
