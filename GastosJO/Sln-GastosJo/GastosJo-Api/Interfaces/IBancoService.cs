@@ -15,6 +15,6 @@ namespace GastosJo_Api.Interfaces
 
         Task<BancoResponse> UpdateBanco(int id, BancoRequest bancoRequest);
 
-        Task<Banco> DeleteBanco(int id);
+        Task<BancoResponse> DeleteBanco(int id);
     }
 }

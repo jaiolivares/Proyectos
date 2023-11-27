@@ -72,8 +72,6 @@ namespace GastosJo_Api.Services
 
         public async Task<BancoResponse> UpdateBanco(int id, BancoRequest bancoRequest)
         {
-            //_context.Entry(banco).State = EntityState.Modified;
-
             BancoResponse bancoResponse = new();
 
             Banco bancoModificado = _mapper.Map<Banco>(bancoRequest.Banco);
@@ -95,58 +93,26 @@ namespace GastosJo_Api.Services
             bancoResponse.Banco = bancoActual;
 
             return bancoResponse;
-
-            //if (id != bancos.IdBanco)
-            //{
-            //    return BadRequest();
-            //}
-
-            //_context.Entry(bancos).State = EntityState.Modified;
-
-            //try
-            //{
-            //    await _context.SaveChangesAsync();
-            //}
-            //catch (DbUpdateConcurrencyException)
-            //{
-            //    if (!BancosExists(id))
-            //    {
-            //        return NotFound();
-            //    }
-            //    else
-            //    {
-            //        throw;
-            //    }
-            //}
-
-            //return NoContent();
         }
 
-        public async Task<Banco> DeleteBanco(int id)
+        public async Task<BancoResponse> DeleteBanco(int id)
         {
-            var banco = await GetBanco(id);
+            BancoResponse bancoResponse = new();
 
-            if (banco == null)
-                return banco;
+            var bancoActual = await GetBanco(id);
 
-            _context.Bancos.Remove(banco);
+            if (bancoActual == null)
+            {
+                bancoResponse.Resultado = Helpers.Resultado.InsertarEjecucionIncorrecta(false, "El Banco con el id: " + id + " no fue encontrado");
+                return bancoResponse;
+            }
+
+            bancoResponse.Banco = bancoActual;
+
+            _context.Bancos.Remove(bancoActual);
             await _context.SaveChangesAsync();
 
-            return banco;
-            //if (_context.Bancos == null)
-            //{
-            //    return NotFound();
-            //}
-            //var bancos = await _context.Bancos.FindAsync(id);
-            //if (bancos == null)
-            //{
-            //    return NotFound();
-            //}
-
-            //_context.Bancos.Remove(bancos);
-            //await _context.SaveChangesAsync();
-
-            //return NoContent();
+            return bancoResponse;
         }
     }
 }

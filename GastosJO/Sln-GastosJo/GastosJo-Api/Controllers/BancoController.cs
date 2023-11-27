@@ -108,12 +108,13 @@ namespace GastosJo_Api.Controllers
         [HttpDelete("Eliminar/{id}")]
         public async Task<IActionResult> DeleteBanco(int id)
         {
+            //TODO: Realizar prueba de EndPoint Delete
             try
             {
                 var bancoEliminado = await _bancoService.DeleteBanco(id);
 
-                if (bancoEliminado == null)
-                    return StatusCode(StatusCodes.Status404NotFound);
+                if (!bancoEliminado.Resultado.EjecucionCorrecta)
+                    return StatusCode(StatusCodes.Status400BadRequest, bancoEliminado);
 
                 return StatusCode(StatusCodes.Status200OK, bancoEliminado);
             }
@@ -122,10 +123,5 @@ namespace GastosJo_Api.Controllers
                 return StatusCode(StatusCodes.Status500InternalServerError, "Error TryCatch: " + ex);
             }
         }
-
-        //private bool BancosExists(int id)
-        //{
-        //    return (_context.Bancos?.Any(e => e.IdBanco == id)).GetValueOrDefault();
-        //}
     }
 }
