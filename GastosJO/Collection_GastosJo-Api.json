@@ -7,15 +7,15 @@
 	},
 	"item": [
 		{
-			"name": "Banco",
+			"name": "1-Banco",
 			"item": [
 				{
-					"name": "api/Banco/Bancos",
+					"name": "api/Banco/Listar",
 					"request": {
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "https://localhost:7158/api/Banco?PaginaActual=-0&RegistrosPorPagina=6&estado=2",
+							"raw": "https://localhost:7158/api/Banco/Listar?PaginaActual=2&RegistrosPorPagina=20&estado=2",
 							"protocol": "https",
 							"host": [
 								"localhost"
@@ -23,21 +23,417 @@
 							"port": "7158",
 							"path": [
 								"api",
-								"Banco"
+								"Banco",
+								"Listar"
 							],
 							"query": [
 								{
 									"key": "PaginaActual",
-									"value": "-0"
+									"value": "2"
 								},
 								{
 									"key": "RegistrosPorPagina",
-									"value": "6"
+									"value": "20"
 								},
 								{
 									"key": "estado",
 									"value": "2"
 								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "api/Banco/Obtener",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:7158/api/Banco/Obtener/9",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "7158",
+							"path": [
+								"api",
+								"Banco",
+								"Obtener",
+								"9"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "api/Banco/Insertar",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"banco\": {\r\n        \"idBanco\": 999,\r\n        \"codigo\": \"Estado\",\r\n        \"nombre\": \"Banco Estado\"\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://localhost:7158/api/Banco/Insertar",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "7158",
+							"path": [
+								"api",
+								"Banco",
+								"Insertar"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "api/Banco/Modificar",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"banco\": {\r\n        \"idBanco\": 999,\r\n        \"codigo\": \"cod\",\r\n        \"nombre\": \"nuevo banco\"\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://localhost:7158/api/Banco/Modificar/999",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "7158",
+							"path": [
+								"api",
+								"Banco",
+								"Modificar",
+								"999"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "api/Banco/Eliminar",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:7158/api/Banco/Eliminar/1002",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "7158",
+							"path": [
+								"api",
+								"Banco",
+								"Eliminar",
+								"1002"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "2-TipoDeCuenta",
+			"item": [
+				{
+					"name": "api/TipoDeCuenta/Listar",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:7158/api/TipoDeCuenta/Listar?PaginaActual=1&RegistrosPorPagina=20&estado=2",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "7158",
+							"path": [
+								"api",
+								"TipoDeCuenta",
+								"Listar"
+							],
+							"query": [
+								{
+									"key": "PaginaActual",
+									"value": "1"
+								},
+								{
+									"key": "RegistrosPorPagina",
+									"value": "20"
+								},
+								{
+									"key": "estado",
+									"value": "2"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "api/TipoDeCuenta/Obtener",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:7158/api/TipoDeCuenta/Obtener/2",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "7158",
+							"path": [
+								"api",
+								"TipoDeCuenta",
+								"Obtener",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "api/TipoDeCuenta/Insertar",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"tipoDeCuenta\": {\r\n    \"idTipoDeCuenta\": 222,\r\n    \"codigo\": \"Vista\",\r\n    \"nombre\": \"Cuenta Vista\",\r\n    \"activo\": true\r\n  }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://localhost:7158/api/TipoDeCuenta/Insertar",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "7158",
+							"path": [
+								"api",
+								"TipoDeCuenta",
+								"Insertar"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "api/TipoDeCuenta/Modificar",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"tipoDeCuenta\": {\r\n    \"idTipoDeCuenta\": 222,\r\n    \"codigo\": \"123456\",\r\n    \"nombre\": \"nombre123456\",\r\n    \"activo\": false\r\n  }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://localhost:7158/api/TipoDeCuenta/Modificar/2",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "7158",
+							"path": [
+								"api",
+								"TipoDeCuenta",
+								"Modificar",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "api/TipoDeCuenta/Eliminar",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:7158/api/TipoDeCuenta/Eliminar/3",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "7158",
+							"path": [
+								"api",
+								"TipoDeCuenta",
+								"Eliminar",
+								"3"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "3-CuentaBancaria",
+			"item": [
+				{
+					"name": "api/CuentaBancaria/Listar",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:7158/api/CuentaBancaria/Listar?PaginaActual=1&RegistrosPorPagina=20&estado=2",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "7158",
+							"path": [
+								"api",
+								"CuentaBancaria",
+								"Listar"
+							],
+							"query": [
+								{
+									"key": "PaginaActual",
+									"value": "1"
+								},
+								{
+									"key": "RegistrosPorPagina",
+									"value": "20"
+								},
+								{
+									"key": "estado",
+									"value": "2"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "api/CuentaBancaria/Obtener",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:7158/api/CuentaBancaria/Obtener/9",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "7158",
+							"path": [
+								"api",
+								"CuentaBancaria",
+								"Obtener",
+								"9"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "api/CuentaBancaria/Insertar",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"cuentaBancaria\": {\r\n    \"idCuentaBancaria\": 0,\r\n    \"codigo\": \"123\",\r\n    \"nombre\": \"nombre123\",\r\n    \"activo\": true,\r\n    \"verCuentasPorPagar\": false\r\n  }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://localhost:7158/api/CuentaBancaria/Insertar",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "7158",
+							"path": [
+								"api",
+								"CuentaBancaria",
+								"Insertar"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "api/CuentaBancaria/Modificar",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"banco\": {\r\n        \"idBanco\": 999,\r\n        \"codigo\": \"cod\",\r\n        \"nombre\": \"nuevo banco\"\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://localhost:7158/api/CuentaBancaria/Modificar/999",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "7158",
+							"path": [
+								"api",
+								"CuentaBancaria",
+								"Modificar",
+								"999"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "api/CuentaBancaria/Eliminar",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:7158/api/CuentaBancaria/Eliminar/999",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "7158",
+							"path": [
+								"api",
+								"CuentaBancaria",
+								"Eliminar",
+								"999"
 							]
 						}
 					},

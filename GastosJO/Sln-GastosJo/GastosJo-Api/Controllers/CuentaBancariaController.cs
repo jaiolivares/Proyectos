@@ -1,6 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using GastosJo_Api.Data;
 using GastosJo_Api.Models;
 using GastosJo_Api.Interfaces;
 using GastosJo_Api.Models.Helpers;
@@ -13,7 +11,6 @@ namespace GastosJo_Api.Controllers
     [ApiController]
     public class CuentaBancariaController : ControllerBase
     {
-        private readonly GastosJo_ApiContext _context;
         private readonly ICuentaBancariaService _cuentaBancariaService;
 
         public CuentaBancariaController(ICuentaBancariaService bancoService)
@@ -108,7 +105,6 @@ namespace GastosJo_Api.Controllers
         [HttpDelete("Eliminar/{id}")]
         public async Task<IActionResult> DeleteCuentaBancaria(int id)
         {
-            //TODO: Realizar prueba de EndPoint Delete
             try
             {
                 var cuentaBancariaEliminada = await _cuentaBancariaService.DeleteCuentaBancaria(id);
