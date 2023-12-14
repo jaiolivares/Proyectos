@@ -1,6 +1,6 @@
 ﻿namespace GastosJo_Api.Models
 {
-    public class Usuarios
+    public class Usuario
     {
         public int IdUsuario { get; set; }
         public string Usuario { get; set; }

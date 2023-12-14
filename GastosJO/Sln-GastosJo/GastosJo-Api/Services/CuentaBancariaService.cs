@@ -15,6 +15,9 @@ namespace GastosJo_Api.Services
         private readonly GastosJo_ApiContext _context;
         private readonly IMapper _mapper;
 
+        //TODO: implementar ILOGER private readonly ILogger _logger;
+        private readonly IBanco _banco;
+
         public CuentaBancariaService(IMapper mapper, GastosJo_ApiContext context)
         {
             _context = context;
