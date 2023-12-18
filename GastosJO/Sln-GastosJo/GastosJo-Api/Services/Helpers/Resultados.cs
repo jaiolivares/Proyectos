@@ -1,6 +1,6 @@
 ﻿namespace GastosJo_Api.Services.Helpers
 {
-    public class Resultado
+    public class Resultados
     {
         public static Models.Helpers.Resultado InsertarEjecucionIncorrecta(bool ejecucionCorrecta, string mensajeEjecucion)
         {

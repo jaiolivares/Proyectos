@@ -44,19 +44,10 @@ namespace GastosJo_Api.Services
 
         public async Task<BancoResponse> AddBanco(BancoRequest bancoRequest)
         {
-            BancoResponse bancoResponse = new();
+            BancoResponse bancoResponse = ValidacionDeEntrada(bancoRequest);
 
-            if (string.IsNullOrEmpty(bancoRequest.Banco.Codigo) || bancoRequest.Banco.Codigo.Trim() == "string")
-            {
-                bancoResponse.Resultado = Helpers.Resultado.InsertarEjecucionIncorrecta(false, "El Código es obligatorio");
+            if (!bancoResponse.Resultado.EjecucionCorrecta)
                 return bancoResponse;
-            }
-
-            if (string.IsNullOrEmpty(bancoRequest.Banco.Nombre) || bancoRequest.Banco.Nombre.Trim() == "string")
-            {
-                bancoResponse.Resultado = Helpers.Resultado.InsertarEjecucionIncorrecta(false, "El Nombre es obligatorio");
-                return bancoResponse;
-            }
 
             Banco bancoNuevo = _mapper.Map<Banco>(bancoRequest.Banco);
 
@@ -72,7 +63,10 @@ namespace GastosJo_Api.Services
 
         public async Task<BancoResponse> UpdateBanco(int id, BancoRequest bancoRequest)
         {
-            BancoResponse bancoResponse = new();
+            BancoResponse bancoResponse = ValidacionDeEntrada(bancoRequest);
+
+            if (!bancoResponse.Resultado.EjecucionCorrecta)
+                return bancoResponse;
 
             Banco bancoModificado = _mapper.Map<Banco>(bancoRequest.Banco);
 
@@ -80,7 +74,7 @@ namespace GastosJo_Api.Services
 
             if (bancoActual == null)
             {
-                bancoResponse.Resultado = Helpers.Resultado.InsertarEjecucionIncorrecta(false, "El Banco con el id: " + id + " no fue encontrado");
+                bancoResponse.Resultado = Resultados.InsertarEjecucionIncorrecta(false, "El Banco con el id: " + id + " no fue encontrado");
                 return bancoResponse;
             }
 
@@ -103,7 +97,7 @@ namespace GastosJo_Api.Services
 
             if (bancoActual == null)
             {
-                bancoResponse.Resultado = Helpers.Resultado.InsertarEjecucionIncorrecta(false, "El Banco con el id: " + id + " no fue encontrado");
+                bancoResponse.Resultado = Resultados.InsertarEjecucionIncorrecta(false, "El Banco con el id: " + id + " no fue encontrado");
                 return bancoResponse;
             }
 
@@ -111,6 +105,25 @@ namespace GastosJo_Api.Services
 
             _context.Bancos.Remove(bancoActual);
             await _context.SaveChangesAsync();
+
+            return bancoResponse;
+        }
+
+        public BancoResponse ValidacionDeEntrada(BancoRequest bancoRequest)
+        {
+            BancoResponse bancoResponse = new();
+
+            if (!Validaciones.ValidaCamposVacios(bancoRequest.Banco.Codigo))
+            {
+                bancoResponse.Resultado = Resultados.InsertarEjecucionIncorrecta(false, "El Código es obligatorio");
+                return bancoResponse;
+            }
+
+            if (!Validaciones.ValidaCamposVacios(bancoRequest.Banco.Nombre))
+            {
+                bancoResponse.Resultado = Resultados.InsertarEjecucionIncorrecta(false, "El Nombre es obligatorio");
+                return bancoResponse;
+            }
 
             return bancoResponse;
         }

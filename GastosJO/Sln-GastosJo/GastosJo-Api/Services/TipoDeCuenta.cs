@@ -27,14 +27,14 @@ namespace GastosJo_Api.Services
 
             bool[] estados = EstadosQuery.EstadosBusquedaEnTabla(estado);
 
-            var bancos = await _context.TiposDeCuenta
+            var tiposDeCuenta = await _context.TiposDeCuenta
                 .Where(x => estados.Contains(x.Activo))
                 .Skip(elementosParaOmitir)
                 .Take(paginado.RegistrosPorPagina)
                 .OrderBy(x => x.Nombre)
                 .ToListAsync();
 
-            return bancos.AsQueryable();
+            return tiposDeCuenta.AsQueryable();
         }
 
         public async Task<TipoDeCuenta> GetTipoDeCuenta(int id)
@@ -42,77 +42,90 @@ namespace GastosJo_Api.Services
             return await _context.TiposDeCuenta.FindAsync(id);
         }
 
-        public async Task<TipoDeCuentaResponse> AddTipoDeCuenta(TipoDeCuentaRequest bancoRequest)
+        public async Task<TipoDeCuentaResponse> AddTipoDeCuenta(TipoDeCuentaRequest tipoDeCuentaRequest)
         {
-            TipoDeCuentaResponse bancoResponse = new();
+            TipoDeCuentaResponse tipoDeCuentaResponse = ValidacionDeEntrada(tipoDeCuentaRequest);
 
-            if (string.IsNullOrEmpty(bancoRequest.TipoDeCuenta.Codigo) || bancoRequest.TipoDeCuenta.Codigo.Trim() == "string")
-            {
-                bancoResponse.Resultado = Helpers.Resultado.InsertarEjecucionIncorrecta(false, "El Código es obligatorio");
-                return bancoResponse;
-            }
+            if (!tipoDeCuentaResponse.Resultado.EjecucionCorrecta)
+                return tipoDeCuentaResponse;
 
-            if (string.IsNullOrEmpty(bancoRequest.TipoDeCuenta.Nombre) || bancoRequest.TipoDeCuenta.Nombre.Trim() == "string")
-            {
-                bancoResponse.Resultado = Helpers.Resultado.InsertarEjecucionIncorrecta(false, "El Nombre es obligatorio");
-                return bancoResponse;
-            }
+            TipoDeCuenta tipoDeCuentaNuevo = _mapper.Map<TipoDeCuenta>(tipoDeCuentaRequest.TipoDeCuenta);
 
-            TipoDeCuenta bancoNuevo = _mapper.Map<TipoDeCuenta>(bancoRequest.TipoDeCuenta);
+            tipoDeCuentaNuevo.IdTipoDeCuenta = 0;
 
-            bancoNuevo.IdTipoDeCuenta = 0;
-
-            _context.TiposDeCuenta.Add(bancoNuevo);
+            _context.TiposDeCuenta.Add(tipoDeCuentaNuevo);
             await _context.SaveChangesAsync();
 
-            bancoResponse.TipoDeCuenta = bancoNuevo;
+            tipoDeCuentaResponse.TipoDeCuenta = tipoDeCuentaNuevo;
 
-            return bancoResponse;
+            return tipoDeCuentaResponse;
         }
 
-        public async Task<TipoDeCuentaResponse> UpdateTipoDeCuenta(int id, TipoDeCuentaRequest bancoRequest)
+        public async Task<TipoDeCuentaResponse> UpdateTipoDeCuenta(int id, TipoDeCuentaRequest tipoDeCuentaRequest)
         {
-            TipoDeCuentaResponse bancoResponse = new();
+            TipoDeCuentaResponse tipoDeCuentaResponse = ValidacionDeEntrada(tipoDeCuentaRequest);
 
-            TipoDeCuenta bancoModificado = _mapper.Map<TipoDeCuenta>(bancoRequest.TipoDeCuenta);
+            if (!tipoDeCuentaResponse.Resultado.EjecucionCorrecta)
+                return tipoDeCuentaResponse;
 
-            TipoDeCuenta bancoActual = await GetTipoDeCuenta(id);
+            TipoDeCuenta tipoDeCuentaModificado = _mapper.Map<TipoDeCuenta>(tipoDeCuentaRequest.TipoDeCuenta);
 
-            if (bancoActual == null)
+            TipoDeCuenta tipoDeCuentaActual = await GetTipoDeCuenta(id);
+
+            if (tipoDeCuentaActual == null)
             {
-                bancoResponse.Resultado = Helpers.Resultado.InsertarEjecucionIncorrecta(false, "El TipoDeCuenta con el id: " + id + " no fue encontrado");
-                return bancoResponse;
+                tipoDeCuentaResponse.Resultado = Resultados.InsertarEjecucionIncorrecta(false, "El TipoDeCuenta con el id: " + id + " no fue encontrado");
+                return tipoDeCuentaResponse;
             }
 
-            bancoActual.Codigo = bancoModificado.Codigo;
-            bancoActual.Nombre = bancoModificado.Nombre;
-            bancoActual.Activo = bancoModificado.Activo;
+            tipoDeCuentaActual.Codigo = tipoDeCuentaModificado.Codigo;
+            tipoDeCuentaActual.Nombre = tipoDeCuentaModificado.Nombre;
+            tipoDeCuentaActual.Activo = tipoDeCuentaModificado.Activo;
 
             await _context.SaveChangesAsync();
 
-            bancoResponse.TipoDeCuenta = bancoActual;
+            tipoDeCuentaResponse.TipoDeCuenta = tipoDeCuentaActual;
 
-            return bancoResponse;
+            return tipoDeCuentaResponse;
         }
 
         public async Task<TipoDeCuentaResponse> DeleteTipoDeCuenta(int id)
         {
-            TipoDeCuentaResponse bancoResponse = new();
+            TipoDeCuentaResponse tipoDeCuentaResponse = new();
 
-            var bancoActual = await GetTipoDeCuenta(id);
+            var tipoDeCuentaActual = await GetTipoDeCuenta(id);
 
-            if (bancoActual == null)
+            if (tipoDeCuentaActual == null)
             {
-                bancoResponse.Resultado = Helpers.Resultado.InsertarEjecucionIncorrecta(false, "El TipoDeCuenta con el id: " + id + " no fue encontrado");
-                return bancoResponse;
+                tipoDeCuentaResponse.Resultado = Resultados.InsertarEjecucionIncorrecta(false, "El TipoDeCuenta con el id: " + id + " no fue encontrado");
+                return tipoDeCuentaResponse;
             }
 
-            bancoResponse.TipoDeCuenta = bancoActual;
+            tipoDeCuentaResponse.TipoDeCuenta = tipoDeCuentaActual;
 
-            _context.TiposDeCuenta.Remove(bancoActual);
+            _context.TiposDeCuenta.Remove(tipoDeCuentaActual);
             await _context.SaveChangesAsync();
 
-            return bancoResponse;
+            return tipoDeCuentaResponse;
+        }
+
+        public TipoDeCuentaResponse ValidacionDeEntrada(TipoDeCuentaRequest tipoDeCuentaRequest)
+        {
+            TipoDeCuentaResponse tipoDeCuentaResponse = new();
+
+            if (!Validaciones.ValidaCamposVacios(tipoDeCuentaRequest.TipoDeCuenta.Codigo))
+            {
+                tipoDeCuentaResponse.Resultado = Resultados.InsertarEjecucionIncorrecta(false, "El Código es obligatorio");
+                return tipoDeCuentaResponse;
+            }
+
+            if (!Validaciones.ValidaCamposVacios(tipoDeCuentaRequest.TipoDeCuenta.Nombre))
+            {
+                tipoDeCuentaResponse.Resultado = Resultados.InsertarEjecucionIncorrecta(false, "El Nombre es obligatorio");
+                return tipoDeCuentaResponse;
+            }
+
+            return tipoDeCuentaResponse;
         }
     }
 }
