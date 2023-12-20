@@ -17,7 +17,7 @@ void ConfigureDb()
 
 void ConfigureServices()
 {
-    builder.Services.AddAutoMapper(typeof(StartupBase));
+    builder.Services.AddAutoMapper(typeof(Program));
     builder.Services.AddControllers();
     builder.Services.AddEndpointsApiExplorer();
     builder.Services.AddSwaggerGen();
