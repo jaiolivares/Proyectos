@@ -2,6 +2,7 @@
 using GastosJo_Api.Data;
 using GastosJo_Api.Interfaces;
 using GastosJo_Api.Services;
+using GastosJo_Api.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -23,6 +24,7 @@ void ConfigureServices()
     builder.Services.AddSwaggerGen();
 
     builder.Services.AddScoped<IBancoService, BancoService>();
+    builder.Services.AddScoped<IBancoRepository, BancoRepository>();
     builder.Services.AddScoped<ITipoDeCuentaService, TipoDeCuentaService>();
     builder.Services.AddScoped<ICuentaBancariaService, CuentaBancariaService>();
 }

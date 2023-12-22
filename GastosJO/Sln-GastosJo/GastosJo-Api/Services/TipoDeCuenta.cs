@@ -15,7 +15,7 @@ namespace GastosJo_Api.Services
         private readonly GastosJo_ApiContext _context;
         private readonly IMapper _mapper;
 
-        public TipoDeCuentaService(IMapper mapper, GastosJo_ApiContext context)
+        public TipoDeCuentaService(GastosJo_ApiContext context, IMapper mapper)
         {
             _context = context;
             _mapper = mapper;

@@ -9,7 +9,7 @@ namespace GastosJo_Api.Interfaces
     {
         Task<IQueryable<Banco>> GetBancos(Paginado paginado, Estados estado);
 
-        Task<Banco> GetBanco(int id);
+        Task<Banco?> GetBanco(int id);
 
         Task<BancoResponse> AddBanco(BancoRequest bancoRequest);
 

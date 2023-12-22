@@ -1,24 +1,22 @@
 ﻿using AutoMapper;
-using GastosJo_Api.Data;
 using GastosJo_Api.Interfaces;
 using GastosJo_Api.Models;
 using GastosJo_Api.Models.Data;
 using GastosJo_Api.Models.Enums;
 using GastosJo_Api.Models.Helpers;
 using GastosJo_Api.Services.Helpers;
-using Microsoft.EntityFrameworkCore;
 
 namespace GastosJo_Api.Services
 {
     public class BancoService : IBancoService
     {
-        private readonly GastosJo_ApiContext _context;
         private readonly IMapper _mapper;
+        private readonly IBancoRepository _bancoRepository;
 
-        public BancoService(IMapper mapper, GastosJo_ApiContext context)
+        public BancoService(IMapper mapper, IBancoRepository bancoRepository)
         {
-            _context = context;
             _mapper = mapper;
+            _bancoRepository = bancoRepository;
         }
 
         public async Task<IQueryable<Banco>> GetBancos(Paginado paginado, Estados estado)
@@ -27,34 +25,26 @@ namespace GastosJo_Api.Services
 
             bool[] estados = EstadosQuery.EstadosBusquedaEnTabla(estado);
 
-            var bancos = await _context.Bancos
-                .Where(x => estados.Contains(x.Activo))
-                .Skip(elementosParaOmitir)
-                .Take(paginado.RegistrosPorPagina)
-                .OrderBy(x => x.Nombre)
-                .ToListAsync();
+            var bancos = await _bancoRepository.GetBancos(paginado, elementosParaOmitir, estados);
 
             return bancos.AsQueryable();
         }
 
-        public async Task<Banco> GetBanco(int id)
+        public async Task<Banco?> GetBanco(int id)
         {
-            return await _context.Bancos.FindAsync(id);
+            return await _bancoRepository.GetBanco(id);
         }
 
         public async Task<BancoResponse> AddBanco(BancoRequest bancoRequest)
         {
-            BancoResponse bancoResponse = ValidacionDeEntrada(bancoRequest);
+            BancoResponse bancoResponse = await ValidacionDeEntrada(bancoRequest);
 
             if (!bancoResponse.Resultado.EjecucionCorrecta)
                 return bancoResponse;
 
             Banco bancoNuevo = _mapper.Map<Banco>(bancoRequest.Banco);
 
-            bancoNuevo.IdBanco = 0;
-
-            _context.Bancos.Add(bancoNuevo);
-            await _context.SaveChangesAsync();
+            bancoNuevo = await _bancoRepository.AddBanco(bancoNuevo);
 
             bancoResponse.Banco = bancoNuevo;
 
@@ -63,14 +53,15 @@ namespace GastosJo_Api.Services
 
         public async Task<BancoResponse> UpdateBanco(int id, BancoRequest bancoRequest)
         {
-            BancoResponse bancoResponse = ValidacionDeEntrada(bancoRequest);
+            bancoRequest.Banco.IdBanco = id;
+            BancoResponse bancoResponse = await ValidacionDeEntrada(bancoRequest);
 
             if (!bancoResponse.Resultado.EjecucionCorrecta)
                 return bancoResponse;
 
             Banco bancoModificado = _mapper.Map<Banco>(bancoRequest.Banco);
 
-            Banco bancoActual = await GetBanco(id);
+            Banco? bancoActual = await GetBanco(id);
 
             if (bancoActual == null)
             {
@@ -78,11 +69,7 @@ namespace GastosJo_Api.Services
                 return bancoResponse;
             }
 
-            bancoActual.Codigo = bancoModificado.Codigo;
-            bancoActual.Nombre = bancoModificado.Nombre;
-            bancoActual.Activo = bancoModificado.Activo;
-
-            await _context.SaveChangesAsync();
+            bancoActual = await _bancoRepository.UpdateBanco(bancoActual, bancoModificado);
 
             bancoResponse.Banco = bancoActual;
 
@@ -103,13 +90,12 @@ namespace GastosJo_Api.Services
 
             bancoResponse.Banco = bancoActual;
 
-            _context.Bancos.Remove(bancoActual);
-            await _context.SaveChangesAsync();
+            await _bancoRepository.DeleteBanco(bancoActual);
 
             return bancoResponse;
         }
 
-        public BancoResponse ValidacionDeEntrada(BancoRequest bancoRequest)
+        public async Task<BancoResponse> ValidacionDeEntrada(BancoRequest bancoRequest)
         {
             BancoResponse bancoResponse = new();
 
@@ -125,7 +111,20 @@ namespace GastosJo_Api.Services
                 return bancoResponse;
             }
 
+            List<Banco> bancos = await ListarBancosPorCodigoNombre(bancoRequest.Banco.IdBanco, bancoRequest.Banco.Codigo, bancoRequest.Banco.Nombre);
+
+            if (bancos.Any())
+            {
+                bancoResponse.Resultado = Resultados.InsertarEjecucionIncorrecta(false, "Los datos del Banco ingresado ya existen");
+                return bancoResponse;
+            }
+
             return bancoResponse;
+        }
+
+        public async Task<List<Banco>> ListarBancosPorCodigoNombre(int id, string codigo, string nombre)
+        {
+            return await _bancoRepository.ListarBancosPorCodigoNombre(id, codigo, nombre);
         }
     }
 }

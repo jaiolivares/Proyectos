@@ -19,7 +19,7 @@ namespace GastosJo_Api.Controllers
         }
 
         [HttpGet("Listar")]
-        public async Task<ActionResult<IQueryable<Banco>>> GetBancos([FromQuery] Paginado paginado, Estados estado)
+        public async Task<ActionResult<IQueryable<Banco?>>> GetBancos([FromQuery] Paginado paginado, Estados estado)
         {
             try
             {
@@ -40,7 +40,7 @@ namespace GastosJo_Api.Controllers
         }
 
         [HttpGet("Obtener/{id}")]
-        public async Task<ActionResult<Banco>> GetBanco(int id)
+        public async Task<ActionResult<Banco?>> GetBanco(int id)
         {
             try
             {
