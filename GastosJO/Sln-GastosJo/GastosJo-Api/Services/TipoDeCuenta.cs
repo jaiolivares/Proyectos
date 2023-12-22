@@ -1,12 +1,10 @@
 ﻿using AutoMapper;
-using GastosJo_Api.Data;
 using GastosJo_Api.Interfaces;
 using GastosJo_Api.Models;
 using GastosJo_Api.Models.Data;
 using GastosJo_Api.Models.Enums;
 using GastosJo_Api.Models.Helpers;
 using GastosJo_Api.Services.Helpers;
-using Microsoft.EntityFrameworkCore;
 
 namespace GastosJo_Api.Services
 {
