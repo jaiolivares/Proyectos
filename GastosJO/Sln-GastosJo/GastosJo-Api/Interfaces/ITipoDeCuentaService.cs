@@ -9,7 +9,7 @@ namespace GastosJo_Api.Interfaces
     {
         Task<IQueryable<TipoDeCuenta>> GetTiposDeCuenta(Paginado paginado, Estados estado);
 
-        Task<TipoDeCuenta> GetTipoDeCuenta(int id);
+        Task<TipoDeCuenta?> GetTipoDeCuenta(int id);
 
         Task<TipoDeCuentaResponse> AddTipoDeCuenta(TipoDeCuentaRequest bancoRequest);
 

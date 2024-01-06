@@ -1,23 +1,21 @@
 ﻿using AutoMapper;
-using GastosJo_Api.Data;
 using GastosJo_Api.Interfaces;
 using GastosJo_Api.Models;
 using GastosJo_Api.Models.Data;
 using GastosJo_Api.Models.Enums;
 using GastosJo_Api.Models.Helpers;
 using GastosJo_Api.Services.Helpers;
-using Microsoft.EntityFrameworkCore;
 
 namespace GastosJo_Api.Services
 {
     public class TipoDeCuentaService : ITipoDeCuentaService
     {
-        private readonly GastosJo_ApiContext _context;
+        private readonly ITipoDeCuentaRepository _TipoDeCuentaRepository;
         private readonly IMapper _mapper;
 
-        public TipoDeCuentaService(GastosJo_ApiContext context, IMapper mapper)
+        public TipoDeCuentaService(ITipoDeCuentaRepository TipoDeCuentaRepository, IMapper mapper)
         {
-            _context = context;
+            _TipoDeCuentaRepository = TipoDeCuentaRepository;
             _mapper = mapper;
         }
 
@@ -27,34 +25,26 @@ namespace GastosJo_Api.Services
 
             bool[] estados = EstadosQuery.EstadosBusquedaEnTabla(estado);
 
-            var tiposDeCuenta = await _context.TiposDeCuenta
-                .Where(x => estados.Contains(x.Activo))
-                .Skip(elementosParaOmitir)
-                .Take(paginado.RegistrosPorPagina)
-                .OrderBy(x => x.Nombre)
-                .ToListAsync();
+            var tiposDeCuenta = await _TipoDeCuentaRepository.GetTiposDeCuenta(paginado, elementosParaOmitir, estados);
 
             return tiposDeCuenta.AsQueryable();
         }
 
-        public async Task<TipoDeCuenta> GetTipoDeCuenta(int id)
+        public async Task<TipoDeCuenta?> GetTipoDeCuenta(int id)
         {
-            return await _context.TiposDeCuenta.FindAsync(id);
+            return await _TipoDeCuentaRepository.GetTipoDeCuenta(id);
         }
 
         public async Task<TipoDeCuentaResponse> AddTipoDeCuenta(TipoDeCuentaRequest tipoDeCuentaRequest)
         {
-            TipoDeCuentaResponse tipoDeCuentaResponse = ValidacionDeEntrada(tipoDeCuentaRequest);
+            TipoDeCuentaResponse tipoDeCuentaResponse = await ValidacionDeEntrada(tipoDeCuentaRequest);
 
             if (!tipoDeCuentaResponse.Resultado.EjecucionCorrecta)
                 return tipoDeCuentaResponse;
 
             TipoDeCuenta tipoDeCuentaNuevo = _mapper.Map<TipoDeCuenta>(tipoDeCuentaRequest.TipoDeCuenta);
 
-            tipoDeCuentaNuevo.IdTipoDeCuenta = 0;
-
-            _context.TiposDeCuenta.Add(tipoDeCuentaNuevo);
-            await _context.SaveChangesAsync();
+            tipoDeCuentaNuevo = await _TipoDeCuentaRepository.AddTipoDeCuenta(tipoDeCuentaNuevo);
 
             tipoDeCuentaResponse.TipoDeCuenta = tipoDeCuentaNuevo;
 
@@ -63,14 +53,15 @@ namespace GastosJo_Api.Services
 
         public async Task<TipoDeCuentaResponse> UpdateTipoDeCuenta(int id, TipoDeCuentaRequest tipoDeCuentaRequest)
         {
-            TipoDeCuentaResponse tipoDeCuentaResponse = ValidacionDeEntrada(tipoDeCuentaRequest);
+            tipoDeCuentaRequest.TipoDeCuenta.IdTipoDeCuenta = id;
+            TipoDeCuentaResponse tipoDeCuentaResponse = await ValidacionDeEntrada(tipoDeCuentaRequest);
 
             if (!tipoDeCuentaResponse.Resultado.EjecucionCorrecta)
                 return tipoDeCuentaResponse;
 
             TipoDeCuenta tipoDeCuentaModificado = _mapper.Map<TipoDeCuenta>(tipoDeCuentaRequest.TipoDeCuenta);
 
-            TipoDeCuenta tipoDeCuentaActual = await GetTipoDeCuenta(id);
+            TipoDeCuenta? tipoDeCuentaActual = await GetTipoDeCuenta(id);
 
             if (tipoDeCuentaActual == null)
             {
@@ -78,11 +69,7 @@ namespace GastosJo_Api.Services
                 return tipoDeCuentaResponse;
             }
 
-            tipoDeCuentaActual.Codigo = tipoDeCuentaModificado.Codigo;
-            tipoDeCuentaActual.Nombre = tipoDeCuentaModificado.Nombre;
-            tipoDeCuentaActual.Activo = tipoDeCuentaModificado.Activo;
-
-            await _context.SaveChangesAsync();
+            tipoDeCuentaActual = await _TipoDeCuentaRepository.UpdateTipoDeCuenta(tipoDeCuentaActual, tipoDeCuentaModificado);
 
             tipoDeCuentaResponse.TipoDeCuenta = tipoDeCuentaActual;
 
@@ -91,6 +78,7 @@ namespace GastosJo_Api.Services
 
         public async Task<TipoDeCuentaResponse> DeleteTipoDeCuenta(int id)
         {
+            //TODO: Capturar error cuando se elimina con ForeignKey
             TipoDeCuentaResponse tipoDeCuentaResponse = new();
 
             var tipoDeCuentaActual = await GetTipoDeCuenta(id);
@@ -103,13 +91,12 @@ namespace GastosJo_Api.Services
 
             tipoDeCuentaResponse.TipoDeCuenta = tipoDeCuentaActual;
 
-            _context.TiposDeCuenta.Remove(tipoDeCuentaActual);
-            await _context.SaveChangesAsync();
+            await _TipoDeCuentaRepository.DeleteTipoDeCuenta(tipoDeCuentaActual);
 
             return tipoDeCuentaResponse;
         }
 
-        public TipoDeCuentaResponse ValidacionDeEntrada(TipoDeCuentaRequest tipoDeCuentaRequest)
+        public async Task<TipoDeCuentaResponse> ValidacionDeEntrada(TipoDeCuentaRequest tipoDeCuentaRequest)
         {
             TipoDeCuentaResponse tipoDeCuentaResponse = new();
 
@@ -125,7 +112,22 @@ namespace GastosJo_Api.Services
                 return tipoDeCuentaResponse;
             }
 
+            List<TipoDeCuenta> TipoDeCuentas = await ListarTipoDeCuentasPorCodigoNombre(tipoDeCuentaRequest.TipoDeCuenta.IdTipoDeCuenta, tipoDeCuentaRequest.TipoDeCuenta.Codigo, tipoDeCuentaRequest.TipoDeCuenta.Nombre);
+
+            if (TipoDeCuentas.Any())
+            {
+                tipoDeCuentaResponse.Resultado = Resultados.InsertarEjecucionIncorrecta(false, "Los datos del TipoDeCuenta ingresado ya existen");
+                return tipoDeCuentaResponse;
+            }
+
             return tipoDeCuentaResponse;
         }
+
+        public async Task<List<TipoDeCuenta>> ListarTipoDeCuentasPorCodigoNombre(int id, string codigo, string nombre)
+        {
+            return await _TipoDeCuentaRepository.ListarTipoDeCuentasPorCodigoNombre(id, codigo, nombre);
+        }
+
+        //TODO: Count total para paginados
     }
 }

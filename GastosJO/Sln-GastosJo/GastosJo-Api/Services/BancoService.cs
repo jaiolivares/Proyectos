@@ -10,13 +10,13 @@ namespace GastosJo_Api.Services
 {
     public class BancoService : IBancoService
     {
-        private readonly IMapper _mapper;
         private readonly IBancoRepository _bancoRepository;
+        private readonly IMapper _mapper;
 
-        public BancoService(IMapper mapper, IBancoRepository bancoRepository)
+        public BancoService(IBancoRepository bancoRepository, IMapper mapper)
         {
-            _mapper = mapper;
             _bancoRepository = bancoRepository;
+            _mapper = mapper;
         }
 
         public async Task<IQueryable<Banco>> GetBancos(Paginado paginado, Estados estado)
@@ -78,6 +78,7 @@ namespace GastosJo_Api.Services
 
         public async Task<BancoResponse> DeleteBanco(int id)
         {
+            //TODO: Capturar error cuando se elimina con ForeignKey
             BancoResponse bancoResponse = new();
 
             var bancoActual = await GetBanco(id);
@@ -126,5 +127,7 @@ namespace GastosJo_Api.Services
         {
             return await _bancoRepository.ListarBancosPorCodigoNombre(id, codigo, nombre);
         }
+
+        //TODO: Count total para paginados
     }
 }

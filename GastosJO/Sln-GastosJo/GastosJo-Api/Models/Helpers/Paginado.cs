@@ -12,7 +12,7 @@
             }
             set
             {
-                _paginaActual = value == 0 ? 1 : value < 0 ? value * -1 : value;
+                _paginaActual = value == 0 ? 1 : Math.Abs(value);
             }
         }
 
@@ -26,7 +26,7 @@
             }
             set
             {
-                _registrosPorPagina = value < 0 ? value * -1 : value;
+                _registrosPorPagina = Math.Abs(value);
             }
         }
     }
