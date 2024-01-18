@@ -3,7 +3,7 @@ using GastosJo_Api.Models;
 using GastosJo_Api.Interfaces;
 using GastosJo_Api.Models.Helpers;
 using GastosJo_Api.Models.Enums;
-using GastosJo_Api.Models.Data;
+using GastosJo_Api.Models.Dto;
 
 namespace GastosJo_Api.Controllers
 {
@@ -13,17 +13,17 @@ namespace GastosJo_Api.Controllers
     {
         private readonly ICuentaBancariaService _cuentaBancariaService;
 
-        public CuentaBancariaController(ICuentaBancariaService bancoService)
+        public CuentaBancariaController(ICuentaBancariaService cuentaBancariaService)
         {
-            _cuentaBancariaService = bancoService;
+            _cuentaBancariaService = cuentaBancariaService;
         }
 
         [HttpGet("Listar")]
-        public async Task<ActionResult<IQueryable<CuentaBancaria>>> GetCuentasBancaria([FromQuery] Paginado paginado, Estados estado)
+        public async Task<ActionResult<List<CuentaBancariaResponse>>> GetCuentasBancaria([FromQuery] Paginado paginado, Estados estados)
         {
             try
             {
-                var cuentasBancaria = await _cuentaBancariaService.GetCuentasBancaria(paginado, estado);
+                var cuentasBancaria = await _cuentaBancariaService.GetCuentasBancaria(paginado, estados);
 
                 if (cuentasBancaria == null)
                     return StatusCode(StatusCodes.Status404NotFound);
@@ -39,12 +39,12 @@ namespace GastosJo_Api.Controllers
             }
         }
 
-        [HttpGet("Obtener/{id}")]
-        public async Task<ActionResult<CuentaBancaria>> GetCuentaBancaria(int id)
+        [HttpGet("Obtener/{id}/{estados}")]
+        public async Task<ActionResult<CuentaBancariaResponse>> GetCuentaBancaria(int id, Estados estados)
         {
             try
             {
-                var cuentaBancaria = await _cuentaBancariaService.GetCuentaBancaria(id);
+                var cuentaBancaria = await _cuentaBancariaService.GetCuentaBancaria(id, estados);
 
                 if (cuentaBancaria == null)
                     return StatusCode(StatusCodes.Status404NotFound);

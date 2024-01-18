@@ -27,9 +27,9 @@ namespace GastosJo_Api.Repositories
             return tipoDeCuentas.AsQueryable();
         }
 
-        public async Task<TipoDeCuenta?> GetTipoDeCuenta(int id)
+        public async Task<TipoDeCuenta?> GetTipoDeCuenta(int id, bool[] estados)
         {
-            return await _context.TiposDeCuenta.FindAsync(id);
+            return await _context.TiposDeCuenta.Where(x => x.IdTipoDeCuenta == id && estados.Contains(x.Activo)).FirstOrDefaultAsync();
         }
 
         public async Task<TipoDeCuenta> AddTipoDeCuenta(TipoDeCuenta tipoDeCuentaNuevo)

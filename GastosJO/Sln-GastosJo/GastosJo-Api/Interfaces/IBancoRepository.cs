@@ -7,7 +7,7 @@ namespace GastosJo_Api.Interfaces
     {
         Task<IQueryable<Banco>> GetBancos(Paginado paginado, int elementosParaOmitir, bool[] estados);
 
-        Task<Banco?> GetBanco(int id);
+        Task<Banco?> GetBanco(int id, bool[] estados);
 
         Task<Banco> AddBanco(Banco bancoNuevo);
 

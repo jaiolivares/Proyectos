@@ -1,15 +1,15 @@
 ﻿using GastosJo_Api.Models;
 using GastosJo_Api.Models.Enums;
 using GastosJo_Api.Models.Helpers;
-using GastosJo_Api.Models.Data;
+using GastosJo_Api.Models.Dto;
 
 namespace GastosJo_Api.Interfaces
 {
     public interface IBancoService
     {
-        Task<IQueryable<Banco>> GetBancos(Paginado paginado, Estados estado);
+        Task<IQueryable<Banco>> GetBancos(Paginado paginado, Estados estados);
 
-        Task<Banco?> GetBanco(int id);
+        Task<Banco?> GetBanco(int id, Estados estados);
 
         Task<BancoResponse> AddBanco(BancoRequest bancoRequest);
 

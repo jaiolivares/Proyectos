@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using GastosJo_Api.Interfaces;
 using GastosJo_Api.Models;
-using GastosJo_Api.Models.Data;
+using GastosJo_Api.Models.Dto;
 using GastosJo_Api.Models.Enums;
 using GastosJo_Api.Models.Helpers;
 using GastosJo_Api.Services.Helpers;
@@ -13,6 +13,7 @@ namespace GastosJo_Api.Services
         private readonly IBancoRepository _bancoRepository;
         private readonly IMapper _mapper;
 
+        //TODO: implementar ILOGER private readonly ILogger _logger;
         public BancoService(IBancoRepository bancoRepository, IMapper mapper)
         {
             _bancoRepository = bancoRepository;
@@ -30,9 +31,11 @@ namespace GastosJo_Api.Services
             return bancos.AsQueryable();
         }
 
-        public async Task<Banco?> GetBanco(int id)
+        public async Task<Banco?> GetBanco(int id, Estados estado)
         {
-            return await _bancoRepository.GetBanco(id);
+            bool[] estados = EstadosQuery.EstadosBusquedaEnTabla(estado);
+
+            return await _bancoRepository.GetBanco(id, estados);
         }
 
         public async Task<BancoResponse> AddBanco(BancoRequest bancoRequest)
@@ -42,26 +45,26 @@ namespace GastosJo_Api.Services
             if (!bancoResponse.Resultado.EjecucionCorrecta)
                 return bancoResponse;
 
-            Banco bancoNuevo = _mapper.Map<Banco>(bancoRequest.Banco);
+            Banco bancoNuevo = _mapper.Map<Banco>(bancoRequest);
 
             bancoNuevo = await _bancoRepository.AddBanco(bancoNuevo);
 
-            bancoResponse.Banco = bancoNuevo;
+            bancoResponse = _mapper.Map<BancoResponse>(bancoNuevo);
 
             return bancoResponse;
         }
 
         public async Task<BancoResponse> UpdateBanco(int id, BancoRequest bancoRequest)
         {
-            bancoRequest.Banco.IdBanco = id;
+            bancoRequest.IdBanco = id;
             BancoResponse bancoResponse = await ValidacionDeEntrada(bancoRequest);
 
             if (!bancoResponse.Resultado.EjecucionCorrecta)
                 return bancoResponse;
 
-            Banco bancoModificado = _mapper.Map<Banco>(bancoRequest.Banco);
+            Banco bancoModificado = _mapper.Map<Banco>(bancoRequest);
 
-            Banco? bancoActual = await GetBanco(id);
+            Banco? bancoActual = await GetBanco(id, Estados.Todos);
 
             if (bancoActual == null)
             {
@@ -71,7 +74,7 @@ namespace GastosJo_Api.Services
 
             bancoActual = await _bancoRepository.UpdateBanco(bancoActual, bancoModificado);
 
-            bancoResponse.Banco = bancoActual;
+            bancoResponse = _mapper.Map<BancoResponse>(bancoActual);
 
             return bancoResponse;
         }
@@ -81,7 +84,7 @@ namespace GastosJo_Api.Services
             //TODO: Capturar error cuando se elimina con ForeignKey
             BancoResponse bancoResponse = new();
 
-            var bancoActual = await GetBanco(id);
+            var bancoActual = await GetBanco(id, Estados.Todos);
 
             if (bancoActual == null)
             {
@@ -89,7 +92,7 @@ namespace GastosJo_Api.Services
                 return bancoResponse;
             }
 
-            bancoResponse.Banco = bancoActual;
+            bancoResponse = _mapper.Map<BancoResponse>(bancoActual);
 
             await _bancoRepository.DeleteBanco(bancoActual);
 
@@ -100,19 +103,25 @@ namespace GastosJo_Api.Services
         {
             BancoResponse bancoResponse = new();
 
-            if (!Validaciones.ValidaCamposVacios(bancoRequest.Banco.Codigo))
+            if (bancoRequest == null)
+            {
+                bancoResponse.Resultado = Resultados.InsertarEjecucionIncorrecta(false, "El JSON Banco es obligatorio");
+                return bancoResponse;
+            }
+
+            if (!Validaciones.ValidaCamposVacios(bancoRequest.Codigo))
             {
                 bancoResponse.Resultado = Resultados.InsertarEjecucionIncorrecta(false, "El Código es obligatorio");
                 return bancoResponse;
             }
 
-            if (!Validaciones.ValidaCamposVacios(bancoRequest.Banco.Nombre))
+            if (!Validaciones.ValidaCamposVacios(bancoRequest.Nombre))
             {
                 bancoResponse.Resultado = Resultados.InsertarEjecucionIncorrecta(false, "El Nombre es obligatorio");
                 return bancoResponse;
             }
 
-            List<Banco> bancos = await ListarBancosPorCodigoNombre(bancoRequest.Banco.IdBanco, bancoRequest.Banco.Codigo, bancoRequest.Banco.Nombre);
+            List<Banco> bancos = await ListarBancosPorCodigoNombre(bancoRequest.IdBanco, bancoRequest.Codigo, bancoRequest.Nombre);
 
             if (bancos.Any())
             {

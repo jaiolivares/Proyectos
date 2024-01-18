@@ -27,9 +27,9 @@ namespace GastosJo_Api.Repositories
             return bancos.AsQueryable();
         }
 
-        public async Task<Banco?> GetBanco(int id)
+        public async Task<Banco?> GetBanco(int id, bool[] estados)
         {
-            return await _context.Bancos.FindAsync(id);
+            return await _context.Bancos.Where(x => x.IdBanco == id && estados.Contains(x.Activo)).FirstOrDefaultAsync();
         }
 
         public async Task<Banco> AddBanco(Banco bancoNuevo)

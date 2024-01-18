@@ -1,15 +1,14 @@
-﻿using GastosJo_Api.Models;
-using GastosJo_Api.Models.Enums;
+﻿using GastosJo_Api.Models.Enums;
 using GastosJo_Api.Models.Helpers;
-using GastosJo_Api.Models.Data;
+using GastosJo_Api.Models.Dto;
 
 namespace GastosJo_Api.Interfaces
 {
     public interface ICuentaBancariaService
     {
-        Task<IQueryable<CuentaBancaria>> GetCuentasBancaria(Paginado paginado, Estados estado);
+        Task<List<CuentaBancaria>> GetCuentasBancaria(Paginado paginado, Estados estado);
 
-        Task<CuentaBancaria> GetCuentaBancaria(int id);
+        Task<CuentaBancaria?> GetCuentaBancaria(int id, Estados estados);
 
         Task<CuentaBancariaResponse> AddCuentaBancaria(CuentaBancariaRequest bancoRequest);
 

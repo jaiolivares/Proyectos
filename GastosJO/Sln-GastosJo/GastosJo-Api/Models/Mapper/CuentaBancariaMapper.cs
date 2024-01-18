@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
-using GastosJo_Api.Models.Data;
+using GastosJo_Api.Models.Dto;
+using GastosJo_Api.Models.Helpers;
 
 namespace GastosJo_Api.Models.Mapper
 {
@@ -8,6 +9,9 @@ namespace GastosJo_Api.Models.Mapper
         public CuentaBancariaMapper()
         {
             CreateMap<CuentaBancariaRequest, CuentaBancaria>();
+
+            CreateMap<CuentaBancaria, CuentaBancariaResponse>()
+                .ForMember(dest => dest.Resultado, opt => opt.MapFrom(src => new Resultado()));
         }
     }
 }

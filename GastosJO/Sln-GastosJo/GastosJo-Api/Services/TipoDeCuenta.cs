@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using GastosJo_Api.Interfaces;
 using GastosJo_Api.Models;
-using GastosJo_Api.Models.Data;
+using GastosJo_Api.Models.Dto;
 using GastosJo_Api.Models.Enums;
 using GastosJo_Api.Models.Helpers;
 using GastosJo_Api.Services.Helpers;
@@ -13,6 +13,7 @@ namespace GastosJo_Api.Services
         private readonly ITipoDeCuentaRepository _TipoDeCuentaRepository;
         private readonly IMapper _mapper;
 
+        //TODO: implementar ILOGER private readonly ILogger _logger;
         public TipoDeCuentaService(ITipoDeCuentaRepository TipoDeCuentaRepository, IMapper mapper)
         {
             _TipoDeCuentaRepository = TipoDeCuentaRepository;
@@ -30,9 +31,11 @@ namespace GastosJo_Api.Services
             return tiposDeCuenta.AsQueryable();
         }
 
-        public async Task<TipoDeCuenta?> GetTipoDeCuenta(int id)
+        public async Task<TipoDeCuenta?> GetTipoDeCuenta(int id, Estados estado)
         {
-            return await _TipoDeCuentaRepository.GetTipoDeCuenta(id);
+            bool[] estados = EstadosQuery.EstadosBusquedaEnTabla(estado);
+
+            return await _TipoDeCuentaRepository.GetTipoDeCuenta(id, estados);
         }
 
         public async Task<TipoDeCuentaResponse> AddTipoDeCuenta(TipoDeCuentaRequest tipoDeCuentaRequest)
@@ -42,26 +45,26 @@ namespace GastosJo_Api.Services
             if (!tipoDeCuentaResponse.Resultado.EjecucionCorrecta)
                 return tipoDeCuentaResponse;
 
-            TipoDeCuenta tipoDeCuentaNuevo = _mapper.Map<TipoDeCuenta>(tipoDeCuentaRequest.TipoDeCuenta);
+            TipoDeCuenta tipoDeCuentaNuevo = _mapper.Map<TipoDeCuenta>(tipoDeCuentaRequest);
 
             tipoDeCuentaNuevo = await _TipoDeCuentaRepository.AddTipoDeCuenta(tipoDeCuentaNuevo);
 
-            tipoDeCuentaResponse.TipoDeCuenta = tipoDeCuentaNuevo;
+            tipoDeCuentaResponse = _mapper.Map<TipoDeCuentaResponse>(tipoDeCuentaNuevo);
 
             return tipoDeCuentaResponse;
         }
 
         public async Task<TipoDeCuentaResponse> UpdateTipoDeCuenta(int id, TipoDeCuentaRequest tipoDeCuentaRequest)
         {
-            tipoDeCuentaRequest.TipoDeCuenta.IdTipoDeCuenta = id;
+            tipoDeCuentaRequest.IdTipoDeCuenta = id;
             TipoDeCuentaResponse tipoDeCuentaResponse = await ValidacionDeEntrada(tipoDeCuentaRequest);
 
             if (!tipoDeCuentaResponse.Resultado.EjecucionCorrecta)
                 return tipoDeCuentaResponse;
 
-            TipoDeCuenta tipoDeCuentaModificado = _mapper.Map<TipoDeCuenta>(tipoDeCuentaRequest.TipoDeCuenta);
+            TipoDeCuenta tipoDeCuentaModificado = _mapper.Map<TipoDeCuenta>(tipoDeCuentaRequest);
 
-            TipoDeCuenta? tipoDeCuentaActual = await GetTipoDeCuenta(id);
+            TipoDeCuenta? tipoDeCuentaActual = await GetTipoDeCuenta(id, Estados.Todos);
 
             if (tipoDeCuentaActual == null)
             {
@@ -71,7 +74,7 @@ namespace GastosJo_Api.Services
 
             tipoDeCuentaActual = await _TipoDeCuentaRepository.UpdateTipoDeCuenta(tipoDeCuentaActual, tipoDeCuentaModificado);
 
-            tipoDeCuentaResponse.TipoDeCuenta = tipoDeCuentaActual;
+            tipoDeCuentaResponse = _mapper.Map<TipoDeCuentaResponse>(tipoDeCuentaActual);
 
             return tipoDeCuentaResponse;
         }
@@ -81,7 +84,7 @@ namespace GastosJo_Api.Services
             //TODO: Capturar error cuando se elimina con ForeignKey
             TipoDeCuentaResponse tipoDeCuentaResponse = new();
 
-            var tipoDeCuentaActual = await GetTipoDeCuenta(id);
+            var tipoDeCuentaActual = await GetTipoDeCuenta(id, Estados.Todos);
 
             if (tipoDeCuentaActual == null)
             {
@@ -89,7 +92,7 @@ namespace GastosJo_Api.Services
                 return tipoDeCuentaResponse;
             }
 
-            tipoDeCuentaResponse.TipoDeCuenta = tipoDeCuentaActual;
+            tipoDeCuentaResponse = _mapper.Map<TipoDeCuentaResponse>(tipoDeCuentaActual);
 
             await _TipoDeCuentaRepository.DeleteTipoDeCuenta(tipoDeCuentaActual);
 
@@ -100,19 +103,25 @@ namespace GastosJo_Api.Services
         {
             TipoDeCuentaResponse tipoDeCuentaResponse = new();
 
-            if (!Validaciones.ValidaCamposVacios(tipoDeCuentaRequest.TipoDeCuenta.Codigo))
+            if (tipoDeCuentaRequest == null)
+            {
+                tipoDeCuentaResponse.Resultado = Resultados.InsertarEjecucionIncorrecta(false, "El JSON TipoDeCuenta es obligatorio");
+                return tipoDeCuentaResponse;
+            }
+
+            if (!Validaciones.ValidaCamposVacios(tipoDeCuentaRequest.Codigo))
             {
                 tipoDeCuentaResponse.Resultado = Resultados.InsertarEjecucionIncorrecta(false, "El Código es obligatorio");
                 return tipoDeCuentaResponse;
             }
 
-            if (!Validaciones.ValidaCamposVacios(tipoDeCuentaRequest.TipoDeCuenta.Nombre))
+            if (!Validaciones.ValidaCamposVacios(tipoDeCuentaRequest.Nombre))
             {
                 tipoDeCuentaResponse.Resultado = Resultados.InsertarEjecucionIncorrecta(false, "El Nombre es obligatorio");
                 return tipoDeCuentaResponse;
             }
 
-            List<TipoDeCuenta> TipoDeCuentas = await ListarTipoDeCuentasPorCodigoNombre(tipoDeCuentaRequest.TipoDeCuenta.IdTipoDeCuenta, tipoDeCuentaRequest.TipoDeCuenta.Codigo, tipoDeCuentaRequest.TipoDeCuenta.Nombre);
+            List<TipoDeCuenta> TipoDeCuentas = await ListarTipoDeCuentasPorCodigoNombre(tipoDeCuentaRequest.IdTipoDeCuenta, tipoDeCuentaRequest.Codigo, tipoDeCuentaRequest.Nombre);
 
             if (TipoDeCuentas.Any())
             {

@@ -3,7 +3,7 @@ using GastosJo_Api.Models;
 using GastosJo_Api.Interfaces;
 using GastosJo_Api.Models.Helpers;
 using GastosJo_Api.Models.Enums;
-using GastosJo_Api.Models.Data;
+using GastosJo_Api.Models.Dto;
 
 namespace GastosJo_Api.Controllers
 {
@@ -19,11 +19,11 @@ namespace GastosJo_Api.Controllers
         }
 
         [HttpGet("Listar")]
-        public async Task<ActionResult<IQueryable<TipoDeCuenta>>> GetTiposDeCuenta([FromQuery] Paginado paginado, Estados estado)
+        public async Task<ActionResult<IQueryable<TipoDeCuenta>>> GetTiposDeCuenta([FromQuery] Paginado paginado, Estados estados)
         {
             try
             {
-                var tipoDeCuentas = await _tipoDeCuentaService.GetTiposDeCuenta(paginado, estado);
+                var tipoDeCuentas = await _tipoDeCuentaService.GetTiposDeCuenta(paginado, estados);
 
                 if (tipoDeCuentas == null)
                     return StatusCode(StatusCodes.Status404NotFound);
@@ -39,12 +39,12 @@ namespace GastosJo_Api.Controllers
             }
         }
 
-        [HttpGet("Obtener/{id}")]
-        public async Task<ActionResult<TipoDeCuenta>> GetTipoDeCuenta(int id)
+        [HttpGet("Obtener/{id}/{estados}")]
+        public async Task<ActionResult<TipoDeCuenta>> GetTipoDeCuenta(int id, Estados estados)
         {
             try
             {
-                var tipoDeCuenta = await _tipoDeCuentaService.GetTipoDeCuenta(id);
+                var tipoDeCuenta = await _tipoDeCuentaService.GetTipoDeCuenta(id, estados);
 
                 if (tipoDeCuenta == null)
                     return StatusCode(StatusCodes.Status404NotFound);

@@ -3,7 +3,7 @@ using GastosJo_Api.Models;
 using GastosJo_Api.Interfaces;
 using GastosJo_Api.Models.Helpers;
 using GastosJo_Api.Models.Enums;
-using GastosJo_Api.Models.Data;
+using GastosJo_Api.Models.Dto;
 
 namespace GastosJo_Api.Controllers
 {
@@ -19,11 +19,11 @@ namespace GastosJo_Api.Controllers
         }
 
         [HttpGet("Listar")]
-        public async Task<ActionResult<IQueryable<Banco?>>> GetBancos([FromQuery] Paginado paginado, Estados estado)
+        public async Task<ActionResult<IQueryable<Banco?>>> GetBancos([FromQuery] Paginado paginado, Estados estados)
         {
             try
             {
-                var bancos = await _bancoService.GetBancos(paginado, estado);
+                var bancos = await _bancoService.GetBancos(paginado, estados);
 
                 if (bancos == null)
                     return StatusCode(StatusCodes.Status404NotFound);
@@ -39,12 +39,12 @@ namespace GastosJo_Api.Controllers
             }
         }
 
-        [HttpGet("Obtener/{id}")]
-        public async Task<ActionResult<Banco?>> GetBanco(int id)
+        [HttpGet("Obtener/{id}/{estados}")]
+        public async Task<ActionResult<Banco?>> GetBanco(int id, Estados estados)
         {
             try
             {
-                var banco = await _bancoService.GetBanco(id);
+                var banco = await _bancoService.GetBanco(id, estados);
 
                 if (banco == null)
                     return StatusCode(StatusCodes.Status404NotFound);

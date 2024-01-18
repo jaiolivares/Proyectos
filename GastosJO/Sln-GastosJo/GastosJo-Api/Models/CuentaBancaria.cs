@@ -1,10 +1,9 @@
-﻿using GastosJo_Api.Models.Join;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace GastosJo_Api.Models
 {
-    public class CuentaBancaria : CuentaBancariaBancoJoin
+    public class CuentaBancaria
     {
         [Key]
         public int IdCuentaBancaria { get; set; }

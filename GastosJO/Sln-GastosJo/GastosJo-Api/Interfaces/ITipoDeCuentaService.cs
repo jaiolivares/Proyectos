@@ -1,15 +1,15 @@
 ﻿using GastosJo_Api.Models;
 using GastosJo_Api.Models.Enums;
 using GastosJo_Api.Models.Helpers;
-using GastosJo_Api.Models.Data;
+using GastosJo_Api.Models.Dto;
 
 namespace GastosJo_Api.Interfaces
 {
     public interface ITipoDeCuentaService
     {
-        Task<IQueryable<TipoDeCuenta>> GetTiposDeCuenta(Paginado paginado, Estados estado);
+        Task<IQueryable<TipoDeCuenta>> GetTiposDeCuenta(Paginado paginado, Estados estados);
 
-        Task<TipoDeCuenta?> GetTipoDeCuenta(int id);
+        Task<TipoDeCuenta?> GetTipoDeCuenta(int id, Estados estados);
 
         Task<TipoDeCuentaResponse> AddTipoDeCuenta(TipoDeCuentaRequest bancoRequest);
 
