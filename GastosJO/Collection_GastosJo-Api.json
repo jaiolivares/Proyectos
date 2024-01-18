@@ -15,7 +15,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "https://localhost:7158/api/Banco/Listar?PaginaActual=2&RegistrosPorPagina=20&estado=2",
+							"raw": "https://localhost:7158/api/Banco/Listar?PaginaActual=1&RegistrosPorPagina=20&estados=2",
 							"protocol": "https",
 							"host": [
 								"localhost"
@@ -29,14 +29,14 @@
 							"query": [
 								{
 									"key": "PaginaActual",
-									"value": "2"
+									"value": "1"
 								},
 								{
 									"key": "RegistrosPorPagina",
 									"value": "20"
 								},
 								{
-									"key": "estado",
+									"key": "estados",
 									"value": "2"
 								}
 							]
@@ -50,7 +50,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "https://localhost:7158/api/Banco/Obtener/9",
+							"raw": "https://localhost:7158/api/Banco/Obtener/1051/2",
 							"protocol": "https",
 							"host": [
 								"localhost"
@@ -60,7 +60,8 @@
 								"api",
 								"Banco",
 								"Obtener",
-								"9"
+								"1051",
+								"2"
 							]
 						}
 					},
@@ -73,7 +74,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"banco\": {\r\n        \"idBanco\": 999,\r\n        \"codigo\": \"Estado\",\r\n        \"nombre\": \"Banco Estado\"\r\n    }\r\n}",
+							"raw": "{\r\n  \"idBanco\": 999,\r\n  \"codigo\": \"strissng4\",\r\n  \"nombre\": \"strssing4\",\r\n  \"activo\": true\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -103,7 +104,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"banco\": {\r\n        \"idBanco\": 999,\r\n        \"codigo\": \"cod\",\r\n        \"nombre\": \"nuevo banco\"\r\n    }\r\n}",
+							"raw": "{\r\n  \"idBanco\": 1049,\r\n  \"codigo\": \"strissng1\",\r\n  \"nombre\": \"strssing1\",\r\n  \"activo\": false\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -111,7 +112,7 @@
 							}
 						},
 						"url": {
-							"raw": "https://localhost:7158/api/Banco/Modificar/999",
+							"raw": "https://localhost:7158/api/Banco/Modificar/1049",
 							"protocol": "https",
 							"host": [
 								"localhost"
@@ -121,7 +122,7 @@
 								"api",
 								"Banco",
 								"Modificar",
-								"999"
+								"1049"
 							]
 						}
 					},
@@ -133,7 +134,7 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "https://localhost:7158/api/Banco/Eliminar/1002",
+							"raw": "https://localhost:7158/api/Banco/Eliminar/1052",
 							"protocol": "https",
 							"host": [
 								"localhost"
@@ -143,7 +144,7 @@
 								"api",
 								"Banco",
 								"Eliminar",
-								"1002"
+								"1052"
 							]
 						}
 					},
@@ -160,7 +161,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "https://localhost:7158/api/TipoDeCuenta/Listar?PaginaActual=1&RegistrosPorPagina=20&estado=2",
+							"raw": "https://localhost:7158/api/TipoDeCuenta/Listar?PaginaActual=1&RegistrosPorPagina=-20&estados=2",
 							"protocol": "https",
 							"host": [
 								"localhost"
@@ -178,10 +179,10 @@
 								},
 								{
 									"key": "RegistrosPorPagina",
-									"value": "20"
+									"value": "-20"
 								},
 								{
-									"key": "estado",
+									"key": "estados",
 									"value": "2"
 								}
 							]
@@ -195,7 +196,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "https://localhost:7158/api/TipoDeCuenta/Obtener/2",
+							"raw": "https://localhost:7158/api/TipoDeCuenta/Obtener/38/2",
 							"protocol": "https",
 							"host": [
 								"localhost"
@@ -205,6 +206,7 @@
 								"api",
 								"TipoDeCuenta",
 								"Obtener",
+								"38",
 								"2"
 							]
 						}
@@ -218,7 +220,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n  \"tipoDeCuenta\": {\r\n    \"idTipoDeCuenta\": 222,\r\n    \"codigo\": \"Vista\",\r\n    \"nombre\": \"Cuenta Vista\",\r\n    \"activo\": true\r\n  }\r\n}",
+							"raw": "{\r\n  \"idTipoDeCuenta\": 0,\r\n  \"codigo\": \"string1\",\r\n  \"nombre\": \"string1\",\r\n  \"activo\": true\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -248,7 +250,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n  \"tipoDeCuenta\": {\r\n    \"idTipoDeCuenta\": 222,\r\n    \"codigo\": \"123456\",\r\n    \"nombre\": \"nombre123456\",\r\n    \"activo\": false\r\n  }\r\n}",
+							"raw": "{\r\n  \"idTipoDeCuenta\": 0,\r\n  \"codigo\": \"string1\",\r\n  \"nombre\": \"string1\",\r\n  \"activo\": false\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -256,7 +258,7 @@
 							}
 						},
 						"url": {
-							"raw": "https://localhost:7158/api/TipoDeCuenta/Modificar/2",
+							"raw": "https://localhost:7158/api/TipoDeCuenta/Modificar/42",
 							"protocol": "https",
 							"host": [
 								"localhost"
@@ -266,7 +268,7 @@
 								"api",
 								"TipoDeCuenta",
 								"Modificar",
-								"2"
+								"42"
 							]
 						}
 					},
@@ -278,7 +280,7 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "https://localhost:7158/api/TipoDeCuenta/Eliminar/3",
+							"raw": "https://localhost:7158/api/TipoDeCuenta/Eliminar/42",
 							"protocol": "https",
 							"host": [
 								"localhost"
@@ -288,7 +290,7 @@
 								"api",
 								"TipoDeCuenta",
 								"Eliminar",
-								"3"
+								"42"
 							]
 						}
 					},
@@ -305,7 +307,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "https://localhost:7158/api/CuentaBancaria/Listar?PaginaActual=1&RegistrosPorPagina=20&estado=2",
+							"raw": "https://localhost:7158/api/CuentaBancaria/Listar?PaginaActual=1&RegistrosPorPagina=20&estados=2",
 							"protocol": "https",
 							"host": [
 								"localhost"
@@ -326,7 +328,7 @@
 									"value": "20"
 								},
 								{
-									"key": "estado",
+									"key": "estados",
 									"value": "2"
 								}
 							]
@@ -340,7 +342,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "https://localhost:7158/api/CuentaBancaria/Obtener/9",
+							"raw": "https://localhost:7158/api/CuentaBancaria/Obtener/6/2",
 							"protocol": "https",
 							"host": [
 								"localhost"
@@ -350,7 +352,8 @@
 								"api",
 								"CuentaBancaria",
 								"Obtener",
-								"9"
+								"6",
+								"2"
 							]
 						}
 					},
@@ -363,7 +366,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n  \"cuentaBancaria\": {\r\n    \"idCuentaBancaria\": 0,\r\n    \"codigo\": \"123\",\r\n    \"nombre\": \"nombre123\",\r\n    \"activo\": true,\r\n    \"verCuentasPorPagar\": false\r\n  }\r\n}",
+							"raw": "{\r\n  \"idCuentaBancaria\": 0,\r\n  \"idBanco\": 1048,\r\n  \"idTipoDeCuenta\": 40,\r\n  \"codigo\": \"string1\",\r\n  \"nombre\": \"string1\",\r\n  \"activo\": true,\r\n  \"verCuentasPorPagar\": true\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -393,7 +396,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"banco\": {\r\n        \"idBanco\": 999,\r\n        \"codigo\": \"cod\",\r\n        \"nombre\": \"nuevo banco\"\r\n    }\r\n}",
+							"raw": "{\r\n  \"idCuentaBancaria\": 0,\r\n  \"idBanco\": 0,\r\n  \"idTipoDeCuenta\": 0,\r\n  \"codigo\": \"string\",\r\n  \"nombre\": \"string\",\r\n  \"activo\": true,\r\n  \"verCuentasPorPagar\": true\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -401,7 +404,7 @@
 							}
 						},
 						"url": {
-							"raw": "https://localhost:7158/api/CuentaBancaria/Modificar/999",
+							"raw": "https://localhost:7158/api/CuentaBancaria/Modificar/1025",
 							"protocol": "https",
 							"host": [
 								"localhost"
@@ -411,7 +414,7 @@
 								"api",
 								"CuentaBancaria",
 								"Modificar",
-								"999"
+								"1025"
 							]
 						}
 					},
@@ -423,7 +426,7 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "https://localhost:7158/api/CuentaBancaria/Eliminar/999",
+							"raw": "https://localhost:7158/api/CuentaBancaria/Eliminar/5",
 							"protocol": "https",
 							"host": [
 								"localhost"
@@ -433,7 +436,7 @@
 								"api",
 								"CuentaBancaria",
 								"Eliminar",
-								"999"
+								"5"
 							]
 						}
 					},
