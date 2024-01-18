@@ -19,7 +19,7 @@ namespace GastosJo_Api.Controllers
         }
 
         [HttpGet("Listar")]
-        public async Task<ActionResult<List<CuentaBancariaResponse>>> GetCuentasBancaria([FromQuery] Paginado paginado, Estados estados)
+        public async Task<ActionResult<List<CuentaBancariaDto>>> GetCuentasBancaria([FromQuery] Paginado paginado, Estados estados)
         {
             try
             {
@@ -40,7 +40,7 @@ namespace GastosJo_Api.Controllers
         }
 
         [HttpGet("Obtener/{id}/{estados}")]
-        public async Task<ActionResult<CuentaBancariaResponse>> GetCuentaBancaria(int id, Estados estados)
+        public async Task<ActionResult<CuentaBancariaDto>> GetCuentaBancaria(int id, Estados estados)
         {
             try
             {

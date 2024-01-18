@@ -14,7 +14,6 @@ namespace GastosJo_Api.Services
         private readonly IMapper _mapper;
         private readonly IBancoRepository _bancoRepository;
         private readonly ITipoDeCuentaRepository _tipoDeCuentaRepository;
-        private readonly bool[] estadoActivo = new bool[] { true };
 
         //TODO: implementar ILOGER private readonly ILogger _logger;
 
@@ -40,6 +39,11 @@ namespace GastosJo_Api.Services
             return cuentasBancaria.ToList();
         }
 
+        public async Task<CuentaBancaria?> GetCuentaBancaria(int id)
+        {
+            return await _cuentaBancariaRepository.GetCuentaBancaria(id);
+        }
+
         public async Task<CuentaBancariaDto?> GetCuentaBancaria(int id, Estados estado)
         {
             bool[] estados = EstadosQuery.EstadosBusquedaEnTabla(estado);
@@ -49,36 +53,6 @@ namespace GastosJo_Api.Services
 
         public async Task<CuentaBancariaResponse> AddCuentaBancaria(CuentaBancariaRequest cuentaBancariaRequest)
         {
-            //CuentaBancariaResponse cuentaBancariaResponse = new();
-
-            //CuentaBancaria cuentaBancariaNueva = _mapper.Map<CuentaBancaria>(cuentaBancariaRequest.CuentaBancaria);
-
-            //cuentaBancariaNueva.IdCuentaBancaria = 0;
-
-            ////_context.CuentasBancaria.Add(cuentaBancariaNueva);
-            ////await _context.SaveChangesAsync();
-
-            //cuentaBancariaResponse.CuentaBancaria = cuentaBancariaNueva;
-
-            //return cuentaBancariaResponse;
-
-            //TODO: NOW - Revisar problemas con objeto de entrada porque da error el postman
-
-            //"errors": {
-            //    "CuentaBancaria.CodigoBanco": [
-            //        "The CodigoBanco field is required."
-            //    ],
-            //    "CuentaBancaria.NombreBanco": [
-            //        "The NombreBanco field is required."
-            //    ],
-            //    "CuentaBancaria.CodigoTipoDeCuenta": [
-            //        "The CodigoTipoDeCuenta field is required."
-            //    ],
-            //    "CuentaBancaria.NombreTipoDeCuenta": [
-            //        "The NombreTipoDeCuenta field is required."
-            //    ]
-            //}
-
             CuentaBancariaResponse cuentaBancariaResponse = await ValidacionDeEntrada(cuentaBancariaRequest);
 
             if (!cuentaBancariaResponse.Resultado.EjecucionCorrecta)
@@ -95,29 +69,6 @@ namespace GastosJo_Api.Services
 
         public async Task<CuentaBancariaResponse> UpdateCuentaBancaria(int id, CuentaBancariaRequest cuentaBancariaRequest)
         {
-            //CuentaBancariaResponse cuentaBancariaResponse = new();
-
-            //CuentaBancaria cuentaBancariaModificada = _mapper.Map<CuentaBancaria>(cuentaBancariaRequest.CuentaBancaria);
-
-            //CuentaBancaria cuentaBancariaActual = await GetCuentaBancaria(id);
-
-            //if (cuentaBancariaActual == null)
-            //{
-            //    cuentaBancariaResponse.Resultado = Helpers.Resultados.InsertarEjecucionIncorrecta(false, "La CuentaBancaria con el id: " + id + " no fue encontrada");
-            //    return cuentaBancariaResponse;
-            //}
-
-            //cuentaBancariaActual.Codigo = cuentaBancariaModificada.Codigo;
-            //cuentaBancariaActual.Nombre = cuentaBancariaModificada.Nombre;
-            //cuentaBancariaActual.Activo = cuentaBancariaModificada.Activo;
-            //cuentaBancariaActual.VerCuentasPorPagar = cuentaBancariaModificada.VerCuentasPorPagar;
-
-            ////await _context.SaveChangesAsync();
-
-            //cuentaBancariaResponse.CuentaBancaria = cuentaBancariaActual;
-
-            //return cuentaBancariaResponse;
-
             cuentaBancariaRequest.IdCuentaBancaria = id;
             CuentaBancariaResponse cuentaBancariaResponse = await ValidacionDeEntrada(cuentaBancariaRequest);
 
@@ -126,7 +77,7 @@ namespace GastosJo_Api.Services
 
             CuentaBancaria cuentaBancariaModificado = _mapper.Map<CuentaBancaria>(cuentaBancariaRequest);
 
-            CuentaBancaria? cuentaBancariaActual = await GetCuentaBancaria(id, Estados.Todos);
+            CuentaBancaria? cuentaBancariaActual = await GetCuentaBancaria(id);
 
             if (cuentaBancariaActual == null)
             {
@@ -143,27 +94,10 @@ namespace GastosJo_Api.Services
 
         public async Task<CuentaBancariaResponse> DeleteCuentaBancaria(int id)
         {
-            //CuentaBancariaResponse cuentaBancariaResponse = new();
-
-            //var cuentaBancariaActual = await GetCuentaBancaria(id);
-
-            //if (cuentaBancariaActual == null)
-            //{
-            //    cuentaBancariaResponse.Resultado = Helpers.Resultados.InsertarEjecucionIncorrecta(false, "La CuentaBancaria con el id: " + id + " no fue encontrada");
-            //    return cuentaBancariaResponse;
-            //}
-
-            //cuentaBancariaResponse.CuentaBancaria = cuentaBancariaActual;
-
-            ////_context.CuentasBancaria.Remove(cuentaBancariaActual);
-            ////await _context.SaveChangesAsync();
-
-            //return cuentaBancariaResponse;
-
             //TODO: Capturar error cuando se elimina con ForeignKey
             CuentaBancariaResponse cuentaBancariaResponse = new();
 
-            var cuentaBancariaActual = await GetCuentaBancaria(id, Estados.Todos);
+            var cuentaBancariaActual = await GetCuentaBancaria(id);
 
             if (cuentaBancariaActual == null)
             {
@@ -200,7 +134,7 @@ namespace GastosJo_Api.Services
                 return cuentaBancariaResponse;
             }
 
-            Banco? banco = await _bancoRepository.GetBanco(cuentaBancariaRequest.IdBanco, estadoActivo);
+            Banco? banco = await _bancoRepository.GetBanco(cuentaBancariaRequest.IdBanco);
 
             if (banco == null)
             {
@@ -208,7 +142,7 @@ namespace GastosJo_Api.Services
                 return cuentaBancariaResponse;
             }
 
-            TipoDeCuenta? tipoDeCuenta = await _tipoDeCuentaRepository.GetTipoDeCuenta(cuentaBancariaRequest.IdTipoDeCuenta, estadoActivo);
+            TipoDeCuenta? tipoDeCuenta = await _tipoDeCuentaRepository.GetTipoDeCuenta(cuentaBancariaRequest.IdTipoDeCuenta);
 
             if (tipoDeCuenta == null)
             {
