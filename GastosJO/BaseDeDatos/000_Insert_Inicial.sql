@@ -21,4 +21,4 @@ INSERT INTO CuentasBancaria VALUES (1048,40,'CuentaRut','Cuenta Rut del Banco Es
 SELECT * FROM Bancos
 SELECT * FROM TiposDeCuenta
 SELECT * FROM CuentasBancaria
-
+SELECT * FROM TiposDeTransaccion

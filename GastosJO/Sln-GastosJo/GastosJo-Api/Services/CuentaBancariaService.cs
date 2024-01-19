@@ -25,7 +25,19 @@ namespace GastosJo_Api.Services
             _tipoDeCuentaRepository = tipoDeCuentaRepository;
         }
 
-        public async Task<List<CuentaBancariaDto>> GetCuentasBancaria(Paginado paginado, Estados estado)
+        public async Task<CuentaBancaria?> GetCuentaBancaria(int id)
+        {
+            return await _cuentaBancariaRepository.GetCuentaBancaria(id);
+        }
+
+        public async Task<CuentaBancariaDto?> GetCuentaBancaria(int id, Estados estado)
+        {
+            bool[] estados = EstadosQuery.EstadosBusquedaEnTabla(estado);
+
+            return await _cuentaBancariaRepository.GetCuentaBancaria(id, estados);
+        }
+
+        public async Task<List<CuentaBancariaDto>?> GetCuentasBancaria(Paginado paginado, Estados estado)
         {
             int elementosParaOmitir = PaginacionQuery.ElementosParaOmitir(paginado);
 
@@ -37,18 +49,6 @@ namespace GastosJo_Api.Services
                 return null;
 
             return cuentasBancaria.ToList();
-        }
-
-        public async Task<CuentaBancaria?> GetCuentaBancaria(int id)
-        {
-            return await _cuentaBancariaRepository.GetCuentaBancaria(id);
-        }
-
-        public async Task<CuentaBancariaDto?> GetCuentaBancaria(int id, Estados estado)
-        {
-            bool[] estados = EstadosQuery.EstadosBusquedaEnTabla(estado);
-
-            return await _cuentaBancariaRepository.GetCuentaBancaria(id, estados);
         }
 
         public async Task<CuentaBancariaResponse> AddCuentaBancaria(CuentaBancariaRequest cuentaBancariaRequest)

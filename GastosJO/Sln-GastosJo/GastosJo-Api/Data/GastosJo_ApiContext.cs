@@ -12,5 +12,6 @@ namespace GastosJo_Api.Data
         public DbSet<Models.Banco> Bancos { get; set; } = default!;
         public DbSet<Models.TipoDeCuenta> TiposDeCuenta { get; set; } = default!;
         public DbSet<Models.CuentaBancaria> CuentasBancaria { get; set; } = default!;
+        public DbSet<Models.TipoDeTransaccion> TiposDeTransaccion { get; set; } = default!;
     }
 }

@@ -20,6 +20,13 @@ namespace GastosJo_Api.Services
             _mapper = mapper;
         }
 
+        public async Task<Banco?> GetBanco(int id, Estados estado)
+        {
+            bool[] estados = EstadosQuery.EstadosBusquedaEnTabla(estado);
+
+            return await _bancoRepository.GetBanco(id, estados);
+        }
+
         public async Task<IQueryable<Banco>> GetBancos(Paginado paginado, Estados estado)
         {
             int elementosParaOmitir = PaginacionQuery.ElementosParaOmitir(paginado);
@@ -29,13 +36,6 @@ namespace GastosJo_Api.Services
             var bancos = await _bancoRepository.GetBancos(paginado, elementosParaOmitir, estados);
 
             return bancos.AsQueryable();
-        }
-
-        public async Task<Banco?> GetBanco(int id, Estados estado)
-        {
-            bool[] estados = EstadosQuery.EstadosBusquedaEnTabla(estado);
-
-            return await _bancoRepository.GetBanco(id, estados);
         }
 
         public async Task<BancoResponse> AddBanco(BancoRequest bancoRequest)

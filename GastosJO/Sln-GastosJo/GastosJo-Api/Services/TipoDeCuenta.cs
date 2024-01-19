@@ -20,6 +20,13 @@ namespace GastosJo_Api.Services
             _mapper = mapper;
         }
 
+        public async Task<TipoDeCuenta?> GetTipoDeCuenta(int id, Estados estado)
+        {
+            bool[] estados = EstadosQuery.EstadosBusquedaEnTabla(estado);
+
+            return await _TipoDeCuentaRepository.GetTipoDeCuenta(id, estados);
+        }
+
         public async Task<IQueryable<TipoDeCuenta>> GetTiposDeCuenta(Paginado paginado, Estados estado)
         {
             int elementosParaOmitir = PaginacionQuery.ElementosParaOmitir(paginado);
@@ -29,13 +36,6 @@ namespace GastosJo_Api.Services
             var tiposDeCuenta = await _TipoDeCuentaRepository.GetTiposDeCuenta(paginado, elementosParaOmitir, estados);
 
             return tiposDeCuenta.AsQueryable();
-        }
-
-        public async Task<TipoDeCuenta?> GetTipoDeCuenta(int id, Estados estado)
-        {
-            bool[] estados = EstadosQuery.EstadosBusquedaEnTabla(estado);
-
-            return await _TipoDeCuentaRepository.GetTipoDeCuenta(id, estados);
         }
 
         public async Task<TipoDeCuentaResponse> AddTipoDeCuenta(TipoDeCuentaRequest tipoDeCuentaRequest)

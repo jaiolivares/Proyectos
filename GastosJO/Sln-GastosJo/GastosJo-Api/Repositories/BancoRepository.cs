@@ -15,6 +15,16 @@ namespace GastosJo_Api.Repositories
             _context = context;
         }
 
+        public async Task<Banco?> GetBanco(int id)
+        {
+            return await _context.Bancos.FindAsync(id);
+        }
+
+        public async Task<Banco?> GetBanco(int id, bool[] estados)
+        {
+            return await _context.Bancos.Where(x => x.IdBanco == id && estados.Contains(x.Activo)).FirstOrDefaultAsync();
+        }
+
         public async Task<IQueryable<Banco>> GetBancos(Paginado paginado, int elementosParaOmitir, bool[] estados)
         {
             var bancos = await _context.Bancos
@@ -25,16 +35,6 @@ namespace GastosJo_Api.Repositories
                 .ToListAsync();
 
             return bancos.AsQueryable();
-        }
-
-        public async Task<Banco?> GetBanco(int id)
-        {
-            return await _context.Bancos.FindAsync(id);
-        }
-
-        public async Task<Banco?> GetBanco(int id, bool[] estados)
-        {
-            return await _context.Bancos.Where(x => x.IdBanco == id && estados.Contains(x.Activo)).FirstOrDefaultAsync();
         }
 
         public async Task<Banco> AddBanco(Banco bancoNuevo)

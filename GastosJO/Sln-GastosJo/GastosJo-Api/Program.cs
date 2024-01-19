@@ -29,6 +29,8 @@ void ConfigureServices()
     builder.Services.AddScoped<ITipoDeCuentaRepository, TipoDeCuentaRepository>();
     builder.Services.AddScoped<ICuentaBancariaService, CuentaBancariaService>();
     builder.Services.AddScoped<ICuentaBancariaRepository, CuentaBancariaRepository>();
+    builder.Services.AddScoped<ITipoDeTransaccionService, TipoDeTransaccionService>();
+    builder.Services.AddScoped<ITipoDeTransaccionRepository, TipoDeTransaccionRepository>();
 }
 
 void ConfigureApp()

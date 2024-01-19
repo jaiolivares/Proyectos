@@ -16,6 +16,51 @@ namespace GastosJo_Api.Repositories
             _context = context;
         }
 
+        public async Task<CuentaBancaria?> GetCuentaBancaria(int id)
+        {
+            return await _context.CuentasBancaria.FindAsync(id);
+        }
+
+        public async Task<CuentaBancariaDto?> GetCuentaBancaria(int id, bool[] estados)
+        {
+            var queryCuentaBancaria = await (from cb in _context.CuentasBancaria
+                                             join b in _context.Bancos on cb.IdBanco equals b.IdBanco
+                                             join tc in _context.TiposDeCuenta on cb.IdTipoDeCuenta equals tc.IdTipoDeCuenta
+                                             select new
+                                             {
+                                                 cb.IdCuentaBancaria,
+                                                 cb.IdBanco,
+                                                 CodigoBanco = b.Codigo,
+                                                 NombreBanco = b.Nombre,
+                                                 cb.IdTipoDeCuenta,
+                                                 CodigoTipoDeCuenta = tc.Codigo,
+                                                 NombreTipoDeCuenta = tc.Nombre,
+                                                 cb.Codigo,
+                                                 cb.Nombre,
+                                                 cb.Activo,
+                                                 cb.VerCuentasPorPagar
+                                             }).Where(x => x.IdCuentaBancaria == id && estados.Contains(x.Activo))
+                                             .FirstOrDefaultAsync();
+
+            if (queryCuentaBancaria == null)
+                return null;
+
+            return new CuentaBancariaDto()
+            {
+                IdCuentaBancaria = queryCuentaBancaria.IdCuentaBancaria,
+                IdBanco = queryCuentaBancaria.IdBanco,
+                CodigoBanco = queryCuentaBancaria.CodigoBanco,
+                NombreBanco = queryCuentaBancaria.NombreBanco,
+                IdTipoDeCuenta = queryCuentaBancaria.IdTipoDeCuenta,
+                CodigoTipoDeCuenta = queryCuentaBancaria.CodigoTipoDeCuenta,
+                NombreTipoDeCuenta = queryCuentaBancaria.NombreTipoDeCuenta,
+                Codigo = queryCuentaBancaria.Codigo,
+                Nombre = queryCuentaBancaria.Nombre,
+                Activo = queryCuentaBancaria.Activo,
+                VerCuentasPorPagar = queryCuentaBancaria.VerCuentasPorPagar
+            };
+        }
+
         public async Task<List<CuentaBancariaDto>?> GetCuentasBancaria(Paginado paginado, int elementosParaOmitir, bool[] estados)
         {
             var queryCuentasBancaria = await (from cb in _context.CuentasBancaria
@@ -65,51 +110,6 @@ namespace GastosJo_Api.Repositories
             }
 
             return lstCuentasBancariaDto;
-        }
-
-        public async Task<CuentaBancaria?> GetCuentaBancaria(int id)
-        {
-            return await _context.CuentasBancaria.FindAsync(id);
-        }
-
-        public async Task<CuentaBancariaDto?> GetCuentaBancaria(int id, bool[] estados)
-        {
-            var queryCuentaBancaria = await (from cb in _context.CuentasBancaria
-                                             join b in _context.Bancos on cb.IdBanco equals b.IdBanco
-                                             join tc in _context.TiposDeCuenta on cb.IdTipoDeCuenta equals tc.IdTipoDeCuenta
-                                             select new
-                                             {
-                                                 cb.IdCuentaBancaria,
-                                                 cb.IdBanco,
-                                                 CodigoBanco = b.Codigo,
-                                                 NombreBanco = b.Nombre,
-                                                 cb.IdTipoDeCuenta,
-                                                 CodigoTipoDeCuenta = tc.Codigo,
-                                                 NombreTipoDeCuenta = tc.Nombre,
-                                                 cb.Codigo,
-                                                 cb.Nombre,
-                                                 cb.Activo,
-                                                 cb.VerCuentasPorPagar
-                                             }).Where(x => x.IdCuentaBancaria == id && estados.Contains(x.Activo))
-                                             .FirstOrDefaultAsync();
-
-            if (queryCuentaBancaria == null)
-                return null;
-
-            return new CuentaBancariaDto()
-            {
-                IdCuentaBancaria = queryCuentaBancaria.IdCuentaBancaria,
-                IdBanco = queryCuentaBancaria.IdBanco,
-                CodigoBanco = queryCuentaBancaria.CodigoBanco,
-                NombreBanco = queryCuentaBancaria.NombreBanco,
-                IdTipoDeCuenta = queryCuentaBancaria.IdTipoDeCuenta,
-                CodigoTipoDeCuenta = queryCuentaBancaria.CodigoTipoDeCuenta,
-                NombreTipoDeCuenta = queryCuentaBancaria.NombreTipoDeCuenta,
-                Codigo = queryCuentaBancaria.Codigo,
-                Nombre = queryCuentaBancaria.Nombre,
-                Activo = queryCuentaBancaria.Activo,
-                VerCuentasPorPagar = queryCuentaBancaria.VerCuentasPorPagar
-            };
         }
 
         public async Task<CuentaBancaria> AddCuentaBancaria(CuentaBancaria CuentaBancariaNuevo)

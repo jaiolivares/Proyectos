@@ -5,11 +5,11 @@ namespace GastosJo_Api.Interfaces
 {
     public interface ITipoDeCuentaRepository
     {
-        Task<IQueryable<TipoDeCuenta>> GetTiposDeCuenta(Paginado paginado, int elementosParaOmitir, bool[] estados);
-
         Task<TipoDeCuenta?> GetTipoDeCuenta(int id);
 
         Task<TipoDeCuenta?> GetTipoDeCuenta(int id, bool[] estados);
+
+        Task<IQueryable<TipoDeCuenta>> GetTiposDeCuenta(Paginado paginado, int elementosParaOmitir, bool[] estados);
 
         Task<TipoDeCuenta> AddTipoDeCuenta(TipoDeCuenta TipoDeCuentaNuevo);
 

@@ -7,11 +7,11 @@ namespace GastosJo_Api.Interfaces
 {
     public interface ICuentaBancariaService
     {
-        Task<List<CuentaBancariaDto>> GetCuentasBancaria(Paginado paginado, Estados estado);
-
         Task<CuentaBancaria?> GetCuentaBancaria(int id);
 
         Task<CuentaBancariaDto?> GetCuentaBancaria(int id, Estados estados);
+
+        Task<List<CuentaBancariaDto>?> GetCuentasBancaria(Paginado paginado, Estados estado);
 
         Task<CuentaBancariaResponse> AddCuentaBancaria(CuentaBancariaRequest bancoRequest);
 

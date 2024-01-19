@@ -15,6 +15,16 @@ namespace GastosJo_Api.Repositories
             _context = context;
         }
 
+        public async Task<TipoDeCuenta?> GetTipoDeCuenta(int id)
+        {
+            return await _context.TiposDeCuenta.FindAsync(id);
+        }
+
+        public async Task<TipoDeCuenta?> GetTipoDeCuenta(int id, bool[] estados)
+        {
+            return await _context.TiposDeCuenta.Where(x => x.IdTipoDeCuenta == id && estados.Contains(x.Activo)).FirstOrDefaultAsync();
+        }
+
         public async Task<IQueryable<TipoDeCuenta>> GetTiposDeCuenta(Paginado paginado, int elementosParaOmitir, bool[] estados)
         {
             var tipoDeCuentas = await _context.TiposDeCuenta
@@ -25,16 +35,6 @@ namespace GastosJo_Api.Repositories
                 .ToListAsync();
 
             return tipoDeCuentas.AsQueryable();
-        }
-
-        public async Task<TipoDeCuenta?> GetTipoDeCuenta(int id)
-        {
-            return await _context.TiposDeCuenta.FindAsync(id);
-        }
-
-        public async Task<TipoDeCuenta?> GetTipoDeCuenta(int id, bool[] estados)
-        {
-            return await _context.TiposDeCuenta.Where(x => x.IdTipoDeCuenta == id && estados.Contains(x.Activo)).FirstOrDefaultAsync();
         }
 
         public async Task<TipoDeCuenta> AddTipoDeCuenta(TipoDeCuenta tipoDeCuentaNuevo)

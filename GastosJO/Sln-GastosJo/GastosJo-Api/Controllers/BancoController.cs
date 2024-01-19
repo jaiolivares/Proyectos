@@ -18,6 +18,24 @@ namespace GastosJo_Api.Controllers
             _bancoService = bancoService;
         }
 
+        [HttpGet("Obtener/{id}/{estados}")]
+        public async Task<ActionResult<Banco?>> GetBanco(int id, Estados estados)
+        {
+            try
+            {
+                var banco = await _bancoService.GetBanco(id, estados);
+
+                if (banco == null)
+                    return StatusCode(StatusCodes.Status404NotFound);
+
+                return StatusCode(StatusCodes.Status200OK, banco);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, "Error TryCatch: " + ex);
+            }
+        }
+
         [HttpGet("Listar")]
         public async Task<ActionResult<IQueryable<Banco?>>> GetBancos([FromQuery] Paginado paginado, Estados estados)
         {
@@ -32,24 +50,6 @@ namespace GastosJo_Api.Controllers
                     return StatusCode(StatusCodes.Status204NoContent);
 
                 return StatusCode(StatusCodes.Status200OK, bancos);
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(StatusCodes.Status500InternalServerError, "Error TryCatch: " + ex);
-            }
-        }
-
-        [HttpGet("Obtener/{id}/{estados}")]
-        public async Task<ActionResult<Banco?>> GetBanco(int id, Estados estados)
-        {
-            try
-            {
-                var banco = await _bancoService.GetBanco(id, estados);
-
-                if (banco == null)
-                    return StatusCode(StatusCodes.Status404NotFound);
-
-                return StatusCode(StatusCodes.Status200OK, banco);
             }
             catch (Exception ex)
             {

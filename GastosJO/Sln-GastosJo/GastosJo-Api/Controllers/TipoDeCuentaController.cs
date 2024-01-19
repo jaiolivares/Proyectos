@@ -18,6 +18,24 @@ namespace GastosJo_Api.Controllers
             _tipoDeCuentaService = tipoDeCuentaService;
         }
 
+        [HttpGet("Obtener/{id}/{estados}")]
+        public async Task<ActionResult<TipoDeCuenta>> GetTipoDeCuenta(int id, Estados estados)
+        {
+            try
+            {
+                var tipoDeCuenta = await _tipoDeCuentaService.GetTipoDeCuenta(id, estados);
+
+                if (tipoDeCuenta == null)
+                    return StatusCode(StatusCodes.Status404NotFound);
+
+                return StatusCode(StatusCodes.Status200OK, tipoDeCuenta);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, "Error TryCatch: " + ex);
+            }
+        }
+
         [HttpGet("Listar")]
         public async Task<ActionResult<IQueryable<TipoDeCuenta>>> GetTiposDeCuenta([FromQuery] Paginado paginado, Estados estados)
         {
@@ -32,24 +50,6 @@ namespace GastosJo_Api.Controllers
                     return StatusCode(StatusCodes.Status204NoContent);
 
                 return StatusCode(StatusCodes.Status200OK, tipoDeCuentas);
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(StatusCodes.Status500InternalServerError, "Error TryCatch: " + ex);
-            }
-        }
-
-        [HttpGet("Obtener/{id}/{estados}")]
-        public async Task<ActionResult<TipoDeCuenta>> GetTipoDeCuenta(int id, Estados estados)
-        {
-            try
-            {
-                var tipoDeCuenta = await _tipoDeCuentaService.GetTipoDeCuenta(id, estados);
-
-                if (tipoDeCuenta == null)
-                    return StatusCode(StatusCodes.Status404NotFound);
-
-                return StatusCode(StatusCodes.Status200OK, tipoDeCuenta);
             }
             catch (Exception ex)
             {

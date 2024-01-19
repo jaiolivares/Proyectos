@@ -18,6 +18,24 @@ namespace GastosJo_Api.Controllers
             _cuentaBancariaService = cuentaBancariaService;
         }
 
+        [HttpGet("Obtener/{id}/{estados}")]
+        public async Task<ActionResult<CuentaBancariaDto>> GetCuentaBancaria(int id, Estados estados)
+        {
+            try
+            {
+                var cuentaBancaria = await _cuentaBancariaService.GetCuentaBancaria(id, estados);
+
+                if (cuentaBancaria == null)
+                    return StatusCode(StatusCodes.Status404NotFound);
+
+                return StatusCode(StatusCodes.Status200OK, cuentaBancaria);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, "Error TryCatch: " + ex);
+            }
+        }
+
         [HttpGet("Listar")]
         public async Task<ActionResult<List<CuentaBancariaDto>>> GetCuentasBancaria([FromQuery] Paginado paginado, Estados estados)
         {
@@ -32,24 +50,6 @@ namespace GastosJo_Api.Controllers
                     return StatusCode(StatusCodes.Status204NoContent);
 
                 return StatusCode(StatusCodes.Status200OK, cuentasBancaria);
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(StatusCodes.Status500InternalServerError, "Error TryCatch: " + ex);
-            }
-        }
-
-        [HttpGet("Obtener/{id}/{estados}")]
-        public async Task<ActionResult<CuentaBancariaDto>> GetCuentaBancaria(int id, Estados estados)
-        {
-            try
-            {
-                var cuentaBancaria = await _cuentaBancariaService.GetCuentaBancaria(id, estados);
-
-                if (cuentaBancaria == null)
-                    return StatusCode(StatusCodes.Status404NotFound);
-
-                return StatusCode(StatusCodes.Status200OK, cuentaBancaria);
             }
             catch (Exception ex)
             {

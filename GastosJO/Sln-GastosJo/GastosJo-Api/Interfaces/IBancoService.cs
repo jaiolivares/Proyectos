@@ -7,9 +7,9 @@ namespace GastosJo_Api.Interfaces
 {
     public interface IBancoService
     {
-        Task<IQueryable<Banco>> GetBancos(Paginado paginado, Estados estados);
-
         Task<Banco?> GetBanco(int id, Estados estados);
+
+        Task<IQueryable<Banco>> GetBancos(Paginado paginado, Estados estados);
 
         Task<BancoResponse> AddBanco(BancoRequest bancoRequest);
 
