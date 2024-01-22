@@ -53,7 +53,7 @@ namespace GastosJo_Api.Services
 
         public async Task<CuentaBancariaResponse> AddCuentaBancaria(CuentaBancariaRequest cuentaBancariaRequest)
         {
-            CuentaBancariaResponse cuentaBancariaResponse = await ValidacionDeEntrada(cuentaBancariaRequest);
+            CuentaBancariaResponse cuentaBancariaResponse = await ValidacionDeEntrada(cuentaBancariaRequest, false);
 
             if (!cuentaBancariaResponse.Resultado.EjecucionCorrecta)
                 return cuentaBancariaResponse;
@@ -70,7 +70,7 @@ namespace GastosJo_Api.Services
         public async Task<CuentaBancariaResponse> UpdateCuentaBancaria(int id, CuentaBancariaRequest cuentaBancariaRequest)
         {
             cuentaBancariaRequest.IdCuentaBancaria = id;
-            CuentaBancariaResponse cuentaBancariaResponse = await ValidacionDeEntrada(cuentaBancariaRequest);
+            CuentaBancariaResponse cuentaBancariaResponse = await ValidacionDeEntrada(cuentaBancariaRequest, true);
 
             if (!cuentaBancariaResponse.Resultado.EjecucionCorrecta)
                 return cuentaBancariaResponse;
@@ -112,7 +112,7 @@ namespace GastosJo_Api.Services
             return cuentaBancariaResponse;
         }
 
-        public async Task<CuentaBancariaResponse> ValidacionDeEntrada(CuentaBancariaRequest cuentaBancariaRequest)
+        public async Task<CuentaBancariaResponse> ValidacionDeEntrada(CuentaBancariaRequest cuentaBancariaRequest, bool esModificacion)
         {
             CuentaBancariaResponse cuentaBancariaResponse = new();
 
@@ -132,6 +132,16 @@ namespace GastosJo_Api.Services
             {
                 cuentaBancariaResponse.Resultado = Resultados.InsertarEjecucionIncorrecta(false, "El Nombre es obligatorio");
                 return cuentaBancariaResponse;
+            }
+
+            if (esModificacion)
+            {
+                CuentaBancaria? cuentaBancaria = await GetCuentaBancaria(cuentaBancariaRequest.IdCuentaBancaria, Estados.Todos);
+                if (cuentaBancaria == null)
+                {
+                    cuentaBancariaResponse.Resultado = Resultados.InsertarEjecucionIncorrecta(false, "La CuentaBancaria con el id: " + cuentaBancariaRequest.IdCuentaBancaria + " no fue encontrado");
+                    return cuentaBancariaResponse;
+                }
             }
 
             Banco? banco = await _bancoRepository.GetBanco(cuentaBancariaRequest.IdBanco);

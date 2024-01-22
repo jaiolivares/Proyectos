@@ -40,7 +40,7 @@ namespace GastosJo_Api.Services
 
         public async Task<TipoDeCuentaResponse> AddTipoDeCuenta(TipoDeCuentaRequest tipoDeCuentaRequest)
         {
-            TipoDeCuentaResponse tipoDeCuentaResponse = await ValidacionDeEntrada(tipoDeCuentaRequest);
+            TipoDeCuentaResponse tipoDeCuentaResponse = await ValidacionDeEntrada(tipoDeCuentaRequest, false);
 
             if (!tipoDeCuentaResponse.Resultado.EjecucionCorrecta)
                 return tipoDeCuentaResponse;
@@ -57,7 +57,7 @@ namespace GastosJo_Api.Services
         public async Task<TipoDeCuentaResponse> UpdateTipoDeCuenta(int id, TipoDeCuentaRequest tipoDeCuentaRequest)
         {
             tipoDeCuentaRequest.IdTipoDeCuenta = id;
-            TipoDeCuentaResponse tipoDeCuentaResponse = await ValidacionDeEntrada(tipoDeCuentaRequest);
+            TipoDeCuentaResponse tipoDeCuentaResponse = await ValidacionDeEntrada(tipoDeCuentaRequest, true);
 
             if (!tipoDeCuentaResponse.Resultado.EjecucionCorrecta)
                 return tipoDeCuentaResponse;
@@ -99,7 +99,7 @@ namespace GastosJo_Api.Services
             return tipoDeCuentaResponse;
         }
 
-        public async Task<TipoDeCuentaResponse> ValidacionDeEntrada(TipoDeCuentaRequest tipoDeCuentaRequest)
+        public async Task<TipoDeCuentaResponse> ValidacionDeEntrada(TipoDeCuentaRequest tipoDeCuentaRequest, bool esModificacion)
         {
             TipoDeCuentaResponse tipoDeCuentaResponse = new();
 
@@ -119,6 +119,16 @@ namespace GastosJo_Api.Services
             {
                 tipoDeCuentaResponse.Resultado = Resultados.InsertarEjecucionIncorrecta(false, "El Nombre es obligatorio");
                 return tipoDeCuentaResponse;
+            }
+
+            if (esModificacion)
+            {
+                TipoDeCuenta? tipoDeCuenta = await GetTipoDeCuenta(tipoDeCuentaRequest.IdTipoDeCuenta, Estados.Todos);
+                if (tipoDeCuenta == null)
+                {
+                    tipoDeCuentaResponse.Resultado = Resultados.InsertarEjecucionIncorrecta(false, "El TipoDeCuenta con el id: " + tipoDeCuentaRequest.IdTipoDeCuenta + " no fue encontrado");
+                    return tipoDeCuentaResponse;
+                }
             }
 
             List<TipoDeCuenta> TipoDeCuentas = await ListarTipoDeCuentasPorCodigoNombre(tipoDeCuentaRequest.IdTipoDeCuenta, tipoDeCuentaRequest.Codigo, tipoDeCuentaRequest.Nombre);

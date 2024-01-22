@@ -40,7 +40,7 @@ namespace GastosJo_Api.Services
 
         public async Task<TipoDeTransaccionResponse> AddTipoDeTransaccion(TipoDeTransaccionRequest tipoDeTransaccionRequest)
         {
-            TipoDeTransaccionResponse tipoDeTransaccionResponse = await ValidacionDeEntrada(tipoDeTransaccionRequest);
+            TipoDeTransaccionResponse tipoDeTransaccionResponse = await ValidacionDeEntrada(tipoDeTransaccionRequest, false);
 
             if (!tipoDeTransaccionResponse.Resultado.EjecucionCorrecta)
                 return tipoDeTransaccionResponse;
@@ -57,7 +57,7 @@ namespace GastosJo_Api.Services
         public async Task<TipoDeTransaccionResponse> UpdateTipoDeTransaccion(int id, TipoDeTransaccionRequest tipoDeTransaccionRequest)
         {
             tipoDeTransaccionRequest.IdTipoDeTransaccion = id;
-            TipoDeTransaccionResponse tipoDeTransaccionResponse = await ValidacionDeEntrada(tipoDeTransaccionRequest);
+            TipoDeTransaccionResponse tipoDeTransaccionResponse = await ValidacionDeEntrada(tipoDeTransaccionRequest, true);
 
             if (!tipoDeTransaccionResponse.Resultado.EjecucionCorrecta)
                 return tipoDeTransaccionResponse;
@@ -99,7 +99,7 @@ namespace GastosJo_Api.Services
             return tipoDeTransaccionResponse;
         }
 
-        public async Task<TipoDeTransaccionResponse> ValidacionDeEntrada(TipoDeTransaccionRequest tipoDeTransaccionRequest)
+        public async Task<TipoDeTransaccionResponse> ValidacionDeEntrada(TipoDeTransaccionRequest tipoDeTransaccionRequest, bool esModificacion)
         {
             TipoDeTransaccionResponse tipoDeTransaccionResponse = new();
 
@@ -115,10 +115,14 @@ namespace GastosJo_Api.Services
                 return tipoDeTransaccionResponse;
             }
 
-            if (!Validaciones.ValidaCamposVacios(tipoDeTransaccionRequest.Nombre))
+            if (esModificacion)
             {
-                tipoDeTransaccionResponse.Resultado = Resultados.InsertarEjecucionIncorrecta(false, "El Nombre es obligatorio");
-                return tipoDeTransaccionResponse;
+                TipoDeTransaccion? tipoDeTransaccion = await GetTipoDeTransaccion(tipoDeTransaccionRequest.IdTipoDeTransaccion, Estados.Todos);
+                if (tipoDeTransaccion == null)
+                {
+                    tipoDeTransaccionResponse.Resultado = Resultados.InsertarEjecucionIncorrecta(false, "El TipoDeTransaccion con el id: " + tipoDeTransaccionRequest.IdTipoDeTransaccion + " no fue encontrado");
+                    return tipoDeTransaccionResponse;
+                }
             }
 
             List<TipoDeTransaccion> tipoDeTransaccions = await ListarTipoDeTransaccionsPorCodigoNombre(tipoDeTransaccionRequest.IdTipoDeTransaccion, tipoDeTransaccionRequest.Codigo, tipoDeTransaccionRequest.Nombre);

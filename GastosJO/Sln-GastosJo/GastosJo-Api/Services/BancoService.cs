@@ -40,7 +40,7 @@ namespace GastosJo_Api.Services
 
         public async Task<BancoResponse> AddBanco(BancoRequest bancoRequest)
         {
-            BancoResponse bancoResponse = await ValidacionDeEntrada(bancoRequest);
+            BancoResponse bancoResponse = await ValidacionDeEntrada(bancoRequest, false);
 
             if (!bancoResponse.Resultado.EjecucionCorrecta)
                 return bancoResponse;
@@ -57,7 +57,7 @@ namespace GastosJo_Api.Services
         public async Task<BancoResponse> UpdateBanco(int id, BancoRequest bancoRequest)
         {
             bancoRequest.IdBanco = id;
-            BancoResponse bancoResponse = await ValidacionDeEntrada(bancoRequest);
+            BancoResponse bancoResponse = await ValidacionDeEntrada(bancoRequest, true);
 
             if (!bancoResponse.Resultado.EjecucionCorrecta)
                 return bancoResponse;
@@ -99,7 +99,7 @@ namespace GastosJo_Api.Services
             return bancoResponse;
         }
 
-        public async Task<BancoResponse> ValidacionDeEntrada(BancoRequest bancoRequest)
+        public async Task<BancoResponse> ValidacionDeEntrada(BancoRequest bancoRequest, bool esModificacion)
         {
             BancoResponse bancoResponse = new();
 
@@ -119,6 +119,16 @@ namespace GastosJo_Api.Services
             {
                 bancoResponse.Resultado = Resultados.InsertarEjecucionIncorrecta(false, "El Nombre es obligatorio");
                 return bancoResponse;
+            }
+
+            if (esModificacion)
+            {
+                Banco? banco = await GetBanco(bancoRequest.IdBanco, Estados.Todos);
+                if (banco == null)
+                {
+                    bancoResponse.Resultado = Resultados.InsertarEjecucionIncorrecta(false, "El Banco con el id: " + bancoRequest.IdBanco + " no fue encontrado");
+                    return bancoResponse;
+                }
             }
 
             List<Banco> bancos = await ListarBancosPorCodigoNombre(bancoRequest.IdBanco, bancoRequest.Codigo, bancoRequest.Nombre);
