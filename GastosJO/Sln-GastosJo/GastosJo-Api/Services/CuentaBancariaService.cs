@@ -81,7 +81,7 @@ namespace GastosJo_Api.Services
 
             if (cuentaBancariaActual == null)
             {
-                cuentaBancariaResponse.Resultado = Resultados.InsertarEjecucionIncorrecta(false, "La CuentaBancaria con el id: " + id + " no fue encontrado");
+                cuentaBancariaResponse.Resultado = Resultados.InsertarEjecucionIncorrecta(false, "La CuentaBancaria con el id: " + id + " no fue encontrada");
                 return cuentaBancariaResponse;
             }
 
@@ -101,7 +101,7 @@ namespace GastosJo_Api.Services
 
             if (cuentaBancariaActual == null)
             {
-                cuentaBancariaResponse.Resultado = Resultados.InsertarEjecucionIncorrecta(false, "La CuentaBancaria con el id: " + id + " no fue encontrado");
+                cuentaBancariaResponse.Resultado = Resultados.InsertarEjecucionIncorrecta(false, "La CuentaBancaria con el id: " + id + " no fue encontrada");
                 return cuentaBancariaResponse;
             }
 
@@ -139,7 +139,7 @@ namespace GastosJo_Api.Services
                 CuentaBancaria? cuentaBancaria = await GetCuentaBancaria(cuentaBancariaRequest.IdCuentaBancaria, Estados.Todos);
                 if (cuentaBancaria == null)
                 {
-                    cuentaBancariaResponse.Resultado = Resultados.InsertarEjecucionIncorrecta(false, "La CuentaBancaria con el id: " + cuentaBancariaRequest.IdCuentaBancaria + " no fue encontrado");
+                    cuentaBancariaResponse.Resultado = Resultados.InsertarEjecucionIncorrecta(false, "La CuentaBancaria con el id: " + cuentaBancariaRequest.IdCuentaBancaria + " no fue encontrada");
                     return cuentaBancariaResponse;
                 }
             }

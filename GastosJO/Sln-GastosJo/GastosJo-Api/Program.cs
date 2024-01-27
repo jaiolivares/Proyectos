@@ -31,6 +31,10 @@ void ConfigureServices()
     builder.Services.AddScoped<ICuentaBancariaRepository, CuentaBancariaRepository>();
     builder.Services.AddScoped<ITipoDeTransaccionService, TipoDeTransaccionService>();
     builder.Services.AddScoped<ITipoDeTransaccionRepository, TipoDeTransaccionRepository>();
+    builder.Services.AddScoped<IOrigenDeGastoService, OrigenDeGastoService>();
+    builder.Services.AddScoped<IOrigenDeGastoRepository, OrigenDeGastoRepository>();
+    builder.Services.AddScoped<IEmpresaDeGastoService, EmpresaDeGastoService>();
+    builder.Services.AddScoped<IEmpresaDeGastoRepository, EmpresaDeGastoRepository>();
 }
 
 void ConfigureApp()

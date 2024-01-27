@@ -22,8 +22,12 @@ GO
 INSERT INTO TiposDeTransaccion VALUES ('00100','inactivo',0)
 INSERT INTO TiposDeTransaccion VALUES ('RedCompra','Compra RedCompra', 1)
 INSERT INTO TiposDeTransaccion VALUES ('PagoLinea','Pago en línea', 1)
+GO
+INSERT INTO OrigenesDeGastos VALUES ('00100','inactivo',0)
 
 SELECT * FROM Bancos
 SELECT * FROM TiposDeCuenta
 SELECT * FROM CuentasBancaria
 SELECT * FROM TiposDeTransaccion
+SELECT * FROM OrigenesDeGastos
+SELECT * FROM EmpresasDeGastos

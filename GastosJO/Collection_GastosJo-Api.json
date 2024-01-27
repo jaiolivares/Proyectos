@@ -11,16 +11,25 @@
 			"item": [
 				{
 					"name": "api/Banco/Listar",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"pm.environment.get(\"url\");"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
 					"request": {
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "https://localhost:7158/api/Banco/Listar?PaginaActual=1&RegistrosPorPagina=20&estados=2",
-							"protocol": "https",
+							"raw": "{{url}}/api/Banco/Listar?PaginaActual=1&RegistrosPorPagina=20&estados=2",
 							"host": [
-								"localhost"
+								"{{url}}"
 							],
-							"port": "7158",
 							"path": [
 								"api",
 								"Banco",
@@ -46,16 +55,25 @@
 				},
 				{
 					"name": "api/Banco/Obtener",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"pm.environment.get(\"url\");"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
 					"request": {
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "https://localhost:7158/api/Banco/Obtener/1051/2",
-							"protocol": "https",
+							"raw": "{{url}}/api/Banco/Obtener/1051/2",
 							"host": [
-								"localhost"
+								"{{url}}"
 							],
-							"port": "7158",
 							"path": [
 								"api",
 								"Banco",
@@ -69,6 +87,17 @@
 				},
 				{
 					"name": "api/Banco/Insertar",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"pm.environment.get(\"url\");"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
 					"request": {
 						"method": "POST",
 						"header": [],
@@ -82,12 +111,10 @@
 							}
 						},
 						"url": {
-							"raw": "https://localhost:7158/api/Banco/Insertar",
-							"protocol": "https",
+							"raw": "{{url}}/api/Banco/Insertar",
 							"host": [
-								"localhost"
+								"{{url}}"
 							],
-							"port": "7158",
 							"path": [
 								"api",
 								"Banco",
@@ -99,6 +126,17 @@
 				},
 				{
 					"name": "api/Banco/Modificar",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"pm.environment.get(\"url\");"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
 					"request": {
 						"method": "PUT",
 						"header": [],
@@ -112,12 +150,10 @@
 							}
 						},
 						"url": {
-							"raw": "https://localhost:7158/api/Banco/Modificar/1049",
-							"protocol": "https",
+							"raw": "{{url}}/api/Banco/Modificar/1049",
 							"host": [
-								"localhost"
+								"{{url}}"
 							],
-							"port": "7158",
 							"path": [
 								"api",
 								"Banco",
@@ -130,16 +166,25 @@
 				},
 				{
 					"name": "api/Banco/Eliminar",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"pm.environment.get(\"url\");"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
 					"request": {
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "https://localhost:7158/api/Banco/Eliminar/1052",
-							"protocol": "https",
+							"raw": "{{url}}/api/Banco/Eliminar/1052",
 							"host": [
-								"localhost"
+								"{{url}}"
 							],
-							"port": "7158",
 							"path": [
 								"api",
 								"Banco",
@@ -157,16 +202,25 @@
 			"item": [
 				{
 					"name": "api/TipoDeCuenta/Listar",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"pm.environment.get(\"url\");"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
 					"request": {
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "https://localhost:7158/api/TipoDeCuenta/Listar?PaginaActual=1&RegistrosPorPagina=-20&estados=2",
-							"protocol": "https",
+							"raw": "{{url}}/api/TipoDeCuenta/Listar?PaginaActual=1&RegistrosPorPagina=-20&estados=2",
 							"host": [
-								"localhost"
+								"{{url}}"
 							],
-							"port": "7158",
 							"path": [
 								"api",
 								"TipoDeCuenta",
@@ -192,16 +246,25 @@
 				},
 				{
 					"name": "api/TipoDeCuenta/Obtener",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"pm.environment.get(\"url\");"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
 					"request": {
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "https://localhost:7158/api/TipoDeCuenta/Obtener/38/2",
-							"protocol": "https",
+							"raw": "{{url}}/api/TipoDeCuenta/Obtener/38/2",
 							"host": [
-								"localhost"
+								"{{url}}"
 							],
-							"port": "7158",
 							"path": [
 								"api",
 								"TipoDeCuenta",
@@ -215,6 +278,17 @@
 				},
 				{
 					"name": "api/TipoDeCuenta/Insertar",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"pm.environment.get(\"url\");"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
 					"request": {
 						"method": "POST",
 						"header": [],
@@ -228,12 +302,10 @@
 							}
 						},
 						"url": {
-							"raw": "https://localhost:7158/api/TipoDeCuenta/Insertar",
-							"protocol": "https",
+							"raw": "{{url}}/api/TipoDeCuenta/Insertar",
 							"host": [
-								"localhost"
+								"{{url}}"
 							],
-							"port": "7158",
 							"path": [
 								"api",
 								"TipoDeCuenta",
@@ -245,6 +317,17 @@
 				},
 				{
 					"name": "api/TipoDeCuenta/Modificar",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"pm.environment.get(\"url\");"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
 					"request": {
 						"method": "PUT",
 						"header": [],
@@ -258,12 +341,10 @@
 							}
 						},
 						"url": {
-							"raw": "https://localhost:7158/api/TipoDeCuenta/Modificar/42",
-							"protocol": "https",
+							"raw": "{{url}}/api/TipoDeCuenta/Modificar/42",
 							"host": [
-								"localhost"
+								"{{url}}"
 							],
-							"port": "7158",
 							"path": [
 								"api",
 								"TipoDeCuenta",
@@ -276,16 +357,25 @@
 				},
 				{
 					"name": "api/TipoDeCuenta/Eliminar",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"pm.environment.get(\"url\");"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
 					"request": {
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "https://localhost:7158/api/TipoDeCuenta/Eliminar/42",
-							"protocol": "https",
+							"raw": "{{url}}/api/TipoDeCuenta/Eliminar/42",
 							"host": [
-								"localhost"
+								"{{url}}"
 							],
-							"port": "7158",
 							"path": [
 								"api",
 								"TipoDeCuenta",
@@ -303,16 +393,25 @@
 			"item": [
 				{
 					"name": "api/CuentaBancaria/Listar",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"pm.environment.get(\"url\");"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
 					"request": {
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "https://localhost:7158/api/CuentaBancaria/Listar?PaginaActual=1&RegistrosPorPagina=20&estados=2",
-							"protocol": "https",
+							"raw": "{{url}}/api/CuentaBancaria/Listar?PaginaActual=1&RegistrosPorPagina=20&estados=2",
 							"host": [
-								"localhost"
+								"{{url}}"
 							],
-							"port": "7158",
 							"path": [
 								"api",
 								"CuentaBancaria",
@@ -338,16 +437,25 @@
 				},
 				{
 					"name": "api/CuentaBancaria/Obtener",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"pm.environment.get(\"url\");"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
 					"request": {
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "https://localhost:7158/api/CuentaBancaria/Obtener/6/2",
-							"protocol": "https",
+							"raw": "{{url}}/api/CuentaBancaria/Obtener/6/2",
 							"host": [
-								"localhost"
+								"{{url}}"
 							],
-							"port": "7158",
 							"path": [
 								"api",
 								"CuentaBancaria",
@@ -361,12 +469,23 @@
 				},
 				{
 					"name": "api/CuentaBancaria/Insertar",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"pm.environment.get(\"url\");"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
 					"request": {
 						"method": "POST",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n  \"idCuentaBancaria\": 0,\r\n  \"idBanco\": 1048,\r\n  \"idTipoDeCuenta\": 40,\r\n  \"codigo\": \"string1\",\r\n  \"nombre\": \"string1\",\r\n  \"activo\": true,\r\n  \"verCuentasPorPagar\": true\r\n}",
+							"raw": "{\r\n  \"idCuentaBancaria\": 0,\r\n  \"idBanco\": 1048,\r\n  \"idTipoDeCuenta\": 40,\r\n  \"codigo\": \"string2\",\r\n  \"nombre\": \"string2\",\r\n  \"activo\": false,\r\n  \"verCuentasPorPagar\": false\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -374,12 +493,10 @@
 							}
 						},
 						"url": {
-							"raw": "https://localhost:7158/api/CuentaBancaria/Insertar",
-							"protocol": "https",
+							"raw": "{{url}}/api/CuentaBancaria/Insertar",
 							"host": [
-								"localhost"
+								"{{url}}"
 							],
-							"port": "7158",
 							"path": [
 								"api",
 								"CuentaBancaria",
@@ -391,12 +508,23 @@
 				},
 				{
 					"name": "api/CuentaBancaria/Modificar",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"pm.environment.get(\"url\");"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
 					"request": {
 						"method": "PUT",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n  \"idCuentaBancaria\": 0,\r\n  \"idBanco\": 0,\r\n  \"idTipoDeCuenta\": 0,\r\n  \"codigo\": \"string\",\r\n  \"nombre\": \"string\",\r\n  \"activo\": true,\r\n  \"verCuentasPorPagar\": true\r\n}",
+							"raw": "{\r\n  \"idCuentaBancaria\": 0,\r\n  \"idBanco\": 1048,\r\n  \"idTipoDeCuenta\": 40,\r\n  \"codigo\": \"string2\",\r\n  \"nombre\": \"string2\",\r\n  \"activo\": false,\r\n  \"verCuentasPorPagar\": false\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -404,17 +532,15 @@
 							}
 						},
 						"url": {
-							"raw": "https://localhost:7158/api/CuentaBancaria/Modificar/1025",
-							"protocol": "https",
+							"raw": "{{url}}/api/CuentaBancaria/Modificar/7",
 							"host": [
-								"localhost"
+								"{{url}}"
 							],
-							"port": "7158",
 							"path": [
 								"api",
 								"CuentaBancaria",
 								"Modificar",
-								"1025"
+								"7"
 							]
 						}
 					},
@@ -422,11 +548,102 @@
 				},
 				{
 					"name": "api/CuentaBancaria/Eliminar",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"pm.environment.get(\"url\");"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
 					"request": {
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "https://localhost:7158/api/CuentaBancaria/Eliminar/5",
+							"raw": "{{url}}/api/CuentaBancaria/Eliminar/8",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"CuentaBancaria",
+								"Eliminar",
+								"8"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "4-TipoDeTransaccion",
+			"item": [
+				{
+					"name": "api/TipoDeTransaccion/Listar",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"pm.environment.get(\"url\");"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/api/TipoDeTransaccion/Listar?PaginaActual=1&RegistrosPorPagina=20&estados=2",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"TipoDeTransaccion",
+								"Listar"
+							],
+							"query": [
+								{
+									"key": "PaginaActual",
+									"value": "1"
+								},
+								{
+									"key": "RegistrosPorPagina",
+									"value": "20"
+								},
+								{
+									"key": "estados",
+									"value": "2"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "api/TipoDeTransaccion/Obtener",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"pm.environment.get(\"url\");"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:7158/api/TipoDeTransaccion/Obtener/4/2",
 							"protocol": "https",
 							"host": [
 								"localhost"
@@ -434,9 +651,502 @@
 							"port": "7158",
 							"path": [
 								"api",
-								"CuentaBancaria",
+								"TipoDeTransaccion",
+								"Obtener",
+								"4",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "api/TipoDeTransaccion/Insertar",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"pm.environment.get(\"url\");"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"idTipoDeTransaccion\": 0,\r\n  \"codigo\": \"string2\",\r\n  \"nombre\": \"string2\",\r\n  \"activo\": false\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/api/TipoDeTransaccion/Insertar",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"TipoDeTransaccion",
+								"Insertar"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "api/TipoDeTransaccion/Modificar",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"pm.environment.get(\"url\");"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"idTipoDeTransaccion\": 9994,\r\n    \"codigo\": \"string3\",\r\n    \"nombre\": \"string2\",\r\n    \"activo\": true\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/api/TipoDeTransaccion/Modificar/9",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"TipoDeTransaccion",
+								"Modificar",
+								"9"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "api/TipoDeTransaccion/Eliminar",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"pm.environment.get(\"url\");"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/api/TipoDeTransaccion/Eliminar/4",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"TipoDeTransaccion",
 								"Eliminar",
-								"5"
+								"4"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "5-OrigenDeGasto",
+			"item": [
+				{
+					"name": "api/OrigenDeGasto/Listar",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"pm.environment.get(\"url\");"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/api/OrigenDeGasto/Listar?PaginaActual=1&RegistrosPorPagina=20&estados=2",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"OrigenDeGasto",
+								"Listar"
+							],
+							"query": [
+								{
+									"key": "PaginaActual",
+									"value": "1"
+								},
+								{
+									"key": "RegistrosPorPagina",
+									"value": "20"
+								},
+								{
+									"key": "estados",
+									"value": "2"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "api/OrigenDeGasto/Obtener",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"pm.environment.get(\"url\");"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/api/OrigenDeGasto/Obtener/1/2",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"OrigenDeGasto",
+								"Obtener",
+								"1",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "api/OrigenDeGasto/Insertar",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"pm.environment.get(\"url\");"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"idOrigenDeGasto\": 0,\r\n  \"codigo\": \"string1\",\r\n  \"nombre\": \"string1\",\r\n  \"activo\": false\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/api/OrigenDeGasto/Insertar",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"OrigenDeGasto",
+								"Insertar"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "api/OrigenDeGasto/Modificar",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"pm.environment.get(\"url\");"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"idOrigenDeGasto\": 1,\r\n    \"codigo\": \"string2\",\r\n    \"nombre\": \"string2\",\r\n    \"activo\": true\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/api/OrigenDeGasto/Modificar/1",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"OrigenDeGasto",
+								"Modificar",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "api/OrigenDeGasto/Eliminar",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"pm.environment.get(\"url\");"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/api/OrigenDeGasto/Eliminar/1",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"OrigenDeGasto",
+								"Eliminar",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "6-EmpresaDeGasto",
+			"item": [
+				{
+					"name": "api/EmpresaDeGasto/Listar",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"pm.environment.get(\"url\");"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/api/EmpresaDeGasto/Listar?PaginaActual=1&RegistrosPorPagina=20&estados=2",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"EmpresaDeGasto",
+								"Listar"
+							],
+							"query": [
+								{
+									"key": "PaginaActual",
+									"value": "1"
+								},
+								{
+									"key": "RegistrosPorPagina",
+									"value": "20"
+								},
+								{
+									"key": "estados",
+									"value": "2"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "api/EmpresaDeGasto/Obtener",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"pm.environment.get(\"url\");"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/api/EmpresaDeGasto/Obtener/1/2",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"EmpresaDeGasto",
+								"Obtener",
+								"1",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "api/EmpresaDeGasto/Insertar",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"pm.environment.get(\"url\");"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"idEmpresaDeGasto\": 0,\r\n  \"codigo\": \"string1\",\r\n  \"nombre\": \"string1\",\r\n  \"activo\": false\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/api/EmpresaDeGasto/Insertar",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"EmpresaDeGasto",
+								"Insertar"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "api/EmpresaDeGasto/Modificar",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"pm.environment.get(\"url\");"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"idEmpresaDeGasto\": 1,\r\n    \"codigo\": \"string2\",\r\n    \"nombre\": \"string2\",\r\n    \"activo\": false\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/api/EmpresaDeGasto/Modificar/1",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"EmpresaDeGasto",
+								"Modificar",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "api/EmpresaDeGasto/Eliminar",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"pm.environment.get(\"url\");"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/api/EmpresaDeGasto/Eliminar/1",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"EmpresaDeGasto",
+								"Eliminar",
+								"1"
 							]
 						}
 					},
