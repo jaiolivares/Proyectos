@@ -1,0 +1,75 @@
+@import "./variables";
+@import "./iniciales";
+
+.contenedor {
+  width: 99%;
+  margin: 0 auto;
+}
+
+.contenedor .contenedorHeader {
+  display: grid;
+  //grid-gap: 20px;
+  grid-template-columns: 80% 1fr;
+  grid-template-areas: "header imagen";
+}
+
+.contenedor .contenedorContenido {
+  display: grid;
+  grid-gap: 20px;
+  grid-template-columns: 20% 1fr;
+  grid-template-areas: "contenidoIzquierda contenidoDerecha";
+}
+
+.contenedor .contenedorHeader header {
+  grid-area: header;
+  //margin-left: 20px;
+}
+
+.contenedor .contenedorHeader img {
+  grid-area: imagen;
+  width: 150px;
+  height: auto;
+  border-radius: 30%;
+}
+
+.contenedor .contenedorContenido .contenidoIzquierda {
+  grid-area: contenidoIzquierda;
+}
+
+.contenedor .contenedorContenido .contenidoDerecha {
+  grid-area: contenidoDerecha;
+}
+
+.contenedor .contenedorContenido .contenidoIzquierda section {
+  margin-bottom: 10px;
+}
+
+.contenedor .contenedorContenido h4 {
+  background-color: $etiquetas;
+  margin-bottom: 2px;
+}
+
+.contenedor .contenedorContenido .contenidoIzquierda .elementosLi {
+  font-weight: 600;
+  list-style: disc;
+  margin-left: 20px;
+}
+
+.contenedor .contenedorContenido .contenidoDerecha ul,
+.contenedor .contenedorContenido .contenidoDerecha li {
+  display: inline;
+}
+
+.contenedor .contenedorContenido .contenidoDerecha ul > li {
+  background: lightcoral;
+  border-radius: 20px;
+  padding: 0px 5px;
+}
+
+// ul, li {
+//   background: lightcoral;
+//   border-radius: 20px;
+//   padding: 2px;
+//   margin: 5px;
+//   display: inline;
+// }
