@@ -2,34 +2,36 @@
 @import "./iniciales";
 
 .contenedor {
-  width: 99%;
-  margin: 0 auto;
+  width: 99.5%;
+  margin: 0px auto;
 }
 
 .contenedor .contenedorHeader {
+  background: $contenedorHeader;
   display: grid;
-  //grid-gap: 20px;
   grid-template-columns: 80% 1fr;
   grid-template-areas: "header imagen";
+  margin-bottom: 0px;
 }
 
 .contenedor .contenedorContenido {
   display: grid;
-  grid-gap: 20px;
-  grid-template-columns: 20% 1fr;
+  grid-gap: 10px;
+  grid-template-columns: 25% 1fr;
   grid-template-areas: "contenidoIzquierda contenidoDerecha";
 }
 
 .contenedor .contenedorHeader header {
   grid-area: header;
-  //margin-left: 20px;
+  padding: 10px 0 0 20px;
 }
 
 .contenedor .contenedorHeader img {
   grid-area: imagen;
-  width: 150px;
+  width: 110px;
   height: auto;
-  border-radius: 30%;
+  border-radius: 50%;
+  box-shadow: 0px 0px 10px 1px gray;
 }
 
 .contenedor .contenedorContenido .contenidoIzquierda {
@@ -46,7 +48,8 @@
 
 .contenedor .contenedorContenido h4 {
   background-color: $etiquetas;
-  margin-bottom: 2px;
+  margin: 7px 0;
+  padding: 5px 5px;
 }
 
 .contenedor .contenedorContenido .contenidoIzquierda .elementosLi {
@@ -55,21 +58,30 @@
   margin-left: 20px;
 }
 
+.contenedor
+  .contenedorContenido
+  .contenidoIzquierda
+  .habilidadesTecnicas
+  > ul
+  > li {
+  margin-top: 5px;
+}
+
+.contenedor .contenedorContenido .contenidoDerecha section {
+  max-width: 1000px;
+}
+
 .contenedor .contenedorContenido .contenidoDerecha ul,
 .contenedor .contenedorContenido .contenidoDerecha li {
   display: inline;
 }
 
 .contenedor .contenedorContenido .contenidoDerecha ul > li {
-  background: lightcoral;
+  background: #e7f0f8;
   border-radius: 20px;
-  padding: 0px 5px;
+  padding: 2px 10px;
 }
 
-// ul, li {
-//   background: lightcoral;
-//   border-radius: 20px;
-//   padding: 2px;
-//   margin: 5px;
-//   display: inline;
-// }
+.contenedor .contenedorContenido .contenidoDerecha ul {
+  line-height: 17px;
+}

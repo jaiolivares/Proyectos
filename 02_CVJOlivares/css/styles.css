@@ -1,40 +1,44 @@
 * {
   margin: 0px;
   padding: 0px;
-  font-size: 10px;
 }
 
 body {
+  font-size: 10px;
   font-family: Verdana, Geneva, Tahoma, sans-serif;
+  background: #f2f7fb;
 }
 
 h1 {
-  color: green;
-  font-size: 16px;
+  color: #262c40;
+  font-size: 30px;
+  margin-bottom: 5px;
 }
 
 h2 {
-  color: blue;
-  font-size: 14px;
+  color: #1a6570;
+  font-size: 20px;
+  margin-bottom: 10px;
 }
 
 h3 {
-  color: red;
-  font-size: 11px;
+  color: #1a6570;
+  font-size: 12px;
+  margin-bottom: 5px;
 }
 
 h4 {
-  color: rgb(209, 14, 183);
-  font-size: 10px;
+  color: #262c40;
+  font-size: 11px;
 }
 
 h5 {
-  color: brown;
-  font-size: 10px;
+  color: #262c40;
+  font-size: 11px;
 }
 
 h6 {
-  color: grey;
+  color: #7c8685;
   font-size: 10px;
 }
 
@@ -50,33 +54,42 @@ hr {
   margin: 10px 0px;
 }
 
+p {
+  line-height: 18px;
+  margin: 5px 0;
+}
+
 .contenedor {
-  width: 99%;
-  margin: 0 auto;
+  width: 99.5%;
+  margin: 0px auto;
 }
 
 .contenedor .contenedorHeader {
+  background: #d3e2f2;
   display: grid;
   grid-template-columns: 80% 1fr;
   grid-template-areas: "header imagen";
+  margin-bottom: 0px;
 }
 
 .contenedor .contenedorContenido {
   display: grid;
-  grid-gap: 20px;
-  grid-template-columns: 20% 1fr;
+  grid-gap: 10px;
+  grid-template-columns: 25% 1fr;
   grid-template-areas: "contenidoIzquierda contenidoDerecha";
 }
 
 .contenedor .contenedorHeader header {
   grid-area: header;
+  padding: 10px 0 0 20px;
 }
 
 .contenedor .contenedorHeader img {
   grid-area: imagen;
-  width: 150px;
+  width: 110px;
   height: auto;
-  border-radius: 30%;
+  border-radius: 50%;
+  box-shadow: 0px 0px 10px 1px gray;
 }
 
 .contenedor .contenedorContenido .contenidoIzquierda {
@@ -92,8 +105,9 @@ hr {
 }
 
 .contenedor .contenedorContenido h4 {
-  background-color: orange;
-  margin-bottom: 2px;
+  background-color: #d3e2f2;
+  margin: 7px 0;
+  padding: 5px 5px;
 }
 
 .contenedor .contenedorContenido .contenidoIzquierda .elementosLi {
@@ -102,13 +116,25 @@ hr {
   margin-left: 20px;
 }
 
+.contenedor .contenedorContenido .contenidoIzquierda .habilidadesTecnicas > ul > li {
+  margin-top: 5px;
+}
+
+.contenedor .contenedorContenido .contenidoDerecha section {
+  max-width: 1000px;
+}
+
 .contenedor .contenedorContenido .contenidoDerecha ul,
 .contenedor .contenedorContenido .contenidoDerecha li {
   display: inline;
 }
 
 .contenedor .contenedorContenido .contenidoDerecha ul > li {
-  background: lightcoral;
+  background: #e7f0f8;
   border-radius: 20px;
-  padding: 0px 5px;
+  padding: 2px 10px;
+}
+
+.contenedor .contenedorContenido .contenidoDerecha ul {
+  line-height: 17px;
 }/*# sourceMappingURL=styles.css.map */
