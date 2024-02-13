@@ -1,0 +1,3 @@
+Diseño: Vertical
+Activar: Gráficos en segundo plano (para imprimir estilos css)
+Escala Personalizada: 106
