@@ -1,0 +1,6 @@
+namespace WebPaginaUnica.Areas.HelpPage.ModelDescriptions
+{
+    public class SimpleTypeModelDescription : ModelDescription
+    {
+    }
+}
