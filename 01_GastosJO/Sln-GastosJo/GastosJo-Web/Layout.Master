@@ -16,8 +16,8 @@
 
             <nav>
 
-                <a href="/Acceso/Acceso.aspx">Acceso WF</a>
-                <a href="/Acceso/Acceso.html">Acceso HTML</a>
+                <a href="/Acceso/Acceso.aspx">Acceso</a>
+                <a href="/Bancos/Bancos.html">Bancos</a>
 
             </nav>
 

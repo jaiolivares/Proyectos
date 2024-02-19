@@ -9,14 +9,25 @@
 
         <table>
             <thead>
-                <th>Nombre</th>
-                <th>Activo</th>
-                <th>Opciones</th>
+                <tr>
+                    <th>Nombre</th>
+                    <th>Activo</th>
+                    <th>Opciones</th>
+                </tr>
             </thead>
             <tbody>
-                <td></td>
+                <tr>
+                    <td>aaa</td>
+                    <td>bbb</td>
+                    <td>ccc</td>
+                </tr>
+                <tr>
+                    <td>aaa</td>
+                    <td>bbb</td>
+                    <td>ccc</td>
+                </tr>
             </tbody>
-            <
+            
         </table>
 
     </div>
