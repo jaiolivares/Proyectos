@@ -6,6 +6,7 @@ namespace GastosJo_Api.Models
     public class CuentaBancaria
     {
         [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int IdCuentaBancaria { get; set; }
 
         [ForeignKey("IdBanco")]

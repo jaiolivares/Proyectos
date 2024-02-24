@@ -8,27 +8,32 @@
     <title></title>
     <asp:ContentPlaceHolder ID="head" runat="server">
     </asp:ContentPlaceHolder>
+    <link rel="stylesheet" type="text/css" media="all" href="Layout.css" />
 </head>
 <body>
     <form id="form1" runat="server">
-        <header>
-            <h1>Header</h1>
-
-            <nav>
-
-                <a href="/Acceso/Acceso.aspx">Acceso</a>
-                <a href="/Bancos/Bancos.html">Bancos</a>
-
-            </nav>
-
-        </header>
+        
         <div id="contenedor">
+            
+            <header>
+                <h1>Header</h1>
+
+                <nav>
+                    <a href="/Bancos/Bancos.aspx">Bancos</a>
+                    <a href="/Acceso/Acceso.aspx">Acceso</a>
+                </nav>
+
+            </header>
+        
             <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
             </asp:ContentPlaceHolder>
+
+            <footer>
+                <h5>Footer</h5>
+            </footer>
+
         </div>
-        <footer>
-            <h5>Footer</h5>
-        </footer>
+
     </form>
 </body>
 </html>

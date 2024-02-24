@@ -1,0 +1,23 @@
+﻿* {
+  margin: 0px;
+  padding: 0px;
+}
+
+body {
+  background: #ebf1ff;
+}
+
+.mensajeError {
+  color: red;
+  font-weight: 600;
+}
+
+#contenedor {
+  display: grid;
+  margin: 0 auto;
+  width: 90%;
+  max-width: 1000px;
+  /*min-width: 700px;*/
+  height: 100%;
+  background: blue;
+}

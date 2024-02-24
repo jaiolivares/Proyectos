@@ -1,0 +1,13 @@
+﻿* {
+  margin: 0px;
+  padding: 0px;
+}
+
+body {
+  background: #ebf1ff;
+}
+
+.mensajeError {
+  color: red;
+  font-weight: 600;
+}

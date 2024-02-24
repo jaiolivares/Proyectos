@@ -1,0 +1,21 @@
+﻿@import "../Css/_variables.scss";
+@import "../Css/_comunes.scss";
+
+body {
+    background-image: url(../Imagen/codigoFuente.jpg);
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+    height: 100vh;
+    width: 100%;
+}
+
+#contenedorAcceso {
+    display: grid;
+    max-width: 600px;
+    min-width: 400px;
+    margin: 0 auto;
+    grid-gap: 20px;
+    background: $body;
+    padding: 60px;
+}

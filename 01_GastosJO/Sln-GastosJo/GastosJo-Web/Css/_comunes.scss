@@ -1,0 +1,15 @@
+﻿@import "../css/_variables.scss";
+
+* {
+    margin: 0px;
+    padding: 0px;
+}
+
+body {
+    background: $body;
+}
+
+.mensajeError {
+    color: $rojo;
+    font-weight: 600;
+}

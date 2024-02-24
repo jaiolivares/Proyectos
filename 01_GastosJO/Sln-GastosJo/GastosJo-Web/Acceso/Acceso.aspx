@@ -1,21 +1,31 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Layout.Master" AutoEventWireup="true" CodeBehind="Acceso.aspx.cs" Inherits="GastosJo_Web.Acceso.Acceso" %>
-<%--<asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
-</asp:Content>--%>
-<asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Acceso.aspx.cs" Inherits="GastosJo_Web.Acceso.Acceso" %>
 
-    <div>
-        <h1>Acceso a la APP</h1>
+<!DOCTYPE html>
 
-        <label>Usuario</label>
-        <input type="text" name="usuario" placeholder="Usuario"/>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>Inicio de sesión</title>
+    <link rel="stylesheet" type="text/css" media="screen" href="Acceso.css" />
+</head>
+<body>
+    <form id="form1" runat="server">
 
-        <label>Contraseña</label>
-        <input type="password" name="password" placeholder="Contraseña" />
+        <header>
+            <h1>HEADER</h1>
+        </header>
 
-        <span id="mensajeError" class="mensajeError"></span>
+        <div id="contenedorAcceso">
+            
+            <input type="text" name="usuario" placeholder="Usuario" autofocus="autofocus"/>
 
-        <input type="button" title="Aceptar" name="Aceptar" />
+            <input type="password" name="password" placeholder="Contraseña" />
 
-    </div>
+            <span id="mensajeError" class="mensajeError">E R R O R</span>
 
-</asp:Content>
+            <input type="button" title="Aceptar" name="Aceptar" value="Aceptar" />
+        
+        </div>
+    </form>
+</body>
+</html>

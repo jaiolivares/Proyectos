@@ -67,20 +67,28 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Acceso\Acceso.aspx" />
+    <None Include="Acceso\Acceso.scss" />
+    <Content Include="Acceso\Acceso.css">
+      <DependentUpon>Acceso.scss</DependentUpon>
+    </Content>
     <Content Include="Bancos\Bancos.aspx" />
+    <Content Include="Css\_comunes.css">
+      <DependentUpon>_comunes.scss</DependentUpon>
+    </Content>
+    <Content Include="Css\_variables.css">
+      <DependentUpon>_variables.scss</DependentUpon>
+    </Content>
     <Content Include="Global.asax" />
-    <Content Include="Index\Index.aspx" />
+    <Content Include="Css\_comunes.scss" />
+    <None Include="Layout\Layout.scss" />
+    <Content Include="Acceso\Acceso.aspx" />
+    <Content Include="Imagen\codigoFuente.jpg" />
+    <Content Include="Layout\Layout.css">
+      <DependentUpon>Layout.scss</DependentUpon>
+    </Content>
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Acceso\Acceso.aspx.cs">
-      <DependentUpon>Acceso.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Acceso\Acceso.aspx.designer.cs">
-      <DependentUpon>Acceso.aspx</DependentUpon>
-    </Compile>
     <Compile Include="Bancos\Bancos.aspx.cs">
       <DependentUpon>Bancos.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -91,24 +99,29 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Index\Index.aspx.cs">
-      <DependentUpon>Index.aspx</DependentUpon>
+    <Compile Include="Acceso\Acceso.aspx.cs">
+      <DependentUpon>Acceso.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Index\Index.aspx.designer.cs">
-      <DependentUpon>Index.aspx</DependentUpon>
+    <Compile Include="Acceso\Acceso.aspx.designer.cs">
+      <DependentUpon>Acceso.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Layout.Master.cs">
+    <Compile Include="Layout\Layout.Master.cs">
       <DependentUpon>Layout.Master</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Layout.Master.designer.cs">
+    <Compile Include="Layout\Layout.Master.designer.cs">
       <DependentUpon>Layout.Master</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Layout.Master" />
+    <Content Include="Layout\Layout.Master" />
+    <Content Include="Css\_variables.scss" />
+    <None Include="compilerconfig.json" />
+    <None Include="compilerconfig.json.defaults">
+      <DependentUpon>compilerconfig.json</DependentUpon>
+    </None>
     <None Include="packages.config" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
