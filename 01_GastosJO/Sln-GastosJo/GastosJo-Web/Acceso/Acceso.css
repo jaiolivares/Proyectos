@@ -12,6 +12,22 @@ body {
   font-weight: 600;
 }
 
+.textbox {
+  font-size: 20px;
+  padding: 5px 0;
+  width: 100%;
+  background: #FFFFFF;
+  color: #000000;
+  border: 1px solid #DDDDDD;
+  border-radius: 10px;
+  box-shadow: 0px 0px 25px 2px #E2E2E2;
+  transition: 0.3s ease;
+}
+
+.input::placeholder {
+  color: #2e66e2;
+}
+
 body {
   background-image: url(../Imagen/codigoFuente.jpg);
   background-repeat: no-repeat;
