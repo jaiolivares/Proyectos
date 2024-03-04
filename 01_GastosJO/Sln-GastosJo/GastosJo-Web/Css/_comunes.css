@@ -1,6 +1,9 @@
-﻿* {
+﻿/*https://uicolors.app/create*/
+/*#0015ff*/
+* {
   margin: 0px;
   padding: 0px;
+  font-family: Verdana;
 }
 
 body {
@@ -8,86 +11,64 @@ body {
 }
 
 .mensajeError {
-  color: red;
+  color: #FF0000;
   font-weight: 600;
+  visibility: hidden;
+  width: 100%;
 }
 
-.divTextbox {
-  border: 1px solid grey;
-  border-radius: 10px;
-  box-shadow: 0px 0px 25px 2px #E2E2E2;
-  padding: 10px;
-  height: 1.5rem;
-  display: flex;
+.divTextboxConIcono {
   align-items: center;
+  display: flex;
+  position: relative;
 }
 
-.divTextbox .textbo .divTextbox {
-  background: red;
+.divTextboxConIcono .svgIcon {
+  fill: #0866ff;
+  height: 24px;
+  margin-left: 10px;
+  position: absolute;
+  width: 24px;
 }
 
-.divTextbox .textbox {
-  font-size: 20px;
-  /*padding: 5px 0;*/
-  /*width: 100%;*/
-  background: #FFFFFF;
-  color: #000000;
-  border: none;
-  /*    font-size: 20px;
-  padding: 5px 0;
-  width: 100%;
-  background: $blanco;
-  color: #000000;
-  border: 1px solid $bordeTextbox;
+.divTextboxConIcono .textbox {
+  border: 1px solid #808080;
   border-radius: 10px;
-  box-shadow: 0px 0px 25px 2px #E2E2E2;
-  transition: .3s ease;*/
+  box-shadow: 0px 0px 5px 1px #C0C0C0;
+  font-size: 20px;
   outline: none;
-  width: 90%;
-}
-
-/*
-.divTextbox .textbox:focus {
-    border: yellow solid 3px;
-}
-
-.divTextbox .textbox:focus-within {
-    border: yellow solid 3px;
-}
-
-.divTextbox .textbox:active {
-    border: yellow solid 3px;
-}
-*/
-/*.input::placeholder {
-    color: $bordeTextboxPlaceHolder;
-}*/
-.input-field {
-  height: 40px;
+  padding: 10px 10px 10px 40px;
   width: 100%;
-  background: #f0f4f5;
-  border-radius: 4px;
-  border: none;
-  font-family: "Montserrat-Regular";
-  font-size: 16px;
-  padding: 10px 38px 10px 48px;
-  color: #b7b7b7;
-  outline: none;
 }
 
-.css-input {
-  padding: 5px;
-  font-size: 16px;
-  border-width: 1px;
-  border-color: #CCCCCC;
-  background-color: #FFFFFF;
-  color: #000000;
-  border-style: solid;
-  border-radius: 0px;
-  box-shadow: 0px 0px 5px rgba(66, 66, 66, 0.75);
-  text-shadow: 0px 0px 5px rgba(66, 66, 66, 0.75);
+.divTextboxConIcono .textbox::selection {
+  background: #0866ff;
+  color: #FFFFFF;
 }
 
-.css-input:focus {
-  outline: none;
+.divTextboxConIcono .textbox:focus {
+  box-shadow: 0px 0px 5px 1px #0866ff;
+  transition: all 0.3s ease-in-out;
+}
+
+.divTextboxConIcono .textbox::placeholder {
+  color: #C0C0C0;
+}
+
+.buttonPrincipal {
+  background: #2f56ff;
+  color: #FFFFFF;
+  font-size: 20px;
+  border: #C0C0C0;
+  border-radius: 10px;
+  width: 100%;
+  margin: 0 auto;
+  /*align-content: center;*/
+}
+
+.buttonPrincipal:hover {
+  background: #0619cd;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+  /*opacity: 0.8;*/
 }
