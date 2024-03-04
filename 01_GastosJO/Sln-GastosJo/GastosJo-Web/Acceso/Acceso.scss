@@ -2,20 +2,56 @@
 @import "../Css/_comunes.scss";
 
 body {
-    background-image: url(../Imagen/codigoFuente.jpg);
-    background-repeat: no-repeat;
-    background-attachment: fixed;
-    background-size: cover;
-    height: 100vh;
-    width: 100%;
+    background: $body;
+    /*min-width: 500px;*/
 }
 
-#contenedorAcceso {
+#contenedor {
+    background: $blanco;
     display: grid;
-    max-width: 600px;
-    min-width: 400px;
-    margin: 0 auto;
-    grid-gap: 20px;
-    background: $body;
+    /*max-width: 100%;*/
+    /*min-width: 400px;*/
+    /*margin: 0 auto;*/
+    grid-gap: $gridGap20;
+    grid-template-columns: repeat(1, 1fr);
+    grid-template-rows: repeat(3, auto);
+    grid-template-areas: "header" "main" "footer";
+    height: $viewport100;
+}
+
+header {
+    grid-area: header;
+}
+
+main {
+    /*background: url(../Imagen/codigoFuente.jpg) no-repeat;*/
+    background-size: cover;
+    grid-area: main;
+    height: 600px;
+}
+
+#contenido {
+    background: $blanco;
+    box-shadow: 0px 0px 5px 2px grey; //rgba(0,0,0,0.2);
+    border-radius: 10px;
+    display: grid;
+    grid-gap: $gridGap20;
+    height: 400px;
+    margin: 40px auto;
     padding: 60px;
+    width: 400px;
+}
+
+#contenedor h1 {
+    text-align: center;
+}
+
+footer {
+    grid-area: footer;
+}
+
+.svg_icon {
+    width: 24px;
+    height: 24px;
+    margin-right: 10px;
 }
