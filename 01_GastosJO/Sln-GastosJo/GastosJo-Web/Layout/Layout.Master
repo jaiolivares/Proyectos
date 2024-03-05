@@ -16,11 +16,11 @@
         <div id="contenedor">
             
             <header>
-                <h1>Header</h1>
+                <h1>Header Layout</h1>
 
                 <nav>
                     <a href="/Bancos/Bancos.aspx">Bancos</a>
-                    <a href="/Acceso/Acceso.aspx">Acceso</a>
+                    <%--<a href="/Index/Index.aspx">Index</a>--%>
                 </nav>
 
             </header>
@@ -29,7 +29,7 @@
             </asp:ContentPlaceHolder>
 
             <footer>
-                <h5>Footer</h5>
+                <h1>Footer Layout</h1>
             </footer>
 
         </div>

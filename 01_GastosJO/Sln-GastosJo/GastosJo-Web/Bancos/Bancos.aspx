@@ -30,8 +30,8 @@
         </table>
         <label>Filas por hoja</label>
         <select id="">
-            <option value="valor1"></option>
-            <option value="valor2"></option>
+            <option value="valor1">valor1</option>
+            <option value="valor2">valor2</option>
         </select>
         <label id="paginador"></label>
 

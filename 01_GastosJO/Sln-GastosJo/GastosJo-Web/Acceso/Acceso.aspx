@@ -37,12 +37,22 @@
                         <svg xmlns="http://www.w3.org/2000/svg" class="svgIcon" viewBox="0 0 16 16">
                             <path d="M3.5 11.5a3.5 3.5 0 1 1 3.163-5H14L15.5 8 14 9.5l-1-1-1 1-1-1-1 1-1-1-1 1H6.663a3.5 3.5 0 0 1-3.163 2zM2.5 9a1 1 0 1 0 0-2 1 1 0 0 0 0 2z"></path>
                         </svg>
-                        <input class="textbox" type="password" name="password" placeholder="Contraseña" maxlength="20"/>
+                        <input id="txtPassword" class="textbox" type="password" name="password" placeholder="Contraseña" maxlength="20"/>
+                        <svg id="iconEyeMostrar" xmlns="http://www.w3.org/2000/svg" class="svgIcon iconEye" viewBox="0 0 16 16">
+                            <title>Mostrar contraseña</title>
+                            <path d="M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0z"></path>
+                            <path d="M0 8s3-5.5 8-5.5S16 8 16 8s-3 5.5-8 5.5S0 8 0 8zm8 3.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7z"></path>
+                        </svg>
+                        <svg id="iconEyeOcultar" xmlns="http://www.w3.org/2000/svg" class="svgIcon iconEye displayNone" viewBox="0 0 16 16">
+                            <title>Ocultar contraseña</title>
+                            <path d="m10.79 12.912-1.614-1.615a3.5 3.5 0 0 1-4.474-4.474l-2.06-2.06C.938 6.278 0 8 0 8s3 5.5 8 5.5a7.029 7.029 0 0 0 2.79-.588zM5.21 3.088A7.028 7.028 0 0 1 8 2.5c5 0 8 5.5 8 5.5s-.939 1.721-2.641 3.238l-2.062-2.062a3.5 3.5 0 0 0-4.474-4.474L5.21 3.089z"></path>
+                            <path d="M5.525 7.646a2.5 2.5 0 0 0 2.829 2.829l-2.83-2.829zm4.95.708-2.829-2.83a2.5 2.5 0 0 1 2.829 2.829zm3.171 6-12-12 .708-.708 12 12-.708.708z"></path>
+                        </svg>
                     </div>
             
                     <span id="mensajeError" class="mensajeError">E R R O R</span>
 
-                    <input class="buttonPrincipal" type="button" title="Iniciar sesión" name="Aceptar" value="Aceptar" />
+                    <input id="btnAceptar" class="buttonPrincipal" type="button" title="Iniciar sesión" name="Aceptar" value="Aceptar" />
                 
                 </div>
             
@@ -56,5 +66,8 @@
     </form>
 </body>
 </html>
+
+<script src="/JavaScript/jquery-4.0.0-beta.min.js"></script>
+<script src="Acceso.js"></script>
 
 <%--<link rel="stylesheet" type="text/css" media="screen" href="Acceso.css?v=<%=VersionCache%>" />--%>

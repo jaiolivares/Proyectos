@@ -19,6 +19,10 @@ body {
   width: 100%;
 }
 
+.displayNone {
+  display: none;
+}
+
 .divTextboxConIcono {
   align-items: center;
   display: flex;
@@ -26,7 +30,7 @@ body {
 }
 
 .divTextboxConIcono .svgIcon {
-  fill: #0866ff;
+  fill: #0866FF;
   height: 24px;
   margin-left: 10px;
   position: absolute;
@@ -44,12 +48,12 @@ body {
 }
 
 .divTextboxConIcono .textbox::selection {
-  background: #0866ff;
+  background: #0866FF;
   color: #FFFFFF;
 }
 
 .divTextboxConIcono .textbox:focus {
-  box-shadow: 0px 0px 5px 1px #0866ff;
+  box-shadow: 0px 0px 5px 1px #0866FF;
   transition: all 0.3s ease-in-out;
 }
 
@@ -58,21 +62,20 @@ body {
 }
 
 .buttonPrincipal {
-  background: #2f56ff;
-  color: #FFFFFF;
-  font-size: 20px;
+  background: #2F56FF;
   border: #C0C0C0;
   border-radius: 10px;
-  width: 100%;
+  color: #FFFFFF;
+  font-size: 20px;
   margin: 0 auto;
-  /*align-content: center;*/
+  padding: 10px 0px;
+  width: 100%;
 }
 
 .buttonPrincipal:hover {
-  background: #0619cd;
+  background: #0619CD;
   cursor: pointer;
   transition: all 0.3s ease-in-out;
-  /*opacity: 0.8;*/
 }
 
 body {
@@ -101,7 +104,7 @@ main {
   background: url(../Imagen/codigoFuente.jpg) no-repeat;
   background-size: cover;
   grid-area: main;
-  height: 600px;
+  height: 500px;
 }
 
 #contenido {
@@ -110,7 +113,7 @@ main {
   border-radius: 10px;
   display: grid;
   grid-gap: 20px;
-  height: 400px;
+  height: 300px;
   margin: 40px auto;
   padding: 60px;
   width: 400px;
@@ -122,4 +125,15 @@ main {
 
 footer {
   grid-area: footer;
+}
+
+.iconEye {
+  right: 10px;
+  opacity: 0.5;
+}
+
+.iconEye:hover {
+  cursor: pointer;
+  opacity: 1;
+  transition: all 0.3s ease-in-out;
 }

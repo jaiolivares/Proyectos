@@ -2,7 +2,7 @@
 @import "../Css/_comunes.scss";
 
 body {
-    background: $bodyFondo;
+    background: $bodyBackground;
     /*min-width: 500px;*/
 }
 
@@ -27,7 +27,7 @@ main {
     background: url(../Imagen/codigoFuente.jpg) no-repeat;
     background-size: cover;
     grid-area: main;
-    height: 600px;
+    height: 500px;
 }
 
 #contenido {
@@ -36,7 +36,7 @@ main {
     border-radius: 10px;
     display: grid;
     grid-gap: $gridGap20;
-    height: 400px;
+    height: 300px;
     margin: 40px auto;
     padding: 60px;
     width: 400px;
@@ -48,4 +48,15 @@ main {
 
 footer {
     grid-area: footer;
+}
+
+.iconEye {
+    right: 10px;
+    opacity: 0.5;
+}
+
+.iconEye:hover {
+    cursor: $cursorHand;
+    opacity: 1;
+    transition: $efectoFocus;
 }

@@ -71,6 +71,7 @@
     <Content Include="Acceso\Acceso.css">
       <DependentUpon>Acceso.scss</DependentUpon>
     </Content>
+    <Content Include="Acceso\Acceso.js" />
     <Content Include="Bancos\Bancos.aspx" />
     <Content Include="Css\_comunes.css">
       <DependentUpon>_comunes.scss</DependentUpon>
@@ -83,6 +84,9 @@
     <None Include="Layout\Layout.scss" />
     <Content Include="Acceso\Acceso.aspx" />
     <Content Include="Imagen\codigoFuente.jpg" />
+    <Content Include="Index\Index.aspx" />
+    <Content Include="JavaScript\jquery-4.0.0-beta.js" />
+    <Content Include="JavaScript\jquery-4.0.0-beta.min.js" />
     <Content Include="Layout\Layout.css">
       <DependentUpon>Layout.scss</DependentUpon>
     </Content>
@@ -105,6 +109,13 @@
     </Compile>
     <Compile Include="Acceso\Acceso.aspx.designer.cs">
       <DependentUpon>Acceso.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Index\Index.aspx.cs">
+      <DependentUpon>Index.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Index\Index.aspx.designer.cs">
+      <DependentUpon>Index.aspx</DependentUpon>
     </Compile>
     <Compile Include="Layout\Layout.Master.cs">
       <DependentUpon>Layout.Master</DependentUpon>

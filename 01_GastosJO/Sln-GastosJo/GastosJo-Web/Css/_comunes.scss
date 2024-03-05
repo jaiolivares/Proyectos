@@ -7,7 +7,7 @@
 }
 
 body {
-    background: $bodyFondo;
+    background: $bodyBackground;
 }
 
 .mensajeError {
@@ -17,6 +17,9 @@ body {
     width: 100%;
 }
 
+.displayNone {
+    display: none;
+}
 
 .divTextboxConIcono {
     align-items: center;
@@ -35,7 +38,7 @@ body {
 .divTextboxConIcono .textbox {
     border: $textboxBorder;
     border-radius: $borderRadius10;
-    box-shadow: $textboxSombra;
+    box-shadow: $textboxShadow;
     font-size: $textboxFontSize;
     outline: none;
     padding: 10px 10px 10px 40px;
@@ -43,14 +46,14 @@ body {
 }
 
 .divTextboxConIcono .textbox::selection {
-    background: $textboxSelectionFondo;
+    background: $textboxSelectionBackground;
     color: $textboxSelectionColor;
 }
 
 
 .divTextboxConIcono .textbox:focus {
-    box-shadow: $textboxSombraFocus;
-    transition: $efectoHover;
+    box-shadow: $textboxShadowFocus;
+    transition: $efectoFocus;
 }
 
 .divTextboxConIcono .textbox::placeholder {
@@ -58,19 +61,18 @@ body {
 }
 
 .buttonPrincipal {
-    background: #2f56ff;
-    color: $blanco;
-    font-size: 20px;
-    border: $contenidoBorder;
+    background: $buttonPrincipalBackground;
+    border: $buttonPrincipalBorder;
     border-radius: $borderRadius10;
-    width: 100%;
+    color: $blanco;
+    font-size: $buttonPrincipalFontSize;
     margin: 0 auto;
-    /*align-content: center;*/
+    padding: 10px 0px;
+    width: 100%;
 }
 
 .buttonPrincipal:hover {
-    background: #0619cd;
-    cursor: pointer;
-    transition: $efectoHover;
-    /*opacity: 0.8;*/
+    background: $buttonPrincipalBackgroundHover;
+    cursor: $cursorHand;
+    transition: $efectoFocus;
 }
