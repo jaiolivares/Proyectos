@@ -15,9 +15,10 @@ $gridGap20: 20px;
 $viewport100: 100vh;
 $cursorHand: pointer;
 
-$contenidoBorder: #C0C0C0;
+$contenidoBorder: 1px solid #C0C0C0;
 
 $textboxBorder: 1px solid #808080;
+$textboxBorderFocus: 1px solid $blanco;
 $textboxSelectionBackground: $colorFacebook;
 $textboxSelectionColor: $blanco;
 $textboxShadow: 0px 0px 5px 1px #C0C0C0;
@@ -27,5 +28,12 @@ $textboxFontSize: 20px;
 
 $buttonPrincipalBackground: #2F56FF;
 $buttonPrincipalBackgroundHover: #0619CD;
-$buttonPrincipalBorder: #C0C0C0;
+$buttonPrincipalBorder: 1px solid #0619CD;
+$buttonPrincipalBorderHover: 1px solid #2F56FF;
 $buttonPrincipalFontSize: 20px;
+
+$buttonNuevoBackground: #FB752A;
+$buttonNuevoBackgroundHover: #EA440C;
+$buttonNuevoBorder: 1px solid #EA440C;
+$buttonNuevoBorderHover: 1px solid #FB752A;
+$buttonNuevoFontSize: 20px;

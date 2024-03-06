@@ -1,9 +1,11 @@
 ﻿/*https://uicolors.app/create*/
 /*#0015ff*/
 * {
+  border: 0;
   margin: 0px;
   padding: 0px;
-  font-family: Verdana;
+  font-family: Verdana, Arial, Helvetica, sans-serif;
+  font-size: 14px;
 }
 
 body {
@@ -33,6 +35,7 @@ body {
   margin-left: 10px;
   position: absolute;
   width: 24px;
+  opacity: 0.5;
 }
 
 .divTextboxConIcono .textbox {
@@ -51,6 +54,7 @@ body {
 }
 
 .divTextboxConIcono .textbox:focus {
+  border: 1px solid #FFFFFF;
   box-shadow: 0px 0px 5px 1px #0866FF;
   transition: all 0.3s ease-in-out;
 }
@@ -61,17 +65,36 @@ body {
 
 .buttonPrincipal {
   background: #2F56FF;
-  border: #C0C0C0;
+  border: 1px solid #0619CD;
   border-radius: 10px;
   color: #FFFFFF;
   font-size: 20px;
-  margin: 0 auto;
   padding: 10px 0px;
-  width: 100%;
 }
 
 .buttonPrincipal:hover {
   background: #0619CD;
+  border: 1px solid #2F56FF;
   cursor: pointer;
   transition: all 0.3s ease-in-out;
+}
+
+.buttonNuevo {
+  background: #FB752A;
+  border: 1px solid #EA440C;
+  border-radius: 10px;
+  color: #FFFFFF;
+  font-size: 20px;
+  padding: 10px 0px;
+}
+
+.buttonNuevo:hover {
+  background: #EA440C;
+  border: 1px solid #FB752A;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+}
+
+table {
+  border-spacing: 0px;
 }

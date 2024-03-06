@@ -3,8 +3,8 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
 
-    <div>
+    <%--<div>--%>
         <h1>Index</h1>
-    </div>
+    <%--</div>--%>
 
 </asp:Content>

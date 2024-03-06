@@ -1,9 +1,11 @@
 ﻿@import "../css/_variables.scss";
 
 * {
+    border: 0;
     margin: 0px;
     padding: 0px;
-    font-family: Verdana;
+    font-family: Verdana, Arial, Helvetica, sans-serif;
+    font-size: 14px;
 }
 
 body {
@@ -33,6 +35,7 @@ body {
     margin-left: 10px;
     position: absolute;
     width: 24px;
+    opacity: 0.5;
 }
 
 .divTextboxConIcono .textbox {
@@ -52,6 +55,7 @@ body {
 
 
 .divTextboxConIcono .textbox:focus {
+    border: $textboxBorderFocus;
     box-shadow: $textboxShadowFocus;
     transition: $efectoFocus;
 }
@@ -66,13 +70,33 @@ body {
     border-radius: $borderRadius10;
     color: $blanco;
     font-size: $buttonPrincipalFontSize;
-    margin: 0 auto;
     padding: 10px 0px;
-    width: 100%;
 }
 
 .buttonPrincipal:hover {
     background: $buttonPrincipalBackgroundHover;
+    border: $buttonPrincipalBorderHover;
     cursor: $cursorHand;
     transition: $efectoFocus;
+}
+
+
+.buttonNuevo {
+    background: $buttonNuevoBackground;
+    border: $buttonNuevoBorder;
+    border-radius: $borderRadius10;
+    color: $blanco;
+    font-size: $buttonNuevoFontSize;
+    padding: 10px 0px;
+}
+
+.buttonNuevo:hover {
+    background: $buttonNuevoBackgroundHover;
+    border: $buttonNuevoBorderHover;
+    cursor: $cursorHand;
+    transition: $efectoFocus;
+}
+
+table {
+    border-spacing: 0px;
 }
