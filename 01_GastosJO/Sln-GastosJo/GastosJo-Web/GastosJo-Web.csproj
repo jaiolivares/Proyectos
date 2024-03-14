@@ -73,7 +73,11 @@
     </Content>
     <Content Include="Acceso\Acceso.js" />
     <Content Include="Bancos\Bancos.aspx" />
-    <Content Include="Bancos\Bancos.css" />
+    <None Include="Bancos\Bancos.scss" />
+    <Content Include="Bancos\Bancos.css">
+      <DependentUpon>Bancos.scss</DependentUpon>
+    </Content>
+    <Content Include="Bancos\Bancos.js" />
     <Content Include="Css\_comunes.css">
       <DependentUpon>_comunes.scss</DependentUpon>
     </Content>

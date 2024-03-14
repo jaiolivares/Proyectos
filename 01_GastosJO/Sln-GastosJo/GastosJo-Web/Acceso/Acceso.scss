@@ -6,8 +6,8 @@ body {
     /*min-width: 500px;*/
 }
 
-#contenedor {
-    background: $blanco;
+.contenedor {
+    background: $withe;
     display: grid;
     /*max-width: 100%;*/
     /*min-width: 400px;*/
@@ -24,31 +24,10 @@ header {
 }
 
 main {
-    background: url(../Imagen/codigoFuente.jpg) no-repeat;
-    background-size: cover;
+    /*background: url(../Imagen/codigoFuente.jpg) no-repeat;
+    background-size: cover;*/
     grid-area: main;
-    height: 500px;
-}
-
-#contenido {
-    background: $blanco;
-    box-shadow: 0px 0px 5px 2px $contenidoBorder;
-    border-radius: 10px;
-    display: grid;
-    grid-gap: $gridGap20;
     height: 300px;
-    margin: 40px auto;
-    padding: 60px;
-    width: 400px;
-}
-
-#contenedor h1 {
-    text-align: center;
-}
-
-.buttonPrincipal {
-    margin: 0 auto;
-    width: 100%;
 }
 
 footer {
@@ -57,10 +36,11 @@ footer {
 
 .iconEye {
     right: 10px;
-}
 
-.iconEye:hover {
-    cursor: $cursorHand;
-    opacity: 1;
-    transition: $efectoFocus;
+    &:hover {
+        cursor: $cursorHand;
+        opacity: 1;
+        transition: $efectoFocusHover;
+        fill: $blue5;
+    }
 }

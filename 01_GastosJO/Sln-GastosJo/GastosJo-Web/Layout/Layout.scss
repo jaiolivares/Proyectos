@@ -1,7 +1,7 @@
 ﻿@import "../Css/_variables.scss";
 @import "../Css/_comunes.scss";
 
-#contenedor {
+.contenedor {
     display: grid;
     margin: 0 auto;
     width: 90%;
@@ -11,26 +11,30 @@
     /*grid-template-columns: repeat(1, 1fr);
     grid-template-rows: repeat(3, auto);*/
     grid-template-areas: "header" "main" "footer";
-    height: $viewport100;
+    /*background-color: burlywood;*/
+    height: 100%; //$viewport100;
 }
 
 header {
     grid-area: header;
+    display: flex;
+    justify-content:space-between;
 }
 
-main {
+/*main {
     grid-area: main;
-    background: $blanco;
-    box-shadow: 0px 0px 5px 2px $contenidoBorder;
+    background: $withe;
+    box-shadow: 0px 0px 5px 2px $divContenidoBorder;
     border-radius: 10px;
     display: grid;
-    grid-gap: $gridGap20;
-    height: 300px;
-    margin: 40px auto;
+    grid-gap: $gridGap20;*/
+    /*height: 50vh;*/
+    /*margin: 40px auto;
     padding: 60px;
     width: 500px;
-    min-width: 400px;
-}
+    min-width: 400px;*/
+    /*background-color: rosybrown;*/
+/*}*/
 
 footer {
     grid-area: footer;
