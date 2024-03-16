@@ -11,5 +11,5 @@
 });
 
 $("#btnAceptar").on("click", function () {
-    location.href = "/Index/Index.aspx";
+    location.href = "/Index";
 });

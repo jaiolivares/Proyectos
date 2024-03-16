@@ -8,7 +8,7 @@
     <meta http-equiv="Program" content="no-cache" />
     <meta http-equiv="Expires" content="-1" />
     <title>Inicio de sesión</title>
-    <link rel="stylesheet" type="text/css" media="screen" href="Acceso.css" />
+    <link rel="stylesheet" type="text/css" media="screen" href="/Paginas/Acceso/Acceso.css" />
 </head>
 <body>
     <form id="form1" runat="server">
@@ -64,6 +64,7 @@
 </html>
 
 <script src="/JavaScript/jquery-4.0.0-beta.min.js"></script>
-<script src="Acceso.js"></script>
+<script src="/Paginas/Acceso/Acceso.js"></script>
+
 
 <%--<link rel="stylesheet" type="text/css" media="screen" href="Acceso.css?v=<%=VersionCache%>" />--%>
