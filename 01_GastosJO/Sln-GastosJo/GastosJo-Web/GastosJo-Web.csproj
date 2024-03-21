@@ -71,6 +71,11 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Paginas\Acceso\Acceso.scss" />
+    <Content Include="Css\jquery.modal-0.9.2.min.css" />
+    <Content Include="Imagen\favicon.png" />
+    <Content Include="JavaScript\handlebars-v4.7.8.js" />
+    <Content Include="JavaScript\jquery.modal-0.9.2.min.js" />
+    <Content Include="JavaScript\Util.js" />
     <Content Include="Paginas\Index\Index.aspx" />
     <Content Include="Paginas\Acceso\Acceso.css">
       <DependentUpon>Acceso.scss</DependentUpon>
@@ -94,7 +99,6 @@
     <None Include="Layout\Layout.scss" />
     <Content Include="Paginas\Acceso\Acceso.aspx" />
     <Content Include="Imagen\codigoFuente.jpg" />
-    <Content Include="JavaScript\jquery-4.0.0-beta.js" />
     <Content Include="JavaScript\jquery-4.0.0-beta.min.js" />
     <Content Include="Layout\Layout.css">
       <DependentUpon>Layout.scss</DependentUpon>
@@ -102,7 +106,9 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Util\Coder.cs" />
+    <Compile Include="Util\RouteConfig.cs" />
+    <Compile Include="Util\ValueWebConfig.cs" />
     <Compile Include="Paginas\Index\Index.aspx.cs">
       <DependentUpon>Index.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>

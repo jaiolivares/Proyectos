@@ -176,8 +176,8 @@ table {
     & {
         position: relative;
         display: inline-block;
-        width: 51px;
-        height: 29px;
+        width: 34px;
+        height: 20px;
 
         input {
             width: 0;
@@ -194,6 +194,7 @@ table {
         }
 
         .slider {
+            font-size: 9px;
             position: absolute;
             cursor: $cursor;
             top: 0;

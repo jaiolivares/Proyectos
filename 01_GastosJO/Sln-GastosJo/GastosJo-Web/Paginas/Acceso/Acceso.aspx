@@ -63,8 +63,7 @@
 </body>
 </html>
 
+<p>&copy; <%: DateTime.Now.Year %> - Mi aplicación ASP.NET</p>
+
 <script src="/JavaScript/jquery-4.0.0-beta.min.js"></script>
 <script src="/Paginas/Acceso/Acceso.js"></script>
-
-
-<%--<link rel="stylesheet" type="text/css" media="screen" href="Acceso.css?v=<%=VersionCache%>" />--%>

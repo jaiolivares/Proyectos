@@ -1,24 +1,8 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Layout/Layout.Master" AutoEventWireup="true" CodeBehind="Bancos.aspx.cs" Inherits="GastosJo_Web.Bancos.Bancos" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
-    <link rel="stylesheet" type="text/css" media="screen" href="Bancos.css" />
-
-
-
-    <!-- Remember to include jQuery :) -->
-    <%--<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0/jquery.min.js"></script>--%>
-
-    <%--<script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>--%>
-    <%--<script src="https://code.jquery.com/jquery-4.0.0-beta.min.js"></script>--%>
-
-
-    <%--<script src="/JavaScript/jquery-4.0.0-beta.min.js"></script>--%>
-
-    <!-- jQuery Modal -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.css" />
-
-
+    <link rel="stylesheet" type="text/css" media="screen" href="/Paginas/Bancos/Bancos.css" />
+    <script defer src="/Paginas/Bancos/Bancos.js"></script>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
 
@@ -54,37 +38,7 @@
                 <th>Opciones</th>
             </tr>
         </thead>
-        <tbody>
-            <tr>
-                <td>Banco Security<span>Security</span></td>
-                <td>
-                    <label class="switchOff">
-                        <input type="checkbox" disabled>
-                        <span class="slider"></span>
-                    </label>
-                </td>
-                <td>XXX</td>
-            </tr>
-            <tr>
-                <td>Banco Itau<span>Itau</span></td>
-                <td>
-                    <label class="switchOff">
-                        <input type="checkbox" disabled>
-                        <span class="slider"></span>
-                    </label>
-                </td>
-                <td>XXX</td>
-            </tr>
-            <tr>
-                <td>Banco Ripley<span>Ripley</span></td>
-                <td>
-                    <label class="switchOff">
-                        <input type="checkbox" disabled>
-                        <span class="slider"></span>
-                    </label>
-                </td>
-                <td>XXX</td>
-            </tr>
+        <tbody id="tbodyHbListaBanco">
         </tbody>
     </table>
 
@@ -92,7 +46,6 @@
         <label id="paginador1">1 de 50</label>
         <label id="paginador2"><< 1 - 2 - 3 - 4 >></label>
     </div>
-
 
     <div id="modalNuevoBanco" class="modal">
         <div class="modalNuevo">
@@ -126,31 +79,28 @@
         </div>
     </div>
 
-
-    <%--<p><a href="#ex1" rel="modal:open">Open Modal</a></p>--%>
-
-
-    <%--<a href="#login-form" rel="modal:open">Login</a>--%>
-
-    <%--    
-    <a href="#login-form">Login</a>
-
-
-<div id="login-form" class="modal">
-  ...
-</div>--%>
-
-
-    <%--<a href="#ex5" data-modal>Open a DOM element</a>
-<a href="ajax.html" data-modal>Open an AJAX modal</a>--%>
-
-
-    <%--</div>--%>
-
-
-
-    <script src="Bancos.js"></script>
-
+    #region plantillaListadaBanco
+    <script id="plantillaListadaBanco" type="text/x-handlebars-template">
+        {{#if this.length}}
+            {{#each this}}
+                <tr>
+                    <td>{{nombre}}<span>{{codigo}}</span></td>
+                    <td>
+                        <label class="switchOff">
+                            <input type="checkbox" disabled {{#if activo}} checked {{/if}}>
+                            <span class="slider"></span>
+                        </label>
+                    </td>
+                    <td>{{activo}}</td>
+                </tr>
+            {{/each}}
+        {{else}}
+            <tr>
+                <td>No hay data</td>
+            </tr>
+        {{/if}}
+    </script>
+    #endregion plantillaListadaBanco
 
 
 </asp:Content>

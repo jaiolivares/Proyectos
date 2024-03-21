@@ -1,0 +1,3 @@
+﻿function funVolverErr() {
+    history.back();
+}

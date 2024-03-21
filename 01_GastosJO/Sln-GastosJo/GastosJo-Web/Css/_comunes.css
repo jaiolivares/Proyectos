@@ -201,8 +201,8 @@ table td > span {
 .switchOn {
   position: relative;
   display: inline-block;
-  width: 51px;
-  height: 29px;
+  width: 34px;
+  height: 20px;
 }
 .switchOn input {
   width: 0;
@@ -216,6 +216,7 @@ table td > span {
   transform: translateX(1.6em);
 }
 .switchOn .slider {
+  font-size: 9px;
   position: absolute;
   cursor: pointer;
   top: 0;
@@ -244,8 +245,8 @@ table td > span {
 .switchOff {
   position: relative;
   display: inline-block;
-  width: 51px;
-  height: 29px;
+  width: 34px;
+  height: 20px;
 }
 .switchOff input {
   width: 0;
@@ -259,6 +260,7 @@ table td > span {
   transform: translateX(1.6em);
 }
 .switchOff .slider {
+  font-size: 9px;
   position: absolute;
   cursor: auto;
   top: 0;

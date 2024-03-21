@@ -1,4 +1,5 @@
-﻿using System;
+﻿using GastosJo_Web.App_Start;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -13,6 +14,7 @@ namespace GastosJo_Web
         protected void Application_Start(object sender, EventArgs e)
         {
             RouteConfig.RegisterRoutes(RouteTable.Routes);
+            ValueWebConfig.LeerWebConfig();
         }
 
         protected void Session_Start(object sender, EventArgs e)
