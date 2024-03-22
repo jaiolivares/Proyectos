@@ -1,14 +1,24 @@
 //$principal: #6374ae;
 
-$body: #f2f7fb;
-$contenedorHeader: #d3e2f2;
+$body: #ffffff;
+$contenedorHeader: linear-gradient(
+  90deg,
+  rgba(211, 226, 242, 1) 0%,
+  rgba(36, 127, 246, 1) 57%,
+  rgba(74, 89, 137, 1) 100%
+);
 
 $h1: #262c40;
-$h2: #1a6570;
-$h3: #1a6570;
-$h4: #262c40;
+$h2: darkblue;
+$h3: #993333;
+$h4: #ffffff;
 
 $h5: #262c40;
 $h6: #7c8685;
 
-$etiquetas: #d3e2f2;
+$etiquetas: linear-gradient(
+  90deg,
+  rgba(30, 103, 186, 1) 0%,
+  rgba(65, 98, 164, 1) 57%,
+  rgba(6, 38, 146, 1) 100%
+);
