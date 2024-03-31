@@ -1,5 +1,4 @@
-﻿
-$("#btnNuevo").on("click", function () {
+﻿$("#btnNuevo").on("click", function () {
     $("#modalNuevoBanco").modal({
         fadeDuration: 300,
         fadeDelay: 1,
@@ -9,26 +8,35 @@ $("#btnNuevo").on("click", function () {
     });
 });
 
+$(document).on("change keyup paste", "#txtBusquedaListadoBanco", function () {
+    let _texto = $(this).val().toLowerCase();
+    $("#tableListadoBanco > tbody > tr").filter(function () {
+        $(this).toggle($(this).text().toLowerCase().indexOf(_texto) > -1);
+    });
+});
+
 funCargarListadoBancos();
 
 function funCargarListadoBancos() {
 
-    var plantillaListadaBanco = document.getElementById("plantillaListadaBanco").innerHTML;
-    var plantillaCompiladaListadaBanco = Handlebars.compile(plantillaListadaBanco);
+    let plantillaListadaBanco = document.getElementById("plantillaListadaBanco").innerHTML;
+    let plantillaCompiladaListadaBanco = Handlebars.compile(plantillaListadaBanco);
 
-    var promise = AppUtil.AjaxCall({
+    let promise = AppUtil.AjaxCall({
         Metodo: "GET",
         Url: "http://localhost:809/api/Banco/Listar?PaginaActual=1&RegistrosPorPagina=22&estados=2",
         Callback: function (result) {
             debugger;
 
-            var newListadaBanco = plantillaCompiladaListadaBanco(result);
+            let newListadaBanco = plantillaCompiladaListadaBanco(result);
             $("#tbodyHbListaBanco").html(newListadaBanco);
         }
 
     });
     return promise;
-}
+};
+
+
 
 
 

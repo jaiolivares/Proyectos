@@ -135,6 +135,17 @@ table {
     }
 }
 
+@mixin svgIcon() {
+    fill: $blue3;
+    height: 24px;
+    margin-left: 10px;
+    width: 24px;
+}
+
+.svgIcon {
+    @include svgIcon();
+}
+
 @mixin divTextboxConIcono($varPadding) {
     & {
         align-items: center;
@@ -142,12 +153,16 @@ table {
         position: relative;
 
         .svgIcon {
+            @include svgIcon();
+            position: absolute;
+        }
+        /*.svgIcon {
             fill: $blue3;
             height: 24px;
             margin-left: 10px;
             position: absolute;
             width: 24px;
-        }
+        }*/
 
         @include textBox($varPadding);
     }

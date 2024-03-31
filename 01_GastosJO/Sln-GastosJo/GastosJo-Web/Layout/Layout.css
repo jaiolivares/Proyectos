@@ -104,6 +104,13 @@ table td > span {
   flex-direction: column;
 }
 
+.svgIcon {
+  fill: #85B2FF;
+  height: 24px;
+  margin-left: 10px;
+  width: 24px;
+}
+
 .divTextboxNormal {
   display: flex;
   flex-wrap: wrap;
@@ -134,13 +141,20 @@ table td > span {
   align-items: center;
   display: flex;
   position: relative;
+  /*.svgIcon {
+      fill: $blue3;
+      height: 24px;
+      margin-left: 10px;
+      position: absolute;
+      width: 24px;
+  }*/
 }
 .divTextboxConIconoIzq .svgIcon {
   fill: #85B2FF;
   height: 24px;
   margin-left: 10px;
-  position: absolute;
   width: 24px;
+  position: absolute;
 }
 .divTextboxConIconoIzq .textbox {
   border: 1px solid #C0C0C0;
@@ -168,13 +182,20 @@ table td > span {
   align-items: center;
   display: flex;
   position: relative;
+  /*.svgIcon {
+      fill: $blue3;
+      height: 24px;
+      margin-left: 10px;
+      position: absolute;
+      width: 24px;
+  }*/
 }
 .divTextboxConIconoDer .svgIcon {
   fill: #85B2FF;
   height: 24px;
   margin-left: 10px;
-  position: absolute;
   width: 24px;
+  position: absolute;
 }
 .divTextboxConIconoDer .textbox {
   border: 1px solid #C0C0C0;
