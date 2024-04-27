@@ -5,8 +5,6 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <meta http-equiv="Program" content="no-cache" />
-    <meta http-equiv="Expires" content="-1" />
     <title>Inicio de sesión</title>
     <link rel="stylesheet" type="text/css" media="screen" href="/Paginas/Acceso/Acceso.css" />
 </head>
