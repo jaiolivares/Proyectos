@@ -19,7 +19,7 @@ namespace BoletasDownload.Paginas
 
                 Thread.Sleep(1000);
 
-                //string tabOriginal = driver.CurrentWindowHandle;
+                string tabOriginal = driver.CurrentWindowHandle;
 
                 var inputRut = driver.FindElement(By.XPath("//input[contains(@formcontrolname,'rut')]"));
                 inputRut.SendKeys(pagina.Rut);
@@ -30,28 +30,36 @@ namespace BoletasDownload.Paginas
                 var btnIngresar = driver.FindElement(By.ClassName("bg-movistargreen-500"));
                 btnIngresar.Click();
 
-                //wait.Until(ExpectedConditions.ElementExists(By.Id("CL_Web_Personas_TH_wtPage_Wrapper_block_wtMainContent_CL_Web_Personas_CW_Dashboard_wt14_block_CL_Web_Personas_PAT_wt336_block_wtContent_wt58")));
-                //var btnVerDetalle = driver.FindElement(By.Id("CL_Web_Personas_TH_wtPage_Wrapper_block_wtMainContent_CL_Web_Personas_CW_Dashboard_wt14_block_CL_Web_Personas_PAT_wt336_block_wtContent_wt58"));
-                //btnVerDetalle.Click();
+                wait.Until(ExpectedConditions.ElementExists(By.Id("boletas-y-pagos")));
+                var btnBoletaFacturas = driver.FindElement(By.Id("boletas-y-pagos"));
+                btnBoletaFacturas.Click();
 
-                //wait.Until(ExpectedConditions.ElementExists(By.Id("CL_Web_Personas_TH_wt23_block_wtMainContent_CL_Web_Personas_CW_Billing_wt25_block_CustomSilkUI_wtDesktop2_block_wtContent_CL_Web_Personas_PAT_wt13_block_wtContent_CustomSilkUI_wt463_block_wtColumn2_wt287")));
-                //var btnVerBoleta = driver.FindElement(By.Id("CL_Web_Personas_TH_wt23_block_wtMainContent_CL_Web_Personas_CW_Billing_wt25_block_CustomSilkUI_wtDesktop2_block_wtContent_CL_Web_Personas_PAT_wt13_block_wtContent_CustomSilkUI_wt463_block_wtColumn2_wt287"));
-                //btnVerBoleta.Click();
+                wait.Until(ExpectedConditions.ElementExists(By.Id("boton-descargar-boleta-secundario")));
+                var btnDescargarBoleta = driver.FindElement(By.Id("boton-descargar-boleta-secundario"));
+                btnDescargarBoleta.Click();
 
-                //wait.Until(wd => wd.WindowHandles.Count == 2);
+                wait.Until(wd => wd.WindowHandles.Count == 2);
 
-                //foreach (string tab in driver.WindowHandles)
-                //{
-                //    if (tabOriginal != tab)
-                //    {
-                //        driver.SwitchTo().Window(tab);
-                //        break;
-                //    }
-                //}
+                foreach (string tab in driver.WindowHandles)
+                {
+                    if (tabOriginal != tab)
+                    {
+                        driver.SwitchTo().Window(tab);
+                        break;
+                    }
+                }
 
-                //wait.Until(ExpectedConditions.ElementExists(By.Id("b1-b7-Content")));
-                //var btnDownload = driver.FindElement(By.Id("b1-b7-Content"));
-                //btnDownload.Click();
+                Thread.Sleep(2000);
+
+                //((IJavaScriptExecutor)driver).ExecuteScript("window.stop();");
+                driver.FindElement(By.TagName("body")).SendKeys("Keys.ESCAPE");
+
+                //JavascriptExecutor js = (JavascriptExecutor)driver;
+                //js.executeScript("return window.stop");
+
+                wait.Until(ExpectedConditions.ElementExists(By.Id("formId:j_idt19")));
+                var btnDownload = driver.FindElement(By.Id("formId:j_idt19"));
+                btnDownload.Click();
 
                 Thread.Sleep(5000);
             }
