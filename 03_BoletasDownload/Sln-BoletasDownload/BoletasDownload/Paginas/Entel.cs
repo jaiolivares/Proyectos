@@ -56,7 +56,7 @@ namespace BoletasDownload.Paginas
                 var btnDownload = driver.FindElement(By.Id("b1-b7-Content"));
                 btnDownload.Click();
 
-                Thread.Sleep(5000);
+                Thread.Sleep(4000);
             }
             catch (Exception ex)
             {

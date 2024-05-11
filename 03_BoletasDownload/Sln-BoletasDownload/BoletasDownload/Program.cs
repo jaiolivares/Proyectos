@@ -11,7 +11,8 @@ public class Program
         List<Pagina> paginas = CargarAppSettings();
 
         //Entel.EjecutarEntel(paginas.FirstOrDefault(x => x.IdPagina == "entel"));
-        Movistar.EjecutarMovistar(paginas.FirstOrDefault(x => x.IdPagina == "movistar"));
+        //Movistar.EjecutarMovistar(paginas.FirstOrDefault(x => x.IdPagina == "movistar"));
+        Gtd.EjecutarGtd(paginas.FirstOrDefault(x => x.IdPagina == "gtd"));
     }
 
     private static List<Pagina> CargarAppSettings()
@@ -34,8 +35,13 @@ public class Program
         {
             IdPagina = "movistar",
             Url = paginasSeccion["movistar:url"],
-            Rut = paginasSeccion["entel:rut"],
             Clave = paginasSeccion["movistar:clave"],
+        });
+        paginas.Add(new Pagina()
+        {
+            IdPagina = "gtd",
+            Url = paginasSeccion["gtd:url"],
+            Clave = paginasSeccion["gtd:clave"],
         });
 
         return paginas;

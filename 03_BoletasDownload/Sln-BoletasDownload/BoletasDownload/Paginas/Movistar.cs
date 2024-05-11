@@ -1,6 +1,7 @@
 ﻿using BoletasDownload.Modelo;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
+using OpenQA.Selenium.Support.Extensions;
 using OpenQA.Selenium.Support.UI;
 using SeleniumExtras.WaitHelpers;
 
@@ -20,6 +21,14 @@ namespace BoletasDownload.Paginas
                 Thread.Sleep(1000);
 
                 string tabOriginal = driver.CurrentWindowHandle;
+
+                wait.Until(ExpectedConditions.ElementExists(By.ClassName("mimovistar")));
+                var btnMiMovistar = driver.FindElement(By.ClassName("mimovistar"));
+                btnMiMovistar.Click();
+
+                wait.Until(ExpectedConditions.ElementExists(By.ClassName("mvx-app_login")));
+                var btnIngresarMovistar = driver.FindElement(By.ClassName("mvx-app_login"));
+                btnIngresarMovistar.Click();
 
                 var inputRut = driver.FindElement(By.XPath("//input[contains(@formcontrolname,'rut')]"));
                 inputRut.SendKeys(pagina.Rut);
@@ -51,17 +60,13 @@ namespace BoletasDownload.Paginas
 
                 Thread.Sleep(2000);
 
-                //((IJavaScriptExecutor)driver).ExecuteScript("window.stop();");
-                driver.FindElement(By.TagName("body")).SendKeys("Keys.ESCAPE");
-
-                //JavascriptExecutor js = (JavascriptExecutor)driver;
-                //js.executeScript("return window.stop");
+                //driver.ExecuteJavaScript("alert('ccc');");
 
                 wait.Until(ExpectedConditions.ElementExists(By.Id("formId:j_idt19")));
                 var btnDownload = driver.FindElement(By.Id("formId:j_idt19"));
                 btnDownload.Click();
 
-                Thread.Sleep(5000);
+                Thread.Sleep(4000);
             }
             catch (Exception ex)
             {
