@@ -1,0 +1,252 @@
+﻿@import "../css/_variables.scss";
+
+* {
+    border: 0;
+    font-family: Verdana, Arial, Helvetica, sans-serif;
+    font-size: 14px;
+    margin: 0px;
+    padding: 0px;
+    text-decoration: none;
+}
+
+body {
+    background: $bodyBackground;
+}
+
+.displayNone {
+    display: none;
+}
+
+.h1TituloPrincipal {
+    text-align: center;
+    //padding-block: 40px;
+}
+
+.mensajeError {
+    color: $red;
+    font-weight: $fontNegrita;
+    visibility: hidden;
+    width: 100%;
+}
+
+.divSpaceBetween {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+main {
+    background: $withe;
+    box-shadow: $mainShadow;
+    border-radius: $borderRadius10;
+    display: grid;
+    grid-gap: $gridGap20;
+    margin: 30px auto 30px;
+    padding: 60px;
+    width: 500px;
+}
+
+.buttonAceptar {
+    background: $buttonAceptarBackground;
+    border: $buttonAceptarBorder;
+    border-radius: $borderRadius10;
+    color: $withe;
+    font-size: $buttonAceptarFontSize;
+    padding: 10px 0px;
+
+    &:hover {
+        background: $buttonAceptarBackgroundHover;
+        border: $buttonAceptarBorderHover;
+        cursor: $cursorHand;
+        transition: $efectoFocusHover;
+    }
+
+    &:active {
+        transform: $transforScale;
+    }
+}
+
+.buttonNuevo {
+    background: $buttonNuevoBackground;
+    border: $buttonNuevoBorder;
+    border-radius: $borderRadius10;
+    color: $withe;
+    font-size: $buttonNuevoFontSize;
+    text-align: center;
+    padding: 10px 0px;
+
+    &:hover {
+        background: $buttonNuevoBackgroundHover;
+        border: $buttonNuevoBorderHover;
+        cursor: $cursorHand;
+        transition: $efectoFocusHover;
+    }
+
+    &:active {
+        transform: $transforScale;
+    }
+}
+
+table {
+    border-spacing: 0px;
+    /*padding: 20px;*/
+
+    th {
+        border-bottom: $tableBorderBottom;
+        text-align: left;
+        padding-block: 20px;
+    }
+
+    td {
+        border-bottom: $tableBorderBottom;
+        padding-block: 5px;
+    }
+
+    td > span {
+        display: flex;
+        flex-direction: column;
+    }
+}
+
+@mixin textBox($varPadding) {
+    .textbox {
+        border: $textboxBorder;
+        border-radius: $borderRadius10;
+        box-shadow: $textboxShadow;
+        font-size: $textboxFontSize;
+        outline: none;
+        padding: $varPadding;
+        width: 100%;
+
+        &:focus {
+            border: $textboxBorderFocus;
+            box-shadow: $textboxShadowFocus;
+            transition: $efectoFocusHover;
+        }
+
+        &::selection {
+            background: $textboxSelectionBackground;
+            color: $textboxSelectionColor;
+        }
+
+        &::placeholder {
+            color: $textboxPlaceHolder;
+        }
+    }
+}
+
+@mixin svgIcon() {
+    fill: $blue3;
+    height: 24px;
+    margin-left: 10px;
+    width: 24px;
+}
+
+.svgIcon {
+    @include svgIcon();
+}
+
+@mixin divTextboxConIcono($varPadding) {
+    & {
+        align-items: center;
+        display: flex;
+        position: relative;
+
+        .svgIcon {
+            @include svgIcon();
+            position: absolute;
+        }
+        /*.svgIcon {
+            fill: $blue3;
+            height: 24px;
+            margin-left: 10px;
+            position: absolute;
+            width: 24px;
+        }*/
+
+        @include textBox($varPadding);
+    }
+}
+
+.divTextboxNormal {
+    display: flex;
+    flex-wrap: wrap;
+
+    @include textBox(10px);
+}
+
+.divTextboxConIconoIzq {
+    @include divTextboxConIcono(10px 10px 10px 40px);
+}
+
+.divTextboxConIconoDer {
+    @include divTextboxConIcono(10px 40px 10px 10px);
+
+    svg {
+        right: 10px;
+    }
+}
+
+@mixin switch($cursor) {
+    & {
+        position: relative;
+        display: inline-block;
+        width: 34px;
+        height: 20px;
+
+        input {
+            width: 0;
+            height: 0;
+
+            &:checked + .slider {
+                background-color: #5fdd54;
+                border: 1px solid transparent;
+            }
+
+            &:checked + .slider:before {
+                transform: translateX(1.6em);
+            }
+        }
+
+        .slider {
+            font-size: 9px;
+            position: absolute;
+            cursor: $cursor;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0px;
+            background: #fff;
+            transition: .4s;
+            border-radius: 30px;
+            border: 1px solid #ccc;
+
+            &::before {
+                position: absolute;
+                content: "";
+                height: 1.9em;
+                width: 1.9em;
+                border-radius: 30px;
+                left: 1.2px;
+                top: 0.5px;
+                bottom: 0;
+                background-color: white;
+                box-shadow: 0 2px 5px #999999;
+                transition: .4s;
+            }
+        }
+    }
+}
+
+.switchOn {
+    @include switch(pointer);
+}
+
+.switchOff {
+    @include switch(auto);
+}
+
+.modalNuevo {
+    display: grid;
+    grid-gap: $gridGap20;
+}

@@ -7,8 +7,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GastosJo-Api", "GastosJo-Ap
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GastosJo-Web", "GastosJo-Web\GastosJo-Web.csproj", "{10F42398-A966-4120-BA3E-B92CBA96DE42}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebForms", "WebForms\WebForms.csproj", "{2D7FAB6C-0150-4A03-B19D-E4D542DFDB48}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -23,10 +21,6 @@ Global
 		{10F42398-A966-4120-BA3E-B92CBA96DE42}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{10F42398-A966-4120-BA3E-B92CBA96DE42}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{10F42398-A966-4120-BA3E-B92CBA96DE42}.Release|Any CPU.Build.0 = Release|Any CPU
-		{2D7FAB6C-0150-4A03-B19D-E4D542DFDB48}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{2D7FAB6C-0150-4A03-B19D-E4D542DFDB48}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{2D7FAB6C-0150-4A03-B19D-E4D542DFDB48}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{2D7FAB6C-0150-4A03-B19D-E4D542DFDB48}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

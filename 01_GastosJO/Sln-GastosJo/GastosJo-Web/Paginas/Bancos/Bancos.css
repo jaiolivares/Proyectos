@@ -1,0 +1,23 @@
+﻿.buttonNuevo {
+  justify-self: end;
+  width: 150px;
+}
+
+.divTextboxConIconoDer {
+  justify-content: flex-end;
+}
+.divTextboxConIconoDer .textbox {
+  width: 60% !important;
+  font-size: 12px !important;
+}
+
+.h1TituloPrincipal {
+  margin-block: 15px;
+}
+
+.divTextboxNormal {
+  flex-direction: column;
+}
+.divTextboxNormal .textbox {
+  width: 50% !important;
+}

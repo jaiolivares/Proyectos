@@ -1,0 +1,37 @@
+﻿[
+  {
+    "outputFile": "Css/_variables.css",
+    "inputFile": "Css/_variables.scss",
+    "minify": {
+      "enabled": false
+    }
+  },
+  {
+    "outputFile": "Css/_comunes.css",
+    "inputFile": "Css/_comunes.scss",
+    "minify": {
+      "enabled": false
+    }
+  },
+  {
+    "outputFile": "Acceso/Acceso.css",
+    "inputFile": "Acceso/Acceso.scss",
+    "minify": {
+      "enabled": false
+    }
+  },
+  {
+    "outputFile": "Layout/Layout.css",
+    "inputFile": "Layout/Layout.scss",
+    "minify": {
+      "enabled": false
+    }
+  },
+  {
+    "outputFile": "Bancos/Bancos.css",
+    "inputFile": "Bancos/Bancos.scss",
+    "minify": {
+      "enabled": false
+    }
+  }
+]

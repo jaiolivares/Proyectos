@@ -1,0 +1,46 @@
+﻿@import "../Css/_variables.scss";
+@import "../Css/_comunes.scss";
+
+body {
+    background: $bodyBackground;
+    /*min-width: 500px;*/
+}
+
+.contenedor {
+    background: $withe;
+    display: grid;
+    /*max-width: 100%;*/
+    /*min-width: 400px;*/
+    /*margin: 0 auto;*/
+    grid-gap: $gridGap20;
+    grid-template-columns: repeat(1, 1fr);
+    grid-template-rows: repeat(3, auto);
+    grid-template-areas: "header" "main" "footer";
+    height: $viewport100;
+}
+
+header {
+    grid-area: header;
+}
+
+main {
+    /*background: url(../Imagen/codigoFuente.jpg) no-repeat;
+    background-size: cover;*/
+    grid-area: main;
+    height: 300px;
+}
+
+footer {
+    grid-area: footer;
+}
+
+.iconEye {
+    right: 10px;
+
+    &:hover {
+        cursor: $cursorHand;
+        opacity: 1;
+        transition: $efectoFocusHover;
+        fill: $blue5;
+    }
+}

@@ -1,0 +1,56 @@
+﻿/*https://uicolors.app/create*/
+/*#0015ff*/
+
+$blue3: #85B2FF;
+$blue4: #5684FF;
+$blue5: #2F56FF;
+$blue6: #0C22FF;
+$blue7: #0015FF;
+$blue8: #0619CD;
+$blue9: #10229F;
+$blue10: #0A125C;
+
+$orange1: #FB752A;
+$orange2: #EA440C;
+
+$withe: #FFFFFF;
+$red: #FF0000;
+$silver: #C0C0C0;
+$gray: #808080;
+$colorFacebook: #0866FF;
+
+$borderRadius10: 10px;
+$efectoFocusHover: all 0.2s ease-in-out;
+$fontNegrita: 600;
+$gridGap20: 20px;
+$viewport100: 100vh;
+$cursorHand: pointer;
+$transforScale: scale(0.9);
+
+$bodyBackground: $withe;
+$contenedorBackground: blue; /**/
+
+$mainShadow: 0 0 9px 1px $silver;
+
+$textboxBorder: 1px solid $silver;
+$textboxBorderFocus: 1px solid $withe;
+$textboxSelectionBackground: $colorFacebook;
+$textboxSelectionColor: $withe;
+$textboxShadow: 0 0 9px 1px $silver;
+$textboxShadowFocus: 0 0 9px 1px $colorFacebook;
+$textboxPlaceHolder: $silver;
+$textboxFontSize: 20px;
+
+$buttonAceptarBackground: $blue5;
+$buttonAceptarBackgroundHover: $blue8;
+$buttonAceptarBorder: 1px solid $blue8;
+$buttonAceptarBorderHover: 1px solid $blue5;
+$buttonAceptarFontSize: 20px;
+
+$buttonNuevoBackground: $orange1;
+$buttonNuevoBackgroundHover: $orange2;
+$buttonNuevoBorder: 1px solid $orange2;
+$buttonNuevoBorderHover: 1px solid $orange1;
+$buttonNuevoFontSize: 20px;
+
+$tableBorderBottom: 1px solid $silver;
