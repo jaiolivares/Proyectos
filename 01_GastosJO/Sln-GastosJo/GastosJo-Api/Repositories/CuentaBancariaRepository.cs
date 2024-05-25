@@ -1,9 +1,9 @@
 ﻿using GastosJo_Api.Data;
-using GastosJo_Api.Interfaces;
 using GastosJo_Api.Models.Helpers;
 using GastosJo_Api.Models;
 using Microsoft.EntityFrameworkCore;
 using GastosJo_Api.Models.Dto;
+using GastosJo_Api.Interfaces.Repository;
 
 namespace GastosJo_Api.Repositories
 {

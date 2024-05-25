@@ -2,7 +2,7 @@
 using GastosJo_Api.Models;
 using GastosJo_Api.Models.Dto;
 
-namespace GastosJo_Api.Interfaces
+namespace GastosJo_Api.Interfaces.Repository
 {
     public interface ICuentaBancariaRepository
     {

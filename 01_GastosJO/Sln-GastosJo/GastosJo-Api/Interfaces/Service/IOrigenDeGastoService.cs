@@ -3,7 +3,7 @@ using GastosJo_Api.Models.Enums;
 using GastosJo_Api.Models.Helpers;
 using GastosJo_Api.Models.Dto;
 
-namespace GastosJo_Api.Interfaces
+namespace GastosJo_Api.Interfaces.Service
 {
     public interface IOrigenDeGastoService
     {

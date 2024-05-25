@@ -1,7 +1,7 @@
 ﻿using GastosJo_Api.Models.Helpers;
 using GastosJo_Api.Models;
 
-namespace GastosJo_Api.Interfaces
+namespace GastosJo_Api.Interfaces.Repository
 {
     public interface ITipoDeCuentaRepository
     {
