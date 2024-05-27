@@ -13,5 +13,6 @@ namespace GastosJo_Api.Data
         public DbSet<Models.TipoDeTransaccion> TiposDeTransaccion { get; set; } = default!;
         public DbSet<Models.OrigenDeGasto> OrigenesDeGastos { get; set; } = default!;
         public DbSet<Models.EmpresaDeGasto> EmpresasDeGastos { get; set; } = default!;
+        public DbSet<Models.Usuario> Usuarios { get; set; } = default!;
     }
 }

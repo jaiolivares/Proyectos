@@ -1,14 +1,16 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using GastosJo_Api.Models;
-using GastosJo_Api.Interfaces;
 using GastosJo_Api.Models.Helpers;
 using GastosJo_Api.Models.Enums;
 using GastosJo_Api.Models.Dto;
+using GastosJo_Api.Interfaces.Service;
+using Microsoft.AspNetCore.Authorization;
 
 namespace GastosJo_Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class TipoDeTransaccionController : ControllerBase
     {
         private readonly ITipoDeTransaccionService _tipoDeTransaccionService;

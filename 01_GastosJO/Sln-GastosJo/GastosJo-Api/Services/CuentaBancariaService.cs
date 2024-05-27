@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using GastosJo_Api.Interfaces;
+using GastosJo_Api.Interfaces.Repository;
 using GastosJo_Api.Models;
 using GastosJo_Api.Models.Dto;
 using GastosJo_Api.Models.Enums;
