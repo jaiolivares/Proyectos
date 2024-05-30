@@ -28,11 +28,7 @@ export class LoginComponent implements OnInit {
       this.myForm.patchValue({ usuario: this.usuarioInicial.codigoUsuario });
     }
   }
-
-  login(e: Event) {
-    // e.preventDefault();
-    console.log("click login");
-  }
+  
   login2(e: Event) {
     //e.preventDefault();
     console.log(this.myForm);
