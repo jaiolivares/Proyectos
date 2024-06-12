@@ -7,7 +7,7 @@ import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } 
   standalone: true,
   imports: [CommonModule, FormsModule, ReactiveFormsModule],
   templateUrl: "./login.component.html",
-  styleUrl: "./login.component.scss",
+  styleUrl: "./login.component.css",
 })
 export class LoginComponent implements OnInit {
   myForm: FormGroup;
@@ -28,7 +28,7 @@ export class LoginComponent implements OnInit {
       this.myForm.patchValue({ usuario: this.usuarioInicial.codigoUsuario });
     }
   }
-  
+
   login2(e: Event) {
     //e.preventDefault();
     console.log(this.myForm);

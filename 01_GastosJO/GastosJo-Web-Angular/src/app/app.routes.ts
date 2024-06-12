@@ -1,4 +1,3 @@
-// import { NgModule } from "@angular/core";
 import { Routes } from "@angular/router";
 import { HomeComponent } from "./home/home.component";
 import { BancosComponent } from "./bancos/bancos.component";
@@ -11,10 +10,3 @@ export const routes: Routes = [
   { path: "bancos", component: BancosComponent },
   { path: "**", redirectTo: "", pathMatch: "full" },
 ];
-
-// @NgModule({
-//     imports: [RouterModule.forRoot(routes)],
-//     exports: [RouterModule]
-// })
-
-// export class AppRoutingModulesss { }
