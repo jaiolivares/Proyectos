@@ -1,11 +1,13 @@
-<div style="background-color: red">
-  <div class="d-flex justify-content-end">
-    <button class="btn btn-primary">Agregar</button>
+<div>
+  <div class="d-flex justify-content-between">
+    <h3>Listado de Bancos</h3>
+    <div class="input-group">
+      <span class="input-group-text">-</span>
+      <input type="text" class="form-control" placeholder="Buscar" />
+    </div>
+    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalBancos" (click)="setAgregarModificar('Agregar')">Nuevo</button>
   </div>
-  <table class="table caption-top">
-    <caption>
-      Listado de Bancos
-    </caption>
+  <table class="table table-hover mt-sm-4">
     <thead>
       <tr>
         <th scope="col">Nombre</th>
@@ -17,7 +19,10 @@
       <tr>
         <td>Mark</td>
         <td>Otto</td>
-        <td>mdo</td>
+        <td>
+          <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#modalBancos" (click)="setAgregarModificar('Modificar')">Modificar</button>
+          <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#modalBancos" (click)="setAgregarModificar('Modificar')">Eliminar</button>
+        </td>
       </tr>
     </tbody>
   </table>
@@ -35,3 +40,5 @@
     </ul>
   </nav>
 </div>
+
+<app-bancos-modal [mensaje]="agregarModificar" />
