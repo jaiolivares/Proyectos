@@ -1,6 +1,6 @@
 import { Component } from "@angular/core";
 
-import { MaterialModule } from "../material.module";
+import { MaterialModule } from "../../shared/material.module";
 import { BancosModalComponent } from "./bancos-modal/bancos-modal.component";
 
 @Component({

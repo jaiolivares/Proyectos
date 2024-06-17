@@ -2,6 +2,8 @@ import { CommonModule } from "@angular/common";
 import { Component, OnInit } from "@angular/core";
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from "@angular/forms";
 
+import { FuncHasError } from "../../shared/utils";
+
 @Component({
   selector: "app-login",
   standalone: true,
@@ -34,7 +36,7 @@ export class LoginComponent implements OnInit {
     console.log(this.myForm);
   }
 
-  hasErrorFunct(controlName: string, errorType: string) {
-    return this.myForm.get(controlName)?.hasError(errorType) && this.myForm.get(controlName)?.touched;
+  hasError(controlName: string, errorType: string) {
+    return FuncHasError(this.myForm, controlName, errorType);
   }
 }

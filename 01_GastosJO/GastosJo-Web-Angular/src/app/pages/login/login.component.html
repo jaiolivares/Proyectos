@@ -1,0 +1,18 @@
+<h1>Acceso a la APP</h1>
+
+<form [formGroup]="myForm" (ngSubmit)="login2($event)">
+  <div class="form-group">
+    <label for="usuario">Usuario</label>
+    <input type="text" [ngClass]="{ 'is-invalid': hasError('usuario', 'required') || hasError('usuario', 'minlength') }" id="usuario" class="form-control" placeholder="Ingresa usuario" formControlName="usuario" />
+    <div class="text-danger" *ngIf="hasError('usuario', 'required')">Ingresa el usuario</div>
+    <div class="text-danger" *ngIf="hasError('usuario', 'minlength')">Formato de usuario inválido</div>
+  </div>
+  <div class="form-group">
+    <label for="password">Contraseña</label>
+    <input type="password" [ngClass]="{ 'is-invalid': hasError('password', 'required') || hasError('password', 'minlength') }" class="form-control" placeholder="Ingresa Contraseña" formControlName="password" />
+    <div class="text-danger" *ngIf="hasError('password', 'required')">Ingresa la contraseña</div>
+    <div class="text-danger" *ngIf="hasError('password', 'minlength')">Formato de contraseña inválido</div>
+  </div>
+  <div class="form-group form-check"></div>
+  <button type="submit" class="btn btn-primary" routerlink="/home">Aceptar</button>
+</form>
