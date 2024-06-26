@@ -6,7 +6,15 @@
       <mat-icon matSuffix>search</mat-icon>
       <input matInput placeholder="Ingresa dato" />
     </mat-form-field>
-    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalBancos" (click)="setAgregarModificar('Agregar')">Nuevo</button>
+    <button
+      type="button"
+      class="btn btn-primary"
+      data-bs-toggle="modal"
+      data-bs-target="#modalBancos"
+      (click)="setAgregarModificar('Agregar')"
+    >
+      Nuevo
+    </button>
   </div>
   <table class="table table-hover mt-sm-4">
     <thead>
@@ -21,8 +29,24 @@
         <td>Mark</td>
         <td>Otto</td>
         <td>
-          <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#modalBancos" (click)="setAgregarModificar('Modificar')">Modificar</button>
-          <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#modalBancos" (click)="setAgregarModificar('Modificar')">Eliminar</button>
+          <button
+            type="button"
+            class="btn btn-outline-primary"
+            data-bs-toggle="modal"
+            data-bs-target="#modalBancos"
+            (click)="setAgregarModificar('Modificar')"
+          >
+            Modificar
+          </button>
+          <button
+            type="button"
+            class="btn btn-outline-primary"
+            data-bs-toggle="modal"
+            data-bs-target="#modalBancos"
+            (click)="setAgregarModificar('Modificar')"
+          >
+            Eliminar
+          </button>
         </td>
       </tr>
     </tbody>
@@ -42,4 +66,7 @@
   </nav>
 </div>
 
-<app-bancos-modal [agregarModificarBanco]="agregarModificar" />
+<app-bancos-modal
+  [agregarModificarBanco]="agregarModificarBanco"
+  [nombreBanco]="nombreBanco"
+/>
