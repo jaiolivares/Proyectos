@@ -1,39 +1,18 @@
 <!-- Modal -->
-<div
-  class="modal fade"
-  id="modalBanco"
-  data-bs-backdrop="static"
-  data-bs-keyboard="false"
-  tabindex="-1"
-  aria-labelledby="modalBancoLabel"
-  aria-hidden="true"
->
+<div class="modal fade" id="modalBanco" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="modalBancoLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h1 class="modal-title fs-5" id="modalBancoLabel">
-          {{ agregarModificarBanco }} banco
-        </h1>
-        <button
-          type="button"
-          class="btn-close"
-          data-bs-dismiss="modal"
-          aria-label="Close"
-        ></button>
+        <h1 class="modal-title fs-5" id="modalBancoLabel">{{ agregarModificarBanco }} banco</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
         <form [formGroup]="formBanco" class="row g-3">
           <div class="col-md-12">
             <mat-form-field>
               <mat-label>Código</mat-label>
-              <input
-                type="text"
-                matInput
-                formControlName="codigo"
-                placeholder="A001"
-              />
-              @if (hasError('codigo','required') ||
-              hasError('codigo','minlength')){
+              <input type="text" matInput formControlName="codigo" placeholder="A001" />
+              @if (hasError('codigo','required') || hasError('codigo','minlength')){
               <mat-error>Ingresa un código válido</mat-error>
               }
             </mat-form-field>
@@ -41,68 +20,37 @@
           <div class="col-md-12">
             <mat-form-field>
               <mat-label>Nombre</mat-label>
-              <input
-                type="text"
-                matInput
-                formControlName="nombre"
-                placeholder="Banco de Chile"
-              />
-              @if (hasError('nombre','required') ||
-              hasError('nombre','minlength')){
+              <input type="text" matInput formControlName="nombre" placeholder="Banco de Chile" />
+              @if (hasError('nombre','required') || hasError('nombre','minlength')){
               <mat-error>Ingresa un nombre válido</mat-error>
               }
             </mat-form-field>
           </div>
           <div class="col-md-12">
             <p>
-              <mat-slide-toggle [(ngModel)]="isChecked"
-                >Slide me!</mat-slide-toggle
-              >
+              <mat-slide-toggle [(ngModel)]="isChecked">Slide me!</mat-slide-toggle>
             </p>
             <p>
-              <mat-slide-toggle labelPosition="before"
-                >...and slide me too!</mat-slide-toggle
-              >
+              <mat-slide-toggle labelPosition="before">...and slide me too!</mat-slide-toggle>
             </p>
-            <mat-slide-toggle [(ngModel)]="isChecked"
-              >Slide Toggle Checked: {{ isChecked }}</mat-slide-toggle
-            >
+            <mat-slide-toggle [(ngModel)]="isChecked">Slide Toggle Checked: {{ isChecked }}</mat-slide-toggle>
           </div>
         </form>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-          Cancelar
-        </button>
-        <button type="button" class="btn btn-primary" (click)="aceptar($event)">
-          Aceptar
-        </button>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+        <button type="button" class="btn btn-primary" (click)="aceptar($event)">Aceptar</button>
       </div>
     </div>
   </div>
 </div>
 
-<div
-  class="modal fade"
-  id="modalBancoEliminar"
-  data-bs-backdrop="static"
-  data-bs-keyboard="false"
-  tabindex="-1"
-  aria-labelledby="modalBancoEliminarLabel"
-  aria-hidden="true"
->
+<div class="modal fade" id="modalBancoEliminar" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="modalBancoEliminarLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h1 class="modal-title fs-5" id="modalBancoEliminarLabel">
-          <i class="bi bi-exclamation-triangle"></i> Eliminar usuario
-        </h1>
-        <button
-          type="button"
-          class="btn-close"
-          data-bs-dismiss="modal"
-          aria-label="Close"
-        ></button>
+        <h1 class="modal-title fs-5" id="modalBancoEliminarLabel"><i class="bi bi-exclamation-triangle"></i> Eliminar usuario</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
         <p>
@@ -112,22 +60,8 @@
         </p>
       </div>
       <div class="modal-footer">
-        <button
-          type="button"
-          class="btn btn-secondary"
-          data-bs-dismiss="modal"
-          (click)="funCancelarEliminar()"
-        >
-          Cancelar
-        </button>
-        <button
-          type="button"
-          class="btn btn-primary"
-          data-bs-dismiss="modal"
-          (click)="funAceptarEliminar()"
-        >
-          Aceptar
-        </button>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="funCancelarEliminar()">Cancelar</button>
+        <button type="button" class="btn btn-primary" data-bs-dismiss="modal" (click)="funAceptarEliminar()">Aceptar</button>
       </div>
     </div>
   </div>
