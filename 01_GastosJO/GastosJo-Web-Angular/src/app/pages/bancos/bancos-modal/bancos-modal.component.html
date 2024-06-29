@@ -1,9 +1,9 @@
 <!-- Modal -->
-<div class="modal fade" id="modalBanco" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="modalBancoLabel" aria-hidden="true">
+<div class="modal fade" id="modalBancos" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="modalBancosLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h1 class="modal-title fs-5" id="modalBancoLabel">{{ agregarModificarBanco }} banco</h1>
+        <h1 class="modal-title fs-5" id="modalBancosLabel">{{ agregarModificarBanco }} banco</h1>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
@@ -27,13 +27,7 @@
             </mat-form-field>
           </div>
           <div class="col-md-12">
-            <p>
-              <mat-slide-toggle [(ngModel)]="isChecked">Slide me!</mat-slide-toggle>
-            </p>
-            <p>
-              <mat-slide-toggle labelPosition="before">...and slide me too!</mat-slide-toggle>
-            </p>
-            <mat-slide-toggle [(ngModel)]="isChecked">Slide Toggle Checked: {{ isChecked }}</mat-slide-toggle>
+            <mat-slide-toggle [(ngModel)]="isChecked" [checked]="isChecked">Activo</mat-slide-toggle>
           </div>
         </form>
       </div>
@@ -49,7 +43,7 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h1 class="modal-title fs-5" id="modalBancoEliminarLabel"><i class="bi bi-exclamation-triangle"></i> Eliminar usuario</h1>
+        <h1 class="modal-title fs-5" id="modalBancoEliminarLabel"><i class="bi bi-exclamation-triangle"></i> Eliminar banco</h1>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
