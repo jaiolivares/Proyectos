@@ -1,10 +1,10 @@
 import { Component, Input, signal } from "@angular/core";
 import { FormBuilder, FormControl, FormGroup, FormGroupDirective, FormsModule, NgForm, ReactiveFormsModule, Validators } from "@angular/forms";
 import { ErrorStateMatcher } from "@angular/material/core";
+import { CommonModule } from "@angular/common";
 
 import { MaterialModule } from "../../../shared/material.module";
 import { FuncHasError } from "../../../shared/utils";
-import { CommonModule } from "@angular/common";
 
 @Component({
   selector: "app-bancos-modal",
