@@ -46,7 +46,7 @@ header {
   grid-area: header;
   background-color: white;
   color: rgb(109, 43, 75);
-  text-shadow: -1px 0 rgb(140, 140, 140), 0 1px rgb(140, 140, 140), 1px 0 rgb(140, 140, 140), 0 -1px rgb(140, 140, 140);
+  /* text-shadow: -1px 0 rgb(140, 140, 140), 0 1px rgb(140, 140, 140), 1px 0 rgb(140, 140, 140), 0 -1px rgb(140, 140, 140); */
   font-size: 40px;
   font-weight: 600;
   margin: 0 auto;
@@ -71,6 +71,11 @@ header {
     width: 200px;
     border-radius: 50%;
     border: 3px solid white;
+  }
+
+  .divPerfil > p {
+    font-size: 18px;
+    text-align: justify;
   }
 
   p,
