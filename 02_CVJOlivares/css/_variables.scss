@@ -10,15 +10,17 @@ $contenedorHeader: linear-gradient(
 
 $h1: #262c40;
 $h2: darkblue;
-$h3: #993333;
+$h3: #b52727;
 $h4: #ffffff;
 
 $h5: #262c40;
 $h6: #7c8685;
 
+$hr: rgba(65, 98, 164);
+
 $etiquetas: linear-gradient(
   90deg,
   rgba(30, 103, 186, 1) 0%,
   rgba(65, 98, 164, 1) 57%,
-  rgba(6, 38, 146, 1) 100%
+  rgb(20, 40, 105) 100%
 );

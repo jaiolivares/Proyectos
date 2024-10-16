@@ -22,7 +22,7 @@ h2 {
 }
 
 h3 {
-  color: #993333;
+  color: #b52727;
   font-size: 12px;
   margin-bottom: 5px;
 }
@@ -51,7 +51,8 @@ strong {
 }
 
 hr {
-  margin: 10px 0px;
+  margin: 5px 0px;
+  border: solid 1px rgb(65, 98, 164);
 }
 
 p {
@@ -105,7 +106,7 @@ p {
 }
 
 .contenedor .contenedorContenido h4 {
-  background: linear-gradient(90deg, rgb(30, 103, 186) 0%, rgb(65, 98, 164) 57%, rgb(6, 38, 146) 100%);
+  background: linear-gradient(90deg, rgb(30, 103, 186) 0%, rgb(65, 98, 164) 57%, rgb(20, 40, 105) 100%);
   margin: 7px 0;
   padding: 5px 5px;
 }
@@ -114,6 +115,7 @@ p {
   font-weight: 600;
   list-style: disc;
   margin-left: 20px;
+  line-height: 1.5;
 }
 
 .contenedor .contenedorContenido .contenidoIzquierda .habilidadesTecnicas > ul > li {
