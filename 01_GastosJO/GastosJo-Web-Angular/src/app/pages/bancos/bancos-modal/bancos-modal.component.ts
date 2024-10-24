@@ -23,6 +23,7 @@ export class BancosModalComponent {
 
   @Input() agregarModificarBanco: string = "";
   @Input() nombreBanco: string = "";
+  @Input()
 
   codigo: string = "";
   nombre: string = "";
@@ -34,6 +35,7 @@ export class BancosModalComponent {
     this.formBanco = this.form.group({
       codigo: ["", [Validators.required, Validators.minLength(3)]],
       nombre: ["", [Validators.required, Validators.minLength(3)]],
+      activo: "",
     });
   }
 
@@ -47,5 +49,5 @@ export class BancosModalComponent {
     console.log(this.formBanco);
 
     const modal = document.getElementById("modalBancos");
-  }
+  } 
 }
