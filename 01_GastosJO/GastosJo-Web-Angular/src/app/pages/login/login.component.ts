@@ -3,6 +3,7 @@ import { Component, OnInit } from "@angular/core";
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from "@angular/forms";
 
 import { FuncHasError } from "../../shared/utils";
+import { Config } from "../../environments/enviroment";
 
 @Component({
   selector: "app-login",
@@ -13,9 +14,8 @@ import { FuncHasError } from "../../shared/utils";
 })
 export class LoginComponent implements OnInit {
   myForm: FormGroup;
-  esDesarrollo: boolean = true;
 
-  usuarioInicial: any = { codigoUsuario: "jolivares", activo: true };
+  usuarioInicial: any = { codigoUsuario: "jolivares", password: "1234" };
 
   constructor(private form: FormBuilder) {
     this.myForm = this.form.group({
@@ -25,18 +25,23 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    // this.myForm.get("usuario")?.setValue(this.usuarioInicial);
-    if (this.esDesarrollo) {
-      this.myForm.patchValue({ usuario: this.usuarioInicial.codigoUsuario });
+    if (Config.esDesarrollo) {
+      this.myForm.patchValue({ usuario: this.usuarioInicial.codigoUsuario, password: this.usuarioInicial.password });
     }
   }
 
   login2(e: Event) {
     //e.preventDefault();
     console.log(this.myForm);
+    console.log(this.myForm.get("usuario")?.value);
   }
 
   hasError(controlName: string, errorType: string) {
     return FuncHasError(this.myForm, controlName, errorType);
   }
+
+  // validaIngreso() {
+  //   if (this.myForm.value.usuario.trim() !== "" && this.myForm.value.password.trim() !== "") {
+  //   }
+  // }
 }

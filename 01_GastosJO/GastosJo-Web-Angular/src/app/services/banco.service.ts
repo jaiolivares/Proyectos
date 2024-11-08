@@ -1,10 +1,11 @@
 import { HttpClient, HttpHeaders } from "@angular/common/http";
-import { inject, Injectable } from "@angular/core";
+import { Injectable, inject } from "@angular/core";
+import { Observable, of } from "rxjs";
 
-import { Settings } from "../environments/enviroment";
 import { Config } from "../environments/enviroment";
-import { Observable } from "rxjs";
 import { IBanco } from "../models/banco";
+import { Settings } from "../environments/enviroment";
+import { arrayBancos } from "../../assets/jsonData/bancos";
 
 const service: string = "Banco";
 
@@ -21,6 +22,10 @@ export class BancoService {
   };
 
   listar(paginaActual: number, registrosPorPagina: number = this.registrosPorPaginaDefault, estados: number = 2): Observable<IBanco[]> {
-    return this._http.get<IBanco[]>(`${this.apiGastosJo}/${service}/Listar?PaginaActual=${paginaActual}&RegistrosPorPagina=${registrosPorPagina}&estados=${estados}`);
+    if (Config.esDesarrollo) {
+      return of(arrayBancos);
+    } else {
+      return this._http.get<IBanco[]>(`${this.apiGastosJo}/${service}/Listar?PaginaActual=${paginaActual}&RegistrosPorPagina=${registrosPorPagina}&estados=${estados}`);
+    }
   }
 }

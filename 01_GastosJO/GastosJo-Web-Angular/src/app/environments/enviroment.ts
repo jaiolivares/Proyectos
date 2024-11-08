@@ -1,4 +1,5 @@
 export const Config = {
+  esDesarrollo: true,
   registrosPorPagina: 3,
 };
 

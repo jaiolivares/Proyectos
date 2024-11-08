@@ -1,8 +1,10 @@
-[
+import { IBanco } from "../../app/models/banco";
+
+export const arrayBancos: IBanco[] = [
   {
     "idBanco": 1047,
-    "codigo": "Chile",
-    "nombre": "Banco Chile",
+    "codigo": "Chile DEV",
+    "nombre": "Banco Chile DEV",
     "activo": true
   },
   {
