@@ -1,6 +1,6 @@
 export const Config = {
   esDesarrollo: true,
-  registrosPorPagina: 3,
+  registrosPorPagina: 5,
 };
 
 export const Settings = {

@@ -6,6 +6,7 @@ import { BancoService } from "../../services/banco.service";
 import { IBanco } from "../../models/banco";
 import { FormsModule } from "@angular/forms";
 import { Config } from "../../environments/enviroment";
+import { Estados } from "../../models/shared/estado";
 
 @Component({
   selector: "app-bancos",
@@ -23,6 +24,8 @@ export class BancosComponent implements OnInit {
   loading: boolean = true;
   bancoLista: IBanco[] = [];
   busquedaText: string = "";
+  cantidadItems: number = Config.registrosPorPagina;
+  paginaActual: number = 1;
 
   get bancoListaFiltrado() {
     return this.bancoLista.filter((item) => Object.values(item).some((val) => String(val).toLocaleLowerCase().includes(this.busquedaText.toLocaleLowerCase())));
@@ -32,14 +35,24 @@ export class BancosComponent implements OnInit {
     this.cargarListaBancos();
   }
 
-  setAgregarModificar(agregaModifica: string) {
+  setAgregarModificar(agregaModifica: string) : void {
     this.agregarModificarBanco = agregaModifica;
   }
 
-  cargarListaBancos() {
-    this._bancoService.listar(1, Config.registrosPorPagina).subscribe((data: IBanco[]) => {
+  cargarListaBancos(): void {
+    this._bancoService.listar(this.paginaActual, this.cantidadItems, Estados.Todos).subscribe((data: IBanco[]) => {
       this.bancoLista = data;
-      this.loading = false
+      this.loading = false;
     });
+  }
+
+  cambiarPagina(paginaActual: number): void {
+    this.paginaActual = paginaActual;
+
+    console.log(this.paginaActual)
+
+    this.cargarListaBancos();
+
+
   }
 }
