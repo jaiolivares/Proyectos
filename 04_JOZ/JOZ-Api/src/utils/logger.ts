@@ -4,6 +4,7 @@ const logger = createLogger({
     level: 'info',
     format: format.combine(
         format.timestamp(),
+        format.errors({ stack: true }),
         format.json()
     ),
     transports: [
@@ -13,10 +14,12 @@ const logger = createLogger({
     ],
 });
 
-export const logInfo = (message: string) => {
-    logger.info(message);
+export const logInfo = (message: string, meta?: any) => {
+    logger.info(message, meta);
 };
 
-export const logError = (message: string) => {
-    logger.error(message);
+export const logError = (message: string, meta?: any) => {
+    logger.error(message, meta);
 };
+
+export default logger;
