@@ -15,3 +15,5 @@ CREATE TABLE `Usuarios` (
   PRIMARY KEY (`Id`),
   UNIQUE KEY `NombreUsuario_UNIQUE` (`NombreUsuario`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci
+
+INSERT INTO `JOZ`.`Usuarios` (`NombreUsuario`, `Nombre`, `ApellidoPaterno`, `Email`) VALUES ('jai', 'javier', 'olivare', 'javi@aa.aa');

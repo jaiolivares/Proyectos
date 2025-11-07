@@ -11,8 +11,10 @@
     "test": "jest"
   },
   "dependencies": {
-    "express": "^5.1.0",
+    "@prisma/client": "6.19.0",
     "dotenv": "^17.2.3",
+    "express": "^5.1.0",
+    "mysql2": "^3.6.0",
     "typescript": "^5.9.3",
     "winston": "^3.9.0"
   },
@@ -20,14 +22,18 @@
     "@types/express": "^5.0.5",
     "@types/jest": "^30.0.0",
     "@types/node": "^24.10.0",
-    "ts-jest": "^29.4.5",
-    "jest": "^30.2.0",
-    "ts-node": "^10.9.2",
-  "supertest": "^6.3.3",
-  "@types/supertest": "^2.0.12",
-    "eslint": "^9.39.1",
+    "@types/supertest": "^2.0.12",
+    "@typescript-eslint/eslint-plugin": "^8.46.3",
     "@typescript-eslint/parser": "^8.46.3",
-    "@typescript-eslint/eslint-plugin": "^8.46.3"
+    "eslint": "^9.39.1",
+    "jest": "^30.2.0",
+    "prisma": "5.22.0",
+    "supertest": "^6.3.3",
+    "ts-jest": "^29.4.5",
+    "ts-node": "^10.9.2"
+  },
+  "prisma": {
+    "schema": "./prisma/schema.prisma"
   },
   "engines": {
     "node": ">=14.0.0"

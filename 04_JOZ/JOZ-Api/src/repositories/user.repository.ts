@@ -1,31 +1,37 @@
-export class UserRepository {
-    private users: Map<number, any> = new Map();
-    private currentId: number = 1;
+import prisma from '../prisma';
 
-    public async createUser(user: any): Promise<any> {
-        const newUser = { id: this.currentId++, ...user };
-        this.users.set(newUser.id, newUser);
-        return newUser;
+export class UserRepository {
+    public async createUser(user: { name: string; email: string }): Promise<any> {
+        const created = await prisma.usuarios.create({
+            data: {
+                name: user.name,
+                email: user.email,
+            },
+        });
+        return created;
     }
 
     public async getUser(id: number): Promise<any | null> {
-        return this.users.get(id) || null;
+        const found = await prisma.usuarios.findUnique({
+            where: { id },
+        });
+        return found;
     }
 
-    public async updateUser(id: number, userData: any): Promise<any | null> {
-        if (!this.users.has(id)) {
-            return null;
-        }
-        const updatedUser = { ...this.users.get(id), ...userData };
-        this.users.set(id, updatedUser);
-        return updatedUser;
+    public async updateUser(id: number, userData: Partial<{ name: string; email: string }>): Promise<any | null> {
+        const updated = await prisma.usuarios.update({
+            where: { id },
+            data: userData as any,
+        });
+        return updated;
     }
 
     public async deleteUser(id: number): Promise<boolean> {
-        return this.users.delete(id);
+        await prisma.usuarios.delete({ where: { id } });
+        return true;
     }
 
     public async getAllUsers(): Promise<any[]> {
-        return Array.from(this.users.values());
+        return await prisma.usuarios.findMany();
     }
 }
