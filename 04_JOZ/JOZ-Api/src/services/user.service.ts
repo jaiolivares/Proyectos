@@ -1,36 +1,46 @@
 import { User } from '../types';
+import { UserRepository } from '../repositories/user.repository';
 
 export class UserService {
-    private users: User[] = [];
-    private currentId: number = 1;
+    private userRepository: UserRepository;
 
-    public createUser(name: string, email: string): User {
-        const newUser: User = { id: this.currentId++, name, email };
-        this.users.push(newUser);
-        return newUser;
+    constructor(userRepository?: UserRepository) {
+        this.userRepository = userRepository ?? new UserRepository();
     }
 
-    public getUser(id: number): User | null {
-        return this.users.find(user => user.id === id) || null;
+    public async createUser(name: string, email: string): Promise<User> {
+        const created = await this.userRepository.createUser({ name, email });
+        return { id: created.id, name: created.name, email: created.email } as User;
     }
 
-    public updateUser(id: number, name: string, email: string): User | null {
-        const userIndex = this.users.findIndex(user => user.id === id);
-        if (userIndex !== -1) {
-            this.users[userIndex] = { id, name, email };
-            return this.users[userIndex];
+    public async getUser(id: number): Promise<User | null> {
+        const found = await this.userRepository.getUser(id);
+        if (!found) return null;
+        return { id: found.id, name: found.name, email: found.email } as User;
+    }
+
+    public async updateUser(id: number, name: string, email: string): Promise<User | null> {
+        try {
+            const updated = await this.userRepository.updateUser(id, { name, email });
+            return { id: updated.id, name: updated.name, email: updated.email } as User;
+        } catch (err) {
+            // If update fails (e.g., not found), return null
+            return null;
         }
-        return null;
     }
 
-    public deleteUser(id: number): boolean {
-        const idx = this.users.findIndex(u => u.id === id);
-        if (idx === -1) return false;
-        this.users.splice(idx, 1);
-        return true;
+    public async deleteUser(id: number): Promise<boolean> {
+        try {
+            await this.userRepository.deleteUser(id);
+            return true;
+        } catch (err) {
+            return false;
+        }
     }
 
-    public getAllUsers(): User[] {
-        return this.users;
+    public async getAllUsers(): Promise<User[]> {
+        const list = await this.userRepository.getAllUsers();
+        return list.map(u => ({ id: u.id, name: u.name, email: u.email } as User));
     }
+
 }
