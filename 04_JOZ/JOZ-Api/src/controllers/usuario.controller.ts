@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import { UserService } from '../services/user.service';
+import { UserService } from '../services/usuario.service';
 
 export class UserController {
     private userService: UserService;
@@ -8,35 +8,35 @@ export class UserController {
         this.userService = userService;
     }
 
-    public async getUser(req: Request, res: Response): Promise<Response> {
+    public async obtenerUsuario(req: Request, res: Response): Promise<Response> {
         const userId = Number(req.params.id);
-        const user = await this.userService.getUser(userId);
+        const user = await this.userService.obtenerUsuario(userId);
         if (!user) return res.status(404).json({ message: 'User not found' });
         return res.status(200).json(user);
     }
 
-    public async createUser(req: Request, res: Response): Promise<Response> {
+    public async crearUsuario(req: Request, res: Response): Promise<Response> {
         const { name, email } = req.body;
-        const newUser = await this.userService.createUser(name, email);
+        const newUser = await this.userService.crearUsuario(name, email);
         return res.status(201).json(newUser);
     }
 
-    public async getAllUsers(req: Request, res: Response): Promise<Response> {
-        const users = await this.userService.getAllUsers();
+    public async obtenerUsuarios(req: Request, res: Response): Promise<Response> {
+        const users = await this.userService.obtenerUsuarios();
         return res.status(200).json(users);
     }
 
-    public async updateUser(req: Request, res: Response): Promise<Response> {
+    public async actualizarUsuario(req: Request, res: Response): Promise<Response> {
         const userId = Number(req.params.id);
         const { name, email } = req.body;
-        const updatedUser = await this.userService.updateUser(userId, name, email);
+        const updatedUser = await this.userService.actualizarUsuario(userId, name, email);
         if (!updatedUser) return res.status(404).json({ message: 'User not found' });
         return res.status(200).json(updatedUser);
     }
 
-    public async deleteUser(req: Request, res: Response): Promise<Response> {
+    public async eliminarUsuario(req: Request, res: Response): Promise<Response> {
         const userId = Number(req.params.id);
-        const deleted = await this.userService.deleteUser(userId);
+        const deleted = await this.userService.eliminarUsuario(userId);
         if (!deleted) return res.status(404).json({ message: 'User not found' });
         return res.status(204).send();
     }
