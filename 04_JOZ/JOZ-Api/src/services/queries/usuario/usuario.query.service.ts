@@ -1,4 +1,4 @@
-import { User } from "../../../types";
+import { UsuarioDto } from "../../../dtos/usuario.dto";
 import { UsuarioQueryRepository } from "../../../repositories/queries/usuario.query.repository";
 
 export class UsuarioQueryService {
@@ -8,14 +8,14 @@ export class UsuarioQueryService {
     this.usuarioQueryRepository = usuarioQueryRepository ?? new UsuarioQueryRepository();
   }
 
-  public async obtenerUsuario(id: number): Promise<User | null> {
+  public async obtenerUsuario(id: number): Promise<UsuarioDto | null> {
     const found = await this.usuarioQueryRepository.obtenerUsuario(id);
     if (!found) return null;
-    return { id: found.Id, name: found.Nombre, email: found.Email } as User;
+    return new UsuarioDto(found.Id, found.Nombre, found.ApellidoPaterno, found.Email);
   }
 
-  public async obtenerUsuarios(): Promise<User[]> {
+  public async obtenerUsuarios(): Promise<UsuarioDto[]> {
     const list = await this.usuarioQueryRepository.obtenerUsuarios();
-    return list.map((u) => ({ id: u.Id, name: u.Nombre, email: u.Email } as User));
+    return list.map((u) => new UsuarioDto(u.Id, u.Nombre, u.ApellidoPaterno, u.Email));
   }
 }

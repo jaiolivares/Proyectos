@@ -1,4 +1,4 @@
-import { User } from "../../../types";
+import { Usuario } from "../../../types/usuario";
 import { UsuarioCommandRepository } from "../../../repositories/commands/usuario.command.repository";
 
 export class UsuarioCommandService {
@@ -8,15 +8,15 @@ export class UsuarioCommandService {
     this.usuarioCommandRepository = usuarioCommandRepository ?? new UsuarioCommandRepository();
   }
 
-  public async crearUsuario(name: string, email: string): Promise<User> {
+  public async crearUsuario(name: string, email: string): Promise<Usuario> {
     const created = await this.usuarioCommandRepository.crearUsuario({ name, email });
-    return { id: created.Id, name: created.Nombre, email: created.Email } as User;
+    return { id: created.Id, name: created.Nombre, email: created.Email } as Usuario;
   }
 
-  public async actualizarUsuario(id: number, name: string, email: string): Promise<User | null> {
+  public async actualizarUsuario(id: number, name: string, email: string): Promise<Usuario | null> {
     try {
       const updated = await this.usuarioCommandRepository.actualizarUsuario(id, { name, email });
-      return { id: updated.Id, name: updated.Nombre, email: updated.Email } as User;
+      return { id: updated.Id, name: updated.Nombre, email: updated.Email } as Usuario;
     } catch (err) {
       return null;
     }

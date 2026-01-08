@@ -1,11 +1,13 @@
-export class UserDTO {
-    id: number;
-    name: string;
-    email: string;
+export class UsuarioDto {
+  id: number;
+  nombre: string;
+  apellidoPaterno: string;
+  email: string;
 
-    constructor(id: number, name: string, email: string) {
-        this.id = id;
-        this.name = name;
-        this.email = email;
-    }
+  constructor(id: number, nombre: string, apellidoPaterno: string, email: string) {
+    this.id = id;
+    this.nombre = nombre;
+    this.apellidoPaterno = apellidoPaterno;
+    this.email = email;
+  }
 }

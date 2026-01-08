@@ -1,44 +1,15 @@
-import prisma from '../../prisma';
+import prisma from "../../prisma";
+import { UsuarioModelo } from "../../models/usuario.model";
 
 export class UsuarioQueryRepository {
-    public async crearUsuario(user: { name: string; email: string }): Promise<any> {
-        const baseNombre = user.email ? user.email.split('@')[0] : `user`;
-        const nombreUsuario = `${baseNombre}_${Date.now()}`;
-        const created = await prisma.usuarios.create({
-            data: {
-                NombreUsuario: nombreUsuario,
-                Nombre: user.name,
-                Email: user.email,
-                FechaCreacion: new Date(),
-            },
-        });
-        return created;
-    }
+  public async obtenerUsuario(id: number): Promise<UsuarioModelo | null> {
+    const found = await prisma.usuarios.findUnique({
+      where: { Id: id },
+    });
+    return found as UsuarioModelo | null;
+  }
 
-    public async obtenerUsuario(id: number): Promise<any | null> {
-        const found = await prisma.usuarios.findUnique({
-            where: { Id: id },
-        });
-        return found;
-    }
-
-    public async actualizarUsuario(id: number, userData: Partial<{ name: string; email: string }>): Promise<any | null> {
-        const data: any = {};
-        if (userData.name !== undefined) data.Nombre = userData.name;
-        if (userData.email !== undefined) data.Email = userData.email;
-        const updated = await prisma.usuarios.update({
-            where: { Id: id },
-            data,
-        });
-        return updated;
-    }
-
-    public async eliminarUsuario(id: number): Promise<boolean> {
-        await prisma.usuarios.delete({ where: { Id: id } });
-        return true;
-    }
-
-    public async obtenerUsuarios(): Promise<any[]> {
-        return await prisma.usuarios.findMany();
-    }
+  public async obtenerUsuarios(): Promise<UsuarioModelo[]> {
+    return (await prisma.usuarios.findMany()) as UsuarioModelo[];
+  }
 }
