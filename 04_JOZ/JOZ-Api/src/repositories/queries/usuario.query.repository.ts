@@ -1,6 +1,6 @@
-import prisma from '../prisma';
+import prisma from '../../prisma';
 
-export class UserRepository {
+export class UsuarioQueryRepository {
     public async crearUsuario(user: { name: string; email: string }): Promise<any> {
         const baseNombre = user.email ? user.email.split('@')[0] : `user`;
         const nombreUsuario = `${baseNombre}_${Date.now()}`;

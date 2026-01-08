@@ -1,17 +1,17 @@
 import { Router } from 'express';
-import { UserController } from '../controllers/usuario.controller';
-import { UserService } from '../services/usuario.service';
-import { UserRepository } from '../repositories/usuario.repository';
+import { UsuarioController } from '../controllers/usuario.controller';
+import { UsuarioCommandRepository } from "../repositories/commands/usuario.command.repository";
+import { UsuarioQueryRepository } from "../repositories/queries/usuario.query.repository";
 
 const router = Router();
-const userRepository = new UserRepository();
-const userService = new UserService(userRepository);
-const userController = new UserController(userService);
+const usuarioCommandRepository = new UsuarioCommandRepository();
+const usuarioQueryRepository = new UsuarioQueryRepository();
+const usuarioController = new UsuarioController(usuarioCommandRepository as any, usuarioQueryRepository as any);
 
-router.get('/', userController.obtenerUsuarios.bind(userController));
-router.get('/:id', userController.obtenerUsuario.bind(userController));
-router.post('/', userController.crearUsuario.bind(userController));
-router.put('/:id', userController.actualizarUsuario.bind(userController));
-router.delete('/:id', userController.eliminarUsuario.bind(userController));
+router.get('/', usuarioController.obtenerUsuarios.bind(usuarioController));
+router.get('/:id', usuarioController.obtenerUsuario.bind(usuarioController));
+router.post('/', usuarioController.crearUsuario.bind(usuarioController));
+router.put('/:id', usuarioController.actualizarUsuario.bind(usuarioController));
+router.delete('/:id', usuarioController.eliminarUsuario.bind(usuarioController));
 
 export default router;
