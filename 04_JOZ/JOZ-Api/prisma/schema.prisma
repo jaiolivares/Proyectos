@@ -10,6 +10,7 @@ datasource db {
 model Usuarios {
   Id               Int       @id @default(autoincrement())
   NombreUsuario    String    @unique(map: "NombreUsuario_UNIQUE") @db.VarChar(100)
+  Password         String?   @db.VarChar(100)
   Nombre           String?   @db.VarChar(50)
   SegundoNombre    String?   @db.VarChar(50)
   ApellidoPaterno  String?   @db.VarChar(50)

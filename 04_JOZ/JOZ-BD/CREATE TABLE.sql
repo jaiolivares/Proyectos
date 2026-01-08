@@ -1,8 +1,9 @@
-CREATE DATABASE `JOZ` 
+/*CREATE DATABASE `JOZ`;*/ 
 
 CREATE TABLE `Usuarios` (
   `Id` int NOT NULL AUTO_INCREMENT,
   `NombreUsuario` varchar(100) NOT NULL,
+  `Password` varchar(100) DEFAULT NULL,
   `Nombre` varchar(50) DEFAULT NULL,
   `SegundoNombre` varchar(50) DEFAULT NULL,
   `ApellidoPaterno` varchar(50) DEFAULT NULL,
@@ -14,6 +15,6 @@ CREATE TABLE `Usuarios` (
   `EstaActivo` tinyint DEFAULT NULL,
   PRIMARY KEY (`Id`),
   UNIQUE KEY `NombreUsuario_UNIQUE` (`NombreUsuario`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
-INSERT INTO `JOZ`.`Usuarios` (`NombreUsuario`, `Nombre`, `ApellidoPaterno`, `Email`) VALUES ('jai', 'javier', 'olivare', 'javi@aa.aa');
+INSERT INTO `JOZ`.`Usuarios` (`NombreUsuario`, `Nombre`, `ApellidoPaterno`, `Email`) VALUES ('jai', 'javier', 'olivares', 'javi@aa.aa');

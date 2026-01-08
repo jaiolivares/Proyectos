@@ -2,7 +2,8 @@ import prisma from '../prisma';
 
 export class UserRepository {
     public async createUser(user: { name: string; email: string }): Promise<any> {
-        const nombreUsuario = user.email ? user.email.split('@')[0] : `user_${Date.now()}`;
+        const baseNombre = user.email ? user.email.split('@')[0] : `user`;
+        const nombreUsuario = `${baseNombre}_${Date.now()}`;
         const created = await prisma.usuarios.create({
             data: {
                 NombreUsuario: nombreUsuario,
