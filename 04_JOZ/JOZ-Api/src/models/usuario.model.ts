@@ -1,4 +1,4 @@
-export interface UsuarioModelo {
+export interface Usuario{
   Id: number;
   NombreUsuario: string;
   Password: string;

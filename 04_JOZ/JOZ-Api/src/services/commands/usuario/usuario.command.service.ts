@@ -1,4 +1,8 @@
-import { Usuario } from "../../../types/usuario";
+import { Usuario } from "../../../models/usuario.model";
+import { UsuarioDto } from "../../../dtos/usuario/usuario.dto";
+import { UsuarioCreateRequestDto } from "../../../dtos/usuario/usuarioCreateRequest.dto";
+import { UsuarioCreateResponseDto } from "../../../dtos/usuario/usuarioCreateResponse.dto";
+import { UsuarioUpdateDto } from "../../../dtos/usuario/usuarioUpdateRequest.dto";
 import { UsuarioCommandRepository } from "../../../repositories/commands/usuario.command.repository";
 
 export class UsuarioCommandService {
@@ -8,15 +12,15 @@ export class UsuarioCommandService {
     this.usuarioCommandRepository = usuarioCommandRepository ?? new UsuarioCommandRepository();
   }
 
-  public async crearUsuario(name: string, email: string): Promise<Usuario> {
+  public async crearUsuario(req: UsuarioCreateRequestDto): Promise<UsuarioCreateResponseDto> {
     const created = await this.usuarioCommandRepository.crearUsuario({ name, email });
-    return { id: created.Id, name: created.Nombre, email: created.Email } as Usuario;
+    return { id: created.Id, name: created.Nombre, email: created.Email } as UsuarioCreateDto;
   }
 
-  public async actualizarUsuario(id: number, name: string, email: string): Promise<Usuario | null> {
+  public async actualizarUsuario(id: number, name: string, email: string): Promise<UsuarioUpdateDto | null> {
     try {
       const updated = await this.usuarioCommandRepository.actualizarUsuario(id, { name, email });
-      return { id: updated.Id, name: updated.Nombre, email: updated.Email } as Usuario;
+      return { id: updated.Id, name: updated.Nombre, email: updated.Email } as UsuarioUpdateDto;
     } catch (err) {
       return null;
     }

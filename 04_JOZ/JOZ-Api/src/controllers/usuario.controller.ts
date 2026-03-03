@@ -1,6 +1,8 @@
 import { Request, Response } from "express";
 import { UsuarioCommandService } from "../services/commands/usuario/usuario.command.service";
 import { UsuarioQueryService } from "../services/queries/usuario/usuario.query.service";
+import { UsuarioCreateRequestDto } from "../dtos/usuario/usuarioCreateRequest.dto";
+import { UsuarioCreateResponseDto } from "../dtos/usuario/usuarioCreateResponse.dto";
 
 export class UsuarioController {
   private usuarioCommandService: UsuarioCommandService;
@@ -23,9 +25,8 @@ export class UsuarioController {
     return res.status(200).json(users);
   }
 
-  public async crearUsuario(req: Request, res: Response): Promise<Response> {
-    const { name, email } = req.body;
-    const newUser = await this.usuarioCommandService.crearUsuario(name, email);
+  public async crearUsuario(req: UsuarioCreateRequestDto, res: UsuarioCreateResponseDto): Promise<Response> {
+    const newUser = await this.usuarioCommandService.crearUsuario(req);
     return res.status(201).json(newUser);
   }
 
