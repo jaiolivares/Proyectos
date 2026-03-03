@@ -62,6 +62,11 @@ namespace GastosJo_Api.Controllers
         [HttpPost("Insertar")]
         public async Task<ActionResult<BancoResponse>> PostBanco(BancoRequest bancoRequest)
         {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
             try
             {
                 var nuevoBanco = await _bancoService.AddBanco(bancoRequest);

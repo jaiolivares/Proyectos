@@ -13,8 +13,7 @@ using Microsoft.IdentityModel.Tokens;
 using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
-IConfigurationSection appSettingsSection;
-AppSettings appSettings;
+AppSettings? appSettings;
 string _MyCors = "MyCors";
 
 ConfigureDb();
@@ -30,7 +29,7 @@ void ConfigureDb()
 }
 void ConfigureAppSettings()
 {
-    appSettingsSection = builder.Configuration.GetSection("AppSettings");
+    IConfigurationSection appSettingsSection = builder.Configuration.GetSection("AppSettings");
     appSettings = appSettingsSection.Get<AppSettings>();
     builder.Services.Configure<AppSettings>(appSettingsSection);
 }

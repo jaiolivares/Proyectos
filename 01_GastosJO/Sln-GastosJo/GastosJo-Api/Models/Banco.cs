@@ -9,8 +9,13 @@ namespace GastosJo_Api.Models
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int IdBanco { get; set; }
 
+        [Required]
         public string Codigo { get; set; } = string.Empty;
+
+        [Required]
         public string Nombre { get; set; } = string.Empty;
+
+        [Required]
         public bool Activo { get; set; } = true;
     }
 }
