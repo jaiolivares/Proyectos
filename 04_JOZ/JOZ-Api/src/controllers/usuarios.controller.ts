@@ -4,7 +4,7 @@ import { UsuarioQueryService } from "../services/queries/usuario/usuario.query.s
 import { UsuarioCreateRequestDto } from "../dtos/usuario/usuarioCreateRequest.dto";
 import { UsuarioCreateResponseDto } from "../dtos/usuario/usuarioCreateResponse.dto";
 
-export class UsuarioController {
+export class UsuariosController {
   private usuarioCommandService: UsuarioCommandService;
   private usuarioQueryService: UsuarioQueryService;
 
@@ -13,24 +13,24 @@ export class UsuarioController {
     this.usuarioQueryService = usuarioQueryService;
   }
 
-  public async obtenerUsuario(req: Request, res: Response): Promise<Response> {
+  public async obtenerPorId(req: Request, res: Response): Promise<Response> {
     const userId = Number(req.params.id);
     const user = await this.usuarioQueryService.obtenerUsuario(userId);
     if (!user) return res.status(404).json({ message: "Usuario no encontrado" });
     return res.status(200).json(user);
   }
 
-  public async obtenerUsuarios(req: Request, res: Response): Promise<Response> {
+  public async obtenerTodos(req: Request, res: Response): Promise<Response> {
     const users = await this.usuarioQueryService.obtenerUsuarios();
     return res.status(200).json(users);
   }
 
-  public async crearUsuario(req: UsuarioCreateRequestDto, res: UsuarioCreateResponseDto): Promise<Response> {
+  public async crear(req: UsuarioCreateRequestDto, res: UsuarioCreateResponseDto): Promise<Response> {
     const newUser = await this.usuarioCommandService.crearUsuario(req);
     return res.status(201).json(newUser);
   }
 
-  public async actualizarUsuario(req: Request, res: Response): Promise<Response> {
+  public async actualizar(req: Request, res: Response): Promise<Response> {
     const userId = Number(req.params.id);
     const { name, email } = req.body;
     const updatedUser = await this.usuarioCommandService.actualizarUsuario(userId, name, email);
@@ -38,7 +38,7 @@ export class UsuarioController {
     return res.status(200).json(updatedUser);
   }
 
-  public async eliminarUsuario(req: Request, res: Response): Promise<Response> {
+  public async eliminar(req: Request, res: Response): Promise<Response> {
     const userId = Number(req.params.id);
     const deleted = await this.usuarioCommandService.eliminarUsuario(userId);
     if (!deleted) return res.status(404).json({ message: "Usuario no encontrado" });
