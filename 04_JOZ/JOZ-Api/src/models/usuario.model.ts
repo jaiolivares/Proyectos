@@ -1,4 +1,4 @@
-export interface Usuario{
+export interface Usuario {
   Id: number;
   NombreUsuario: string;
   Password: string;
@@ -9,6 +9,6 @@ export interface Usuario{
   Email: string;
   FechaCreacion: Date;
   FechaUltimoLogin?: Date | null;
-  EstaBloqueado: number;
-  EstaActivo: number;
+  EstaBloqueado: boolean;
+  EstaActivo: boolean;
 }

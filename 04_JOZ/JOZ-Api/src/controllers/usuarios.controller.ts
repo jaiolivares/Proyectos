@@ -25,23 +25,26 @@ export class UsuariosController {
     return res.status(200).json(users);
   }
 
-  public async crear(req: UsuarioCreateRequestDto, res: UsuarioCreateResponseDto): Promise<Response> {
-    const newUser = await this.usuarioCommandService.crearUsuario(req);
+  public async crear(
+    // req: Request<UsuarioCreateRequestDto>,
+    req: Request<{}, {}, UsuarioCreateRequestDto>,
+    res: Response<UsuarioCreateResponseDto>): Promise<Response<UsuarioCreateResponseDto>> {
+    const newUser = await this.usuarioCommandService.crearUsuario(req.body);
     return res.status(201).json(newUser);
   }
 
-  public async actualizar(req: Request, res: Response): Promise<Response> {
-    const userId = Number(req.params.id);
-    const { name, email } = req.body;
-    const updatedUser = await this.usuarioCommandService.actualizarUsuario(userId, name, email);
-    if (!updatedUser) return res.status(404).json({ message: "Usuario no encontrado" });
-    return res.status(200).json(updatedUser);
-  }
+  // public async actualizar(req: Request, res: Response): Promise<Response> {
+  //   const userId = Number(req.params.id);
+  //   const { name, email } = req.body;
+  //   const updatedUser = await this.usuarioCommandService.actualizarUsuario(userId, name, email);
+  //   if (!updatedUser) return res.status(404).json({ message: "Usuario no encontrado" });
+  //   return res.status(200).json(updatedUser);
+  // }
 
-  public async eliminar(req: Request, res: Response): Promise<Response> {
-    const userId = Number(req.params.id);
-    const deleted = await this.usuarioCommandService.eliminarUsuario(userId);
-    if (!deleted) return res.status(404).json({ message: "Usuario no encontrado" });
-    return res.status(204).send();
-  }
+  // public async eliminar(req: Request, res: Response): Promise<Response> {
+  //   const userId = Number(req.params.id);
+  //   const deleted = await this.usuarioCommandService.eliminarUsuario(userId);
+  //   if (!deleted) return res.status(404).json({ message: "Usuario no encontrado" });
+  //   return res.status(204).send();
+  // }
 }

@@ -2,7 +2,8 @@ import { Usuario } from "../../../models/usuario.model";
 import { UsuarioDto } from "../../../dtos/usuario/usuario.dto";
 import { UsuarioCreateRequestDto } from "../../../dtos/usuario/usuarioCreateRequest.dto";
 import { UsuarioCreateResponseDto } from "../../../dtos/usuario/usuarioCreateResponse.dto";
-import { UsuarioUpdateDto } from "../../../dtos/usuario/usuarioUpdateRequest.dto";
+import { UsuarioUpdateRequestDto } from "../../../dtos/usuario/usuarioUpdateRequest.dto";
+import { UsuarioUpdateResponseDto } from "../../../dtos/usuario/usuarioUpdateResponse.dto";
 import { UsuarioCommandRepository } from "../../../repositories/commands/usuario.command.repository";
 
 export class UsuarioCommandService {
@@ -13,24 +14,24 @@ export class UsuarioCommandService {
   }
 
   public async crearUsuario(req: UsuarioCreateRequestDto): Promise<UsuarioCreateResponseDto> {
-    const created = await this.usuarioCommandRepository.crearUsuario({ name, email });
-    return { id: created.Id, name: created.Nombre, email: created.Email } as UsuarioCreateDto;
+    const created = await this.usuarioCommandRepository.crearUsuario(req);
+    return created;
   }
 
-  public async actualizarUsuario(id: number, name: string, email: string): Promise<UsuarioUpdateDto | null> {
-    try {
-      const updated = await this.usuarioCommandRepository.actualizarUsuario(id, { name, email });
-      return { id: updated.Id, name: updated.Nombre, email: updated.Email } as UsuarioUpdateDto;
-    } catch (err) {
-      return null;
-    }
-  }
+  // public async actualizarUsuario(req: UsuarioUpdateRequestDto): Promise<UsuarioUpdateResponseDto | null> {
+  //   try {
+  //     const updated = await this.usuarioCommandRepository.actualizarUsuario(id, { name, email });
+  //     return { id: updated.Id, name: updated.Nombre, email: updated.Email } as UsuarioUpdateResponseDto;
+  //   } catch (err) {
+  //     return null;
+  //   }
+  // }
 
-  public async eliminarUsuario(id: number): Promise<boolean> {
-    try {
-      return await this.usuarioCommandRepository.eliminarUsuario(id);
-    } catch (err) {
-      return false;
-    }
-  }
+  // public async eliminarUsuario(id: number): Promise<boolean> {
+  //   try {
+  //     return await this.usuarioCommandRepository.eliminarUsuario(id);
+  //   } catch (err) {
+  //     return false;
+  //   }
+  // }
 }

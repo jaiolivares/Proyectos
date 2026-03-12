@@ -1,4 +1,4 @@
-export interface UsuarioUpdateDto {
+export interface UsuarioUpdateRequestDto {
   name?: string;
   email?: string;
 }
