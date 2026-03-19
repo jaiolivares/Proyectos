@@ -16,7 +16,9 @@ export class UsuariosController {
   public async obtenerPorId(req: Request, res: Response): Promise<Response> {
     const userId = Number(req.params.id);
     const user = await this.usuarioQueryService.obtenerUsuario(userId);
-    if (!user) return res.status(404).json({ message: "Usuario no encontrado" });
+    if (!user)
+      return res.status(404).json({ message: "Usuario no encontrado" });
+
     return res.status(200).json(user);
   }
 
@@ -26,12 +28,55 @@ export class UsuariosController {
   }
 
   public async crear(
-    // req: Request<UsuarioCreateRequestDto>,
     req: Request<{}, {}, UsuarioCreateRequestDto>,
     res: Response<UsuarioCreateResponseDto>): Promise<Response<UsuarioCreateResponseDto>> {
     const newUser = await this.usuarioCommandService.crearUsuario(req.body);
     return res.status(201).json(newUser);
   }
+
+  public async actualizarPassword(
+    req: Request<{ id: string }, {}, { Password: string }>,
+    res: Response): Promise<Response> {
+    const userId = Number(req.params.id);
+    const { Password } = req.body;
+    if (!Password)
+      return res.status(400).json({ message: 'Password es obligatorio' });
+    
+    const updatedUser = await this.usuarioCommandService.actualizarPassword(userId, Password);
+    if (!updatedUser)
+      return res.status(404).json({ message: "Usuario no encontrado" });
+    
+    return res.status(200).json(updatedUser);
+  }
+
+
+  // public async login(
+  //   req: Request<{}, {}, { NombreUsuario: string; Password: string }>,
+  //   res: Response
+  // ): Promise<Response> {
+  //   const { NombreUsuario, Password } = req.body;
+  //   if (!NombreUsuario || !Password) return res.status(400).json({ message: 'NombreUsuario y Password son obligatorios' });
+
+  //   const user = await this.usuarioQueryService.obtenerPorNombreUsuario(NombreUsuario);
+  //   if (!user) return res.status(401).json({ message: 'Credenciales inválidas' });
+
+  //   const match = await bcrypt.compare(Password, user.Password);
+  //   if (!match) return res.status(401).json({ message: 'Credenciales inválidas' });
+
+  //   return res.status(200).json({
+  //     Id: user.Id,
+  //     NombreUsuario: user.NombreUsuario,
+  //     Nombre: user.Nombre,
+  //     SegundoNombre: user.SegundoNombre,
+  //     ApellidoPaterno: user.ApellidoPaterno,
+  //     ApellidoMaterno: user.ApellidoMaterno,
+  //     Email: user.Email,
+  //     FechaCreacion: user.FechaCreacion,
+  //     FechaUltimoLogin: user.FechaUltimoLogin,
+  //     EstaBloqueado: user.EstaBloqueado,
+  //     EstaActivo: user.EstaActivo,
+  //   });
+  // }
 
   // public async actualizar(req: Request, res: Response): Promise<Response> {
   //   const userId = Number(req.params.id);

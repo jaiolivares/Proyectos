@@ -9,8 +9,8 @@ export class UsuarioDto {
   Email: string;
   FechaCreacion: Date;
   FechaUltimoLogin?: Date | null;
-  EstaBloqueado: number;
-  EstaActivo: number;
+  EstaBloqueado: boolean;
+  EstaActivo: boolean;
 
   constructor(
     Id: number,
@@ -23,8 +23,8 @@ export class UsuarioDto {
     Email: string,
     FechaCreacion: Date,
     FechaUltimoLogin: Date | null,
-    EstaBloqueado: number,
-    EstaActivo: number
+    EstaBloqueado: boolean,
+    EstaActivo: boolean
   ) {
     this.Id = Id;
     this.NombreUsuario = NombreUsuario;

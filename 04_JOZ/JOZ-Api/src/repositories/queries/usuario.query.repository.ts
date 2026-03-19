@@ -17,4 +17,16 @@ export class UsuarioQueryRepository {
   public async obtenerUsuarios(): Promise<Usuario[]> {
     return (await prisma.usuarios.findMany()) as Usuario[];
   }
+
+  public async obtenerPorNombreUsuario(nombreUsuario: string): Promise<Usuario | null> {
+    if (!nombreUsuario) {
+      throw new Error('El nombre de usuario es obligatorio');
+    }
+
+    const found = await prisma.usuarios.findFirst({
+      where: { NombreUsuario: nombreUsuario },
+    });
+
+    return found as Usuario | null;
+  }
 }
