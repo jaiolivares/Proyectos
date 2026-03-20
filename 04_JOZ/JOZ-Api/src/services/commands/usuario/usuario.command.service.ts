@@ -5,7 +5,7 @@ import { UsuarioCreateRequestDto } from "../../../dtos/usuario/usuarioCreateRequ
 import { UsuarioCreateResponseDto } from "../../../dtos/usuario/usuarioCreateResponse.dto";
 import { UsuarioUpdateRequestDto } from "../../../dtos/usuario/usuarioUpdateRequest.dto";
 import { UsuarioUpdateResponseDto } from "../../../dtos/usuario/usuarioUpdateResponse.dto";
-import { UsuarioCommandRepository } from "../../../repositories/commands/usuario.command.repository";
+import { UsuarioCommandRepository } from "../../../repositories/commands/usuario/usuario.command.repository";
 import { UsuarioQueryService } from "../../queries/usuario/usuario.query.service";
 
 export class UsuarioCommandService {

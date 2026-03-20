@@ -1,9 +1,9 @@
-import { Usuario } from "../../models/usuario.model";
-import prisma from "../../prisma";
-import { UsuarioCreateRequestDto } from "../../dtos/usuario/usuarioCreateRequest.dto";
-import { UsuarioCreateResponseDto } from "../../dtos/usuario/usuarioCreateResponse.dto";
-import { UsuarioUpdateRequestDto } from "../../dtos/usuario/usuarioUpdateRequest.dto";
-import { UsuarioUpdateResponseDto } from "../../dtos/usuario/usuarioUpdateResponse.dto";
+import prisma from "../../../prisma";
+import { Usuario } from "../../../models/usuario.model";
+import { UsuarioCreateRequestDto } from "../../../dtos/usuario/usuarioCreateRequest.dto";
+import { UsuarioCreateResponseDto } from "../../../dtos/usuario/usuarioCreateResponse.dto";
+import { UsuarioUpdateRequestDto } from "../../../dtos/usuario/usuarioUpdateRequest.dto";
+import { UsuarioUpdateResponseDto } from "../../../dtos/usuario/usuarioUpdateResponse.dto";
 
 export class UsuarioCommandRepository {
   

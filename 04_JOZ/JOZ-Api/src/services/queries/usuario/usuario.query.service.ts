@@ -1,5 +1,5 @@
 import { UsuarioDto } from "../../../dtos/usuario/usuario.dto";
-import { UsuarioQueryRepository } from "../../../repositories/queries/usuario.query.repository";
+import { UsuarioQueryRepository } from "../../../repositories/queries/usuario/usuario.query.repository";
 
 export class UsuarioQueryService {
   private usuarioQueryRepository: UsuarioQueryRepository;
