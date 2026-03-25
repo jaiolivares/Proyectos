@@ -9,18 +9,18 @@ type Props = {
 }
 
 export default function LoginForm({ onSubmit, loading, error }: Props) {
-  const [email, setEmail] = useState('')
+  const [nombreUsuario, setNombreUsuario] = useState('')
   const [password, setPassword] = useState('')
 
   const handle = async (e: React.FormEvent) => {
     e.preventDefault()
-    await onSubmit({ email, password })
+    await onSubmit({ NombreUsuario: nombreUsuario, Password: password } as LoginRequest)
   }
 
   return (
     <Box component="form" onSubmit={handle} sx={{ display: 'grid', gap: 2 }}>
       {error && <Alert severity="error">{error}</Alert>}
-      <TextField label="Email" value={email} onChange={e => setEmail(e.target.value)} />
+      <TextField label="NombreUsuario" value={nombreUsuario} onChange={e => setNombreUsuario(e.target.value)} />
       <TextField label="Password" type="password" value={password} onChange={e => setPassword(e.target.value)} />
       <Button variant="contained" type="submit" disabled={loading}>
         {loading ? 'Ingresando...' : 'Ingresar'}

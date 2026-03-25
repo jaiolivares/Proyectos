@@ -9,7 +9,7 @@ export class AuthService implements IAuthService {
   constructor(private readonly httpClient = http) {}
 
   async login(payload: LoginRequest): Promise<User> {
-    const resp = await this.httpClient.post('/api/login', payload)
+    const resp = await this.httpClient.post('/api/auth/login', payload)
     return resp.data as User
   }
 }
