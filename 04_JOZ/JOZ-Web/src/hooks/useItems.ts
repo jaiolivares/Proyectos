@@ -7,13 +7,14 @@ export function useItems(itemService: IItemService = new ItemService()) {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
 
-  const fetch = useCallback(async () => {
+  const fetch = useCallback(async (signal?: AbortSignal) => {
     setLoading(true)
     setError(null)
     try {
-      const list = await itemService.fetchAll()
+      const list = await itemService.fetchAll(signal)
       setItems(list)
     } catch (err: any) {
+      if (err?.code === 'ERR_CANCELED' || err?.name === 'CanceledError') return
       setError(err?.response?.data?.message || err.message || 'Fetch error')
     } finally {
       setLoading(false)
@@ -36,7 +37,9 @@ export function useItems(itemService: IItemService = new ItemService()) {
   }
 
   useEffect(() => {
-    fetch()
+    const controller = new AbortController()
+    fetch(controller.signal)
+    return () => controller.abort()
   }, [fetch])
 
   return { items, loading, error, fetch, create }
