@@ -10,12 +10,12 @@ export class ItemService implements IItemService {
   constructor(private readonly httpClient = http) {}
 
   async fetchAll(signal?: AbortSignal): Promise<Item[]> {
-    const resp = await this.httpClient.get('/api/item/all', { signal })
+    const resp = await this.httpClient.get('/item/all', { signal })
     return resp.data as Item[]
   }
 
   async create(payload: CreateItemRequest): Promise<Item> {
-    const resp = await this.httpClient.post('/api/items', payload)
+    const resp = await this.httpClient.post('/items', payload)
     return resp.data as Item
   }
 }
