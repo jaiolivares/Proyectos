@@ -5,6 +5,7 @@ import LoginPage from './pages/LoginPage'
 import Welcome from './pages/Welcome'
 import ItemsArea from './components/ItemsArea'
 import NavBar from './components/NavBar'
+import LeftSidebar from './components/LeftSidebar'
 import { AuthProvider } from './contexts/AuthContext'
 import { useLocation } from 'react-router-dom'
 
@@ -16,12 +17,24 @@ function MainRoutes() {
   return (
     <>
       {showNav && <NavBar />}
-      <Routes>
-        <Route path="/" element={<Landing />} />
-        <Route path="/login" element={<LoginPage />} />
-        <Route path="/welcome" element={<Welcome />} />
-        <Route path="/items" element={<ItemsArea />} />
-      </Routes>
+      {showNav ? (
+        <div style={{ display: 'flex', minHeight: 'calc(100vh - 64px)' }}>
+          <LeftSidebar />
+          <div style={{ flex: 1 }}>
+            <Routes>
+              <Route path="/" element={<Landing />} />
+              <Route path="/login" element={<LoginPage />} />
+              <Route path="/welcome" element={<Welcome />} />
+              <Route path="/items" element={<ItemsArea />} />
+            </Routes>
+          </div>
+        </div>
+      ) : (
+        <Routes>
+          <Route path="/" element={<Landing />} />
+          <Route path="/login" element={<LoginPage />} />
+        </Routes>
+      )}
     </>
   )
 }
