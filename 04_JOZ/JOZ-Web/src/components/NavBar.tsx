@@ -27,13 +27,39 @@ export default function NavBar() {
 
   return (
     <AppBar position="static">
-      <Toolbar>
-        <Typography variant="h6" sx={{ flexGrow: 1 }}>
+      <Toolbar sx={{ position: 'relative' }}>
+        <Typography variant="h6" sx={{ mr: 2 }}>
           JOZ
         </Typography>
 
+        {/* Centered desktop menu */}
+        <Box
+          sx={{
+            position: 'absolute',
+            left: '50%',
+            transform: 'translateX(-50%)',
+            display: { xs: 'none', md: 'flex' },
+            gap: 2,
+            alignItems: 'center',
+          }}
+        >
+          <Button color="inherit" component={RouterLink} to="/welcome">
+            Inicio
+          </Button>
+          <Button color="inherit" component={RouterLink} to="/items">
+            Items
+          </Button>
+        </Box>
+
+        {/* Right-aligned logout on desktop */}
+        <Box sx={{ ml: 'auto', display: { xs: 'none', md: 'block' } }}>
+          <Button color="inherit" component={RouterLink} to="/">
+            Salir
+          </Button>
+        </Box>
+
         {/* Mobile menu button */}
-        <Box sx={{ display: { xs: 'flex', md: 'none' } }}>
+        <Box sx={{ display: { xs: 'flex', md: 'none' }, ml: 'auto' }}>
           <IconButton
             size="large"
             aria-label="menu"
@@ -55,7 +81,7 @@ export default function NavBar() {
             sx={{ display: { xs: 'block', md: 'none' } }}
           >
             <MenuItem component={RouterLink} to="/welcome" onClick={handleCloseNavMenu}>
-              Bienvenida
+              Inicio
             </MenuItem>
             <MenuItem component={RouterLink} to="/items" onClick={handleCloseNavMenu}>
               Items
@@ -64,19 +90,6 @@ export default function NavBar() {
               Salir
             </MenuItem>
           </Menu>
-        </Box>
-
-        {/* Desktop buttons */}
-        <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
-          <Button color="inherit" component={RouterLink} to="/welcome">
-            Bienvenida
-          </Button>
-          <Button color="inherit" component={RouterLink} to="/items">
-            Items
-          </Button>
-          <Button color="inherit" component={RouterLink} to="/">
-            Salir
-          </Button>
         </Box>
       </Toolbar>
     </AppBar>
