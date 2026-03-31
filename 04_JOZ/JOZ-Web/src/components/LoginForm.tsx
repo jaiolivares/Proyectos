@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import Avatar from '@mui/material/Avatar'
 import Button from '@mui/material/Button'
 import TextField from '@mui/material/TextField'
@@ -16,6 +17,7 @@ type Props = {
 }
 
 export default function LoginForm({ onSubmit, loading, error }: Props) {
+  const navigate = useNavigate()
   const [nombreUsuario, setNombreUsuario] = useState('aaa2')
   const [password, setPassword] = useState('123')
 
@@ -25,10 +27,9 @@ export default function LoginForm({ onSubmit, loading, error }: Props) {
   }
 
   return (
-    <Container component="main" maxWidth="xs">
+    <Container component="main" maxWidth="xs" disableGutters>
       <Box
         sx={{
-          marginTop: 5,
           display: 'flex',
           flexDirection: 'column',
           alignItems: 'center',
@@ -80,6 +81,11 @@ export default function LoginForm({ onSubmit, loading, error }: Props) {
           </Button>
           
         </Box>
+
+        <Box sx={{ display: 'flex', justifyContent: 'center', mt: 2 }}>
+                <Button variant="text" onClick={() => navigate('/')}>Cancelar</Button>
+        </Box>
+
       </Box>
     </Container>
   )
