@@ -13,13 +13,14 @@ function MainRoutes() {
   const location = useLocation()
   const hideNavOn = ['/', '/login']
   const showNav = !hideNavOn.includes(location.pathname)
+  const showSidebar = showNav && location.pathname !== '/welcome'
 
   return (
     <>
       {showNav && <NavBar />}
       {showNav ? (
         <div style={{ display: 'flex', minHeight: 'calc(100vh - 64px)' }}>
-          <LeftSidebar />
+          {showSidebar && <LeftSidebar />}
           <div style={{ flex: 1 }}>
             <Routes>
               <Route path="/" element={<Landing />} />
