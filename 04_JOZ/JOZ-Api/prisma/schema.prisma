@@ -21,3 +21,19 @@ model Usuarios {
   EstaBloqueado    Int      @db.TinyInt
   EstaActivo       Int      @db.TinyInt
 }
+
+model Vehiculo {
+  Id                     Int       @id @default(autoincrement())
+  IdMarcaModeloVehiculo  Int
+  Ano                    Int
+  NumeroMotor            String    @db.VarChar(20)
+  NumeroChasis           String    @db.VarChar(30)
+  Color                  String    @db.VarChar(20)
+  FechaCompra            DateTime  @db.DateTime(0)
+  MontoCompra            Int
+  Vendido                Int       @db.TinyInt
+  FechaVenta             DateTime? @db.DateTime(0)
+  MontoVenta             Int?
+
+  @@map("Vehiculo")
+}
