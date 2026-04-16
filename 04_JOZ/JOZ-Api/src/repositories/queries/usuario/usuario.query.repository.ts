@@ -7,7 +7,7 @@ export class UsuarioQueryRepository {
       throw new Error("El id es obligatorio y debe ser un número");
     }
 
-    const found = await prisma.usuarios.findFirst({
+    const found = await prisma.usuario.findFirst({
       where: { Id: Number(id) },
     });
 
@@ -15,7 +15,7 @@ export class UsuarioQueryRepository {
   }
 
   public async obtenerUsuarios(): Promise<Usuario[]> {
-    const results = await prisma.usuarios.findMany();
+    const results = await prisma.usuario.findMany();
     return results.map((r) => this.mapPrismaUsuario(r));
   }
 
@@ -24,7 +24,7 @@ export class UsuarioQueryRepository {
       throw new Error('El nombre de usuario es obligatorio');
     }
 
-    const found = await prisma.usuarios.findFirst({
+    const found = await prisma.usuario.findFirst({
       where: { NombreUsuario: nombreUsuario },
     });
 

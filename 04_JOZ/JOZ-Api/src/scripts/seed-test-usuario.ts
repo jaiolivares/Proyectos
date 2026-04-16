@@ -2,7 +2,7 @@ import prisma from '../prisma';
 
 async function main() {
   try {
-    await prisma.usuarios.upsert({
+    await prisma.usuario.upsert({
       where: { Id: 1 },
       update: {
         NombreUsuario: 'javier_1',

@@ -12,6 +12,10 @@ const config = {
     database: process.env.DB_NAME,
   },
   saltRounds: process.env.SALT_ROUNDS ? parseInt(process.env.SALT_ROUNDS, 10) : 10,
+  jwt: {
+    secret: process.env.JWT_SECRET || 'dev-secret',
+    expiresIn: process.env.JWT_EXPIRES_IN || '1h',
+  },
 };
 
 export default config;

@@ -1,5 +1,8 @@
 import { Request, Response } from "express";
 import { AuthCommandService } from "../services/commands/auth/auth.command.service";
+import { respuestaOk, respuestaError } from "../dtos/response.dto";
+import type { StandardResponse } from "../dtos/response.dto";
+import { LoginResponseDto } from "../dtos/auth/loginResponse.dto";
 
 export class AuthController {
   private authCommandService: AuthCommandService;
@@ -8,15 +11,15 @@ export class AuthController {
     this.authCommandService = authCommandService;
   }
 
-  public async login(req: Request<{}, {}, { NombreUsuario: string; Password: string }>, res: Response): Promise<Response> {
+  public async login(req: Request<{}, {}, { NombreUsuario: string; Password: string }>, res: Response<StandardResponse<LoginResponseDto>>): Promise<Response<StandardResponse<LoginResponseDto>>> {
     const { NombreUsuario, Password } = req.body;
     if (!NombreUsuario || !Password)
-      return res.status(400).json({ message: "NombreUsuario y Password son obligatorios" });
+      return res.status(400).json(respuestaError<LoginResponseDto>("NombreUsuario y Password son obligatorios"));
 
-    const user = await this.authCommandService.login(NombreUsuario, Password);
-    if (!user)
-      return res.status(401).json({ message: "Credenciales inválidas" });
-    
-    return res.status(200).json({ message: "Login exitoso", user });
+    const result = await this.authCommandService.login(NombreUsuario, Password);
+    if (!result)
+      return res.status(401).json(respuestaError<LoginResponseDto>("Credenciales inválidas"));
+
+    return res.status(200).json(respuestaOk<LoginResponseDto>(result, "Login exitoso"));
   }
 }

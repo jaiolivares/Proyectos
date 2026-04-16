@@ -1,7 +1,9 @@
 import bcrypt from "bcryptjs";
+import jwt from "jsonwebtoken";
 import config from '../../../config';
 import { UsuarioQueryService } from "../../../services/queries/usuario/usuario.query.service";
 import { UsuarioDto } from "../../../dtos/usuario/usuario.dto";
+import { LoginResponseDto } from "../../../dtos/auth/loginResponse.dto";
 
 export class AuthCommandService {
   private usuarioQueryService: UsuarioQueryService;
@@ -16,7 +18,7 @@ export class AuthCommandService {
     return hashedPassword;
   }
 
-  public async login(NombreUsuario: string, Password: string): Promise<UsuarioDto | null> {
+  public async login(NombreUsuario: string, Password: string): Promise<LoginResponseDto | null> {
     
     //TODO: Validar que el usuario este Activo
     //TODO: Validar que el usuario no este Bloqueado
@@ -29,7 +31,10 @@ export class AuthCommandService {
     const match = await bcrypt.compare(Password, user.Password);
     if (!match)
       return null;
-    
-    return user;
+
+    const payload = { Id: user.Id, NombreUsuario: user.NombreUsuario };
+    const token = jwt.sign(payload, config.jwt.secret, { expiresIn: config.jwt.expiresIn });
+
+    return { token, usuario: user } as LoginResponseDto;
   }
 }

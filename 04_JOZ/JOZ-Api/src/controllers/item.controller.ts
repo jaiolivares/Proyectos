@@ -1,15 +1,12 @@
 import { Request, Response } from "express";
+import { respuestaOk } from "../dtos/response.dto";
+import type { StandardResponse } from "../dtos/response.dto";
 
 export class ItemController {
-  
-public async all(req: Request, res: Response) : Promise<Response> {
-
-    const items = await this.getItems();
-    return res.status(200).json(items);
-
-    
-  }
-
+    public async all(req: Request, res: Response<StandardResponse<any[]>>): Promise<Response<StandardResponse<any[]>>> {
+        const items = await this.getItems();
+        return res.status(200).json(respuestaOk<any[]>(items));
+    }
 
     public async getItems() {
         // Simula una consulta a la base de datos o a otro servicio
@@ -31,5 +28,5 @@ public async all(req: Request, res: Response) : Promise<Response> {
             }
         ] as any;
     }
-  
+
 }

@@ -9,7 +9,7 @@ export class UsuarioCommandRepository {
   
   public async crearUsuario(req: UsuarioCreateRequestDto): Promise<UsuarioCreateResponseDto> {
     try {
-      const created = await prisma.usuarios.create({
+      const created = await prisma.usuario.create({
         data: {
           NombreUsuario: req.NombreUsuario,
           Password: req.Password,
@@ -42,7 +42,7 @@ export class UsuarioCommandRepository {
 
   public async actualizarPassword(id: number, newPassword: string): Promise<UsuarioUpdateResponseDto> {
     try {
-      const updated = await prisma.usuarios.update({
+      const updated = await prisma.usuario.update({
         where: { Id: id },
         data: { Password: newPassword },
         select: {

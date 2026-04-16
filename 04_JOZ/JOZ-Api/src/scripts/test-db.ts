@@ -2,7 +2,7 @@ import prisma from '../prisma';
 
 async function main() {
   try {
-    const users = await prisma.usuarios.findMany();
+    const users = await prisma.usuario.findMany();
     console.log('Usuarios encontrados:', users.length);
     console.table(users);
   } catch (err) {
