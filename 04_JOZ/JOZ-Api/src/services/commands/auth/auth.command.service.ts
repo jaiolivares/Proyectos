@@ -8,8 +8,8 @@ import { LoginResponseDto } from "../../../dtos/auth/loginResponse.dto";
 export class AuthCommandService {
   private usuarioQueryService: UsuarioQueryService;
 
-  constructor(usuarioQueryService: UsuarioQueryService) {
-    this.usuarioQueryService = usuarioQueryService;
+  constructor(usuarioQueryService?: UsuarioQueryService) {
+    this.usuarioQueryService = usuarioQueryService ?? new UsuarioQueryService();
   }
 
   public async encriptarPassword(password: string): Promise<string> {
@@ -33,7 +33,7 @@ export class AuthCommandService {
       return null;
 
     const payload = { Id: user.Id, NombreUsuario: user.NombreUsuario };
-    const token = jwt.sign(payload, config.jwt.secret, { expiresIn: config.jwt.expiresIn });
+    const token = jwt.sign(payload as any, config.jwt.secret as any, { expiresIn: config.jwt.expiresIn } as any);
 
     return { token, usuario: user } as LoginResponseDto;
   }

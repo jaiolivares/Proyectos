@@ -3,8 +3,8 @@ import { UsuarioCommandService } from "../services/commands/usuario/usuario.comm
 import { UsuarioQueryService } from "../services/queries/usuario/usuario.query.service";
 import { UsuarioCreateRequestDto } from "../dtos/usuario/usuarioCreateRequest.dto";
 import { UsuarioCreateResponseDto } from "../dtos/usuario/usuarioCreateResponse.dto";
-import { respuestaOk, respuestaError } from "../dtos/response.dto";
-import type { StandardResponse } from "../dtos/response.dto";
+import { respuestaOk, respuestaError } from "../dtos/utils/respuesta.dto";
+import type { Respuesta } from "../dtos/utils/respuesta.dto";
 import { UsuarioDto } from "../dtos/usuario/usuario.dto";
 
 export class UsuarioController {
@@ -16,12 +16,12 @@ export class UsuarioController {
     this.usuarioQueryService = usuarioQueryService;
   }
 
-  public async obtenerTodos(req: Request, res: Response<StandardResponse<UsuarioDto[]>>): Promise<Response<StandardResponse<UsuarioDto[]>>> {
+  public async obtenerTodos(req: Request, res: Response<Respuesta<UsuarioDto[]>>): Promise<Response<Respuesta<UsuarioDto[]>>> {
     const users = await this.usuarioQueryService.obtenerUsuarios();
     return res.status(200).json(respuestaOk<UsuarioDto[]>(users));
   }
 
-  public async obtenerPorId(req: Request, res: Response<StandardResponse<UsuarioDto>>): Promise<Response<StandardResponse<UsuarioDto>>> {
+  public async obtenerPorId(req: Request, res: Response<Respuesta<UsuarioDto>>): Promise<Response<Respuesta<UsuarioDto>>> {
     const userId = Number(req.params.id);
     const user = await this.usuarioQueryService.obtenerUsuario(userId);
     if (!user) return res.status(404).json(respuestaError<UsuarioDto>("Usuario no encontrado"));
@@ -29,12 +29,12 @@ export class UsuarioController {
     return res.status(200).json(respuestaOk<UsuarioDto>(user));
   }
 
-  public async crear(req: Request<{}, {}, UsuarioCreateRequestDto>, res: Response<StandardResponse<UsuarioCreateResponseDto>>): Promise<Response<StandardResponse<UsuarioCreateResponseDto>>> {
+  public async crear(req: Request<{}, {}, UsuarioCreateRequestDto>, res: Response<Respuesta<UsuarioCreateResponseDto>>): Promise<Response<Respuesta<UsuarioCreateResponseDto>>> {
     const newUser = await this.usuarioCommandService.crearUsuario(req.body);
     return res.status(201).json(respuestaOk<UsuarioCreateResponseDto>(newUser));
   }
 
-  public async actualizarPassword(req: Request<{ id: string }, {}, { Password: string }>, res: Response<StandardResponse<null>>): Promise<Response<StandardResponse<null>>> {
+  public async actualizarPassword(req: Request<{ id: string }, {}, { Password: string }>, res: Response<Respuesta<null>>): Promise<Response<Respuesta<null>>> {
     const userId = Number(req.params.id);
     const { Password } = req.body;
 

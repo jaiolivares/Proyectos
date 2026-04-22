@@ -1,13 +1,3 @@
-select * from TipoVehiculo
-select * from MarcaVehiculo
-select * from ModeloVehiculo
-select * from MarcaModeloVehiculo
-select * from Vehiculo
-select * from Taller
-select * from Mantencion
-select * from MantencionDetalle
-
-
 INSERT INTO `JOZ`.`TipoVehiculo` (`Tipo`, `Descripcion`) 
 values
 ('Auto', 'Automóvil'),

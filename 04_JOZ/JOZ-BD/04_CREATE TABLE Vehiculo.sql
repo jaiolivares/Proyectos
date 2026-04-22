@@ -5,12 +5,6 @@ CREATE TABLE `TipoVehiculo` (
   PRIMARY KEY (`Id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
-INSERT INTO `JOZ`.`TipoVehiculo` (`Tipo`, `Descripcion`) 
-values
-('Auto', 'Automóvil'),
-('Moto', 'Motocicleta');
-
-/*----------------------------------------------------------------------*/
 
 CREATE TABLE `MarcaVehiculo` (
   `Id` int NOT NULL AUTO_INCREMENT,
@@ -19,13 +13,6 @@ CREATE TABLE `MarcaVehiculo` (
   PRIMARY KEY (`Id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
-INSERT INTO `JOZ`.`MarcaVehiculo` (`Marca`, `Descripcion`) 
-values
-('Chevrolet', 'Chevrolet'),
-('Suzuki', 'Suzuki'),
-('Honda', 'Honda');
-
-/*----------------------------------------------------------------------*/
 
 CREATE TABLE `ModeloVehiculo` (
   `Id` int NOT NULL AUTO_INCREMENT,
@@ -36,13 +23,6 @@ CREATE TABLE `ModeloVehiculo` (
   FOREIGN KEY (`IdTipoVehiculo`) REFERENCES `TipoVehiculo`(`Id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
-INSERT INTO `JOZ`.`ModeloVehiculo` (`IdTipoVehiculo`, `Modelo`, `Descripcion`) 
-values
-(1, 'Tracker', 'Tracker'),
-(1, 'Maruti', 'Maruti'),
-(2, 'CB300R', 'CB300R');
-
-/*----------------------------------------------------------------------*/
 
 CREATE TABLE `MarcaModeloVehiculo` (
   `Id` int NOT NULL AUTO_INCREMENT,
@@ -52,14 +32,7 @@ CREATE TABLE `MarcaModeloVehiculo` (
   FOREIGN KEY (`IdMarca`) REFERENCES `MarcaVehiculo`(`Id`),
   FOREIGN KEY (`IdModelo`) REFERENCES `ModeloVehiculo`(`Id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
- 
-INSERT INTO `JOZ`.`MarcaModeloVehiculo` (`IdMarca`, `IdModelo`) 
-values
-(1, 1),
-(2, 2),
-(3, 3);
 
-/*----------------------------------------------------------------------*/
 
 CREATE TABLE `Vehiculo` (
   `Id` int NOT NULL AUTO_INCREMENT,
@@ -77,7 +50,6 @@ CREATE TABLE `Vehiculo` (
   FOREIGN KEY (`IdMarcaModeloVehiculo`) REFERENCES `MarcaModeloVehiculo`(`Id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
  
-/*----------------------------------------------------------------------*/
 
 CREATE TABLE `Taller` (
   `Id` int NOT NULL AUTO_INCREMENT,
@@ -88,7 +60,6 @@ CREATE TABLE `Taller` (
   FOREIGN KEY (`IdComuna`) REFERENCES `Comuna`(`Id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
  
-/*----------------------------------------------------------------------*/
 
 CREATE TABLE `Mantencion` (
   `Id` int NOT NULL AUTO_INCREMENT,
@@ -105,7 +76,6 @@ CREATE TABLE `Mantencion` (
   FOREIGN KEY (`IdUsuario`) REFERENCES `Usuario`(`Id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
  
-/*----------------------------------------------------------------------*/
 
 CREATE TABLE `MantencionDetalle` (
   `Id` int NOT NULL AUTO_INCREMENT,

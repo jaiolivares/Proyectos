@@ -1,5 +1,3 @@
-/*CREATE DATABASE `JOZ`;*/ 
-
 CREATE TABLE `Usuario` (
   `Id` int NOT NULL AUTO_INCREMENT,
   `NombreUsuario` varchar(100) NOT NULL,
@@ -17,9 +15,5 @@ CREATE TABLE `Usuario` (
   PRIMARY KEY (`Id`),
   UNIQUE KEY `NombreUsuario_UNIQUE` (`NombreUsuario`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-
-INSERT INTO `JOZ`.`Usuario` (`NombreUsuario`, `Password`, `Nombre`, `ApellidoPaterno`, `Email`, `FechaCreacion`, `EstaBloqueado`, `EstaActivo`) 
-VALUES ('jai', '', 'javier', 'olivares', 'javi@aa.aa', NOW(), 0, 1);
-
 
 /*DROP TABLE Usuario*/

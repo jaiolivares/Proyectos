@@ -8,8 +8,45 @@
             "type": "chrome",
             "request": "launch",
             "name": "Iniciar Chrome para localhost",
-            "url": "http://localhost:8080",
+            "url": "http://localhost:3000/api/",
             "webRoot": "${workspaceFolder}"
+        }
+        ,
+        {
+            "type": "pwa-node",
+            "request": "launch",
+            "name": "Launch JOZ-Api (ts-node)",
+            "cwd": "${workspaceFolder}/JOZ-Api",
+            "program": "${workspaceFolder}/JOZ-Api/src/server.ts",
+            "runtimeArgs": ["--enable-source-maps", "-r", "ts-node/register"],
+            "sourceMaps": true,
+            "smartStep": true,
+            "skipFiles": ["<node_internals>/**"],
+            "env": {
+                "TS_NODE_PROJECT": "${workspaceFolder}/JOZ-Api/tsconfig.json"
+            },
+            "console": "integratedTerminal",
+            "internalConsoleOptions": "neverOpen"
+        },
+        {
+            "name": "Attach to Process (Node)",
+            "type": "pwa-node",
+            "request": "attach",
+            "processId": "${command:PickProcess}",
+            "cwd": "${workspaceFolder}/JOZ-Api"
+        }
+        ,
+        {
+            "name": "Attach to 9229 (dist)",
+            "type": "pwa-node",
+            "request": "attach",
+            "port": 9229,
+            "address": "localhost",
+            "localRoot": "${workspaceFolder}/JOZ-Api",
+            "remoteRoot": "${workspaceFolder}/JOZ-Api",
+            "outFiles": ["${workspaceFolder}/JOZ-Api/dist/**/*.js"],
+            "sourceMaps": true,
+            "skipFiles": ["<node_internals>/**"]
         }
     ]
 }

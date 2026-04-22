@@ -1,9 +1,9 @@
 import { Request, Response } from "express";
-import { respuestaOk } from "../dtos/response.dto";
-import type { StandardResponse } from "../dtos/response.dto";
+import { respuestaOk } from "../dtos/utils/respuesta.dto";
+import type { Respuesta } from "../dtos/utils/respuesta.dto";
 
 export class ItemController {
-    public async all(req: Request, res: Response<StandardResponse<any[]>>): Promise<Response<StandardResponse<any[]>>> {
+    public async all(req: Request, res: Response<Respuesta<any[]>>): Promise<Response<Respuesta<any[]>>> {
         const items = await this.getItems();
         return res.status(200).json(respuestaOk<any[]>(items));
     }

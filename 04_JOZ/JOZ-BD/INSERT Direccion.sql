@@ -1,8 +1,3 @@
-select * from Region
-select * from Ciudad
-select * from Comuna
-
-
 insert into Region values
 (default,13,'RM','Región Metropolitana de Santiago')
 

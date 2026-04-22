@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import { AuthCommandService } from "../services/commands/auth/auth.command.service";
-import { respuestaOk, respuestaError } from "../dtos/response.dto";
-import type { StandardResponse } from "../dtos/response.dto";
+import { respuestaOk, respuestaError } from "../dtos/utils/respuesta.dto";
+import type { Respuesta } from "../dtos/utils/respuesta.dto";
 import { LoginResponseDto } from "../dtos/auth/loginResponse.dto";
 
 export class AuthController {
@@ -11,7 +11,7 @@ export class AuthController {
     this.authCommandService = authCommandService;
   }
 
-  public async login(req: Request<{}, {}, { NombreUsuario: string; Password: string }>, res: Response<StandardResponse<LoginResponseDto>>): Promise<Response<StandardResponse<LoginResponseDto>>> {
+  public async login(req: Request<{}, {}, { NombreUsuario: string; Password: string }>, res: Response<Respuesta<LoginResponseDto>>): Promise<Response<Respuesta<LoginResponseDto>>> {
     const { NombreUsuario, Password } = req.body;
     if (!NombreUsuario || !Password)
       return res.status(400).json(respuestaError<LoginResponseDto>("NombreUsuario y Password son obligatorios"));

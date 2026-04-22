@@ -15,9 +15,12 @@ async function main() {
         Id: 1,
         NombreUsuario: 'javier_1',
         Nombre: 'javier',
+        ApellidoPaterno: 'Apellido',
+        Password: 'changeme',
         Email: 'javi@aa.aa',
         FechaCreacion: new Date(),
         EstaActivo: 1,
+        EstaBloqueado: 0,
       },
     });
     console.log('Seed user upserted (Id=1)');

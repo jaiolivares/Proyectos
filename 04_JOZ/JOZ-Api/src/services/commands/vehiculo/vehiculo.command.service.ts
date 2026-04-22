@@ -15,6 +15,12 @@ export class VehiculoCommandService {
   }
 
   public async crearVehiculo(req: VehiculoCreateRequestDto): Promise<VehiculoCreateResponseDto> {
+
+    //Agregar validacion de MarcaModeloVehiculo FK
+    //Se debe crear el servicio de MarcaModeloVehiculo y validar la existencia antes de crear el vehículo
+    //Con el metodo obtener de MarcaModeloVehiculoQueryService...
+
+
     return await this.vehiculoCommandRepository.crearVehiculo(req) as Promise<VehiculoCreateResponseDto>;
   }
 
