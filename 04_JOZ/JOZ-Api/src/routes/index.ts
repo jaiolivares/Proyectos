@@ -4,6 +4,7 @@ import usuarioRoutes from './usuarios/usuario.routes';
 import vehiculoRoutes from './vehiculos/vehiculo.routes';
 import marcaModeloVehiculoRoutes from './vehiculos/marcaModeloVehiculo.routes';
 import marcaRoutes from './vehiculos/marca.routes';
+import modeloRoutes from './vehiculos/modelo.routes';
 
 import {ItemController} from '../controllers/item.controller';
 
@@ -18,5 +19,6 @@ export const setRoutes = (app: Express) => {
     app.use('/api/vehiculo', vehiculoRoutes);
     app.use('/api/marcaModeloVehiculo', marcaModeloVehiculoRoutes);
     app.use('/api/marca', marcaRoutes);
+    app.use('/api/modelo', modeloRoutes);
     app.use('/api/item', itemController.all.bind(itemController));
 };
