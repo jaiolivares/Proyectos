@@ -3,7 +3,7 @@ import { VehiculoCommandService } from "../services/commands/vehiculo/vehiculo.c
 import { VehiculoQueryService } from "../services/queries/vehiculo/vehiculo.query.service";
 import { VehiculoCreateRequestDto } from "../dtos/vehiculo/vehiculoCreateRequest.dto";
 import { VehiculoCreateResponseDto } from "../dtos/vehiculo/vehiculoCreateResponse.dto";
-import { ValidataEstructuraCreateBody } from "../requests/validators/vehiculo.validator";
+import { ValidataEstructuraCreateBody } from "../utils/validators/vehiculo.validator";
 import { NormalizaBody } from "../utils/util";
 import { VehiculoUpdateRequestDto } from "../dtos/vehiculo/vehiculoUpdateRequest.dto";
 import { VehiculoUpdateResponseDto } from "../dtos/vehiculo/vehiculoUpdateResponse.dto";
@@ -44,34 +44,21 @@ export class VehiculoController {
   }
 
   public async crear(req: Request<{}, {}, VehiculoCreateRequestDto>, res: Response<Respuesta<VehiculoCreateResponseDto>>): Promise<Response<Respuesta<VehiculoCreateResponseDto>>> {
-    try {
-
-      console.log("body1", req.body);
-      
+    try {      
       NormalizaBody(req.body);
-
       const validation = ValidataEstructuraCreateBody(req.body);
-
-      console.log("validation", validation);
-
-      
-      console.log("body2", req.body);
 
       if (!validation.valid) {
         return res.status(400).json(respuestaError<VehiculoCreateResponseDto>(validation.errors?.join('; ') ?? 'Body inválido'));
       }
-
-
       const created = await this.vehiculoCommandService.crearVehiculo(req.body);
-
-      console.log("created", created);
-
       return res.status(201).json(respuestaOk<VehiculoCreateResponseDto>(created));
     } catch (err: any) {
       return res.status(500).json(respuestaError<VehiculoCreateResponseDto>(err.message ?? 'error interno'));
     }
   }
 
+  //TODO: No revisado
   public async actualizar(req: Request<{ id: string }, {}, VehiculoUpdateRequestDto>, res: Response<Respuesta<VehiculoUpdateResponseDto>>): Promise<Response<Respuesta<VehiculoUpdateResponseDto>>> {
     const id = Number(req.params.id);
     const updated = await this.vehiculoCommandService.actualizarVehiculo(id, req.body);
@@ -79,6 +66,7 @@ export class VehiculoController {
     return res.status(200).json(respuestaOk<VehiculoUpdateResponseDto>(updated));
   }
 
+  //TODO: No revisado
   public async eliminar(req: Request, res: Response<Respuesta<null>>): Promise<Response<Respuesta<null>>> {
     const id = Number(req.params.id);
     const deleted = await this.vehiculoCommandService.eliminarVehiculo(id);

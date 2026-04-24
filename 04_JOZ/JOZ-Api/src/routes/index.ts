@@ -2,6 +2,7 @@ import { Express } from 'express';
 import { HealthController } from '../controllers/health.controller';
 import usuarioRoutes from './usuario.routes';
 import vehiculoRoutes from './vehiculo.routes';
+import marcaModeloVehiculoRoutes from './marcaModeloVehiculo.routes';
 
 import {ItemController} from '../controllers/item.controller';
 
@@ -14,5 +15,6 @@ export const setRoutes = (app: Express) => {
     app.use('/api/auth', usuarioRoutes);
     app.use('/api/usuario', usuarioRoutes);
     app.use('/api/vehiculo', vehiculoRoutes);
+    app.use('/api/marcaModeloVehiculo', marcaModeloVehiculoRoutes);
     app.use('/api/item', itemController.all.bind(itemController));
 };
