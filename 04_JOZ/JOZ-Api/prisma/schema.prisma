@@ -37,3 +37,36 @@ model Vehiculo {
 
   @@map("Vehiculo")
 }
+
+model TipoVehiculo {
+  Id          Int    @id @default(autoincrement())
+  Tipo        String @db.VarChar(20)
+  Descripcion String @db.VarChar(60)
+
+  @@map("TipoVehiculo")
+}
+
+model MarcaVehiculo {
+  Id          Int    @id @default(autoincrement())
+  Marca       String @db.VarChar(20)
+  Descripcion String @db.VarChar(60)
+
+  @@map("MarcaVehiculo")
+}
+
+model ModeloVehiculo {
+  Id             Int    @id @default(autoincrement())
+  IdTipoVehiculo Int
+  Modelo         String @db.VarChar(20)
+  Descripcion    String @db.VarChar(60)
+
+  @@map("ModeloVehiculo")
+}
+
+model MarcaModeloVehiculo {
+  Id       Int @id @default(autoincrement())
+  IdMarca  Int
+  IdModelo Int
+
+  @@map("MarcaModeloVehiculo")
+}

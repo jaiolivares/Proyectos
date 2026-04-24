@@ -24,7 +24,7 @@ export class VehiculoController {
     const items = await this.vehiculoQueryService.obtenerVehiculos();
 
     if (items.length === 0)
-      return res.status(404).json(respuestaError<VehiculoDto[]>("No se encontraron vehículos"));
+      return res.status(404).json(respuestaError<VehiculoDto[]>("No se encontraron Vehículos"));
 
     return res.status(200).json(respuestaOk<VehiculoDto[]>(items));
   }
