@@ -6,7 +6,4 @@ export interface VehiculoCreateRequestDto {
   Color: string;
   FechaCompra: Date;
   MontoCompra: number;
-  Vendido?: boolean | false;
-  FechaVenta?: Date | null;
-  MontoVenta?: number | null;
 }

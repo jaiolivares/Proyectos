@@ -53,7 +53,11 @@ export class VehiculoController {
       }
       const created = await this.vehiculoCommandService.crearVehiculo(req.body);
       return res.status(201).json(respuestaOk<VehiculoCreateResponseDto>(created));
+      
     } catch (err: any) {
+      if (err?.message === 'IdMarcaModeloVehiculo no es válido') {
+        return res.status(400).json(respuestaError<VehiculoCreateResponseDto>(err.message));
+      }
       return res.status(500).json(respuestaError<VehiculoCreateResponseDto>(err.message ?? 'error interno'));
     }
   }

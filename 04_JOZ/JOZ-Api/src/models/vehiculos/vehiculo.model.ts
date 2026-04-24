@@ -8,6 +8,6 @@ export interface Vehiculo {
   FechaCompra: Date;
   MontoCompra: number;
   Vendido: boolean;
-  FechaVenta: Date;
-  MontoVenta: number;
+  FechaVenta: Date | null;
+  MontoVenta: number | null;
 }

@@ -1,9 +1,10 @@
 import prisma from "../../../../prisma";
 import { VehiculoCreateRequestDto } from "../../../../dtos/vehiculos/vehiculo/vehiculoCreateRequest.dto";
 import { VehiculoUpdateRequestDto } from "../../../../dtos/vehiculos/vehiculo/vehiculoUpdateRequest.dto";
+import { Vehiculo } from "../../../../models/vehiculos/vehiculo.model";
 
 export class VehiculoCommandRepository {
-  public async crearVehiculo(req: VehiculoCreateRequestDto): Promise<any> {
+  public async crearVehiculo(req: VehiculoCreateRequestDto): Promise<Vehiculo> {
     try {
       const created = await prisma.vehiculo.create({
         data: {
@@ -14,9 +15,9 @@ export class VehiculoCommandRepository {
           Color: req.Color,
           FechaCompra: req.FechaCompra,
           MontoCompra: req.MontoCompra,
-          Vendido: req.Vendido ? 1 : 0,
-          FechaVenta: req.FechaVenta ?? null,
-          MontoVenta: req.MontoVenta ?? null,
+          Vendido: 0,
+          FechaVenta: null,
+          MontoVenta: null,
         },
       });
       return created;
