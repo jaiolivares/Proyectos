@@ -1,8 +1,8 @@
 import { Express } from 'express';
-import { HealthController } from '../controllers/health.controller';
-import usuarioRoutes from './usuario.routes';
-import vehiculoRoutes from './vehiculo.routes';
-import marcaModeloVehiculoRoutes from './marcaModeloVehiculo.routes';
+import { HealthController } from '../controllers/healths/health.controller';
+import usuarioRoutes from './usuarios/usuario.routes';
+import vehiculoRoutes from './vehiculos/vehiculo.routes';
+import marcaModeloVehiculoRoutes from './vehiculos/marcaModeloVehiculo.routes';
 
 import {ItemController} from '../controllers/item.controller';
 
