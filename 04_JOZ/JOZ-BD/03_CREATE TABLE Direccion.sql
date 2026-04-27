@@ -1,5 +1,6 @@
 CREATE TABLE `Region` (
   `Id` int NOT NULL AUTO_INCREMENT,
+  `Numero` varchar(3) NOT NULL,
   `Codigo` varchar(20) NOT NULL,
   `Descripcion` varchar(50) NOT NULL,
   PRIMARY KEY (`Id`)
