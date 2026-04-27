@@ -22,7 +22,22 @@ export class UsuarioCommandService {
   public async crearUsuario(req: UsuarioCreateRequestDto): Promise<UsuarioCreateResponseDto> {
     const passwordEncriptada = await this.authCommandService.encriptarPassword(req.Password);
     const usuarioCreateRequestDto: UsuarioCreateRequestDto = { ...req, Password: passwordEncriptada };
-    return await this.usuarioCommandRepository.crearUsuario(usuarioCreateRequestDto);
+    
+    const UsuarioModel = await this.usuarioCommandRepository.crearUsuario(usuarioCreateRequestDto);
+
+    const responseDto: UsuarioCreateResponseDto = {
+      Id: UsuarioModel.Id,
+      NombreUsuario: UsuarioModel.NombreUsuario,
+      Nombre: UsuarioModel.Nombre,
+      SegundoNombre: UsuarioModel.SegundoNombre,
+      ApellidoPaterno: UsuarioModel.ApellidoPaterno,
+      ApellidoMaterno: UsuarioModel.ApellidoMaterno,
+      Email: UsuarioModel.Email,
+      FechaCreacion: UsuarioModel.FechaCreacion,
+    };
+    
+    return responseDto;
+
   }
 
   public async actualizarPassword(id: number, newPassword: string): Promise<UsuarioUpdateResponseDto | null> {

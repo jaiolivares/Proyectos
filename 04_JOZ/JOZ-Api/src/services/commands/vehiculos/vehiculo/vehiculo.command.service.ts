@@ -26,7 +26,7 @@ export class VehiculoCommandService {
       throw new Error('IdMarcaModeloVehiculo no es válido');
     }
 
-    const vehiculoModel = await this.vehiculoCommandRepository.crearVehiculo(req) as Vehiculo;
+    const vehiculoModel = await this.vehiculoCommandRepository.crearVehiculo(req);
 
     const vehiculoCreateResponseDto = {
       Id: vehiculoModel.Id,

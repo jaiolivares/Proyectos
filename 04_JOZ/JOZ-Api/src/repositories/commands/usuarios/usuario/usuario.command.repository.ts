@@ -7,7 +7,7 @@ import { UsuarioUpdateResponseDto } from "../../../../dtos/usuarios/usuario/usua
 
 export class UsuarioCommandRepository {
   
-  public async crearUsuario(req: UsuarioCreateRequestDto): Promise<UsuarioCreateResponseDto> {
+  public async crearUsuario(req: UsuarioCreateRequestDto): Promise<Usuario> {
     try {
       const created = await prisma.usuario.create({
         data: {
@@ -21,17 +21,7 @@ export class UsuarioCommandRepository {
           FechaCreacion: new Date(),
           EstaBloqueado: 0,
           EstaActivo: 1,
-        },
-        select: {
-          Id: true,
-          NombreUsuario: true,
-          Nombre: true,
-          SegundoNombre: true,
-          ApellidoPaterno: true,
-          ApellidoMaterno: true,
-          Email: true,
-          FechaCreacion: true,
-        },
+        }
       });
       return created;
     }
