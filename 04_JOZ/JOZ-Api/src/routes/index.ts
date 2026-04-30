@@ -1,20 +1,19 @@
 import { Express } from 'express';
-import { HealthController } from '../controllers/healths/health.controller';
+import healtRoutes from './healths/health.routes';
+import authRoutes from './auths/auth.routes';
 import usuarioRoutes from './usuarios/usuario.routes';
 import vehiculoRoutes from './vehiculos/vehiculo.routes';
 import marcaModeloVehiculoRoutes from './vehiculos/marcaModeloVehiculo.routes';
 import marcaRoutes from './vehiculos/marca.routes';
 import modeloRoutes from './vehiculos/modelo.routes';
 
+//TODO: BorraritemController que era solo de prueas para el Front
 import {ItemController} from '../controllers/item.controller';
-
-const healthController = new HealthController();
-
 const itemController = new ItemController();
 
 export const setRoutes = (app: Express) => {
-    app.get('/api/health', healthController.getHealth.bind(healthController));
-    app.use('/api/auth', usuarioRoutes);
+    app.use('/api/health', healtRoutes);
+    app.use('/api/auth', authRoutes );
     app.use('/api/usuario', usuarioRoutes);
     app.use('/api/vehiculo', vehiculoRoutes);
     app.use('/api/marcaModeloVehiculo', marcaModeloVehiculoRoutes);

@@ -3,7 +3,7 @@ import jwt from "jsonwebtoken";
 import config from '../../../../config';
 import { UsuarioQueryService } from "../../../queries/usuarios/usuario/usuario.query.service";
 import { UsuarioDto } from "../../../../dtos/usuarios/usuario/usuario.dto";
-import { LoginResponseDto } from "../../../../dtos/login/auth/loginResponse.dto";
+import { LoginResponseDto } from "../../../../dtos/auths/auth/authResponse.dto";
 
 export class AuthCommandService {
   private usuarioQueryService: UsuarioQueryService;

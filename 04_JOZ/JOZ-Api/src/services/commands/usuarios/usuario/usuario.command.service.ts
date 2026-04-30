@@ -1,4 +1,4 @@
-import { AuthCommandService } from "../../logins/auth/auth.command.service";
+import { AuthCommandService } from "../../auths/auth/auth.command.service";
 import { Usuario } from "../../../../models/usuarios/usuario.model";
 import { UsuarioDto } from "../../../../dtos/usuarios/usuario/usuario.dto";
 import { UsuarioCreateRequestDto } from "../../../../dtos/usuarios/usuario/usuarioCreateRequest.dto";

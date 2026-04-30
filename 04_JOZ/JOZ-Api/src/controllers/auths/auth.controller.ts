@@ -1,8 +1,8 @@
 import { Request, Response } from "express";
-import { AuthCommandService } from "../../services/commands/logins/auth/auth.command.service";
+import { AuthCommandService } from "../../services/commands/auths/auth/auth.command.service";
 import { respuestaOk, respuestaError } from "../../dtos/utils/respuesta.dto";
 import type { Respuesta } from "../../dtos/utils/respuesta.dto";
-import { LoginResponseDto } from "../../dtos/login/auth/loginResponse.dto";
+import { LoginResponseDto } from "../../dtos/auths/auth/authResponse.dto";
 
 export class AuthController {
   private authCommandService: AuthCommandService;
