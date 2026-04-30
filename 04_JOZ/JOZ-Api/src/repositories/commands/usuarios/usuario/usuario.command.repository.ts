@@ -1,9 +1,6 @@
 import prisma from "../../../../prisma";
 import { Usuario } from "../../../../models/usuarios/usuario.model";
 import { UsuarioCreateRequestDto } from "../../../../dtos/usuarios/usuario/usuarioCreateRequest.dto";
-import { UsuarioCreateResponseDto } from "../../../../dtos/usuarios/usuario/usuarioCreateResponse.dto";
-import { UsuarioUpdateRequestDto } from "../../../../dtos/usuarios/usuario/usuarioUpdateRequest.dto";
-import { UsuarioUpdateResponseDto } from "../../../../dtos/usuarios/usuario/usuarioUpdateResponse.dto";
 
 export class UsuarioCommandRepository {
   
@@ -24,27 +21,16 @@ export class UsuarioCommandRepository {
         }
       });
       return created;
-    }
-    catch (error) {
+    } catch (error) {
       throw error;
     }
   }
 
-  public async actualizarPassword(id: number, newPassword: string): Promise<UsuarioUpdateResponseDto> {
+  public async actualizarPassword(id: number, newPassword: string): Promise<Usuario> {
     try {
       const updated = await prisma.usuario.update({
         where: { Id: id },
         data: { Password: newPassword },
-        select: {
-          Id: true,
-          NombreUsuario: true,
-          Nombre: true,
-          SegundoNombre: true,
-          ApellidoPaterno: true,
-          ApellidoMaterno: true,
-          Email: true,
-          FechaCreacion: true,
-        },
       });
       return updated;
     } catch (error) {

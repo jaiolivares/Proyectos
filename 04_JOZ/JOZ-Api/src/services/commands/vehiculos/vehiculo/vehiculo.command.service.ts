@@ -5,7 +5,6 @@ import { VehiculoUpdateResponseDto } from "../../../../dtos/vehiculos/vehiculo/v
 import { VehiculoCommandRepository } from "../../../../repositories/commands/vehiculos/vehiculo/vehiculo.command.repository";
 import { VehiculoQueryService } from "../../../queries/vehiculos/vehiculo/vehiculo.query.service";
 import { MarcaModeloVehiculoQueryService } from "../../../queries/vehiculos/marcaModeloVehiculo/marcaModeloVehiculo.query.service";
-import { Vehiculo } from "../../../../models/vehiculos/vehiculo.model";
 
 export class VehiculoCommandService {
   private vehiculoCommandRepository: VehiculoCommandRepository;
@@ -20,8 +19,8 @@ export class VehiculoCommandService {
 
   public async crearVehiculo(req: VehiculoCreateRequestDto): Promise<VehiculoCreateResponseDto> {
 
-    const idMarcaModelo = req.IdMarcaModeloVehiculo;
-    const marcaModelo = await this.marcaModeloVehiculoQueryService.obtenerMarcaModeloVehiculo(idMarcaModelo);
+    const idMarcaModeloVehiculo = req.IdMarcaModeloVehiculo;
+    const marcaModelo = await this.marcaModeloVehiculoQueryService.obtenerMarcaModeloVehiculo(idMarcaModeloVehiculo);
     if (!marcaModelo) {
       throw new Error('IdMarcaModeloVehiculo no es válido');
     }
@@ -45,13 +44,40 @@ export class VehiculoCommandService {
 
   public async actualizarVehiculo(id: number, req: VehiculoUpdateRequestDto): Promise<VehiculoUpdateResponseDto | null> {
     const existent = await this.vehiculoQueryService.obtenerVehiculo(id);
-    if (!existent) return null;
-    return await this.vehiculoCommandRepository.actualizarVehiculo(id, req) as Promise<VehiculoUpdateResponseDto>;
+    if (!existent)
+      throw new Error('Vehículo no encontrado');
+
+    const idMarcaModeloVehiculo = req.IdMarcaModeloVehiculo;
+    const marcaModelo = await this.marcaModeloVehiculoQueryService.obtenerMarcaModeloVehiculo(idMarcaModeloVehiculo);
+    if (!marcaModelo) {
+      throw new Error("IdMarcaModeloVehiculo no es válido");
+    }
+
+    const vehiculoModel = await this.vehiculoCommandRepository.actualizarVehiculo(id, req);
+
+    const vehiculoUpdateResponseDto = {
+      Id: vehiculoModel.Id,
+      IdMarcaModeloVehiculo: vehiculoModel.IdMarcaModeloVehiculo,
+      Ano: vehiculoModel.Ano,
+      NumeroMotor: vehiculoModel.NumeroMotor,
+      NumeroChasis: vehiculoModel.NumeroChasis,
+      Color: vehiculoModel.Color,
+      FechaCompra: vehiculoModel.FechaCompra,
+      MontoCompra: vehiculoModel.MontoCompra,
+      Vendido: vehiculoModel.Vendido,
+      FechaVenta: vehiculoModel.FechaVenta,
+      MontoVenta: vehiculoModel.MontoVenta,
+    };
+
+    return vehiculoUpdateResponseDto;
+
   }
 
   public async eliminarVehiculo(id: number): Promise<boolean> {
     const existent = await this.vehiculoQueryService.obtenerVehiculo(id);
-    if (!existent) return false;
+    if (!existent)
+      throw new Error("Vehículo no encontrado");
+
     return await this.vehiculoCommandRepository.eliminarVehiculo(id);
   }
 }

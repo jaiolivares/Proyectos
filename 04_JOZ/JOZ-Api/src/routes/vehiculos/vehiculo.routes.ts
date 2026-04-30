@@ -11,7 +11,7 @@ const vehiculoController = new VehiculoController(vehiculoCommandService, vehicu
 router.get("/obtenerTodos", vehiculoController.obtenerTodos.bind(vehiculoController));
 router.get("/obtenerPorId/:id", vehiculoController.obtenerPorId.bind(vehiculoController));
 router.post("/crear", vehiculoController.crear.bind(vehiculoController));
-router.put("/actualizar/:id", vehiculoController.actualizar.bind(vehiculoController));
+router.patch("/actualizar/:id", vehiculoController.actualizar.bind(vehiculoController));
 router.delete("/eliminar/:id", vehiculoController.eliminar.bind(vehiculoController));
 
 export default router;

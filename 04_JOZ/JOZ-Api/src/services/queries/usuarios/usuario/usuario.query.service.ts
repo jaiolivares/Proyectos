@@ -16,42 +16,56 @@ export class UsuarioQueryService {
     return new UsuarioDto(
       found.Id,
       found.NombreUsuario,
-      found.Password,
+      found.Password ?? "",
       found.Nombre,
-      found.SegundoNombre,
+      found.SegundoNombre ?? "",
       found.ApellidoPaterno,
-      found.ApellidoMaterno,
+      found.ApellidoMaterno ?? "",
       found.Email,
       found.FechaCreacion,
       found.FechaUltimoLogin ?? null,
-      found.EstaBloqueado,
-      found.EstaActivo,
+      Boolean(found.EstaBloqueado),
+      Boolean(found.EstaActivo),
     );
   }
 
   public async obtenerUsuarios(): Promise<UsuarioDto[]> {
     const list = await this.usuarioQueryRepository.obtenerUsuarios();
-    return list.map((u) => new UsuarioDto(u.Id, u.NombreUsuario, u.Password, u.Nombre, u.SegundoNombre, u.ApellidoPaterno, u.ApellidoMaterno, u.Email, u.FechaCreacion, u.FechaUltimoLogin ?? null, u.EstaBloqueado, u.EstaActivo));
+    return list.map((u) =>
+      new UsuarioDto(
+        u.Id,
+        u.NombreUsuario,
+        u.Password ?? "",
+        u.Nombre,
+        u.SegundoNombre ?? "",
+        u.ApellidoPaterno,
+        u.ApellidoMaterno ?? "",
+        u.Email,
+        u.FechaCreacion,
+        u.FechaUltimoLogin ?? null,
+        Boolean(u.EstaBloqueado),
+        Boolean(u.EstaActivo)
+      )
+    );
   }
 
   public async obtenerPorNombreUsuario(nombreUsuario: string): Promise<UsuarioDto | null> {
     const found = await this.usuarioQueryRepository.obtenerPorNombreUsuario(nombreUsuario);
-    if (!found)
-      return null;
+    if (!found) return null;
 
     return new UsuarioDto(
       found.Id,
       found.NombreUsuario,
-      found.Password,
+      found.Password ?? "",
       found.Nombre,
-      found.SegundoNombre,
+      found.SegundoNombre ?? "",
       found.ApellidoPaterno,
-      found.ApellidoMaterno,
+      found.ApellidoMaterno ?? "",
       found.Email,
       found.FechaCreacion,
       found.FechaUltimoLogin ?? null,
-      found.EstaBloqueado,
-      found.EstaActivo,
+      Boolean(found.EstaBloqueado),
+      Boolean(found.EstaActivo)
     );
   }
 }

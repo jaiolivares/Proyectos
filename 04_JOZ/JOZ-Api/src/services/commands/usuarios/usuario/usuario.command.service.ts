@@ -23,17 +23,17 @@ export class UsuarioCommandService {
     const passwordEncriptada = await this.authCommandService.encriptarPassword(req.Password);
     const usuarioCreateRequestDto: UsuarioCreateRequestDto = { ...req, Password: passwordEncriptada };
     
-    const UsuarioModel = await this.usuarioCommandRepository.crearUsuario(usuarioCreateRequestDto);
+    const usuarioModel = await this.usuarioCommandRepository.crearUsuario(usuarioCreateRequestDto);
 
     const responseDto: UsuarioCreateResponseDto = {
-      Id: UsuarioModel.Id,
-      NombreUsuario: UsuarioModel.NombreUsuario,
-      Nombre: UsuarioModel.Nombre,
-      SegundoNombre: UsuarioModel.SegundoNombre,
-      ApellidoPaterno: UsuarioModel.ApellidoPaterno,
-      ApellidoMaterno: UsuarioModel.ApellidoMaterno,
-      Email: UsuarioModel.Email,
-      FechaCreacion: UsuarioModel.FechaCreacion,
+      Id: usuarioModel.Id,
+      NombreUsuario: usuarioModel.NombreUsuario,
+      Nombre: usuarioModel.Nombre,
+      SegundoNombre: usuarioModel.SegundoNombre ?? null,
+      ApellidoPaterno: usuarioModel.ApellidoPaterno,
+      ApellidoMaterno: usuarioModel.ApellidoMaterno ?? null,
+      Email: usuarioModel.Email,
+      FechaCreacion: usuarioModel.FechaCreacion,
     };
     
     return responseDto;
@@ -46,7 +46,20 @@ export class UsuarioCommandService {
       return null;
     
     const passwordEncriptada = await this.authCommandService.encriptarPassword(newPassword);
-    return await this.usuarioCommandRepository.actualizarPassword(id, passwordEncriptada);
+    const usuarioModel = await this.usuarioCommandRepository.actualizarPassword(id, passwordEncriptada);
+
+    const responseDto: UsuarioUpdateResponseDto = {
+      Id: usuarioModel.Id,
+      NombreUsuario: usuarioModel.NombreUsuario,
+      Nombre: usuarioModel.Nombre,
+      SegundoNombre: usuarioModel.SegundoNombre ?? null,
+      ApellidoPaterno: usuarioModel.ApellidoPaterno,
+      ApellidoMaterno: usuarioModel.ApellidoMaterno ?? null,
+      Email: usuarioModel.Email,
+      FechaCreacion: usuarioModel.FechaCreacion,
+    };
+
+    return responseDto;
   }
 
   // public async actualizarUsuario(req: UsuarioUpdateRequestDto): Promise<UsuarioUpdateResponseDto | null> {

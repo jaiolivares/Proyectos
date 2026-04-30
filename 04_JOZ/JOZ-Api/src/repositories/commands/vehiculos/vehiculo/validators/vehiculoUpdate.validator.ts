@@ -1,4 +1,4 @@
-export function ValidataEstructuraCreateBody(body: any): { valid: boolean; errors?: string[] } {
+export function ValidataEstructuraUpdateBody(body: any): { valid: boolean; errors?: string[] } {
   const errors: string[] = [];
 
   if (!body || typeof body !== "object") {
@@ -13,7 +13,6 @@ export function ValidataEstructuraCreateBody(body: any): { valid: boolean; error
   if (typeof body.NumeroChasis !== "string" || body.NumeroChasis.trim() === "") errors.push("NumeroChasis es requerido");
   if (typeof body.Color !== "string" || body.Color.trim() === "") errors.push("Color es requerido");
 
-  // FechaCompra puede llegar como string o Date
   if (!body.FechaCompra) {
     errors.push("FechaCompra es requerida");
   } else {
@@ -22,6 +21,15 @@ export function ValidataEstructuraCreateBody(body: any): { valid: boolean; error
   }
 
   if (typeof body.MontoCompra !== "number" || Number.isNaN(body.MontoCompra)) errors.push("MontoCompra debe ser número");
+
+  if (body.Vendido !== undefined && typeof body.Vendido !== "boolean") errors.push("Vendido debe ser booleano");
+
+  if (body.FechaVenta !== undefined) {
+    const fechaVenta = body.FechaVenta instanceof Date ? body.FechaVenta : new Date(body.FechaVenta);
+    if (isNaN(fechaVenta.getTime())) errors.push("FechaVenta no es una fecha válida");
+  }
+
+  if (body.MontoVenta !== undefined && (typeof body.MontoVenta !== "number" || Number.isNaN(body.MontoVenta))) errors.push("MontoVenta debe ser número");
 
   return { valid: errors.length === 0, errors: errors.length ? errors : undefined };
 }

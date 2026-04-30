@@ -3,7 +3,8 @@ import { VehiculoCommandService } from "../../services/commands/vehiculos/vehicu
 import { VehiculoQueryService } from "../../services/queries/vehiculos/vehiculo/vehiculo.query.service";
 import { VehiculoCreateRequestDto } from "../../dtos/vehiculos/vehiculo/vehiculoCreateRequest.dto";
 import { VehiculoCreateResponseDto } from "../../dtos/vehiculos/vehiculo/vehiculoCreateResponse.dto";
-import { ValidataEstructuraCreateBody } from "../../utils/validators/vehiculo.validator";
+import { ValidataEstructuraCreateBody } from "../../repositories/commands/vehiculos/vehiculo/validators/vehiculoCreate.validator";
+import { ValidataEstructuraUpdateBody } from "../../repositories/commands/vehiculos/vehiculo/validators/vehiculoUpdate.validator";
 import { NormalizaBody } from "../../utils/util";
 import { VehiculoUpdateRequestDto } from "../../dtos/vehiculos/vehiculo/vehiculoUpdateRequest.dto";
 import { VehiculoUpdateResponseDto } from "../../dtos/vehiculos/vehiculo/vehiculoUpdateResponse.dto";
@@ -62,19 +63,62 @@ export class VehiculoController {
     }
   }
 
-  //TODO: No revisado
   public async actualizar(req: Request<{ id: string }, {}, VehiculoUpdateRequestDto>, res: Response<Respuesta<VehiculoUpdateResponseDto>>): Promise<Response<Respuesta<VehiculoUpdateResponseDto>>> {
-    const id = Number(req.params.id);
-    const updated = await this.vehiculoCommandService.actualizarVehiculo(id, req.body);
-    if (!updated) return res.status(404).json(respuestaError<VehiculoUpdateResponseDto>("Vehículo no encontrado"));
-    return res.status(200).json(respuestaOk<VehiculoUpdateResponseDto>(updated));
+    try {
+
+      const id = Number(req.params.id);
+
+      if (isNaN(id))
+        return res.status(400).json(respuestaError<VehiculoUpdateResponseDto>("ID inválido"));
+
+      if (req.body == null)
+        return res.status(400).json(respuestaError<VehiculoUpdateResponseDto>("No existen datos para actualizar"));
+
+      NormalizaBody(req.body);
+      const validation = ValidataEstructuraUpdateBody(req.body);
+
+      if (!validation.valid) {
+        return res.status(400).json(respuestaError<VehiculoUpdateResponseDto>(validation.errors?.join("; ") ?? "Body inválido"));
+      }
+
+      const updated = await this.vehiculoCommandService.actualizarVehiculo(id, req.body);
+      return res.status(200).json(respuestaOk<VehiculoUpdateResponseDto>(updated));
+
+    } catch (err: any) {
+
+      if (err?.message === "Vehículo no encontrado") {
+        return res.status(400).json(respuestaError<VehiculoUpdateResponseDto>(err.message));
+      }
+
+      if (err?.message === "IdMarcaModeloVehiculo no es válido") {
+        return res.status(400).json(respuestaError<VehiculoUpdateResponseDto>(err.message));
+      }
+      return res.status(500).json(respuestaError<VehiculoUpdateResponseDto>(err.message ?? "error interno"));
+    }
   }
 
   //TODO: No revisado
   public async eliminar(req: Request, res: Response<Respuesta<null>>): Promise<Response<Respuesta<null>>> {
-    const id = Number(req.params.id);
-    const deleted = await this.vehiculoCommandService.eliminarVehiculo(id);
-    if (!deleted) return res.status(404).json(respuestaError<null>("Vehículo no encontrado"));
-    return res.status(200).json(respuestaOk<null>(null));
+    try {
+      const id = Number(req.params.id);
+
+      if (isNaN(id))
+        return res.status(400).json(respuestaError<null>("ID inválido"));
+
+      const deleted = await this.vehiculoCommandService.eliminarVehiculo(id);
+      
+      return res.status(200).json(respuestaOk<null>(null));
+    
+    } catch (err: any) {
+      if (err?.message === "Vehículo no encontrado") {
+        return res.status(400).json(respuestaError<null>(err.message));
+      }
+
+      if (err?.message === "IdMarcaModeloVehiculo no es válido") {
+        return res.status(400).json(respuestaError<null>(err.message));
+      }
+      return res.status(500).json(respuestaError<null>(err.message ?? "error interno"));
+    }
+
   }
 }

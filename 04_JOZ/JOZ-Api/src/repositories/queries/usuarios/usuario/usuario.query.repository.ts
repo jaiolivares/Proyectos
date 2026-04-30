@@ -43,8 +43,8 @@ export class UsuarioQueryRepository {
       Email: record.Email,
       FechaCreacion: record.FechaCreacion,
       FechaUltimoLogin: record.FechaUltimoLogin ?? null,
-      EstaBloqueado: Boolean(record.EstaBloqueado),
-      EstaActivo: Boolean(record.EstaActivo),
+      EstaBloqueado: record.EstaBloqueado ? 1 : 0,
+      EstaActivo: record.EstaActivo ? 1 : 0,
     };
   }
 }

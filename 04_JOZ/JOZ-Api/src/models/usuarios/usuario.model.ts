@@ -1,14 +1,14 @@
 export interface Usuario {
   Id: number;
   NombreUsuario: string;
-  Password: string;
+  Password?: string;
   Nombre: string;
-  SegundoNombre: string;
+  SegundoNombre?: string | null;
   ApellidoPaterno: string;
-  ApellidoMaterno: string;
+  ApellidoMaterno?: string | null;
   Email: string;
   FechaCreacion: Date;
   FechaUltimoLogin?: Date | null;
-  EstaBloqueado: boolean;
-  EstaActivo: boolean;
+  EstaBloqueado: number;
+  EstaActivo: number;
 }

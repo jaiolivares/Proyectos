@@ -3,6 +3,7 @@ import { UsuarioCommandService } from "../../services/commands/usuarios/usuario/
 import { UsuarioQueryService } from "../../services/queries/usuarios/usuario/usuario.query.service";
 import { UsuarioCreateRequestDto } from "../../dtos/usuarios/usuario/usuarioCreateRequest.dto";
 import { UsuarioCreateResponseDto } from "../../dtos/usuarios/usuario/usuarioCreateResponse.dto";
+import { UsuarioUpdateResponseDto } from "../../dtos/usuarios/usuario/usuarioUpdateResponse.dto";
 import { respuestaOk, respuestaError } from "../../dtos/utils/respuesta.dto";
 import type { Respuesta } from "../../dtos/utils/respuesta.dto";
 import { UsuarioDto } from "../../dtos/usuarios/usuario/usuario.dto";
@@ -34,16 +35,16 @@ export class UsuarioController {
     return res.status(201).json(respuestaOk<UsuarioCreateResponseDto>(newUser));
   }
 
-  public async actualizarPassword(req: Request<{ id: string }, {}, { Password: string }>, res: Response<Respuesta<null>>): Promise<Response<Respuesta<null>>> {
+  public async actualizarPassword(req: Request<{ id: string }, {}, { Password: string }>, res: Response<Respuesta<UsuarioUpdateResponseDto>>): Promise<Response<Respuesta<UsuarioUpdateResponseDto>>> {
     const userId = Number(req.params.id);
     const { Password } = req.body;
 
-    if (!Password) return res.status(400).json(respuestaError<null>("Password es obligatorio"));
+    if (!Password) return res.status(400).json(respuestaError<UsuarioUpdateResponseDto>("Password es obligatorio"));
 
     const result = await this.usuarioCommandService.actualizarPassword(userId, Password);
-    if (!result) return res.status(404).json(respuestaError<null>("Usuario no encontrado"));
+    if (!result) return res.status(404).json(respuestaError<UsuarioUpdateResponseDto>("Usuario no encontrado"));
 
-    return res.status(200).json(respuestaOk<null>(null));
+    return res.status(200).json(respuestaOk<UsuarioUpdateResponseDto>(result));
   }
 
   // public async actualizar(req: Request, res: Response): Promise<Response> {

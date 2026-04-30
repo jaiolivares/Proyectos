@@ -26,7 +26,7 @@ export class VehiculoCommandRepository {
     }
   }
 
-  public async actualizarVehiculo(id: number, req: VehiculoUpdateRequestDto): Promise<any> {
+  public async actualizarVehiculo(id: number, req: VehiculoUpdateRequestDto): Promise<Vehiculo> {
     try {
       const data: any = {};
       if (req.IdMarcaModeloVehiculo !== undefined) data.IdMarcaModeloVehiculo = req.IdMarcaModeloVehiculo;
