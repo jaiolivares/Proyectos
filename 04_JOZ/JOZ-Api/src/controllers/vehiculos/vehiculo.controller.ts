@@ -3,8 +3,8 @@ import { VehiculoCommandService } from "../../services/commands/vehiculos/vehicu
 import { VehiculoQueryService } from "../../services/queries/vehiculos/vehiculo/vehiculo.query.service";
 import { VehiculoCreateRequestDto } from "../../dtos/vehiculos/vehiculo/vehiculoCreateRequest.dto";
 import { VehiculoCreateResponseDto } from "../../dtos/vehiculos/vehiculo/vehiculoCreateResponse.dto";
-import { ValidataEstructuraCreateBody } from "../../repositories/commands/vehiculos/vehiculo/validators/vehiculoCreate.validator";
-import { ValidataEstructuraUpdateBody } from "../../repositories/commands/vehiculos/vehiculo/validators/vehiculoUpdate.validator";
+import { ValidataEstructuraCreateBody } from "./validators/vehiculoCreate.validator";
+import { ValidataEstructuraUpdateBody } from "./validators/vehiculoUpdate.validator";
 import { NormalizaBody } from "../../utils/util";
 import { VehiculoUpdateRequestDto } from "../../dtos/vehiculos/vehiculo/vehiculoUpdateRequest.dto";
 import { VehiculoUpdateResponseDto } from "../../dtos/vehiculos/vehiculo/vehiculoUpdateResponse.dto";
