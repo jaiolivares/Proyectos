@@ -97,26 +97,23 @@ export class VehiculoController {
     }
   }
 
-  public async eliminar(req: Request, res: Response<Respuesta<null>>): Promise<Response<Respuesta<null>>> {
+  public async eliminar(req: Request, res: Response<Respuesta<string>>): Promise<Response<Respuesta<string>>> {
     try {
       const id = Number(req.params.id);
 
       if (isNaN(id))
-        return res.status(400).json(respuestaError<null>("ID inválido"));
+        return res.status(400).json(respuestaError<string>("ID inválido"));
 
       const deleted = await this.vehiculoCommandService.eliminarVehiculo(id);
       
-      return res.status(200).json(respuestaOk<null>(null));
+      return res.status(200).json(respuestaOk<string>(deleted));
     
     } catch (err: any) {
       if (err?.message === "Vehículo no encontrado") {
-        return res.status(400).json(respuestaError<null>(err.message));
+        return res.status(400).json(respuestaError<string>(err.message));
       }
 
-      if (err?.message === "IdMarcaModeloVehiculo no es válido") {
-        return res.status(400).json(respuestaError<null>(err.message));
-      }
-      return res.status(500).json(respuestaError<null>(err.message ?? "error interno"));
+      return res.status(500).json(respuestaError<string>(err.message ?? "error interno"));
     }
 
   }

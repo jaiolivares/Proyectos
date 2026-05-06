@@ -73,7 +73,7 @@ export class VehiculoCommandService {
 
   }
 
-  public async eliminarVehiculo(id: number): Promise<boolean> {
+  public async eliminarVehiculo(id: number): Promise<string> {
     const existent = await this.vehiculoQueryService.obtenerVehiculo(id);
     if (!existent)
       throw new Error("Vehículo no encontrado");

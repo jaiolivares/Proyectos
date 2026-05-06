@@ -70,3 +70,12 @@ model MarcaModeloVehiculo {
 
   @@map("MarcaModeloVehiculo")
 }
+
+model Taller {
+  Id       Int    @id @default(autoincrement())
+  Nombre   String @db.VarChar(100)
+  IdComuna Int
+  Direccion String @db.VarChar(200)
+
+  @@map("Taller")
+}

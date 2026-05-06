@@ -20,7 +20,19 @@ export class VehiculoCommandRepository {
           MontoVenta: null,
         },
       });
-      return created;
+      return {
+        Id: created.Id,
+        IdMarcaModeloVehiculo: created.IdMarcaModeloVehiculo,
+        Ano: created.Ano,
+        NumeroMotor: created.NumeroMotor,
+        NumeroChasis: created.NumeroChasis,
+        Color: created.Color,
+        FechaCompra: created.FechaCompra,
+        MontoCompra: created.MontoCompra,
+        Vendido: created.Vendido === 1,
+        FechaVenta: created.FechaVenta,
+        MontoVenta: created.MontoVenta,
+      };
     } catch (error) {
       throw error;
     }
@@ -44,18 +56,30 @@ export class VehiculoCommandRepository {
         where: { Id: id },
         data,
       });
-      return updated;
+      return {
+        Id: updated.Id,
+        IdMarcaModeloVehiculo: updated.IdMarcaModeloVehiculo,
+        Ano: updated.Ano,
+        NumeroMotor: updated.NumeroMotor,
+        NumeroChasis: updated.NumeroChasis,
+        Color: updated.Color,
+        FechaCompra: updated.FechaCompra,
+        MontoCompra: updated.MontoCompra,
+        Vendido: updated.Vendido === 1,
+        FechaVenta: updated.FechaVenta,
+        MontoVenta: updated.MontoVenta,
+      };
     } catch (error) {
       throw error;
     }
   }
 
-  public async eliminarVehiculo(id: number): Promise<boolean> {
+  public async eliminarVehiculo(id: number): Promise<string> {
     try {
       await prisma.vehiculo.delete({ where: { Id: id } });
-      return true;
-    } catch (error) {
-      return false;
+      return "Ok";
+    } catch (error: any) {
+      return error.message;
     }
   }
 }
