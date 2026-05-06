@@ -97,7 +97,6 @@ export class VehiculoController {
     }
   }
 
-  //TODO: No revisado
   public async eliminar(req: Request, res: Response<Respuesta<null>>): Promise<Response<Respuesta<null>>> {
     try {
       const id = Number(req.params.id);
