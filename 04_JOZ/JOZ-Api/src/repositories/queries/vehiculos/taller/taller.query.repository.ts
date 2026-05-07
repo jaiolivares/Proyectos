@@ -4,7 +4,7 @@ import { Taller } from "../../../../models/vehiculos/taller.model";
 export class TallerQueryRepository {
   public async obtenerTalleres(): Promise<Taller[]> {
     const results = await prisma.taller.findMany();
-    return results.map((r) => this.mapPrismaTaller(r));
+    return results.map((r: any) => this.mapPrismaTaller(r));
   }
 
   public async obtenerTaller(id: number): Promise<Taller | null> {

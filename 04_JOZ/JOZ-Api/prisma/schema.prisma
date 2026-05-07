@@ -4,78 +4,124 @@ generator client {
 
 datasource db {
   provider = "mysql"
-  url      = env("DATABASE_URL")
 }
 
-model Usuario {
-  Id               Int       @id @default(autoincrement())
-  NombreUsuario    String    @unique(map: "NombreUsuario_UNIQUE") @db.VarChar(100)
-  Password         String   @db.VarChar(100)
-  Nombre           String   @db.VarChar(50)
-  SegundoNombre    String?   @db.VarChar(50)
-  ApellidoPaterno  String   @db.VarChar(50)
-  ApellidoMaterno  String?   @db.VarChar(50)
-  Email            String   @db.VarChar(100)
-  FechaCreacion    DateTime @db.DateTime(0)
-  FechaUltimoLogin DateTime? @db.DateTime(0)
-  EstaBloqueado    Int      @db.TinyInt
-  EstaActivo       Int      @db.TinyInt
-}
-
-model Vehiculo {
-  Id                     Int       @id @default(autoincrement())
-  IdMarcaModeloVehiculo  Int
-  Ano                    Int
-  NumeroMotor            String    @db.VarChar(20)
-  NumeroChasis           String    @db.VarChar(30)
-  Color                  String    @db.VarChar(20)
-  FechaCompra            DateTime  @db.DateTime(0)
-  MontoCompra            Int
-  Vendido                Int       @db.TinyInt
-  FechaVenta             DateTime? @db.DateTime(0)
-  MontoVenta             Int?
-
-  @@map("Vehiculo")
-}
-
-model TipoVehiculo {
+model ciudad {
   Id          Int    @id @default(autoincrement())
-  Tipo        String @db.VarChar(20)
-  Descripcion String @db.VarChar(60)
+  IdRegion    Int
+  Codigo      String @db.VarChar(20)
+  Descripcion String @db.VarChar(50)
 
-  @@map("TipoVehiculo")
+  @@index([IdRegion], map: "IdRegion")
 }
 
-model MarcaVehiculo {
+model comuna {
+  Id          Int    @id @default(autoincrement())
+  IdCiudad    Int
+  Codigo      String @db.VarChar(20)
+  Descripcion String @db.VarChar(50)
+
+  @@index([IdCiudad], map: "IdCiudad")
+}
+
+model mantencion {
+  Id         Int      @id @default(autoincrement())
+  IdVehiculo Int
+  Fecha      DateTime @db.DateTime(0)
+  IdTaller   Int
+  Servicio   String   @db.VarChar(150)
+  MontoTotal Int
+  Boleta     String?  @db.Text
+  IdUsuario  Int
+
+  @@index([IdTaller], map: "IdTaller")
+  @@index([IdUsuario], map: "IdUsuario")
+  @@index([IdVehiculo], map: "IdVehiculo")
+}
+
+model mantenciondetalle {
+  Id              Int    @id @default(autoincrement())
+  IdMantencion    Int
+  Producto        String @db.VarChar(60)
+  DetalleProducto String @db.VarChar(250)
+
+  @@index([IdMantencion], map: "IdMantencion")
+}
+
+model marcamodelovehiculo {
+  Id       Int @id @default(autoincrement())
+  IdMarca  Int
+  IdModelo Int
+
+  @@index([IdMarca], map: "IdMarca")
+  @@index([IdModelo], map: "IdModelo")
+}
+
+model marcavehiculo {
   Id          Int    @id @default(autoincrement())
   Marca       String @db.VarChar(20)
   Descripcion String @db.VarChar(60)
-
-  @@map("MarcaVehiculo")
 }
 
-model ModeloVehiculo {
+model modelovehiculo {
   Id             Int    @id @default(autoincrement())
   IdTipoVehiculo Int
   Modelo         String @db.VarChar(20)
   Descripcion    String @db.VarChar(60)
 
-  @@map("ModeloVehiculo")
+  @@index([IdTipoVehiculo], map: "IdTipoVehiculo")
 }
 
-model MarcaModeloVehiculo {
-  Id       Int @id @default(autoincrement())
-  IdMarca  Int
-  IdModelo Int
-
-  @@map("MarcaModeloVehiculo")
+model region {
+  Id          Int    @id @default(autoincrement())
+  Numero      Int
+  Codigo      String @db.VarChar(20)
+  Descripcion String @db.VarChar(50)
 }
 
-model Taller {
-  Id       Int    @id @default(autoincrement())
-  Nombre   String @db.VarChar(100)
-  IdComuna Int
-  Direccion String @db.VarChar(200)
+model taller {
+  Id        Int    @id @default(autoincrement())
+  Nombre    String @db.VarChar(100)
+  IdComuna  Int
+  Direccion String @db.VarChar(100)
 
-  @@map("Taller")
+  @@index([IdComuna], map: "IdComuna")
+}
+
+model tipovehiculo {
+  Id          Int    @id @default(autoincrement())
+  Tipo        String @db.VarChar(20)
+  Descripcion String @db.VarChar(60)
+}
+
+model usuario {
+  Id                Int       @id @default(autoincrement())
+  NombreUsuario     String    @unique(map: "NombreUsuario_UNIQUE") @db.VarChar(100)
+  Password          String    @db.VarChar(100)
+  Nombre            String    @db.VarChar(50)
+  SegundoNombre     String?   @db.VarChar(50)
+  ApellidoPaterno   String    @db.VarChar(50)
+  ApellidoMaterno   String?   @db.VarChar(50)
+  Email             String    @db.VarChar(100)
+  FechaCreacion     DateTime  @db.DateTime(0)
+  FechaModificacion DateTime? @db.DateTime(0)
+  FechaUltimoLogin  DateTime? @db.DateTime(0)
+  EstaBloqueado     Int       @db.TinyInt
+  EstaActivo        Int       @db.TinyInt
+}
+
+model vehiculo {
+  Id                    Int       @id @default(autoincrement())
+  IdMarcaModeloVehiculo Int
+  Ano                   Int
+  NumeroMotor           String    @db.VarChar(20)
+  NumeroChasis          String    @db.VarChar(30)
+  Color                 String    @db.VarChar(20)
+  FechaCompra           DateTime  @db.DateTime(0)
+  MontoCompra           Int
+  Vendido               Int       @db.TinyInt
+  FechaVenta            DateTime? @db.DateTime(0)
+  MontoVenta            Int?
+
+  @@index([IdMarcaModeloVehiculo], map: "IdMarcaModeloVehiculo")
 }

@@ -16,7 +16,7 @@ export class UsuarioQueryRepository {
 
   public async obtenerUsuarios(): Promise<Usuario[]> {
     const results = await prisma.usuario.findMany();
-    return results.map((r) => this.mapPrismaUsuario(r));
+    return results.map((r: any) => this.mapPrismaUsuario(r));
   }
 
   public async obtenerPorNombreUsuario(nombreUsuario: string): Promise<Usuario | null> {

@@ -4,14 +4,17 @@ import { TallerUpdateRequestDto } from "../../../../dtos/vehiculos/taller/taller
 import { TallerUpdateResponseDto } from "../../../../dtos/vehiculos/taller/tallerUpdateResponse.dto";
 import { TallerCommandRepository } from "../../../../repositories/commands/vehiculos/taller/taller.command.repository";
 import { TallerQueryService } from "../../../queries/vehiculos/taller/taller.query.service";
+import { ComunaQueryService } from "../../../../services/queries/ubicaciones/comuna/comuna.query.service";
 
 export class TallerCommandService {
   private tallerCommandRepository: TallerCommandRepository;
   private tallerQueryService: TallerQueryService;
+  private comunaQueryService: ComunaQueryService;
 
-  constructor(tallerCommandRepository?: TallerCommandRepository, tallerQueryService?: TallerQueryService) {
+  constructor(tallerCommandRepository?: TallerCommandRepository, tallerQueryService?: TallerQueryService, comunaQueryService?: ComunaQueryService) {
     this.tallerCommandRepository = tallerCommandRepository ?? new TallerCommandRepository();
     this.tallerQueryService = tallerQueryService ?? new TallerQueryService();
+    this.comunaQueryService = comunaQueryService ?? new ComunaQueryService();
   }
 
   public async crearTaller(req: TallerCreateRequestDto): Promise<TallerCreateResponseDto> {
@@ -57,7 +60,7 @@ export class TallerCommandService {
     return tallerUpdateResponseDto;
   }
 
-  public async eliminarTaller(id: number): Promise<boolean> {
+  public async eliminarTaller(id: number): Promise<string> {
     const existent = await this.tallerQueryService.obtenerTaller(id);
     if (!existent) 
       throw new Error("Taller no encontrado");

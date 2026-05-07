@@ -32,12 +32,12 @@ export class TallerCommandRepository {
     }
   }
 
-  public async eliminarTaller(id: number): Promise<boolean> {
+  public async eliminarTaller(id: number): Promise<string> {
     try {
       await prisma.taller.delete({ where: { Id: id } });
-      return true;
-    } catch (error) {
-      return false;
+      return "OK";
+    } catch (error: any) {
+      return error;
     }
   }
 }

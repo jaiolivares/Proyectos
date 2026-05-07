@@ -4,7 +4,7 @@ import { Marca } from "../../../../models/vehiculos/marca.model";
 export class MarcaQueryRepository {
   public async obtenerMarcas(): Promise<Marca[]> {
     const results = await prisma.marcaVehiculo.findMany();
-    return results.map((r) => this.mapPrismaMarca(r));
+    return results.map((r: any) => this.mapPrismaMarca(r));
   }
 
   public async obtenerMarca(id: number): Promise<Marca | null> {

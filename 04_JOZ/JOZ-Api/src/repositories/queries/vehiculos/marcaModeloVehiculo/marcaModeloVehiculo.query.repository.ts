@@ -5,7 +5,7 @@ export class MarcaModeloVehiculoQueryRepository {
   
   public async obtenerMarcaModeloVehiculos(): Promise<MarcaModeloVehiculo[]> {
     const results = await prisma.marcaModeloVehiculo.findMany();
-    return results.map((r) => this.mapPrismaMarcaModeloVehiculo(r));
+    return results.map((r: any) => this.mapPrismaMarcaModeloVehiculo(r));
   }
 
   public async obtenerMarcaModeloVehiculo(id: number): Promise<MarcaModeloVehiculo | null> {

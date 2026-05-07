@@ -79,7 +79,7 @@ export class VehiculoCommandRepository {
       await prisma.vehiculo.delete({ where: { Id: id } });
       return "Ok";
     } catch (error: any) {
-      return error.message;
+      return error;
     }
   }
 }
