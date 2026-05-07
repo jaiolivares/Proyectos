@@ -1,0 +1,20 @@
+CREATE TABLE `ErrorApi` (
+  `Id` int NOT NULL AUTO_INCREMENT,
+  `IdUsuario` int NOT NULL,
+  `NombreError` varchar(120) NOT NULL,
+  `Mensaje` varchar(500) NOT NULL,
+  `StackTrace` text NULL,
+  `TokenAcceso` text NULL,
+  `MetodoHttp` varchar(10) NOT NULL,
+  `Endpoint` varchar(255) NOT NULL,
+  `RequestBody` text NULL,
+  `QueryParams` text NULL,
+  `RouteParams` text NULL,
+  `StatusCode` int NOT NULL DEFAULT 500,
+  `FechaCreacion` datetime,
+  PRIMARY KEY (`Id`),
+  KEY `IX_ErrorApi_IdUsuario` (`IdUsuario`),
+  KEY `IX_ErrorApi_FechaCreacion` (`FechaCreacion`),
+  KEY `IX_ErrorApi_NombreError` (`NombreError`),
+  FOREIGN KEY (`IdUsuario`) REFERENCES `Usuario`(`Id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;

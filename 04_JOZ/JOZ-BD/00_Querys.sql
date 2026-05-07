@@ -13,3 +13,8 @@ select * from Vehiculo;
 select * from Taller;
 select * from Mantencion;
 select * from MantencionDetalle;
+
+select * from ErrorApi;
+
+
+

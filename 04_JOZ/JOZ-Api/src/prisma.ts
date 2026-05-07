@@ -4,6 +4,7 @@ const { PrismaClient: PrismaClientClass } = require('@prisma/client');
 type PrismaClient = import('@prisma/client').PrismaClient;
 
 type PrismaClientWithAliases = PrismaClient & {
+	errorApi: PrismaClient['errorapi'];
 	marcaVehiculo: PrismaClient['marcavehiculo'];
 	marcaModeloVehiculo: PrismaClient['marcamodelovehiculo'];
 	modeloVehiculo: PrismaClient['modelovehiculo'];

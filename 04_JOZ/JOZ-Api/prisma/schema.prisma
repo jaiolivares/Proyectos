@@ -15,6 +15,26 @@ model ciudad {
   @@index([IdRegion], map: "IdRegion")
 }
 
+model errorapi {
+  Id            Int      @id @default(autoincrement())
+  IdUsuario     Int?
+  NombreError   String   @db.VarChar(120)
+  Mensaje       String   @db.VarChar(500)
+  StackTrace    String?  @db.Text
+  TokenAcceso   String?  @db.Text
+  MetodoHttp    String   @db.VarChar(10)
+  Endpoint      String   @db.VarChar(255)
+  RequestBody   String?  @db.Text
+  QueryParams   String?  @db.Text
+  RouteParams   String?  @db.Text
+  StatusCode    Int      @default(500)
+  FechaCreacion DateTime @default(now()) @db.DateTime(0)
+
+  @@index([IdUsuario], map: "IX_ErrorApi_IdUsuario")
+  @@index([FechaCreacion], map: "IX_ErrorApi_FechaCreacion")
+  @@index([NombreError], map: "IX_ErrorApi_NombreError")
+}
+
 model comuna {
   Id          Int    @id @default(autoincrement())
   IdCiudad    Int
