@@ -11,7 +11,7 @@ const marcaController = new MarcaController(marcaCommandService, marcaQueryServi
 router.get("/obtenerTodos", marcaController.obtenerTodos.bind(marcaController));
 router.get("/obtenerPorId/:id", marcaController.obtenerPorId.bind(marcaController));
 router.post("/crear", marcaController.crear.bind(marcaController));
-router.put("/actualizar/:id", marcaController.actualizar.bind(marcaController));
+router.patch("/actualizar/:id", marcaController.actualizar.bind(marcaController));
 router.delete("/eliminar/:id", marcaController.eliminar.bind(marcaController));
 
 export default router;

@@ -11,7 +11,7 @@ const tallerController = new TallerController(tallerCommandService, tallerQueryS
 router.get("/obtenerTodos", tallerController.obtenerTodos.bind(tallerController));
 router.get("/obtenerPorId/:id", tallerController.obtenerPorId.bind(tallerController));
 router.post("/crear", tallerController.crear.bind(tallerController));
-router.put("/actualizar/:id", tallerController.actualizar.bind(tallerController));
+router.patch("/actualizar/:id", tallerController.actualizar.bind(tallerController));
 router.delete("/eliminar/:id", tallerController.eliminar.bind(tallerController));
 
 export default router;

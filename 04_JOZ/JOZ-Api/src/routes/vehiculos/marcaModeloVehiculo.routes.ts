@@ -11,7 +11,7 @@ const marcaModeloVehiculoController = new MarcaModeloVehiculoController(marcaMod
 router.get("/obtenerTodos", marcaModeloVehiculoController.obtenerTodos.bind(marcaModeloVehiculoController));
 router.get("/obtenerPorId/:id", marcaModeloVehiculoController.obtenerPorId.bind(marcaModeloVehiculoController));
 router.post("/crear", marcaModeloVehiculoController.crear.bind(marcaModeloVehiculoController));
-router.put("/actualizar/:id", marcaModeloVehiculoController.actualizar.bind(marcaModeloVehiculoController));
+router.patch("/actualizar/:id", marcaModeloVehiculoController.actualizar.bind(marcaModeloVehiculoController));
 router.delete("/eliminar/:id", marcaModeloVehiculoController.eliminar.bind(marcaModeloVehiculoController));
 
 export default router;

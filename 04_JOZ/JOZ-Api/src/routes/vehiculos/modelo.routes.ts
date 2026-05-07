@@ -11,7 +11,7 @@ const modeloController = new ModeloController(modeloCommandService, modeloQueryS
 router.get("/obtenerTodos", modeloController.obtenerTodos.bind(modeloController));
 router.get("/obtenerPorId/:id", modeloController.obtenerPorId.bind(modeloController));
 router.post("/crear", modeloController.crear.bind(modeloController));
-router.put("/actualizar/:id", modeloController.actualizar.bind(modeloController));
+router.patch("/actualizar/:id", modeloController.actualizar.bind(modeloController));
 router.delete("/eliminar/:id", modeloController.eliminar.bind(modeloController));
 
 export default router;

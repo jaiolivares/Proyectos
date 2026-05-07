@@ -3,6 +3,12 @@ import { PrismaMariaDb } from '@prisma/adapter-mariadb';
 const { PrismaClient: PrismaClientClass } = require('@prisma/client');
 type PrismaClient = import('@prisma/client').PrismaClient;
 
+type PrismaClientWithAliases = PrismaClient & {
+	marcaVehiculo: PrismaClient['marcavehiculo'];
+	marcaModeloVehiculo: PrismaClient['marcamodelovehiculo'];
+	modeloVehiculo: PrismaClient['modelovehiculo'];
+};
+
 function buildDatabaseUrl() {
 	const { host, port, user, password, database } = config.db;
 	const encodedUser = encodeURIComponent(String(user));
@@ -25,20 +31,20 @@ const adapter = new PrismaMariaDb({
 	database: String(database),
 });
 
-const rawPrisma = new PrismaClientClass({ adapter });
+const rawPrisma = new PrismaClientClass({ adapter }) as PrismaClient;
 
 // Proxy para mantener camelCase en el código, mapeando a los nombres generados (todo en minúsculas)
-const handler: ProxyHandler<any> = {
+const handler: ProxyHandler<PrismaClient> = {
 	get(target, prop, receiver) {
 		if (typeof prop === 'symbol') return Reflect.get(target, prop, receiver);
 		const propStr = String(prop);
-		if (propStr in target) return (target as any)[propStr];
+		if (propStr in target) return Reflect.get(target, prop, receiver);
 		const lower = propStr.toLowerCase();
-		if (lower in target) return (target as any)[lower];
+		if (lower in target) return Reflect.get(target, lower, receiver);
 		return Reflect.get(target, prop, receiver);
 	},
 };
 
-const prisma = new Proxy(rawPrisma, handler) as unknown as PrismaClient;
+const prisma = new Proxy(rawPrisma, handler) as PrismaClientWithAliases;
 
 export default prisma;
