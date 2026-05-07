@@ -5,6 +5,6 @@ const router = Router();
 
 const healthController = new HealthController();
 
-router.get("/api/health", healthController.getHealth.bind(healthController));
+router.get("/", healthController.getHealth.bind(healthController));
 
 export default router;

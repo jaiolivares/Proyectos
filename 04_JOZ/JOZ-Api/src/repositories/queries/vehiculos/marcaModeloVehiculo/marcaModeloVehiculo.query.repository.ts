@@ -21,7 +21,7 @@ export class MarcaModeloVehiculoQueryRepository {
     return {
       Id: record.Id,
       IdMarca: record.IdMarca,
-      IModeloVehiculo: record.IModeloVehiculo,
+      IdModeloVehiculo: record.IdModelo,
     };
   }
 }
