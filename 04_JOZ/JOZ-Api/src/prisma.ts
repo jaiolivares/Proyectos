@@ -8,6 +8,8 @@ type PrismaClientWithAliases = PrismaClient & {
 	marcaVehiculo: PrismaClient['marcavehiculo'];
 	marcaModeloVehiculo: PrismaClient['marcamodelovehiculo'];
 	modeloVehiculo: PrismaClient['modelovehiculo'];
+	mantencion: PrismaClient['mantencion'];
+	mantenciondetalle: PrismaClient['mantenciondetalle'];
 };
 
 function buildDatabaseUrl() {

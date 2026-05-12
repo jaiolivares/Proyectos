@@ -33,12 +33,12 @@ export class MarcaModeloVehiculoCommandRepository {
     }
   }
 
-  public async eliminarMarcaModeloVehiculo(id: number): Promise<boolean> {
+  public async eliminarMarcaModeloVehiculo(id: number): Promise<string> {
     try {
       await prisma.marcaModeloVehiculo.delete({ where: { Id: id } });
-      return true;
-    } catch (error) {
-      return false;
+      return "OK";
+    } catch (error: any) {
+      return error;
     }
   }
 }

@@ -12,6 +12,7 @@ CREATE TABLE `ErrorApi` (
   `RouteParams` text NULL,
   `StatusCode` int NOT NULL DEFAULT 500,
   `FechaCreacion` datetime,
+  `ErrorControlado` tinyint not null,
   PRIMARY KEY (`Id`),
   KEY `IX_ErrorApi_IdUsuario` (`IdUsuario`),
   KEY `IX_ErrorApi_FechaCreacion` (`FechaCreacion`),

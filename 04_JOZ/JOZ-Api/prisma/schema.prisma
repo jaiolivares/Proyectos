@@ -28,6 +28,7 @@ model errorapi {
   QueryParams   String?  @db.Text
   RouteParams   String?  @db.Text
   StatusCode    Int      @default(500)
+  ErrorControlado Int      @default(0) @db.TinyInt
   FechaCreacion DateTime @default(now()) @db.DateTime(0)
 
   @@index([IdUsuario], map: "IX_ErrorApi_IdUsuario")

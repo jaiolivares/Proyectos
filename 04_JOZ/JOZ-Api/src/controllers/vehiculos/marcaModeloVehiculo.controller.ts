@@ -50,9 +50,8 @@ export class MarcaModeloVehiculoController {
       NormalizaBody(req.body);
       const validation = ValidataEstructuraCreateBody(req.body);
 
-      if (!validation.valid) {
+      if (!validation.valid)
         return res.status(400).json(respuestaError<MarcaModeloVehiculoCreateResponseDto>(validation.errors?.join('; ') ?? 'Body inválido'));
-      }
 
       const created = await this.marcaModeloVehiculoCommandService.crearMarcaModeloVehiculo(req.body);
       return res.status(201).json(respuestaOk<MarcaModeloVehiculoCreateResponseDto>(created));
@@ -66,16 +65,20 @@ export class MarcaModeloVehiculoController {
   public async actualizar(req: Request<{ id: string }, {}, MarcaModeloVehiculoUpdateRequestDto>, res: Response<Respuesta<MarcaModeloVehiculoUpdateResponseDto>>): Promise<Response<Respuesta<MarcaModeloVehiculoUpdateResponseDto>>> {
     try {
       const id = Number(req.params.id);
-      if (isNaN(id)) return res.status(400).json(respuestaError<MarcaModeloVehiculoUpdateResponseDto>("ID inválido"));
+      if (isNaN(id)) 
+      	return res.status(400).json(respuestaError<MarcaModeloVehiculoUpdateResponseDto>("ID inválido"));
 
-      if (req.body == null) return res.status(400).json(respuestaError<MarcaModeloVehiculoUpdateResponseDto>("No existen datos para actualizar"));
+      if (req.body == null) 
+      	return res.status(400).json(respuestaError<MarcaModeloVehiculoUpdateResponseDto>("No existen datos para actualizar"));
 
       NormalizaBody(req.body);
       const validation = ValidataEstructuraUpdateBody(req.body);
-      if (!validation.valid) return res.status(400).json(respuestaError<MarcaModeloVehiculoUpdateResponseDto>(validation.errors?.join('; ') ?? 'Body inválido'));
+      if (!validation.valid) 
+      	return res.status(400).json(respuestaError<MarcaModeloVehiculoUpdateResponseDto>(validation.errors?.join('; ') ?? 'Body inválido'));
 
       const updated = await this.marcaModeloVehiculoCommandService.actualizarMarcaModeloVehiculo(id, req.body);
-      if (!updated) return res.status(404).json(respuestaError<MarcaModeloVehiculoUpdateResponseDto>("Modelo asociado a la marca no encontrado"));
+      if (!updated) 
+      	return res.status(404).json(respuestaError<MarcaModeloVehiculoUpdateResponseDto>("Modelo asociado a la marca no encontrado"));
 
       return res.status(200).json(respuestaOk<MarcaModeloVehiculoUpdateResponseDto>(updated));
 
@@ -88,13 +91,14 @@ export class MarcaModeloVehiculoController {
   public async eliminar(req: Request, res: Response<Respuesta<null>>): Promise<Response<Respuesta<null>>> {
     try {
       const id = Number(req.params.id);
-      if (isNaN(id)) return res.status(400).json(respuestaError<null>("ID inválido"));
+      if (isNaN(id))
+      	return res.status(400).json(respuestaError<null>("ID inválido"));
 
       const deleted = await this.marcaModeloVehiculoCommandService.eliminarMarcaModeloVehiculo(id);
-      if (!deleted) return res.status(404).json(respuestaError<null>("Modelo asociado a la marca no encontrado"));
+      if (!deleted)
+      	return res.status(404).json(respuestaError<null>("Modelo asociado a la marca no encontrado"));
 
       return res.status(200).json(respuestaOk<null>(null));
-
     } catch (err: any) {
       errorMiddleware(err, req, res, () => {}, true);
       return res.status(500).json(respuestaError<null>("ERROR CATCH: " + (err?.message ?? 'error interno')));

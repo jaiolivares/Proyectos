@@ -7,6 +7,7 @@ import marcaModeloVehiculoRoutes from './vehiculos/marcaModeloVehiculo.routes';
 import marcaRoutes from './vehiculos/marca.routes';
 import modeloRoutes from './vehiculos/modelo.routes';
 import tallerRoutes from './vehiculos/taller.routes';
+import mantencionRoutes from './vehiculos/mantencion.routes';
 import { authMiddleware } from '../middleware/auth.middleware';
 
 //TODO: BorraritemController que era solo de prueas para el Front
@@ -22,5 +23,6 @@ export const setRoutes = (app: Express) => {
     app.use('/api/marca', authMiddleware, marcaRoutes);
     app.use('/api/modelo', authMiddleware, modeloRoutes);
     app.use('/api/taller', authMiddleware, tallerRoutes);
+    app.use('/api/mantencion', authMiddleware, mantencionRoutes);
     app.use('/api/item', authMiddleware, itemController.all.bind(itemController));
 };

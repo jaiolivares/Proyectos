@@ -69,11 +69,11 @@ CREATE TABLE `Mantencion` (
   `Servicio` varchar(150) not null,
   `MontoTotal` int not null,
   `Boleta` text,
-  `IdUsuario` int not null,
+  `IdUsuarioCreacion` int not null,
   PRIMARY KEY (`Id`),
   FOREIGN KEY (`IdVehiculo`) REFERENCES `Vehiculo`(`Id`),
   FOREIGN KEY (`IdTaller`) REFERENCES `Taller`(`Id`),
-  FOREIGN KEY (`IdUsuario`) REFERENCES `Usuario`(`Id`)
+  FOREIGN KEY (`IdUsuarioCreacion`) REFERENCES `Usuario`(`Id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
  
 
