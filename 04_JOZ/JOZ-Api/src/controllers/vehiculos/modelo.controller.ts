@@ -11,6 +11,7 @@ import { NormalizaBody } from "../../utils/util";
 import { respuestaOk, respuestaError } from "../../dtos/utils/respuesta.dto";
 import type { Respuesta } from "../../dtos/utils/respuesta.dto";
 import { ModeloDto } from "../../dtos/vehiculos/modelo/modelo.dto";
+import { errorMiddleware } from "../../middleware/error.middleware";
 
 export class ModeloController {
   private modeloQueryService: ModeloQueryService;
@@ -49,7 +50,8 @@ export class ModeloController {
       return res.status(201).json(respuestaOk<ModeloCreateResponseDto>(created));
 
     } catch (err: any) {
-      return res.status(500).json(respuestaError<ModeloCreateResponseDto>(err?.message ?? 'error interno'));
+      errorMiddleware(err, req, res, () => {}, true);
+      return res.status(500).json(respuestaError<ModeloCreateResponseDto>("ERROR CATCH: " + (err?.message ?? 'error interno')));
     }
   }
 
@@ -76,7 +78,8 @@ export class ModeloController {
       return res.status(200).json(respuestaOk<ModeloUpdateResponseDto>(updated));
 
     } catch (err: any) {
-      return res.status(500).json(respuestaError<ModeloUpdateResponseDto>(err?.message ?? 'error interno'));
+      errorMiddleware(err, req, res, () => {}, true);
+      return res.status(500).json(respuestaError<ModeloUpdateResponseDto>("ERROR CATCH: " + (err?.message ?? 'error interno')));
     }
   }
 
@@ -93,7 +96,8 @@ export class ModeloController {
       return res.status(200).json(respuestaOk<null>(null));
 
     } catch (err: any) {
-      return res.status(500).json(respuestaError<null>(err?.message ?? 'error interno'));
+      errorMiddleware(err, req, res, () => {}, true);
+      return res.status(500).json(respuestaError<null>("ERROR CATCH: " + (err?.message ?? 'error interno')));
     }
   }
 }

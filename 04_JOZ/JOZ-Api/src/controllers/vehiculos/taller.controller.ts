@@ -11,6 +11,7 @@ import { NormalizaBody } from "../../utils/util";
 import { TallerDto } from "../../dtos/vehiculos/taller/taller.dto";
 import { TallerCommandService } from "../../services/commands/vehiculos/taller/taller.command.service";
 import { TallerQueryService } from "../../services/queries/vehiculos/taller/taller.query.service";
+import { errorMiddleware } from "../../middleware/error.middleware";
 
 export class TallerController {
   private commandService: TallerCommandService;
@@ -60,7 +61,8 @@ export class TallerController {
       if (err?.message === 'IdComuna no es válido') {
         return res.status(400).json(respuestaError<TallerCreateResponseDto>(err.message));
       }
-      return res.status(500).json(respuestaError<TallerCreateResponseDto>(err?.message ?? 'error interno'));
+      errorMiddleware(err, req, res, () => {}, true);
+      return res.status(500).json(respuestaError<TallerCreateResponseDto>("ERROR CATCH: " + (err?.message ?? 'error interno')));
     }
   }
 
@@ -92,7 +94,8 @@ export class TallerController {
       if (err?.message === "IdComuna no es válido") {
         return res.status(400).json(respuestaError<TallerUpdateResponseDto>(err.message));
       }
-      return res.status(500).json(respuestaError<TallerUpdateResponseDto>(err?.message ?? "error interno"));
+      errorMiddleware(err, req, res, () => {}, true);
+      return res.status(500).json(respuestaError<TallerUpdateResponseDto>("ERROR CATCH: " + (err?.message ?? "error interno")));
     }
   }
 
@@ -111,7 +114,8 @@ export class TallerController {
       if (err?.message === "Taller no encontrado") {
         return res.status(400).json(respuestaError<string>(err.message));
       }
-      return res.status(500).json(respuestaError<string>(err?.message ?? "error interno"));
+      errorMiddleware(err, req, res, () => {}, true);
+      return res.status(500).json(respuestaError<string>("ERROR CATCH: " + (err?.message ?? "error interno")));
     }
   }
 }

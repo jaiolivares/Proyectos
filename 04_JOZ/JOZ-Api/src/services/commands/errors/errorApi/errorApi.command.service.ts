@@ -11,7 +11,7 @@ export class ErrorApiCommandService {
     this.errorApiCommandRepository = errorApiCommandRepository ?? new ErrorApiCommandRepository();
   }
 
-  public async registrarError(error: unknown, req: Request): Promise<void> {
+  public async registrarError(error: unknown, req: Request, errorControlado: boolean = false): Promise<void> {
     const tokenAcceso = this.obtenerTokenAcceso(req);
 
     const payload: ErrorApiCreate = {
@@ -26,6 +26,7 @@ export class ErrorApiCommandService {
       QueryParams: this.serializar(req.query),
       RouteParams: this.serializar(req.params),
       StatusCode: this.obtenerStatusCode(error),
+      ErrorControlado: errorControlado,
     };
 
     await this.errorApiCommandRepository.crearErrorApi(payload);

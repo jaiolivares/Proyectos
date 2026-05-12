@@ -19,11 +19,11 @@ export class TallerCommandService {
 
   public async crearTaller(req: TallerCreateRequestDto): Promise<TallerCreateResponseDto> {
 
-      const idComuna = req.IdComuna;
-      const comuna = await this.comunaQueryService.obtenerComuna(idComuna);
-      if (!comuna) {
-        throw new Error("IdComuna no es válido");
-      }
+    const idComuna = req.IdComuna;
+    const comuna = await this.comunaQueryService.obtenerComuna(idComuna);
+    if (!comuna) {
+      throw new Error("IdComuna no es válido");
+    }
 
     const tallerModel = await this.tallerCommandRepository.crearTaller(req);
 
@@ -43,11 +43,11 @@ export class TallerCommandService {
     if (!existent)
       throw new Error("Taller no encontrado");
 
-          const idComuna = req.IdComuna;
-          const comuna = await this.comunaQueryService.obtenerComuna(idComuna);
-          if (!comuna) {
-            throw new Error("IdComuna no es válido");
-          }
+    const idComuna = req.IdComuna;
+    const comuna = await this.comunaQueryService.obtenerComuna(idComuna);
+    if (!comuna) {
+      throw new Error("IdComuna no es válido");
+    }
 
     const tallerModel = await this.tallerCommandRepository.actualizarTaller(id, req);
 

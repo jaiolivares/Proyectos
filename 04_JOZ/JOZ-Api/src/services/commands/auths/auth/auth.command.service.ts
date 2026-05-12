@@ -22,7 +22,6 @@ export class AuthCommandService {
     
     //TODO: Validar que el usuario este Activo
     //TODO: Validar que el usuario no este Bloqueado
-    //TODO: Implementar JWT para generar un token de autenticación
 
     const user = await this.usuarioQueryService.obtenerPorNombreUsuario(NombreUsuario);
     if (!user)

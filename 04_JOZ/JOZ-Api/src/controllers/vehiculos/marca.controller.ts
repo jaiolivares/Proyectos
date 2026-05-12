@@ -11,6 +11,7 @@ import { NormalizaBody } from "../../utils/util";
 import { respuestaOk, respuestaError } from "../../dtos/utils/respuesta.dto";
 import type { Respuesta } from "../../dtos/utils/respuesta.dto";
 import { MarcaDto } from "../../dtos/vehiculos/marca/marca.dto";
+import { errorMiddleware } from "../../middleware/error.middleware";
 
 export class MarcaController {
   private marcaQueryService: MarcaQueryService;
@@ -53,7 +54,8 @@ export class MarcaController {
       return res.status(201).json(respuestaOk<MarcaCreateResponseDto>(created));
 
     } catch (err: any) {
-      return res.status(500).json(respuestaError<MarcaCreateResponseDto>(err?.message ?? 'error interno'));
+      errorMiddleware(err, req, res, () => {}, true);
+      return res.status(500).json(respuestaError<MarcaCreateResponseDto>("ERROR CATCH: " + (err?.message ?? 'error interno')));
     }
   }
 
@@ -80,7 +82,8 @@ export class MarcaController {
       return res.status(200).json(respuestaOk<MarcaUpdateResponseDto>(updated));
 
     } catch (err: any) {
-      return res.status(500).json(respuestaError<MarcaUpdateResponseDto>(err?.message ?? 'error interno'));
+      errorMiddleware(err, req, res, () => {}, true);
+      return res.status(500).json(respuestaError<MarcaUpdateResponseDto>("ERROR CATCH: " + (err?.message ?? 'error interno')));
     }
   }
 
@@ -97,7 +100,8 @@ export class MarcaController {
       return res.status(200).json(respuestaOk<null>(null));
 
     } catch (err: any) {
-      return res.status(500).json(respuestaError<null>(err?.message ?? 'error interno'));
+      errorMiddleware(err, req, res, () => {}, true);
+      return res.status(500).json(respuestaError<null>("ERROR CATCH: " + (err?.message ?? 'error interno')));
     }
   }
 }

@@ -11,6 +11,7 @@ import { NormalizaBody } from "../../utils/util";
 import { respuestaOk, respuestaError } from "../../dtos/utils/respuesta.dto";
 import type { Respuesta } from "../../dtos/utils/respuesta.dto";
 import { MarcaModeloVehiculoDto } from "../../dtos/vehiculos/marcaModeloVehiculo/marcaModeloVehiculo.dto";
+import { errorMiddleware } from "../../middleware/error.middleware";
 
 export class MarcaModeloVehiculoController {
   private marcaModeloVehiculoQueryService: MarcaModeloVehiculoQueryService;
@@ -57,7 +58,8 @@ export class MarcaModeloVehiculoController {
       return res.status(201).json(respuestaOk<MarcaModeloVehiculoCreateResponseDto>(created));
 
     } catch (err: any) {
-      return res.status(500).json(respuestaError<MarcaModeloVehiculoCreateResponseDto>(err?.message ?? 'error interno'));
+      errorMiddleware(err, req, res, () => {}, true);
+      return res.status(500).json(respuestaError<MarcaModeloVehiculoCreateResponseDto>("ERROR CATCH: " + (err?.message ?? 'error interno')));
     }
   }
 
@@ -78,7 +80,8 @@ export class MarcaModeloVehiculoController {
       return res.status(200).json(respuestaOk<MarcaModeloVehiculoUpdateResponseDto>(updated));
 
     } catch (err: any) {
-      return res.status(500).json(respuestaError<MarcaModeloVehiculoUpdateResponseDto>(err?.message ?? 'error interno'));
+      errorMiddleware(err, req, res, () => {}, true);
+      return res.status(500).json(respuestaError<MarcaModeloVehiculoUpdateResponseDto>("ERROR CATCH: " + (err?.message ?? 'error interno')));
     }
   }
 
@@ -93,7 +96,8 @@ export class MarcaModeloVehiculoController {
       return res.status(200).json(respuestaOk<null>(null));
 
     } catch (err: any) {
-      return res.status(500).json(respuestaError<null>(err?.message ?? 'error interno'));
+      errorMiddleware(err, req, res, () => {}, true);
+      return res.status(500).json(respuestaError<null>("ERROR CATCH: " + (err?.message ?? 'error interno')));
     }
   }
 

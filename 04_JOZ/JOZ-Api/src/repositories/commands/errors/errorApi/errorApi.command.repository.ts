@@ -17,6 +17,7 @@ export class ErrorApiCommandRepository {
           QueryParams: req.QueryParams ?? null,
           RouteParams: req.RouteParams ?? null,
           StatusCode: req.StatusCode ?? 500,
+          ErrorControlado: req.ErrorControlado ? 1 : 0,
           FechaCreacion: new Date(),
         },
       });

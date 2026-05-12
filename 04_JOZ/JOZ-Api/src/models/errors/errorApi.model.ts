@@ -26,4 +26,5 @@ export interface ErrorApiCreate {
   QueryParams?: string | null;
   RouteParams?: string | null;
   StatusCode?: number;
+  ErrorControlado: boolean;
 }
