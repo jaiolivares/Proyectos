@@ -6,6 +6,7 @@ import { MantencionCreateResponseDto } from '../../dtos/vehiculos/mantencion/man
 import { MantencionUpdateRequestDto } from '../../dtos/vehiculos/mantencion/mantencionUpdateRequest.dto';
 import { MantencionUpdateResponseDto } from '../../dtos/vehiculos/mantencion/mantencionUpdateResponse.dto';
 import { NormalizaBody } from '../../utils/util';
+import { obtenerIdUsuarioDesdeLocals } from '../../utils/auth.util';
 import { ValidataEstructuraCreateBody } from './validators/mantencionCreate.validator';
 import { ValidataEstructuraUpdateBody } from './validators/mantencionUpdate.validator';
 import { respuestaOk, respuestaError } from '../../dtos/utils/respuesta.dto';
@@ -52,9 +53,29 @@ export class MantencionController {
       if (!validation.valid) 
       	return res.status(400).json(respuestaError<MantencionCreateResponseDto>(validation.errors?.join('; ') ?? 'Body inválido'));
 
-      const created = await this.mantencionCommandService.crearMantencion(req.body);
+      const idUsuario = obtenerIdUsuarioDesdeLocals(res);
+      const idUsuario = obtenerIdUsuarioDesdeLocals(res);
+      const idUsuario = obtenerIdUsuarioDesdeLocals(res);
+      const idUsuario = obtenerIdUsuarioDesdeLocals(res);
+
+
+      console.log("usuario LOGUEADO (ID): ", idUsuario);
+
+      if (!idUsuario)
+        return res.status(401).json(respuestaError<MantencionCreateResponseDto>('IdUsuario no presente en token'));
+
+      const created = await this.mantencionCommandService.crearMantencion(req.body, idUsuario);
       return res.status(201).json(respuestaOk<MantencionCreateResponseDto>(created));
     } catch (err: any) {
+
+      if (err?.message === "IdVehiculo no es válido") {
+        return res.status(400).json(respuestaError<MantencionCreateResponseDto>(err.message));
+      }
+
+      if (err?.message === "IdTaller no es válido") {
+        return res.status(400).json(respuestaError<MantencionCreateResponseDto>(err.message));
+      }
+
       errorMiddleware(err, req, res, () => {}, true);
       return res.status(500).json(respuestaError<MantencionCreateResponseDto>('ERROR CATCH: ' + (err?.message ?? 'error interno')));
     }

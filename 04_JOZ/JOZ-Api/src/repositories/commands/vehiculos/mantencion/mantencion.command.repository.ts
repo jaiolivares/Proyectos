@@ -3,7 +3,7 @@ import { MantencionCreateRequestDto } from '../../../../dtos/vehiculos/mantencio
 import { MantencionUpdateRequestDto } from '../../../../dtos/vehiculos/mantencion/mantencionUpdateRequest.dto';
 
 export class MantencionCommandRepository {
-  public async crearMantencion(req: MantencionCreateRequestDto): Promise<any> {
+  public async crearMantencion(req: MantencionCreateRequestDto, idUsuario: number): Promise<any> {
     try {
       const created = await prisma.mantencion.create({ data: {
         IdVehiculo: req.IdVehiculo,
@@ -12,7 +12,7 @@ export class MantencionCommandRepository {
         Servicio: req.Servicio,
         MontoTotal: req.MontoTotal,
         Boleta: req.Boleta,
-        IdUsuario: req.IdUsuario,
+        IdUsuario: idUsuario,
       }});
       return created;
     } catch (error) {

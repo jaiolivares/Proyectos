@@ -39,11 +39,12 @@ describe("MarcaModeloVehiculoCommandRepository", () => {
     expect(result).toEqual({ Id: 10, IdMarca: 2, IdModelo: 3 });
   });
 
-  it("retorna false si falla al eliminar", async () => {
+  it("retorna el error si falla al eliminar", async () => {
     prismaMock.marcaModeloVehiculo.delete.mockRejectedValue(new Error("db error"));
 
     const result = await new MarcaModeloVehiculoCommandRepository().eliminarMarcaModeloVehiculo(10);
 
-    expect(result).toBe(false);
+    expect(result).toBeInstanceOf(Object);
+    expect(String(result)).toContain("db error");
   });
 });

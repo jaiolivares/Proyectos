@@ -40,11 +40,11 @@ describe("MarcaModeloVehiculoCommandService", () => {
 
   it("elimina solo si la asociación existe", async () => {
     obtenerMarcaModeloVehiculo.mockResolvedValue({ Id: 10 });
-    eliminarMarcaModeloVehiculo.mockResolvedValue(true);
+    eliminarMarcaModeloVehiculo.mockResolvedValue("OK");
 
     const result = await buildService().eliminarMarcaModeloVehiculo(10);
 
     expect(eliminarMarcaModeloVehiculo).toHaveBeenCalledWith(10);
-    expect(result).toBe(true);
+    expect(result).toBe("OK");
   });
 });
