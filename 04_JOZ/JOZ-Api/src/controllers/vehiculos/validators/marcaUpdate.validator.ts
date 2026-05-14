@@ -9,9 +9,13 @@ export function ValidataEstructuraUpdateBody(body: any): { valid: boolean; error
     return { valid: false, errors: ["No hay campos para actualizar"] };
   }
 
-  if (body.Marca !== undefined && (typeof body.Marca !== "string" || body.Marca.trim().length === 0)) errors.push("Marca debe ser texto y no vacío");
+  if (body.Marca !== undefined && (typeof body.Marca !== "string" || body.Marca.trim().length === 0)) {
+    errors.push("Marca debe ser texto y no vacío");
+  }
 
-  if (body.Descripcion !== undefined && typeof body.Descripcion !== "string") errors.push("Descripcion debe ser texto");
+  if (body.Descripcion !== undefined && typeof body.Descripcion !== "string") {
+    errors.push("Descripcion debe ser texto");
+  }
 
   return { valid: errors.length === 0, errors: errors.length ? errors : undefined };
 }

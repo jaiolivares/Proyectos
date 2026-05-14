@@ -1,7 +1,7 @@
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
-import { AuthCommandService } from "../../src/services/commands/auths/auth/auth.command.service";
 import { UsuarioDto } from "../../src/dtos/usuarios/usuario/usuario.dto";
+import { AuthCommandService } from "../../src/services/commands/auths/auth/auth.command.service";
 
 jest.mock("bcryptjs", () => ({
   __esModule: true,
@@ -23,20 +23,7 @@ describe("AuthCommandService", () => {
   const mockedJwt = jwt as jest.Mocked<typeof jwt>;
   const obtenerPorNombreUsuario = jest.fn();
 
-  const usuario = new UsuarioDto(
-    1,
-    "javier",
-    "hash-guardado",
-    "Javier",
-    "",
-    "Olivares",
-    "Zavala",
-    "javier@example.com",
-    new Date("2026-01-01T00:00:00.000Z"),
-    null,
-    false,
-    true
-  );
+  const usuario = new UsuarioDto(1, "javier", "hash-guardado", "Javier", "", "Olivares", "Zavala", "javier@example.com", new Date("2026-01-01T00:00:00.000Z"), null, false, true);
 
   const buildService = () =>
     new AuthCommandService({
@@ -88,11 +75,7 @@ describe("AuthCommandService", () => {
     const result = await buildService().login("javier", "secreto");
 
     expect(mockedBcrypt.compare).toHaveBeenCalledWith("secreto", "hash-guardado");
-    expect(mockedJwt.sign).toHaveBeenCalledWith(
-      { Id: 1, NombreUsuario: "javier" },
-      expect.any(String),
-      expect.objectContaining({ expiresIn: expect.anything() })
-    );
+    expect(mockedJwt.sign).toHaveBeenCalledWith({ Id: 1, NombreUsuario: "javier" }, expect.any(String), expect.objectContaining({ expiresIn: expect.anything() }));
     expect(result).toEqual({
       token: "jwt-token",
       usuario,

@@ -1,5 +1,5 @@
-import prisma from "../../../../prisma";
 import { ErrorApi, ErrorApiCreate } from "../../../../models/errors/errorApi.model";
+import prisma from "../../../../prisma";
 
 export class ErrorApiCommandRepository {
   public async crearErrorApi(req: ErrorApiCreate): Promise<ErrorApi> {

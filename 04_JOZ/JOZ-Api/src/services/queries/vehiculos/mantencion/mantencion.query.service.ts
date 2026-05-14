@@ -1,5 +1,5 @@
-import { MantencionDto } from '../../../../dtos/vehiculos/mantencion/mantencion.dto';
-import { MantencionQueryRepository } from '../../../../repositories/queries/vehiculos/mantencion/mantencion.query.repository';
+import { MantencionDto } from "../../../../dtos/vehiculos/mantencion/mantencion.dto";
+import { MantencionQueryRepository } from "../../../../repositories/queries/vehiculos/mantencion/mantencion.query.repository";
 
 export class MantencionQueryService {
   private mantencionQueryRepository: MantencionQueryRepository;
@@ -15,9 +15,11 @@ export class MantencionQueryService {
 
   public async obtenerMantencion(id: number): Promise<MantencionDto | null> {
     const mant = await this.mantencionQueryRepository.obtenerMantencion(id);
-      if (!mant)
-          return null;
-      
+
+    if (!mant) {
+      return null;
+    }
+
     return new MantencionDto(mant.Id, mant.IdVehiculo, mant.Fecha, mant.IdTaller, mant.Servicio, mant.MontoTotal, mant.Boleta ?? null, mant.IdUsuario);
   }
 }

@@ -1,6 +1,6 @@
-import prisma from "../../../../prisma";
 import { ModeloCreateRequestDto } from "../../../../dtos/vehiculos/modelo/modeloCreateRequest.dto";
 import { ModeloUpdateRequestDto } from "../../../../dtos/vehiculos/modelo/modeloUpdateRequest.dto";
+import prisma from "../../../../prisma";
 
 export class ModeloCommandRepository {
   public async crearModelo(req: ModeloCreateRequestDto): Promise<any> {
@@ -32,12 +32,12 @@ export class ModeloCommandRepository {
     }
   }
 
-  public async eliminarModelo(id: number): Promise<boolean> {
+  public async eliminarModelo(id: number): Promise<string> {
     try {
       await prisma.modeloVehiculo.delete({ where: { Id: id } });
-      return true;
-    } catch (error) {
-      return false;
+      return "OK";
+    } catch (error: any) {
+      return error;
     }
   }
 }

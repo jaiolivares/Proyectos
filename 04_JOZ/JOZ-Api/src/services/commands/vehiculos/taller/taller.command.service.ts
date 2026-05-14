@@ -3,8 +3,8 @@ import { TallerCreateResponseDto } from "../../../../dtos/vehiculos/taller/talle
 import { TallerUpdateRequestDto } from "../../../../dtos/vehiculos/taller/tallerUpdateRequest.dto";
 import { TallerUpdateResponseDto } from "../../../../dtos/vehiculos/taller/tallerUpdateResponse.dto";
 import { TallerCommandRepository } from "../../../../repositories/commands/vehiculos/taller/taller.command.repository";
-import { TallerQueryService } from "../../../queries/vehiculos/taller/taller.query.service";
 import { ComunaQueryService } from "../../../../services/queries/ubicaciones/comuna/comuna.query.service";
+import { TallerQueryService } from "../../../queries/vehiculos/taller/taller.query.service";
 
 export class TallerCommandService {
   private tallerCommandRepository: TallerCommandRepository;
@@ -18,7 +18,6 @@ export class TallerCommandService {
   }
 
   public async crearTaller(req: TallerCreateRequestDto): Promise<TallerCreateResponseDto> {
-
     const idComuna = req.IdComuna;
     const comuna = await this.comunaQueryService.obtenerComuna(idComuna);
     if (!comuna) {
@@ -35,13 +34,13 @@ export class TallerCommandService {
     };
 
     return tallerCreateResponseDto;
-
   }
 
   public async actualizarTaller(id: number, req: TallerUpdateRequestDto): Promise<TallerUpdateResponseDto | null> {
     const existent = await this.tallerQueryService.obtenerTaller(id);
-    if (!existent)
+    if (!existent) {
       throw new Error("Taller no encontrado");
+    }
 
     const idComuna = req.IdComuna;
     const comuna = await this.comunaQueryService.obtenerComuna(idComuna);
@@ -62,8 +61,9 @@ export class TallerCommandService {
 
   public async eliminarTaller(id: number): Promise<string> {
     const existent = await this.tallerQueryService.obtenerTaller(id);
-    if (!existent) 
+    if (!existent) {
       throw new Error("Taller no encontrado");
+    }
 
     return await this.tallerCommandRepository.eliminarTaller(id);
   }

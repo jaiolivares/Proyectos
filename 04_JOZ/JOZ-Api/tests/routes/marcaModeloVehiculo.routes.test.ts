@@ -81,9 +81,7 @@ describe("MarcaModeloVehiculo routes", () => {
   it("retorna 404 cuando la asociación no existe al actualizar", async () => {
     actualizarMarcaModeloVehiculoMock.mockResolvedValue(null);
 
-    const response = await request(buildApp())
-      .patch("/api/marcaModeloVehiculo/actualizar/10")
-      .send({ IdMarca: 1, IdModeloVehiculo: 2 });
+    const response = await request(buildApp()).patch("/api/marcaModeloVehiculo/actualizar/10").send({ IdMarca: 1, IdModeloVehiculo: 2 });
 
     expect(response.status).toBe(404);
     expect(response.body).toEqual({

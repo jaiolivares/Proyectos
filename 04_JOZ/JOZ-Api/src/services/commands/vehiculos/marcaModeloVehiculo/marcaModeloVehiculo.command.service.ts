@@ -15,21 +15,23 @@ export class MarcaModeloVehiculoCommandService {
   }
 
   public async crearMarcaModeloVehiculo(req: MarcaModeloVehiculoCreateRequestDto): Promise<MarcaModeloVehiculoCreateResponseDto> {
-    return await this.marcaModeloVehiculoCommandRepository.crearMarcaModeloVehiculo(req) as Promise<MarcaModeloVehiculoCreateResponseDto>;
+    return (await this.marcaModeloVehiculoCommandRepository.crearMarcaModeloVehiculo(req)) as Promise<MarcaModeloVehiculoCreateResponseDto>;
   }
 
   public async actualizarMarcaModeloVehiculo(id: number, req: MarcaModeloVehiculoUpdateRequestDto): Promise<MarcaModeloVehiculoUpdateResponseDto | null> {
     const existent = await this.marcaModeloVehiculoQueryService.obtenerMarcaModeloVehiculo(id);
-    if (!existent)
+    if (!existent) {
       return null;
-    
-    return await this.marcaModeloVehiculoCommandRepository.actualizarMarcaModeloVehiculo(id, req) as Promise<MarcaModeloVehiculoUpdateResponseDto>;
+    }
+
+    return (await this.marcaModeloVehiculoCommandRepository.actualizarMarcaModeloVehiculo(id, req)) as Promise<MarcaModeloVehiculoUpdateResponseDto>;
   }
 
   public async eliminarMarcaModeloVehiculo(id: number): Promise<string> {
     const existent = await this.marcaModeloVehiculoQueryService.obtenerMarcaModeloVehiculo(id);
-    if (!existent)
+    if (!existent) {
       throw new Error("MarcaModeloVehiculo no encontrado");
+    }
 
     return await this.marcaModeloVehiculoCommandRepository.eliminarMarcaModeloVehiculo(id);
   }

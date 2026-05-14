@@ -1,19 +1,21 @@
-import prisma from '../../../../prisma';
-import { MantencionCreateRequestDto } from '../../../../dtos/vehiculos/mantencion/mantencionCreateRequest.dto';
-import { MantencionUpdateRequestDto } from '../../../../dtos/vehiculos/mantencion/mantencionUpdateRequest.dto';
+import { MantencionCreateRequestDto } from "../../../../dtos/vehiculos/mantencion/mantencionCreateRequest.dto";
+import { MantencionUpdateRequestDto } from "../../../../dtos/vehiculos/mantencion/mantencionUpdateRequest.dto";
+import prisma from "../../../../prisma";
 
 export class MantencionCommandRepository {
   public async crearMantencion(req: MantencionCreateRequestDto, idUsuario: number): Promise<any> {
     try {
-      const created = await prisma.mantencion.create({ data: {
-        IdVehiculo: req.IdVehiculo,
-        Fecha: req.Fecha,
-        IdTaller: req.IdTaller,
-        Servicio: req.Servicio,
-        MontoTotal: req.MontoTotal,
-        Boleta: req.Boleta,
-        IdUsuario: idUsuario,
-      }});
+      const created = await prisma.mantencion.create({
+        data: {
+          IdVehiculo: req.IdVehiculo,
+          Fecha: req.Fecha,
+          IdTaller: req.IdTaller,
+          Servicio: req.Servicio,
+          MontoTotal: req.MontoTotal,
+          Boleta: req.Boleta,
+          IdUsuario: idUsuario,
+        },
+      });
       return created;
     } catch (error) {
       throw error;
@@ -40,7 +42,7 @@ export class MantencionCommandRepository {
     try {
       await prisma.mantencion.delete({ where: { Id: id } });
       return "OK";
-    } catch (error : any) {
+    } catch (error: any) {
       return error;
     }
   }

@@ -1,9 +1,8 @@
-import prisma from "../../../../prisma";
-import { Usuario } from "../../../../models/usuarios/usuario.model";
 import { UsuarioCreateRequestDto } from "../../../../dtos/usuarios/usuario/usuarioCreateRequest.dto";
+import { Usuario } from "../../../../models/usuarios/usuario.model";
+import prisma from "../../../../prisma";
 
 export class UsuarioCommandRepository {
-  
   public async crearUsuario(req: UsuarioCreateRequestDto): Promise<Usuario> {
     try {
       const created = await prisma.usuario.create({
@@ -18,7 +17,7 @@ export class UsuarioCommandRepository {
           FechaCreacion: new Date(),
           EstaBloqueado: 0,
           EstaActivo: 1,
-        }
+        },
       });
       return created;
     } catch (error) {
@@ -37,7 +36,6 @@ export class UsuarioCommandRepository {
       throw error;
     }
   }
-
 
   // public async actualizarUsuario(id: number, userData: UpdateUsuarioDto): Promise<Usuario | null> {
   //   const data: any = {};

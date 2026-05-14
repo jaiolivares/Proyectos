@@ -16,8 +16,9 @@ export class VehiculoQueryService {
   public async obtenerVehiculo(id: number): Promise<VehiculoDto | null> {
     const vehiculo = await this.vehiculoQueryRepository.obtenerVehiculo(id);
 
-    if (!vehiculo)
+    if (!vehiculo) {
       return null;
+    }
 
     return new VehiculoDto(
       vehiculo.Id,

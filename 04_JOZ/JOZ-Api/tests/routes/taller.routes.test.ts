@@ -77,9 +77,7 @@ describe("Taller routes", () => {
   it("retorna 400 cuando el taller no existe al actualizar", async () => {
     actualizarTallerMock.mockRejectedValue(new Error("Taller no encontrado"));
 
-    const response = await request(buildApp())
-      .patch("/api/taller/actualizar/8")
-      .send({ Nombre: "Centro", IdComuna: 1, Direccion: "Av. Central 100" });
+    const response = await request(buildApp()).patch("/api/taller/actualizar/8").send({ Nombre: "Centro", IdComuna: 1, Direccion: "Av. Central 100" });
 
     expect(response.status).toBe(400);
     expect(response.body).toEqual({

@@ -15,7 +15,11 @@ export class ModeloQueryService {
 
   public async obtenerModelo(id: number): Promise<ModeloDto | null> {
     const modelo = await this.modeloQueryRepository.obtenerModelo(id);
-    if (!modelo) return null;
+
+    if (!modelo) {
+      return null;
+    }
+
     return new ModeloDto(modelo.Id, modelo.IdTipoVehiculo, modelo.Modelo, modelo.Descripcion);
   }
 }

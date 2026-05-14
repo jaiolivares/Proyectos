@@ -15,18 +15,22 @@ export class MarcaCommandService {
   }
 
   public async crearMarca(req: MarcaCreateRequestDto): Promise<MarcaCreateResponseDto> {
-    return await this.marcaCommandRepository.crearMarca(req) as Promise<MarcaCreateResponseDto>;
+    return (await this.marcaCommandRepository.crearMarca(req)) as Promise<MarcaCreateResponseDto>;
   }
 
   public async actualizarMarca(id: number, req: MarcaUpdateRequestDto): Promise<MarcaUpdateResponseDto | null> {
     const existent = await this.marcaQueryService.obtenerMarca(id);
-    if (!existent) return null;
-    return await this.marcaCommandRepository.actualizarMarca(id, req) as Promise<MarcaUpdateResponseDto>;
+    if (!existent) {
+      return null;
+    }
+    return (await this.marcaCommandRepository.actualizarMarca(id, req)) as Promise<MarcaUpdateResponseDto>;
   }
 
   public async eliminarMarca(id: number): Promise<boolean> {
     const existent = await this.marcaQueryService.obtenerMarca(id);
-    if (!existent) return false;
+    if (!existent) {
+      return false;
+    }
     return await this.marcaCommandRepository.eliminarMarca(id);
   }
 }

@@ -15,4 +15,3 @@ export const respuestaError = <T>(mensaje = "", dato: T | null = null): Respuest
   Mensaje: mensaje,
   Dato: dato,
 });
-

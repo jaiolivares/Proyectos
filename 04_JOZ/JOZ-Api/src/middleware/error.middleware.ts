@@ -1,19 +1,19 @@
-import { Request, Response, NextFunction } from 'express';
+import { NextFunction, Request, Response } from "express";
 import { respuestaError } from "../dtos/utils/respuesta.dto";
-import { ErrorApiCommandService } from '../services/commands/errors/errorApi/errorApi.command.service';
+import { ErrorApiCommandService } from "../services/commands/errors/errorApi/errorApi.command.service";
 
 const errorApiCommandService = new ErrorApiCommandService();
 
 export const errorMiddleware = async (err: any, req: Request, res: Response, next: NextFunction, errorControlado: boolean = false) => {
-    const statusCode = Number.isInteger(err?.statusCode) ? err.statusCode : Number.isInteger(err?.status) ? err.status : 500;
+  const statusCode = Number.isInteger(err?.statusCode) ? err.statusCode : Number.isInteger(err?.status) ? err.status : 500;
 
-    console.error(err?.stack || err);
+  console.error(err?.stack || err);
 
-    try {
-        await errorApiCommandService.registrarError(err, req, errorControlado);
-    } catch (persistError) {
-        console.error('No fue posible registrar ErrorApi:', persistError);
-    }
+  try {
+    await errorApiCommandService.registrarError(err, req, errorControlado);
+  } catch (persistError) {
+    console.error("No fue posible registrar ErrorApi:", persistError);
+  }
 
-    res.status(statusCode).json(respuestaError<null>(err?.message || 'MIDDLEWARE => Internal Server Error'));
+  res.status(statusCode).json(respuestaError<null>(err?.message || "MIDDLEWARE => Internal Server Error"));
 };

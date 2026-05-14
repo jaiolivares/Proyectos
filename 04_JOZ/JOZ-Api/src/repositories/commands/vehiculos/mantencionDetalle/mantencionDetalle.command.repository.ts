@@ -1,16 +1,18 @@
-import prisma from '../../../../prisma';
-import { MantencionDetalleCreateRequestDto } from '../../../../dtos/vehiculos/mantencionDetalle/mantencionDetalleCreateRequest.dto';
-import { MantencionDetalleUpdateRequestDto } from '../../../../dtos/vehiculos/mantencionDetalle/mantencionDetalleUpdateRequest.dto';
+import { MantencionDetalleCreateRequestDto } from "../../../../dtos/vehiculos/mantencionDetalle/mantencionDetalleCreateRequest.dto";
+import { MantencionDetalleUpdateRequestDto } from "../../../../dtos/vehiculos/mantencionDetalle/mantencionDetalleUpdateRequest.dto";
+import prisma from "../../../../prisma";
 
 export class MantencionDetalleCommandRepository {
   public async crearMantencionDetalle(req: MantencionDetalleCreateRequestDto): Promise<any> {
     try {
-      const created = await prisma.mantenciondetalle.create({ data: {
-        IdMantencion: req.IdMantencion,
-        Producto: req.Producto,
-        DetalleProducto: req.DetalleProducto,
-        Monto: req.Monto,
-      }});
+      const created = await prisma.mantenciondetalle.create({
+        data: {
+          IdMantencion: req.IdMantencion,
+          Producto: req.Producto,
+          DetalleProducto: req.DetalleProducto,
+          Monto: req.Monto,
+        },
+      });
       return created;
     } catch (error) {
       throw error;
@@ -31,12 +33,12 @@ export class MantencionDetalleCommandRepository {
     }
   }
 
-  public async eliminarMantencionDetalle(id: number): Promise<boolean> {
+  public async eliminarMantencionDetalle(id: number): Promise<string> {
     try {
       await prisma.mantenciondetalle.delete({ where: { Id: id } });
-      return true;
-    } catch (error) {
-      return false;
+      return "OK";
+    } catch (error: any) {
+      return error;
     }
   }
 }

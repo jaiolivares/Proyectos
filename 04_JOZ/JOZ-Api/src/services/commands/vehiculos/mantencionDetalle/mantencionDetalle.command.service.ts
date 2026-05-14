@@ -1,6 +1,6 @@
-import { MantencionDetalleCommandRepository } from '../../../../repositories/commands/vehiculos/mantencionDetalle/mantencionDetalle.command.repository';
-import { MantencionDetalleCreateRequestDto } from '../../../../dtos/vehiculos/mantencionDetalle/mantencionDetalleCreateRequest.dto';
-import { MantencionDetalleUpdateRequestDto } from '../../../../dtos/vehiculos/mantencionDetalle/mantencionDetalleUpdateRequest.dto';
+import { MantencionDetalleCreateRequestDto } from "../../../../dtos/vehiculos/mantencionDetalle/mantencionDetalleCreateRequest.dto";
+import { MantencionDetalleUpdateRequestDto } from "../../../../dtos/vehiculos/mantencionDetalle/mantencionDetalleUpdateRequest.dto";
+import { MantencionDetalleCommandRepository } from "../../../../repositories/commands/vehiculos/mantencionDetalle/mantencionDetalle.command.repository";
 
 export class MantencionDetalleCommandService {
   private mantencionDetalleCommandRepository: MantencionDetalleCommandRepository;

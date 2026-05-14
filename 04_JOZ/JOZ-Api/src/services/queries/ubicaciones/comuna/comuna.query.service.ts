@@ -16,14 +16,10 @@ export class ComunaQueryService {
   public async obtenerComuna(id: number): Promise<ComunaDto | null> {
     const comuna = await this.comunaQueryRepository.obtenerComuna(id);
 
-    if (!comuna)
+    if (!comuna) {
       return null;
+    }
 
-    return new ComunaDto(
-      comuna.Id,
-      comuna.IdCiudad,
-      comuna.Codigo,
-      comuna.Descripcion
-    );
+    return new ComunaDto(comuna.Id, comuna.IdCiudad, comuna.Codigo, comuna.Descripcion);
   }
 }

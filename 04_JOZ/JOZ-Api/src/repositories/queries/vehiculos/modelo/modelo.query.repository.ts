@@ -1,5 +1,5 @@
-import prisma from "../../../../prisma";
 import { Modelo } from "../../../../models/vehiculos/modelo.model";
+import prisma from "../../../../prisma";
 
 export class ModeloQueryRepository {
   public async obtenerModelos(): Promise<Modelo[]> {

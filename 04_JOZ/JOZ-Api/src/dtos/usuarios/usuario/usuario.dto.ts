@@ -24,7 +24,7 @@ export class UsuarioDto {
     FechaCreacion: Date,
     FechaUltimoLogin: Date | null,
     EstaBloqueado: boolean,
-    EstaActivo: boolean
+    EstaActivo: boolean,
   ) {
     this.Id = Id;
     this.NombreUsuario = NombreUsuario;

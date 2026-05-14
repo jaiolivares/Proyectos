@@ -116,9 +116,7 @@ describe("Usuario routes", () => {
   });
 
   it("retorna 400 cuando falta Password al actualizar", async () => {
-    const response = await request(buildApp())
-      .put("/api/usuario/actualizarPassword/1")
-      .send({});
+    const response = await request(buildApp()).put("/api/usuario/actualizarPassword/1").send({});
 
     expect(actualizarPasswordMock).not.toHaveBeenCalled();
     expect(response.status).toBe(400);

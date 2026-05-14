@@ -11,19 +11,7 @@ export class VehiculoDto {
   FechaVenta?: Date | null;
   MontoVenta?: number | null;
 
-  constructor(
-    Id: number,
-    IdMarcaModeloVehiculo: number,
-    Ano: number,
-    NumeroMotor: string,
-    NumeroChasis: string,
-    Color: string,
-    FechaCompra: Date,
-    MontoCompra: number,
-    Vendido: boolean,
-    FechaVenta: Date | null,
-    MontoVenta: number | null
-  ) {
+  constructor(Id: number, IdMarcaModeloVehiculo: number, Ano: number, NumeroMotor: string, NumeroChasis: string, Color: string, FechaCompra: Date, MontoCompra: number, Vendido: boolean, FechaVenta: Date | null, MontoVenta: number | null) {
     this.Id = Id;
     this.IdMarcaModeloVehiculo = IdMarcaModeloVehiculo;
     this.Ano = Ano;

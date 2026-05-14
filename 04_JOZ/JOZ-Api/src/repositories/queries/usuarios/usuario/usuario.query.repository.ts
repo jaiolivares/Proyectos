@@ -1,5 +1,5 @@
-import prisma from "../../../../prisma";
 import { Usuario } from "../../../../models/usuarios/usuario.model";
+import prisma from "../../../../prisma";
 
 export class UsuarioQueryRepository {
   public async obtenerUsuario(id: number): Promise<Usuario | null> {
@@ -21,7 +21,7 @@ export class UsuarioQueryRepository {
 
   public async obtenerPorNombreUsuario(nombreUsuario: string): Promise<Usuario | null> {
     if (!nombreUsuario) {
-      throw new Error('El nombre de usuario es obligatorio');
+      throw new Error("El nombre de usuario es obligatorio");
     }
 
     const found = await prisma.usuario.findFirst({
@@ -37,9 +37,9 @@ export class UsuarioQueryRepository {
       NombreUsuario: record.NombreUsuario,
       Password: record.Password,
       Nombre: record.Nombre,
-      SegundoNombre: record.SegundoNombre ?? '',
+      SegundoNombre: record.SegundoNombre ?? "",
       ApellidoPaterno: record.ApellidoPaterno,
-      ApellidoMaterno: record.ApellidoMaterno ?? '',
+      ApellidoMaterno: record.ApellidoMaterno ?? "",
       Email: record.Email,
       FechaCreacion: record.FechaCreacion,
       FechaUltimoLogin: record.FechaUltimoLogin ?? null,

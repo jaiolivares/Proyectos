@@ -10,8 +10,9 @@ export class UsuarioQueryService {
 
   public async obtenerUsuario(id: number): Promise<UsuarioDto | null> {
     const found = await this.usuarioQueryRepository.obtenerUsuario(id);
-    if (!found)
+    if (!found) {
       return null;
+    }
 
     return new UsuarioDto(
       found.Id,
@@ -31,27 +32,16 @@ export class UsuarioQueryService {
 
   public async obtenerUsuarios(): Promise<UsuarioDto[]> {
     const list = await this.usuarioQueryRepository.obtenerUsuarios();
-    return list.map((u) =>
-      new UsuarioDto(
-        u.Id,
-        u.NombreUsuario,
-        u.Password ?? "",
-        u.Nombre,
-        u.SegundoNombre ?? "",
-        u.ApellidoPaterno,
-        u.ApellidoMaterno ?? "",
-        u.Email,
-        u.FechaCreacion,
-        u.FechaUltimoLogin ?? null,
-        Boolean(u.EstaBloqueado),
-        Boolean(u.EstaActivo)
-      )
+    return list.map(
+      (u) => new UsuarioDto(u.Id, u.NombreUsuario, u.Password ?? "", u.Nombre, u.SegundoNombre ?? "", u.ApellidoPaterno, u.ApellidoMaterno ?? "", u.Email, u.FechaCreacion, u.FechaUltimoLogin ?? null, Boolean(u.EstaBloqueado), Boolean(u.EstaActivo)),
     );
   }
 
   public async obtenerPorNombreUsuario(nombreUsuario: string): Promise<UsuarioDto | null> {
     const found = await this.usuarioQueryRepository.obtenerPorNombreUsuario(nombreUsuario);
-    if (!found) return null;
+    if (!found) {
+      return null;
+    }
 
     return new UsuarioDto(
       found.Id,
@@ -65,7 +55,7 @@ export class UsuarioQueryService {
       found.FechaCreacion,
       found.FechaUltimoLogin ?? null,
       Boolean(found.EstaBloqueado),
-      Boolean(found.EstaActivo)
+      Boolean(found.EstaActivo),
     );
   }
 }

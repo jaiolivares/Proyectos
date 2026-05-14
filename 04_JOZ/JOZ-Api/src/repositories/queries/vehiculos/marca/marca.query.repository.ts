@@ -1,5 +1,5 @@
-import prisma from "../../../../prisma";
 import { Marca } from "../../../../models/vehiculos/marca.model";
+import prisma from "../../../../prisma";
 
 export class MarcaQueryRepository {
   public async obtenerMarcas(): Promise<Marca[]> {

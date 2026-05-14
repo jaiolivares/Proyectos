@@ -6,11 +6,7 @@ describe("ModeloCommandService", () => {
   const eliminarModelo = jest.fn();
   const obtenerModelo = jest.fn();
 
-  const buildService = () =>
-    new ModeloCommandService(
-      { crearModelo, actualizarModelo, eliminarModelo } as any,
-      { obtenerModelo } as any
-    );
+  const buildService = () => new ModeloCommandService({ crearModelo, actualizarModelo, eliminarModelo } as any, { obtenerModelo } as any);
 
   beforeEach(() => {
     crearModelo.mockReset();

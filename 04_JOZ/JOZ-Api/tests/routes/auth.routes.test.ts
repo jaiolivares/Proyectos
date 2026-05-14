@@ -28,9 +28,7 @@ describe("Auth routes", () => {
   });
 
   it("retorna 400 cuando faltan credenciales", async () => {
-    const response = await request(buildApp())
-      .post("/api/auth/login")
-      .send({ NombreUsuario: "javier" });
+    const response = await request(buildApp()).post("/api/auth/login").send({ NombreUsuario: "javier" });
 
     expect(response.status).toBe(400);
     expect(loginMock).not.toHaveBeenCalled();
@@ -44,9 +42,7 @@ describe("Auth routes", () => {
   it("retorna 401 cuando el servicio no autentica", async () => {
     loginMock.mockResolvedValue(null);
 
-    const response = await request(buildApp())
-      .post("/api/auth/login")
-      .send({ NombreUsuario: "javier", Password: "secreto" });
+    const response = await request(buildApp()).post("/api/auth/login").send({ NombreUsuario: "javier", Password: "secreto" });
 
     expect(response.status).toBe(401);
     expect(loginMock).toHaveBeenCalledWith("javier", "secreto");
@@ -77,9 +73,7 @@ describe("Auth routes", () => {
     };
     loginMock.mockResolvedValue(loginResponse);
 
-    const response = await request(buildApp())
-      .post("/api/auth/login")
-      .send({ NombreUsuario: "javier", Password: "secreto" });
+    const response = await request(buildApp()).post("/api/auth/login").send({ NombreUsuario: "javier", Password: "secreto" });
 
     expect(response.status).toBe(200);
     expect(response.body.EjecucionCorrecta).toBe(true);

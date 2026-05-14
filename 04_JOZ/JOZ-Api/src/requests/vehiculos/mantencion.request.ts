@@ -1,4 +1,4 @@
-import { MantencionDTO, MantencionUpdateDTO } from '../../dtos/vehiculos/mantencion.dto';
+import { MantencionDTO, MantencionUpdateDTO } from "../../dtos/vehiculos/mantencion.dto";
 
 export class CreateMantencionRequest implements MantencionDTO {
   IdVehiculo: number;

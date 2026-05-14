@@ -1,5 +1,5 @@
 export interface Taller {
-  Id : number;
+  Id: number;
   Nombre: string;
   IdComuna: number;
   Direccion: string;

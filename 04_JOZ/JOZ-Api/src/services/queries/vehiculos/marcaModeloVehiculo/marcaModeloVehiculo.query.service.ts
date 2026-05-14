@@ -16,13 +16,10 @@ export class MarcaModeloVehiculoQueryService {
   public async obtenerMarcaModeloVehiculo(id: number): Promise<MarcaModeloVehiculoDto | null> {
     const marcaModeloVehiculo = await this.marcaModeloVehiculoQueryRepository.obtenerMarcaModeloVehiculo(id);
 
-    if (!marcaModeloVehiculo)
+    if (!marcaModeloVehiculo) {
       return null;
+    }
 
-    return new MarcaModeloVehiculoDto(
-      marcaModeloVehiculo.Id,
-      marcaModeloVehiculo.IdMarca,
-      marcaModeloVehiculo.IdModeloVehiculo,
-    );
+    return new MarcaModeloVehiculoDto(marcaModeloVehiculo.Id, marcaModeloVehiculo.IdMarca, marcaModeloVehiculo.IdModeloVehiculo);
   }
 }

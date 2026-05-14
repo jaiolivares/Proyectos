@@ -19,7 +19,7 @@ describe("VehiculoCommandService", () => {
       } as any,
       {
         obtenerMarcaModeloVehiculo,
-      } as any
+      } as any,
     );
 
   const createRequest = {

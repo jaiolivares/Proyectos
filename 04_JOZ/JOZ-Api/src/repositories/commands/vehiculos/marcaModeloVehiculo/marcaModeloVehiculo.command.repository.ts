@@ -1,6 +1,6 @@
-import prisma from "../../../../prisma";
 import { MarcaModeloVehiculoCreateRequestDto } from "../../../../dtos/vehiculos/marcaModeloVehiculo/marcaModeloVehiculoCreateRequest.dto";
 import { MarcaModeloVehiculoUpdateRequestDto } from "../../../../dtos/vehiculos/marcaModeloVehiculo/marcaModeloVehiculoUpdateRequest.dto";
+import prisma from "../../../../prisma";
 
 export class MarcaModeloVehiculoCommandRepository {
   public async crearMarcaModeloVehiculo(req: MarcaModeloVehiculoCreateRequestDto): Promise<any> {

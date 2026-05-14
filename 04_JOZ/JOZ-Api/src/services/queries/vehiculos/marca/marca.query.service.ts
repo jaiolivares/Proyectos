@@ -15,7 +15,11 @@ export class MarcaQueryService {
 
   public async obtenerMarca(id: number): Promise<MarcaDto | null> {
     const marca = await this.marcaQueryRepository.obtenerMarca(id);
-    if (!marca) return null;
+
+    if (!marca) {
+      return null;
+    }
+
     return new MarcaDto(marca.Id, marca.Marca, marca.Descripcion);
   }
 }

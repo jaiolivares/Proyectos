@@ -15,15 +15,11 @@ export class TallerQueryService {
 
   public async obtenerTaller(id: number): Promise<TallerDto | null> {
     const taller = await this.tallerQueryRepository.obtenerTaller(id);
-    
-    if (!taller)
-      return null;
 
-    return new TallerDto(
-        taller.Id,
-        taller.Nombre,
-        taller.IdComuna,
-        taller.Direccion
-      );
+    if (!taller) {
+      return null;
+    }
+
+    return new TallerDto(taller.Id, taller.Nombre, taller.IdComuna, taller.Direccion);
   }
 }

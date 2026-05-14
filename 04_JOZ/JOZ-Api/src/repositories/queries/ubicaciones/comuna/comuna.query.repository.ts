@@ -1,15 +1,13 @@
-import prisma from "../../../../prisma";
 import { Comuna } from "../../../../models/ubicaciones/comuna.model";
+import prisma from "../../../../prisma";
 
 export class ComunaQueryRepository {
-  
   public async obtenerComunas(): Promise<Comuna[]> {
     const results = await prisma.comuna.findMany();
     return results.map((r: any) => this.mapPrismaComuna(r));
   }
 
   public async obtenerComuna(id: number): Promise<Comuna | null> {
-
     const found = await prisma.comuna.findFirst({
       where: { Id: Number(id) },
     });

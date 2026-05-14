@@ -1,6 +1,6 @@
-import prisma from "../../../../prisma";
 import { MarcaCreateRequestDto } from "../../../../dtos/vehiculos/marca/marcaCreateRequest.dto";
 import { MarcaUpdateRequestDto } from "../../../../dtos/vehiculos/marca/marcaUpdateRequest.dto";
+import prisma from "../../../../prisma";
 
 export class MarcaCommandRepository {
   public async crearMarca(req: MarcaCreateRequestDto): Promise<any> {
@@ -30,12 +30,12 @@ export class MarcaCommandRepository {
     }
   }
 
-  public async eliminarMarca(id: number): Promise<boolean> {
+  public async eliminarMarca(id: number): Promise<string> {
     try {
       await prisma.marcaVehiculo.delete({ where: { Id: id } });
-      return true;
-    } catch (error) {
-      return false;
+      return "OK";
+    } catch (error: any) {
+      return error;
     }
   }
 }

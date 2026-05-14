@@ -20,9 +20,7 @@ describe("UsuarioQueryRepository", () => {
   });
 
   it("lanza error cuando el id no es válido", async () => {
-    await expect(new UsuarioQueryRepository().obtenerUsuario(Number.NaN)).rejects.toThrow(
-      "El id es obligatorio y debe ser un número"
-    );
+    await expect(new UsuarioQueryRepository().obtenerUsuario(Number.NaN)).rejects.toThrow("El id es obligatorio y debe ser un número");
   });
 
   it("mapea correctamente obtenerUsuario", async () => {
@@ -61,9 +59,7 @@ describe("UsuarioQueryRepository", () => {
   });
 
   it("lanza error cuando falta nombre de usuario", async () => {
-    await expect(new UsuarioQueryRepository().obtenerPorNombreUsuario("")).rejects.toThrow(
-      "El nombre de usuario es obligatorio"
-    );
+    await expect(new UsuarioQueryRepository().obtenerPorNombreUsuario("")).rejects.toThrow("El nombre de usuario es obligatorio");
   });
 
   it("mapea correctamente obtenerUsuarios", async () => {

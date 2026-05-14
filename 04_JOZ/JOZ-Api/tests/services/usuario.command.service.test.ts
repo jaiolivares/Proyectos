@@ -21,7 +21,7 @@ describe("UsuarioCommandService", () => {
       } as any,
       {
         obtenerUsuario,
-      } as any
+      } as any,
     );
 
   beforeEach(() => {

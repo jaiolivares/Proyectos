@@ -37,10 +37,10 @@
 //       return res.status(400).json(respuestaError<VehiculoDto>("ID inválido"));
 
 //     const found = await this.vehiculoQueryService.obtenerVehiculo(id);
-    
+
 //     if (!found)
 //       return res.status(404).json(respuestaError<VehiculoDto>("Vehículo no encontrado"));
-    
+
 //     return res.status(200).json(respuestaOk<VehiculoDto>(found));
 //   }
 

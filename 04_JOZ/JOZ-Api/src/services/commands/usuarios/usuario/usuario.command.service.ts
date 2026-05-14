@@ -1,12 +1,9 @@
-import { AuthCommandService } from "../../auths/auth/auth.command.service";
-import { Usuario } from "../../../../models/usuarios/usuario.model";
-import { UsuarioDto } from "../../../../dtos/usuarios/usuario/usuario.dto";
 import { UsuarioCreateRequestDto } from "../../../../dtos/usuarios/usuario/usuarioCreateRequest.dto";
 import { UsuarioCreateResponseDto } from "../../../../dtos/usuarios/usuario/usuarioCreateResponse.dto";
-import { UsuarioUpdateRequestDto } from "../../../../dtos/usuarios/usuario/usuarioUpdateRequest.dto";
 import { UsuarioUpdateResponseDto } from "../../../../dtos/usuarios/usuario/usuarioUpdateResponse.dto";
 import { UsuarioCommandRepository } from "../../../../repositories/commands/usuarios/usuario/usuario.command.repository";
 import { UsuarioQueryService } from "../../../queries/usuarios/usuario/usuario.query.service";
+import { AuthCommandService } from "../../auths/auth/auth.command.service";
 
 export class UsuarioCommandService {
   private authCommandService: AuthCommandService;
@@ -22,7 +19,7 @@ export class UsuarioCommandService {
   public async crearUsuario(req: UsuarioCreateRequestDto): Promise<UsuarioCreateResponseDto> {
     const passwordEncriptada = await this.authCommandService.encriptarPassword(req.Password);
     const usuarioCreateRequestDto: UsuarioCreateRequestDto = { ...req, Password: passwordEncriptada };
-    
+
     const usuarioModel = await this.usuarioCommandRepository.crearUsuario(usuarioCreateRequestDto);
 
     const responseDto: UsuarioCreateResponseDto = {
@@ -35,16 +32,16 @@ export class UsuarioCommandService {
       Email: usuarioModel.Email,
       FechaCreacion: usuarioModel.FechaCreacion,
     };
-    
-    return responseDto;
 
+    return responseDto;
   }
 
   public async actualizarPassword(id: number, newPassword: string): Promise<UsuarioUpdateResponseDto | null> {
     const existent = await this.usuarioQueryService.obtenerUsuario(id);
-    if (!existent)
+    if (!existent) {
       return null;
-    
+    }
+
     const passwordEncriptada = await this.authCommandService.encriptarPassword(newPassword);
     const usuarioModel = await this.usuarioCommandRepository.actualizarPassword(id, passwordEncriptada);
 

@@ -1,9 +1,9 @@
-import { MantencionCommandRepository } from '../../../../repositories/commands/vehiculos/mantencion/mantencion.command.repository';
-import { MantencionCreateRequestDto } from '../../../../dtos/vehiculos/mantencion/mantencionCreateRequest.dto';
-import { MantencionUpdateRequestDto } from '../../../../dtos/vehiculos/mantencion/mantencionUpdateRequest.dto';
-import { MantencionQueryService } from '../../../queries/vehiculos/mantencion/mantencion.query.service';
-import { VehiculoQueryService } from '../../../queries/vehiculos/vehiculo/vehiculo.query.service';
-import { TallerQueryService } from '../../../queries/vehiculos/taller/taller.query.service';
+import { MantencionCreateRequestDto } from "../../../../dtos/vehiculos/mantencion/mantencionCreateRequest.dto";
+import { MantencionUpdateRequestDto } from "../../../../dtos/vehiculos/mantencion/mantencionUpdateRequest.dto";
+import { MantencionCommandRepository } from "../../../../repositories/commands/vehiculos/mantencion/mantencion.command.repository";
+import { MantencionQueryService } from "../../../queries/vehiculos/mantencion/mantencion.query.service";
+import { TallerQueryService } from "../../../queries/vehiculos/taller/taller.query.service";
+import { VehiculoQueryService } from "../../../queries/vehiculos/vehiculo/vehiculo.query.service";
 
 export class MantencionCommandService {
   private mantencionCommandRepository: MantencionCommandRepository;
@@ -19,7 +19,6 @@ export class MantencionCommandService {
   }
 
   public async crearMantencion(req: MantencionCreateRequestDto, idUsuario: number): Promise<any> {
-
     const idVehiculo = req.IdVehiculo;
     const vehiculo = await this.vehiculoQueryService.obtenerVehiculo(idVehiculo);
     if (!vehiculo) {
@@ -41,8 +40,9 @@ export class MantencionCommandService {
 
   public async eliminarMantencion(id: number): Promise<string> {
     const existent = await this.mantencionQueryService.obtenerMantencion(id);
-    if (!existent)
+    if (!existent) {
       throw new Error("Mantención no encontrada");
+    }
 
     return await this.mantencionCommandRepository.eliminarMantencion(id);
   }

@@ -1,5 +1,5 @@
 export interface Comuna {
-  Id : number;
+  Id: number;
   IdCiudad: number;
   Codigo: string;
   Descripcion: string;

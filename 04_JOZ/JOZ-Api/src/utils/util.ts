@@ -1,5 +1,4 @@
 export function NormalizaBody(obj: any): void {
-
   //Elimina espacios en blanco al inicio y al final de las cadenas en un objeto
   if (!obj || typeof obj !== "object") return;
 
@@ -11,7 +10,9 @@ export function NormalizaBody(obj: any): void {
   };
 
   const tryParseDate = (s: string): Date | null => {
-    if (!s || typeof s !== "string") return null;
+    if (!s || typeof s !== "string") {
+      return null;
+    }
     const str = s.trim();
 
     // If clearly ISO or contains time info, let native parser handle it
@@ -23,7 +24,9 @@ export function NormalizaBody(obj: any): void {
     // Normalize separators to '-'
     const norm = str.replace(/[\/\.]/g, "-").replace(/\s+/g, "");
     const parts = norm.split("-");
-    if (parts.length < 3) return null;
+    if (parts.length < 3) {
+      return null;
+    }
 
     let year: number, month: number, day: number;
 
@@ -41,7 +44,9 @@ export function NormalizaBody(obj: any): void {
       if (year < 100) year += year >= 70 ? 1900 : 2000;
     }
 
-    if (!Number.isFinite(year) || !Number.isFinite(month) || !Number.isFinite(day)) return null;
+    if (!Number.isFinite(year) || !Number.isFinite(month) || !Number.isFinite(day)) {
+      return null;
+    }
 
     // Create date in UTC to avoid timezone shifts, then validate components
     const dt = new Date(Date.UTC(year, month - 1, day));
@@ -52,7 +57,9 @@ export function NormalizaBody(obj: any): void {
   };
 
   const recurse = (o: any) => {
-    if (o === null) return;
+    if (o === null) {
+      return;
+    }
     if (Array.isArray(o)) {
       for (let i = 0; i < o.length; i++) {
         const v = o[i];
@@ -79,5 +86,4 @@ export function NormalizaBody(obj: any): void {
   };
 
   recurse(obj);
-
 }

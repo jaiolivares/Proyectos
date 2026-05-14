@@ -6,11 +6,7 @@ describe("MarcaCommandService", () => {
   const eliminarMarca = jest.fn();
   const obtenerMarca = jest.fn();
 
-  const buildService = () =>
-    new MarcaCommandService(
-      { crearMarca, actualizarMarca, eliminarMarca } as any,
-      { obtenerMarca } as any
-    );
+  const buildService = () => new MarcaCommandService({ crearMarca, actualizarMarca, eliminarMarca } as any, { obtenerMarca } as any);
 
   beforeEach(() => {
     crearMarca.mockReset();

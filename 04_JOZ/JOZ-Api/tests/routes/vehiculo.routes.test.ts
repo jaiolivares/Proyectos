@@ -92,7 +92,7 @@ describe("Vehiculo routes", () => {
         NumeroChasis: "XYZ987",
         Color: "Rojo",
         MontoCompra: 15000000,
-      })
+      }),
     );
     expect(crearVehiculoMock.mock.calls[0][0].FechaCompra).toBeInstanceOf(Date);
     expect(response.status).toBe(201);
@@ -103,9 +103,7 @@ describe("Vehiculo routes", () => {
   });
 
   it("retorna 400 cuando el id no es válido al actualizar", async () => {
-    const response = await request(buildApp())
-      .patch("/api/vehiculo/actualizar/abc")
-      .send({});
+    const response = await request(buildApp()).patch("/api/vehiculo/actualizar/abc").send({});
 
     expect(actualizarVehiculoMock).not.toHaveBeenCalled();
     expect(response.status).toBe(400);

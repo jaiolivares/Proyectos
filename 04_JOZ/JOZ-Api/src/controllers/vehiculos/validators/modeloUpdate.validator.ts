@@ -9,11 +9,17 @@ export function ValidataEstructuraUpdateBody(body: any): { valid: boolean; error
     return { valid: false, errors: ["No hay campos para actualizar"] };
   }
 
-  if (body.IdTipoVehiculo !== undefined && (typeof body.IdTipoVehiculo !== "number" || Number.isNaN(body.IdTipoVehiculo))) errors.push("IdTipoVehiculo debe ser número");
+  if (body.IdTipoVehiculo !== undefined && (typeof body.IdTipoVehiculo !== "number" || Number.isNaN(body.IdTipoVehiculo))) {
+    errors.push("IdTipoVehiculo debe ser número");
+  }
 
-  if (body.Modelo !== undefined && (typeof body.Modelo !== "string" || body.Modelo.trim().length === 0)) errors.push("Modelo debe ser texto y no vacío");
+  if (body.Modelo !== undefined && (typeof body.Modelo !== "string" || body.Modelo.trim().length === 0)) {
+    errors.push("Modelo debe ser texto y no vacío");
+  }
 
-  if (body.Descripcion !== undefined && typeof body.Descripcion !== "string") errors.push("Descripcion debe ser texto");
+  if (body.Descripcion !== undefined && typeof body.Descripcion !== "string") {
+    errors.push("Descripcion debe ser texto");
+  }
 
   return { valid: errors.length === 0, errors: errors.length ? errors : undefined };
 }

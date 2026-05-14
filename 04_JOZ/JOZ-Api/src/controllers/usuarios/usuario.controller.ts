@@ -1,12 +1,12 @@
 import { Request, Response } from "express";
-import { UsuarioCommandService } from "../../services/commands/usuarios/usuario/usuario.command.service";
-import { UsuarioQueryService } from "../../services/queries/usuarios/usuario/usuario.query.service";
+import { UsuarioDto } from "../../dtos/usuarios/usuario/usuario.dto";
 import { UsuarioCreateRequestDto } from "../../dtos/usuarios/usuario/usuarioCreateRequest.dto";
 import { UsuarioCreateResponseDto } from "../../dtos/usuarios/usuario/usuarioCreateResponse.dto";
 import { UsuarioUpdateResponseDto } from "../../dtos/usuarios/usuario/usuarioUpdateResponse.dto";
-import { respuestaOk, respuestaError } from "../../dtos/utils/respuesta.dto";
 import type { Respuesta } from "../../dtos/utils/respuesta.dto";
-import { UsuarioDto } from "../../dtos/usuarios/usuario/usuario.dto";
+import { respuestaError, respuestaOk } from "../../dtos/utils/respuesta.dto";
+import { UsuarioCommandService } from "../../services/commands/usuarios/usuario/usuario.command.service";
+import { UsuarioQueryService } from "../../services/queries/usuarios/usuario/usuario.query.service";
 
 export class UsuarioController {
   private usuarioCommandService: UsuarioCommandService;
@@ -25,7 +25,9 @@ export class UsuarioController {
   public async obtenerPorId(req: Request, res: Response<Respuesta<UsuarioDto>>): Promise<Response<Respuesta<UsuarioDto>>> {
     const userId = Number(req.params.id);
     const user = await this.usuarioQueryService.obtenerUsuario(userId);
-    if (!user) return res.status(404).json(respuestaError<UsuarioDto>("Usuario no encontrado"));
+    if (!user) {
+      return res.status(404).json(respuestaError<UsuarioDto>("Usuario no encontrado"));
+    }
 
     return res.status(200).json(respuestaOk<UsuarioDto>(user));
   }
@@ -39,10 +41,14 @@ export class UsuarioController {
     const userId = Number(req.params.id);
     const { Password } = req.body;
 
-    if (!Password) return res.status(400).json(respuestaError<UsuarioUpdateResponseDto>("Password es obligatorio"));
+    if (!Password) {
+      return res.status(400).json(respuestaError<UsuarioUpdateResponseDto>("Password es obligatorio"));
+    }
 
     const result = await this.usuarioCommandService.actualizarPassword(userId, Password);
-    if (!result) return res.status(404).json(respuestaError<UsuarioUpdateResponseDto>("Usuario no encontrado"));
+    if (!result) {
+      return res.status(404).json(respuestaError<UsuarioUpdateResponseDto>("Usuario no encontrado"));
+    }
 
     return res.status(200).json(respuestaOk<UsuarioUpdateResponseDto>(result));
   }

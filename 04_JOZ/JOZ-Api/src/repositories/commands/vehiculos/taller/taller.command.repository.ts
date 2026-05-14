@@ -1,6 +1,6 @@
-import prisma from "../../../../prisma";
 import { TallerCreateRequestDto } from "../../../../dtos/vehiculos/taller/tallerCreateRequest.dto";
 import { TallerUpdateRequestDto } from "../../../../dtos/vehiculos/taller/tallerUpdateRequest.dto";
+import prisma from "../../../../prisma";
 
 export class TallerCommandRepository {
   public async crearTaller(req: TallerCreateRequestDto): Promise<any> {

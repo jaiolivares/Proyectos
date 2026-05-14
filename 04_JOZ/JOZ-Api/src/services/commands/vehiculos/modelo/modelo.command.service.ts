@@ -15,18 +15,22 @@ export class ModeloCommandService {
   }
 
   public async crearModelo(req: ModeloCreateRequestDto): Promise<ModeloCreateResponseDto> {
-    return await this.modeloCommandRepository.crearModelo(req) as Promise<ModeloCreateResponseDto>;
+    return (await this.modeloCommandRepository.crearModelo(req)) as Promise<ModeloCreateResponseDto>;
   }
 
   public async actualizarModelo(id: number, req: ModeloUpdateRequestDto): Promise<ModeloUpdateResponseDto | null> {
     const existent = await this.modeloQueryService.obtenerModelo(id);
-    if (!existent) return null;
-    return await this.modeloCommandRepository.actualizarModelo(id, req) as Promise<ModeloUpdateResponseDto>;
+    if (!existent) {
+      return null;
+    }
+    return (await this.modeloCommandRepository.actualizarModelo(id, req)) as Promise<ModeloUpdateResponseDto>;
   }
 
   public async eliminarModelo(id: number): Promise<boolean> {
     const existent = await this.modeloQueryService.obtenerModelo(id);
-    if (!existent) return false;
+    if (!existent) {
+      return false;
+    }
     return await this.modeloCommandRepository.eliminarModelo(id);
   }
 }

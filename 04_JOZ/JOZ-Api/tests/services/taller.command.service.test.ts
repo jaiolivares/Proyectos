@@ -20,7 +20,7 @@ describe("TallerCommandService", () => {
       } as any,
       {
         obtenerComuna,
-      } as any
+      } as any,
     );
 
   const requestBody = {

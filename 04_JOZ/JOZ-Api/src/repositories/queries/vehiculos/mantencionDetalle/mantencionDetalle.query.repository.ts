@@ -1,5 +1,5 @@
-import prisma from '../../../../prisma';
-import { MantencionDetalle } from '../../../../models/vehiculos/mantencionDetalle.model';
+import { MantencionDetalle } from "../../../../models/vehiculos/mantencionDetalle.model";
+import prisma from "../../../../prisma";
 
 export class MantencionDetalleQueryRepository {
   public async obtenerMantencionDetalles(): Promise<MantencionDetalle[]> {
