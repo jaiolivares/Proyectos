@@ -82,6 +82,7 @@ CREATE TABLE `MantencionDetalle` (
   `IdMantencion` int NOT NULL,
   `Producto` varchar(60) not null,
   `DetalleProducto` varchar(250) not null,
+  `Monto` int NOT NULL,
   PRIMARY KEY (`Id`),
   FOREIGN KEY (`IdMantencion`) REFERENCES `Mantencion`(`Id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;

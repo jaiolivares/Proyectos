@@ -1,0 +1,7 @@
+export interface MantencionDetalleUpdateResponseDto {
+  Id: number;
+  IdMantencion: number;
+  Producto: string;
+  DetalleProducto: string;
+  Monto: number;
+}
