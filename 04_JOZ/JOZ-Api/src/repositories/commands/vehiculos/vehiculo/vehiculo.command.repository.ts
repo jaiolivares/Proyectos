@@ -77,7 +77,7 @@ export class VehiculoCommandRepository {
   public async eliminarVehiculo(id: number): Promise<string> {
     try {
       await prisma.vehiculo.delete({ where: { Id: id } });
-      return "Ok";
+      return "OK";
     } catch (error: any) {
       return error;
     }

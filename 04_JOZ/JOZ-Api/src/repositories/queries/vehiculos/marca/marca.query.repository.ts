@@ -1,18 +1,18 @@
-import { Marca } from "../../../../models/vehiculos/marca.model";
+import { MarcaModel } from "../../../../models/vehiculos/marca.model";
 import prisma from "../../../../prisma";
 
 export class MarcaQueryRepository {
-  public async obtenerMarcas(): Promise<Marca[]> {
+  public async obtenerMarcas(): Promise<MarcaModel[]> {
     const results = await prisma.marcaVehiculo.findMany();
     return results.map((r: any) => this.mapPrismaMarca(r));
   }
 
-  public async obtenerMarca(id: number): Promise<Marca | null> {
+  public async obtenerMarca(id: number): Promise<MarcaModel | null> {
     const found = await prisma.marcaVehiculo.findFirst({ where: { Id: Number(id) } });
     return found ? this.mapPrismaMarca(found) : null;
   }
 
-  private mapPrismaMarca(record: any): Marca {
+  private mapPrismaMarca(record: any): MarcaModel {
     return {
       Id: record.Id,
       Marca: record.Marca,

@@ -49,8 +49,8 @@ export class MarcaController {
   public async crear(req: Request<{}, {}, MarcaCreateRequestDto>, res: Response<Respuesta<MarcaCreateResponseDto>>): Promise<Response<Respuesta<MarcaCreateResponseDto>>> {
     try {
       NormalizaBody(req.body);
-      const validation = ValidataEstructuraCreateBody(req.body);
 
+      const validation = ValidataEstructuraCreateBody(req.body);
       if (!validation.valid) {
         return res.status(400).json(respuestaError<MarcaCreateResponseDto>(validation.errors?.join("; ") ?? "Body inválido"));
       }
@@ -66,7 +66,6 @@ export class MarcaController {
   public async actualizar(req: Request<{ id: string }, {}, MarcaUpdateRequestDto>, res: Response<Respuesta<MarcaUpdateResponseDto>>): Promise<Response<Respuesta<MarcaUpdateResponseDto>>> {
     try {
       const id = Number(req.params.id);
-
       if (isNaN(id)) {
         return res.status(400).json(respuestaError<MarcaUpdateResponseDto>("ID inválido"));
       }
@@ -76,41 +75,41 @@ export class MarcaController {
       }
 
       NormalizaBody(req.body);
-      const validation = ValidataEstructuraUpdateBody(req.body);
 
+      const validation = ValidataEstructuraUpdateBody(req.body);
       if (!validation.valid) {
         return res.status(400).json(respuestaError<MarcaUpdateResponseDto>(validation.errors?.join("; ") ?? "Body inválido"));
       }
 
       const updated = await this.marcaCommandService.actualizarMarca(id, req.body);
-      if (!updated) {
-        return res.status(404).json(respuestaError<MarcaUpdateResponseDto>("Marca no encontrada"));
-      }
-
       return res.status(200).json(respuestaOk<MarcaUpdateResponseDto>(updated));
     } catch (err: any) {
+      if (err.message === "Marca no encontrada") {
+        return res.status(404).json(respuestaError<MarcaUpdateResponseDto>(err.message));
+      }
+
       errorMiddleware(err, req, res, () => {}, true);
       return res.status(500).json(respuestaError<MarcaUpdateResponseDto>("ERROR CATCH: " + (err?.message ?? "error interno")));
     }
   }
 
-  public async eliminar(req: Request, res: Response<Respuesta<null>>): Promise<Response<Respuesta<null>>> {
+  public async eliminar(req: Request, res: Response<Respuesta<string>>): Promise<Response<Respuesta<string>>> {
     try {
       const id = Number(req.params.id);
 
       if (isNaN(id)) {
-        return res.status(400).json(respuestaError<null>("ID inválido"));
+        return res.status(400).json(respuestaError<string>("ID inválido"));
       }
 
       const deleted = await this.marcaCommandService.eliminarMarca(id);
-      if (!deleted) {
-        return res.status(404).json(respuestaError<null>("Marca no encontrada"));
+      return res.status(200).json(respuestaOk<string>(deleted));
+    } catch (err: any) {
+      if (err.message === "Marca no encontrada") {
+        return res.status(404).json(respuestaError<string>(err.message));
       }
 
-      return res.status(200).json(respuestaOk<null>(null));
-    } catch (err: any) {
       errorMiddleware(err, req, res, () => {}, true);
-      return res.status(500).json(respuestaError<null>("ERROR CATCH: " + (err?.message ?? "error interno")));
+      return res.status(500).json(respuestaError<string>("ERROR CATCH: " + (err?.message ?? "error interno")));
     }
   }
 }

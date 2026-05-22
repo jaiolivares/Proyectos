@@ -1,5 +1,7 @@
 import { MantencionCreateRequestDto } from "../../../../dtos/vehiculos/mantencion/mantencionCreateRequest.dto";
+import { MantencionCreateResponseDto } from "../../../../dtos/vehiculos/mantencion/mantencionCreateResponse.dto";
 import { MantencionUpdateRequestDto } from "../../../../dtos/vehiculos/mantencion/mantencionUpdateRequest.dto";
+import { MantencionUpdateResponseDto } from "../../../../dtos/vehiculos/mantencion/mantencionUpdateResponse.dto";
 import { MantencionCommandRepository } from "../../../../repositories/commands/vehiculos/mantencion/mantencion.command.repository";
 import { MantencionQueryService } from "../../../queries/vehiculos/mantencion/mantencion.query.service";
 import { TallerQueryService } from "../../../queries/vehiculos/taller/taller.query.service";
@@ -18,7 +20,7 @@ export class MantencionCommandService {
     this.tallerQueryService = tallerQueryService ?? new TallerQueryService();
   }
 
-  public async crearMantencion(req: MantencionCreateRequestDto, idUsuario: number): Promise<any> {
+  public async crearMantencion(req: MantencionCreateRequestDto, idUsuario: number): Promise<MantencionCreateResponseDto> {
     const idVehiculo = req.IdVehiculo;
     const vehiculo = await this.vehiculoQueryService.obtenerVehiculo(idVehiculo);
     if (!vehiculo) {
@@ -31,11 +33,26 @@ export class MantencionCommandService {
       throw new Error("IdTaller no es válido");
     }
 
-    return this.mantencionCommandRepository.crearMantencion(req, idUsuario);
+    const created = await this.mantencionCommandRepository.crearMantencion(req, idUsuario);
+    return {
+      Id: created.Id,
+      IdVehiculo: created.IdVehiculo,
+      Fecha: created.Fecha,
+    } as MantencionCreateResponseDto;
   }
 
-  public async actualizarMantencion(id: number, req: MantencionUpdateRequestDto): Promise<any> {
-    return this.mantencionCommandRepository.actualizarMantencion(id, req);
+  public async actualizarMantencion(id: number, req: MantencionUpdateRequestDto): Promise<MantencionUpdateResponseDto> {
+    const existent = await this.mantencionQueryService.obtenerMantencion(id);
+    if (!existent) {
+      throw new Error("Mantención no encontrada");
+    }
+
+    const update = await this.mantencionCommandRepository.actualizarMantencion(id, req);
+    return {
+      Id: update.Id,
+      IdVehiculo: update.IdVehiculo,
+      Fecha: update.Fecha,
+    } as MantencionUpdateResponseDto;
   }
 
   public async eliminarMantencion(id: number): Promise<string> {

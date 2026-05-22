@@ -1,4 +1,4 @@
-export interface Vehiculo {
+export interface VehiculoModel {
   Id: number;
   IdMarcaModeloVehiculo: number;
   Ano: number;

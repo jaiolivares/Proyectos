@@ -21,7 +21,7 @@ export class MarcaModeloVehiculoCommandService {
   public async actualizarMarcaModeloVehiculo(id: number, req: MarcaModeloVehiculoUpdateRequestDto): Promise<MarcaModeloVehiculoUpdateResponseDto | null> {
     const existent = await this.marcaModeloVehiculoQueryService.obtenerMarcaModeloVehiculo(id);
     if (!existent) {
-      return null;
+      throw new Error("MarcaModeloVehiculo no encontrado");
     }
 
     return (await this.marcaModeloVehiculoCommandRepository.actualizarMarcaModeloVehiculo(id, req)) as Promise<MarcaModeloVehiculoUpdateResponseDto>;

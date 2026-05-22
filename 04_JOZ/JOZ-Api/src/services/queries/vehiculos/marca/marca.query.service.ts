@@ -10,7 +10,7 @@ export class MarcaQueryService {
 
   public async obtenerMarcas(): Promise<MarcaDto[]> {
     const marcas = await this.marcaQueryRepository.obtenerMarcas();
-    return marcas.map((m) => new MarcaDto(m.Id, m.Marca, m.Descripcion));
+    return marcas.map((m) => this.mapMarca(m));
   }
 
   public async obtenerMarca(id: number): Promise<MarcaDto | null> {
@@ -20,6 +20,14 @@ export class MarcaQueryService {
       return null;
     }
 
-    return new MarcaDto(marca.Id, marca.Marca, marca.Descripcion);
+    return this.mapMarca(marca);
+  }
+
+  private mapMarca(record: any): MarcaDto {
+    return {
+      Id: record.Id,
+      Marca: record.Marca,
+      Descripcion: record.Descripcion,
+    };
   }
 }

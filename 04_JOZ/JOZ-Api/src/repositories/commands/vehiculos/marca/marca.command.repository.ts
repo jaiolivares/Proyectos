@@ -1,9 +1,10 @@
 import { MarcaCreateRequestDto } from "../../../../dtos/vehiculos/marca/marcaCreateRequest.dto";
 import { MarcaUpdateRequestDto } from "../../../../dtos/vehiculos/marca/marcaUpdateRequest.dto";
+import { MarcaModel } from "../../../../models/vehiculos/marca.model";
 import prisma from "../../../../prisma";
 
 export class MarcaCommandRepository {
-  public async crearMarca(req: MarcaCreateRequestDto): Promise<any> {
+  public async crearMarca(req: MarcaCreateRequestDto): Promise<MarcaModel> {
     try {
       const created = await prisma.marcaVehiculo.create({
         data: {
@@ -17,7 +18,7 @@ export class MarcaCommandRepository {
     }
   }
 
-  public async actualizarMarca(id: number, req: MarcaUpdateRequestDto): Promise<any> {
+  public async actualizarMarca(id: number, req: MarcaUpdateRequestDto): Promise<MarcaModel> {
     try {
       const data: any = {};
       if (req.Marca !== undefined) data.Marca = req.Marca;
@@ -34,8 +35,8 @@ export class MarcaCommandRepository {
     try {
       await prisma.marcaVehiculo.delete({ where: { Id: id } });
       return "OK";
-    } catch (error: any) {
-      return error;
+    } catch (error) {
+      throw error;
     }
   }
 }

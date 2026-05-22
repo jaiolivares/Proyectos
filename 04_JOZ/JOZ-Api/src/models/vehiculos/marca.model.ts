@@ -1,4 +1,4 @@
-export interface Marca {
+export interface MarcaModel {
   Id: number;
   Marca: string;
   Descripcion: string;

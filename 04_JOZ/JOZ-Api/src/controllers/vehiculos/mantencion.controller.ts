@@ -9,7 +9,7 @@ import { MantencionUpdateResponseDto } from "../../dtos/vehiculos/mantencion/man
 import { errorMiddleware } from "../../middleware/error.middleware";
 import { MantencionCommandService } from "../../services/commands/vehiculos/mantencion/mantencion.command.service";
 import { MantencionQueryService } from "../../services/queries/vehiculos/mantencion/mantencion.query.service";
-import { obtenerIdUsuarioDesdeLocals } from "../../utils/auth.util";
+import { ObtenerIdUsuarioDesdeLocals } from "../../utils/auth.util";
 import { NormalizaBody } from "../../utils/util";
 import { ValidataEstructuraCreateBody } from "./validators/mantencionCreate.validator";
 import { ValidataEstructuraUpdateBody } from "./validators/mantencionUpdate.validator";
@@ -40,7 +40,6 @@ export class MantencionController {
     }
 
     const found = await this.mantencionQueryService.obtenerMantencion(id);
-
     if (!found) {
       return res.status(404).json(respuestaError<MantencionDto>("Mantención no encontrada"));
     }
@@ -57,8 +56,11 @@ export class MantencionController {
         return res.status(400).json(respuestaError<MantencionCreateResponseDto>(validation.errors?.join("; ") ?? "Body inválido"));
       }
 
-      const idUsuario = obtenerIdUsuarioDesdeLocals(res);
+      const idUsuario = ObtenerIdUsuarioDesdeLocals(res);
 
+      //TODO: Eliminar esta parte luego de probar
+      //TODO: Eliminar esta parte luego de probar
+      //TODO: Eliminar esta parte luego de probar
       console.log("usuario LOGUEADO (ID): ", idUsuario);
 
       if (!idUsuario) {
@@ -68,12 +70,8 @@ export class MantencionController {
       const created = await this.mantencionCommandService.crearMantencion(req.body, idUsuario);
       return res.status(201).json(respuestaOk<MantencionCreateResponseDto>(created));
     } catch (err: any) {
-      if (err?.message === "IdVehiculo no es válido") {
-        return res.status(400).json(respuestaError<MantencionCreateResponseDto>(err.message));
-      }
-
-      if (err?.message === "IdTaller no es válido") {
-        return res.status(400).json(respuestaError<MantencionCreateResponseDto>(err.message));
+      if (err.message === "IdVehiculo no es válido" || err.message === "IdTaller no es válido") {
+        return res.status(404).json(respuestaError<MantencionCreateResponseDto>(err.message));
       }
 
       errorMiddleware(err, req, res, () => {}, true);
@@ -98,33 +96,34 @@ export class MantencionController {
       }
 
       const updated = await this.mantencionCommandService.actualizarMantencion(id, req.body);
-      if (!updated) {
-        return res.status(404).json(respuestaError<MantencionUpdateResponseDto>("Mantención no encontrada"));
-      }
-
       return res.status(200).json(respuestaOk<MantencionUpdateResponseDto>(updated));
     } catch (err: any) {
+      if (err.message === "Mantención no encontrada" || err.message === "IdVehiculo no es válido" || err.message === "IdTaller no es válido") {
+        return res.status(404).json(respuestaError<MantencionUpdateResponseDto>(err.message));
+      }
+
       errorMiddleware(err, req, res, () => {}, true);
       return res.status(500).json(respuestaError<MantencionUpdateResponseDto>("ERROR CATCH: " + (err?.message ?? "error interno")));
     }
   }
 
-  public async eliminar(req: Request, res: Response<Respuesta<null>>): Promise<Response<Respuesta<null>>> {
+  public async eliminar(req: Request, res: Response<Respuesta<string>>): Promise<Response<Respuesta<string>>> {
     try {
       const id = Number(req.params.id);
+
       if (isNaN(id)) {
-        return res.status(400).json(respuestaError<null>("ID inválido"));
+        return res.status(400).json(respuestaError<string>("ID inválido"));
       }
 
       const deleted = await this.mantencionCommandService.eliminarMantencion(id);
-      if (!deleted) {
-        return res.status(404).json(respuestaError<null>("Mantención no encontrada"));
+      return res.status(200).json(respuestaOk<string>(deleted));
+    } catch (err: any) {
+      if (err.message === "Mantención no encontrada") {
+        return res.status(404).json(respuestaError<string>(err.message));
       }
 
-      return res.status(200).json(respuestaOk<null>(null));
-    } catch (err: any) {
       errorMiddleware(err, req, res, () => {}, true);
-      return res.status(500).json(respuestaError<null>("ERROR CATCH: " + (err?.message ?? "error interno")));
+      return res.status(500).json(respuestaError<string>("ERROR CATCH: " + (err?.message ?? "error interno")));
     }
   }
 }

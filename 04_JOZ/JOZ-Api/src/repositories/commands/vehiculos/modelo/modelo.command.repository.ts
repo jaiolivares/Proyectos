@@ -32,12 +32,12 @@ export class ModeloCommandRepository {
     }
   }
 
-  public async eliminarModelo(id: number): Promise<string> {
+  public async eliminarModelo(id: number): Promise<boolean> {
     try {
       await prisma.modeloVehiculo.delete({ where: { Id: id } });
-      return "OK";
+      return true;
     } catch (error: any) {
-      return error;
+      return false;
     }
   }
 }

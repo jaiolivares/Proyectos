@@ -1,4 +1,4 @@
-export interface Taller {
+export interface TallerModel {
   Id: number;
   Nombre: string;
   IdComuna: number;

@@ -1,4 +1,4 @@
-export interface MantencionDetalle {
+export interface MantencionDetalleModel {
   Id: number;
   IdMantencion: number;
   Producto: string;

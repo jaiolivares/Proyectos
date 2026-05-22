@@ -65,6 +65,7 @@ model mantenciondetalle {
   IdMantencion    Int
   Producto        String @db.VarChar(60)
   DetalleProducto String @db.VarChar(250)
+  Monto           Int
 
   @@index([IdMantencion], map: "IdMantencion")
 }

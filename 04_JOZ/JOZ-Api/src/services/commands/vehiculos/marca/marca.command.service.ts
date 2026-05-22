@@ -15,21 +15,31 @@ export class MarcaCommandService {
   }
 
   public async crearMarca(req: MarcaCreateRequestDto): Promise<MarcaCreateResponseDto> {
-    return (await this.marcaCommandRepository.crearMarca(req)) as Promise<MarcaCreateResponseDto>;
+    const created = await this.marcaCommandRepository.crearMarca(req);
+    return {
+      Id: created.Id,
+      Marca: created.Marca,
+      Descripcion: created.Descripcion,
+    } as MarcaCreateResponseDto;
   }
 
-  public async actualizarMarca(id: number, req: MarcaUpdateRequestDto): Promise<MarcaUpdateResponseDto | null> {
+  public async actualizarMarca(id: number, req: MarcaUpdateRequestDto): Promise<MarcaUpdateResponseDto> {
     const existent = await this.marcaQueryService.obtenerMarca(id);
     if (!existent) {
-      return null;
+      throw new Error("Marca no encontrada");
     }
-    return (await this.marcaCommandRepository.actualizarMarca(id, req)) as Promise<MarcaUpdateResponseDto>;
+    const updated = await this.marcaCommandRepository.actualizarMarca(id, req);
+    return {
+      Id: updated.Id,
+      Marca: updated.Marca,
+      Descripcion: updated.Descripcion,
+    } as MarcaUpdateResponseDto;
   }
 
-  public async eliminarMarca(id: number): Promise<boolean> {
+  public async eliminarMarca(id: number): Promise<string> {
     const existent = await this.marcaQueryService.obtenerMarca(id);
     if (!existent) {
-      return false;
+      throw new Error("Marca no encontrada");
     }
     return await this.marcaCommandRepository.eliminarMarca(id);
   }

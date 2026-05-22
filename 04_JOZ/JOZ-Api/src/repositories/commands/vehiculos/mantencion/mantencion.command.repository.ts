@@ -1,9 +1,10 @@
 import { MantencionCreateRequestDto } from "../../../../dtos/vehiculos/mantencion/mantencionCreateRequest.dto";
 import { MantencionUpdateRequestDto } from "../../../../dtos/vehiculos/mantencion/mantencionUpdateRequest.dto";
+import { MantencionModel } from "../../../../models/vehiculos/mantencion.model";
 import prisma from "../../../../prisma";
 
 export class MantencionCommandRepository {
-  public async crearMantencion(req: MantencionCreateRequestDto, idUsuario: number): Promise<any> {
+  public async crearMantencion(req: MantencionCreateRequestDto, idUsuario: number): Promise<MantencionModel> {
     try {
       const created = await prisma.mantencion.create({
         data: {
@@ -13,16 +14,16 @@ export class MantencionCommandRepository {
           Servicio: req.Servicio,
           MontoTotal: req.MontoTotal,
           Boleta: req.Boleta,
-          IdUsuario: idUsuario,
+          IdUsuarioCreacion: idUsuario,
         },
       });
-      return created;
+      return { ...created, IdUsuarioCreacion: idUsuario };
     } catch (error) {
       throw error;
     }
   }
 
-  public async actualizarMantencion(id: number, req: MantencionUpdateRequestDto): Promise<any> {
+  public async actualizarMantencion(id: number, req: MantencionUpdateRequestDto): Promise<MantencionModel> {
     try {
       const data: any = {};
       if (req.Fecha !== undefined) data.Fecha = req.Fecha;
@@ -32,7 +33,7 @@ export class MantencionCommandRepository {
       if (req.Boleta !== undefined) data.Boleta = req.Boleta;
 
       const updated = await prisma.mantencion.update({ where: { Id: id }, data });
-      return updated;
+      return { ...updated, IdUsuarioCreacion: updated.IdUsuario };
     } catch (error) {
       throw error;
     }
@@ -42,8 +43,8 @@ export class MantencionCommandRepository {
     try {
       await prisma.mantencion.delete({ where: { Id: id } });
       return "OK";
-    } catch (error: any) {
-      return error;
+    } catch (error) {
+      throw error;
     }
   }
 }
