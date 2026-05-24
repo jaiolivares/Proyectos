@@ -70,7 +70,7 @@ export class MantencionController {
       const created = await this.mantencionCommandService.crearMantencion(req.body, idUsuario);
       return res.status(201).json(respuestaOk<MantencionCreateResponseDto>(created));
     } catch (err: any) {
-      if (err.message === "IdVehiculo no es válido" || err.message === "IdTaller no es válido") {
+      if (err.message === "IdUsuario no es válido" || err.message === "IdVehiculo no es válido" || err.message === "IdTaller no es válido") {
         return res.status(404).json(respuestaError<MantencionCreateResponseDto>(err.message));
       }
 

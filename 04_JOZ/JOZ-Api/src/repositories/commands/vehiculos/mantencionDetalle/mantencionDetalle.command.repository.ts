@@ -1,9 +1,10 @@
 import { MantencionDetalleCreateRequestDto } from "../../../../dtos/vehiculos/mantencionDetalle/mantencionDetalleCreateRequest.dto";
 import { MantencionDetalleUpdateRequestDto } from "../../../../dtos/vehiculos/mantencionDetalle/mantencionDetalleUpdateRequest.dto";
+import { MantencionDetalleModel } from "../../../../models/vehiculos/mantencionDetalle.model";
 import prisma from "../../../../prisma";
 
 export class MantencionDetalleCommandRepository {
-  public async crearMantencionDetalle(req: MantencionDetalleCreateRequestDto): Promise<any> {
+  public async crearMantencionDetalle(req: MantencionDetalleCreateRequestDto): Promise<MantencionDetalleModel> {
     try {
       const created = await prisma.mantenciondetalle.create({
         data: {
@@ -19,7 +20,7 @@ export class MantencionDetalleCommandRepository {
     }
   }
 
-  public async actualizarMantencionDetalle(id: number, req: MantencionDetalleUpdateRequestDto): Promise<any> {
+  public async actualizarMantencionDetalle(id: number, req: MantencionDetalleUpdateRequestDto): Promise<MantencionDetalleModel> {
     try {
       const data: any = {};
       if (req.Producto !== undefined) data.Producto = req.Producto;
@@ -37,8 +38,8 @@ export class MantencionDetalleCommandRepository {
     try {
       await prisma.mantenciondetalle.delete({ where: { Id: id } });
       return "OK";
-    } catch (error: any) {
-      return error;
+    } catch (error) {
+      throw error;
     }
   }
 }

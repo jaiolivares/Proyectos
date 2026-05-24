@@ -6,5 +6,5 @@ export interface MantencionUpdateResponseDto {
   Servicio: string;
   MontoTotal: number;
   Boleta?: string | null;
-  IdUsuario: number;
+  IdUsuarioCreacion: number;
 }

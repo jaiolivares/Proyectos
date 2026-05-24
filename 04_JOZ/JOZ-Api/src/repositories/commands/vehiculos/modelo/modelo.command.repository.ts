@@ -1,9 +1,10 @@
 import { ModeloCreateRequestDto } from "../../../../dtos/vehiculos/modelo/modeloCreateRequest.dto";
 import { ModeloUpdateRequestDto } from "../../../../dtos/vehiculos/modelo/modeloUpdateRequest.dto";
+import { ModeloModel } from "../../../../models/vehiculos/modelo.model";
 import prisma from "../../../../prisma";
 
 export class ModeloCommandRepository {
-  public async crearModelo(req: ModeloCreateRequestDto): Promise<any> {
+  public async crearModelo(req: ModeloCreateRequestDto): Promise<ModeloModel> {
     try {
       const created = await prisma.modeloVehiculo.create({
         data: {
@@ -18,7 +19,7 @@ export class ModeloCommandRepository {
     }
   }
 
-  public async actualizarModelo(id: number, req: ModeloUpdateRequestDto): Promise<any> {
+  public async actualizarModelo(id: number, req: ModeloUpdateRequestDto): Promise<ModeloModel> {
     try {
       const data: any = {};
       if (req.IdTipoVehiculo !== undefined) data.IdTipoVehiculo = req.IdTipoVehiculo;
@@ -32,12 +33,12 @@ export class ModeloCommandRepository {
     }
   }
 
-  public async eliminarModelo(id: number): Promise<boolean> {
+  public async eliminarModelo(id: number): Promise<string> {
     try {
       await prisma.modeloVehiculo.delete({ where: { Id: id } });
-      return true;
-    } catch (error: any) {
-      return false;
+      return "OK";
+    } catch (error) {
+      throw error;
     }
   }
 }

@@ -15,21 +15,34 @@ export class ModeloCommandService {
   }
 
   public async crearModelo(req: ModeloCreateRequestDto): Promise<ModeloCreateResponseDto> {
-    return (await this.modeloCommandRepository.crearModelo(req)) as Promise<ModeloCreateResponseDto>;
+    const created = await this.modeloCommandRepository.crearModelo(req);
+    return {
+      Id: created.Id,
+      IdTipoVehiculo: created.IdTipoVehiculo,
+      Modelo: created.Modelo,
+      Descripcion: created.Descripcion,
+    } as ModeloCreateResponseDto;
   }
 
   public async actualizarModelo(id: number, req: ModeloUpdateRequestDto): Promise<ModeloUpdateResponseDto | null> {
     const existent = await this.modeloQueryService.obtenerModelo(id);
     if (!existent) {
-      return null;
+      throw new Error("Modelo no encontrado");
     }
-    return (await this.modeloCommandRepository.actualizarModelo(id, req)) as Promise<ModeloUpdateResponseDto>;
+
+    const updated = await this.modeloCommandRepository.actualizarModelo(id, req);
+    return {
+      Id: updated.Id,
+      IdTipoVehiculo: updated.IdTipoVehiculo,
+      Modelo: updated.Modelo,
+      Descripcion: updated.Descripcion,
+    } as ModeloUpdateResponseDto;
   }
 
-  public async eliminarModelo(id: number): Promise<boolean> {
+  public async eliminarModelo(id: number): Promise<string> {
     const existent = await this.modeloQueryService.obtenerModelo(id);
     if (!existent) {
-      return false;
+      throw new Error("Modelo no encontrado");
     }
     return await this.modeloCommandRepository.eliminarModelo(id);
   }

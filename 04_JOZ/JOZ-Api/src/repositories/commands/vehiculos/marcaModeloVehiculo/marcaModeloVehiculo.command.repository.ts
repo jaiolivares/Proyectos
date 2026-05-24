@@ -1,14 +1,15 @@
 import { MarcaModeloVehiculoCreateRequestDto } from "../../../../dtos/vehiculos/marcaModeloVehiculo/marcaModeloVehiculoCreateRequest.dto";
 import { MarcaModeloVehiculoUpdateRequestDto } from "../../../../dtos/vehiculos/marcaModeloVehiculo/marcaModeloVehiculoUpdateRequest.dto";
+import { MarcaModeloVehiculoModel } from "../../../../models/vehiculos/marcaModeloVehiculo.model";
 import prisma from "../../../../prisma";
 
 export class MarcaModeloVehiculoCommandRepository {
-  public async crearMarcaModeloVehiculo(req: MarcaModeloVehiculoCreateRequestDto): Promise<any> {
+  public async crearMarcaModeloVehiculo(req: MarcaModeloVehiculoCreateRequestDto): Promise<MarcaModeloVehiculoModel> {
     try {
       const created = await prisma.marcaModeloVehiculo.create({
         data: {
           IdMarca: req.IdMarca,
-          IdModelo: req.IdModeloVehiculo,
+          IdModelo: req.IdModelo,
         },
       });
       return created;
@@ -17,16 +18,13 @@ export class MarcaModeloVehiculoCommandRepository {
     }
   }
 
-  public async actualizarMarcaModeloVehiculo(id: number, req: MarcaModeloVehiculoUpdateRequestDto): Promise<any> {
+  public async actualizarMarcaModeloVehiculo(id: number, req: MarcaModeloVehiculoUpdateRequestDto): Promise<MarcaModeloVehiculoModel> {
     try {
       const data: any = {};
       if (req.IdMarca !== undefined) data.IdMarca = req.IdMarca;
-      if (req.IdModeloVehiculo !== undefined) data.IdModelo = req.IdModeloVehiculo;
+      if (req.IdModelo !== undefined) data.IdModelo = req.IdModelo;
 
-      const updated = await prisma.marcaModeloVehiculo.update({
-        where: { Id: id },
-        data,
-      });
+      const updated = await prisma.marcaModeloVehiculo.update({ where: { Id: id }, data });
       return updated;
     } catch (error) {
       throw error;
@@ -37,8 +35,8 @@ export class MarcaModeloVehiculoCommandRepository {
     try {
       await prisma.marcaModeloVehiculo.delete({ where: { Id: id } });
       return "OK";
-    } catch (error: any) {
-      return error;
+    } catch (error) {
+      throw error;
     }
   }
 }

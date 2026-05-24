@@ -26,7 +26,7 @@ export class MarcaModeloVehiculoController {
     const items = await this.marcaModeloVehiculoQueryService.obtenerMarcaModeloVehiculos();
 
     if (items.length === 0) {
-      return res.status(404).json(respuestaError<MarcaModeloVehiculoDto[]>("No se encontraron Modelos asociados a la marca"));
+      return res.status(404).json(respuestaError<MarcaModeloVehiculoDto[]>("Modelos asociados a la marca no encontrados"));
     }
 
     return res.status(200).json(respuestaOk<MarcaModeloVehiculoDto[]>(items));
@@ -34,13 +34,11 @@ export class MarcaModeloVehiculoController {
 
   public async obtenerPorId(req: Request, res: Response<Respuesta<MarcaModeloVehiculoDto>>): Promise<Response<Respuesta<MarcaModeloVehiculoDto>>> {
     const id = Number(req.params.id);
-
     if (isNaN(id)) {
       return res.status(400).json(respuestaError<MarcaModeloVehiculoDto>("ID inválido"));
     }
 
     const found = await this.marcaModeloVehiculoQueryService.obtenerMarcaModeloVehiculo(id);
-
     if (!found) {
       return res.status(404).json(respuestaError<MarcaModeloVehiculoDto>("Modelo asociado a la marca no encontrado"));
     }
@@ -51,8 +49,8 @@ export class MarcaModeloVehiculoController {
   public async crear(req: Request<{}, {}, MarcaModeloVehiculoCreateRequestDto>, res: Response<Respuesta<MarcaModeloVehiculoCreateResponseDto>>): Promise<Response<Respuesta<MarcaModeloVehiculoCreateResponseDto>>> {
     try {
       NormalizaBody(req.body);
-      const validation = ValidataEstructuraCreateBody(req.body);
 
+      const validation = ValidataEstructuraCreateBody(req.body);
       if (!validation.valid) {
         return res.status(400).json(respuestaError<MarcaModeloVehiculoCreateResponseDto>(validation.errors?.join("; ") ?? "Body inválido"));
       }
@@ -60,6 +58,10 @@ export class MarcaModeloVehiculoController {
       const created = await this.marcaModeloVehiculoCommandService.crearMarcaModeloVehiculo(req.body);
       return res.status(201).json(respuestaOk<MarcaModeloVehiculoCreateResponseDto>(created));
     } catch (err: any) {
+      if (err.message === "IdMarca no es válido" || err.message === "IdModelo no es válido") {
+        return res.status(404).json(respuestaError<MarcaModeloVehiculoCreateResponseDto>(err.message));
+      }
+
       errorMiddleware(err, req, res, () => {}, true);
       return res.status(500).json(respuestaError<MarcaModeloVehiculoCreateResponseDto>("ERROR CATCH: " + (err?.message ?? "error interno")));
     }
@@ -77,39 +79,40 @@ export class MarcaModeloVehiculoController {
       }
 
       NormalizaBody(req.body);
+
       const validation = ValidataEstructuraUpdateBody(req.body);
       if (!validation.valid) {
         return res.status(400).json(respuestaError<MarcaModeloVehiculoUpdateResponseDto>(validation.errors?.join("; ") ?? "Body inválido"));
       }
 
       const updated = await this.marcaModeloVehiculoCommandService.actualizarMarcaModeloVehiculo(id, req.body);
-      if (!updated) {
-        return res.status(404).json(respuestaError<MarcaModeloVehiculoUpdateResponseDto>("Modelo asociado a la marca no encontrado"));
-      }
-
       return res.status(200).json(respuestaOk<MarcaModeloVehiculoUpdateResponseDto>(updated));
     } catch (err: any) {
+      if (err.message === "MarcaModeloVehiculo no encontrado" || err.message === "IdMarca no es válido" || err.message === "IdModelo no es válido") {
+        return res.status(404).json(respuestaError<MarcaModeloVehiculoUpdateResponseDto>(err.message));
+      }
+
       errorMiddleware(err, req, res, () => {}, true);
       return res.status(500).json(respuestaError<MarcaModeloVehiculoUpdateResponseDto>("ERROR CATCH: " + (err?.message ?? "error interno")));
     }
   }
 
-  public async eliminar(req: Request, res: Response<Respuesta<null>>): Promise<Response<Respuesta<null>>> {
+  public async eliminar(req: Request, res: Response<Respuesta<string>>): Promise<Response<Respuesta<string>>> {
     try {
       const id = Number(req.params.id);
       if (isNaN(id)) {
-        return res.status(400).json(respuestaError<null>("ID inválido"));
+        return res.status(400).json(respuestaError<string>("ID inválido"));
       }
 
       const deleted = await this.marcaModeloVehiculoCommandService.eliminarMarcaModeloVehiculo(id);
-      if (!deleted) {
-        return res.status(404).json(respuestaError<null>("Modelo asociado a la marca no encontrado"));
+      return res.status(200).json(respuestaOk<string>(deleted));
+    } catch (err: any) {
+      if (err.message === "MarcaModeloVehiculo no encontrado") {
+        return res.status(404).json(respuestaError<string>(err.message));
       }
 
-      return res.status(200).json(respuestaOk<null>(null));
-    } catch (err: any) {
       errorMiddleware(err, req, res, () => {}, true);
-      return res.status(500).json(respuestaError<null>("ERROR CATCH: " + (err?.message ?? "error interno")));
+      return res.status(500).json(respuestaError<string>("ERROR CATCH: " + (err?.message ?? "error interno")));
     }
   }
 }

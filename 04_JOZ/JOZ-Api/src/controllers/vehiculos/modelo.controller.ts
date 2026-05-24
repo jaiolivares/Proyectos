@@ -24,9 +24,11 @@ export class ModeloController {
 
   public async obtenerTodos(_: Request, res: Response<Respuesta<ModeloDto[]>>): Promise<Response<Respuesta<ModeloDto[]>>> {
     const items = await this.modeloQueryService.obtenerModelos();
+
     if (items.length === 0) {
       return res.status(404).json(respuestaError<ModeloDto[]>("No se encontraron Modelos"));
     }
+
     return res.status(200).json(respuestaOk<ModeloDto[]>(items));
   }
 
@@ -40,14 +42,15 @@ export class ModeloController {
     if (!found) {
       return res.status(404).json(respuestaError<ModeloDto>("Modelo no encontrado"));
     }
+
     return res.status(200).json(respuestaOk<ModeloDto>(found));
   }
 
   public async crear(req: Request<{}, {}, ModeloCreateRequestDto>, res: Response<Respuesta<ModeloCreateResponseDto>>): Promise<Response<Respuesta<ModeloCreateResponseDto>>> {
     try {
       NormalizaBody(req.body);
-      const validation = ValidataEstructuraCreateBody(req.body);
 
+      const validation = ValidataEstructuraCreateBody(req.body);
       if (!validation.valid) {
         return res.status(400).json(respuestaError<ModeloCreateResponseDto>(validation.errors?.join("; ") ?? "Body inválido"));
       }
@@ -63,7 +66,6 @@ export class ModeloController {
   public async actualizar(req: Request<{ id: string }, {}, ModeloUpdateRequestDto>, res: Response<Respuesta<ModeloUpdateResponseDto>>): Promise<Response<Respuesta<ModeloUpdateResponseDto>>> {
     try {
       const id = Number(req.params.id);
-
       if (isNaN(id)) {
         return res.status(400).json(respuestaError<ModeloUpdateResponseDto>("ID inválido"));
       }
@@ -73,41 +75,41 @@ export class ModeloController {
       }
 
       NormalizaBody(req.body);
-      const validation = ValidataEstructuraUpdateBody(req.body);
 
+      const validation = ValidataEstructuraUpdateBody(req.body);
       if (!validation.valid) {
         return res.status(400).json(respuestaError<ModeloUpdateResponseDto>(validation.errors?.join("; ") ?? "Body inválido"));
       }
 
       const updated = await this.modeloCommandService.actualizarModelo(id, req.body);
-      if (!updated) {
-        return res.status(404).json(respuestaError<ModeloUpdateResponseDto>("Modelo no encontrado"));
-      }
-
       return res.status(200).json(respuestaOk<ModeloUpdateResponseDto>(updated));
     } catch (err: any) {
+      if (err.message === "Modelo no encontrado") {
+        return res.status(404).json(respuestaError<ModeloUpdateResponseDto>(err.message));
+      }
+
       errorMiddleware(err, req, res, () => {}, true);
       return res.status(500).json(respuestaError<ModeloUpdateResponseDto>("ERROR CATCH: " + (err?.message ?? "error interno")));
     }
   }
 
-  public async eliminar(req: Request, res: Response<Respuesta<null>>): Promise<Response<Respuesta<null>>> {
+  public async eliminar(req: Request, res: Response<Respuesta<string>>): Promise<Response<Respuesta<string>>> {
     try {
       const id = Number(req.params.id);
 
       if (isNaN(id)) {
-        return res.status(400).json(respuestaError<null>("ID inválido"));
+        return res.status(400).json(respuestaError<string>("ID inválido"));
       }
 
       const deleted = await this.modeloCommandService.eliminarModelo(id);
-      if (!deleted) {
-        return res.status(404).json(respuestaError<null>("Modelo no encontrado"));
+      return res.status(200).json(respuestaOk<string>(deleted));
+    } catch (err: any) {
+      if (err.message === "Modelo no encontrado") {
+        return res.status(404).json(respuestaError<string>(err.message));
       }
 
-      return res.status(200).json(respuestaOk<null>(null));
-    } catch (err: any) {
       errorMiddleware(err, req, res, () => {}, true);
-      return res.status(500).json(respuestaError<null>("ERROR CATCH: " + (err?.message ?? "error interno")));
+      return res.status(500).json(respuestaError<string>("ERROR CATCH: " + (err?.message ?? "error interno")));
     }
   }
 }

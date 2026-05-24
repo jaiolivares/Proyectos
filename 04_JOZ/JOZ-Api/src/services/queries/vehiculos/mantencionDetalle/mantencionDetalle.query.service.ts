@@ -9,17 +9,27 @@ export class MantencionDetalleQueryService {
   }
 
   public async obtenerMantencionDetalles(): Promise<MantencionDetalleDto[]> {
-    const rows = await this.mantencionDetalleQueryRepository.obtenerMantencionDetalles();
-    return rows.map((v) => new MantencionDetalleDto(v.Id, v.IdMantencion, v.Producto, v.DetalleProducto, v.Monto));
+    const mantencionDetalles = await this.mantencionDetalleQueryRepository.obtenerMantencionDetalles();
+    return mantencionDetalles.map((v) => this.mapMantencionDetalle(v));
   }
 
   public async obtenerMantencionDetalle(id: number): Promise<MantencionDetalleDto | null> {
-    const row = await this.mantencionDetalleQueryRepository.obtenerMantencionDetalle(id);
+    const mantencionDetalle = await this.mantencionDetalleQueryRepository.obtenerMantencionDetalle(id);
 
-    if (!row) {
+    if (!mantencionDetalle) {
       return null;
     }
 
-    return new MantencionDetalleDto(row.Id, row.IdMantencion, row.Producto, row.DetalleProducto, row.Monto);
+    return this.mapMantencionDetalle(mantencionDetalle);
+  }
+
+  private mapMantencionDetalle(record: any): MantencionDetalleDto {
+    return {
+      Id: record.Id,
+      IdMantencion: record.IdMantencion,
+      Producto: record.Producto,
+      DetalleProducto: record.DetalleProducto,
+      Monto: record.Monto,
+    };
   }
 }

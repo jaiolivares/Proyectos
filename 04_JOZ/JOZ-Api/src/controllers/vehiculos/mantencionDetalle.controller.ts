@@ -24,9 +24,11 @@ export class MantencionDetalleController {
 
   public async obtenerTodos(_: Request, res: Response<Respuesta<MantencionDetalleDto[]>>): Promise<Response<Respuesta<MantencionDetalleDto[]>>> {
     const items = await this.mantencionDetalleQueryService.obtenerMantencionDetalles();
+
     if (items.length === 0) {
       return res.status(404).json(respuestaError<MantencionDetalleDto[]>("No se encontraron detalles de mantención"));
     }
+
     return res.status(200).json(respuestaOk<MantencionDetalleDto[]>(items));
   }
 
@@ -35,25 +37,29 @@ export class MantencionDetalleController {
     if (isNaN(id)) {
       return res.status(400).json(respuestaError<MantencionDetalleDto>("ID inválido"));
     }
+
     const found = await this.mantencionDetalleQueryService.obtenerMantencionDetalle(id);
     if (!found) {
       return res.status(404).json(respuestaError<MantencionDetalleDto>("Detalle de mantención no encontrado"));
     }
+
     return res.status(200).json(respuestaOk<MantencionDetalleDto>(found));
   }
 
   public async crear(req: Request<{}, {}, MantencionDetalleCreateRequestDto>, res: Response<Respuesta<MantencionDetalleCreateResponseDto>>): Promise<Response<Respuesta<MantencionDetalleCreateResponseDto>>> {
     try {
       NormalizaBody(req.body);
+
       const validation = ValidataEstructuraCreateBody(req.body);
       if (!validation.valid) {
         return res.status(400).json(respuestaError<MantencionDetalleCreateResponseDto>(validation.errors?.join("; ") ?? "Body inválido"));
       }
+
       const created = await this.mantencionDetalleCommandService.crearMantencionDetalle(req.body);
       return res.status(201).json(respuestaOk<MantencionDetalleCreateResponseDto>(created));
     } catch (err: any) {
-      if (err?.message === "IdMantencion no es válido") {
-        return res.status(400).json(respuestaError<MantencionDetalleCreateResponseDto>(err.message));
+      if (err.message === "IdMantencion no es válido") {
+        return res.status(404).json(respuestaError<MantencionDetalleCreateResponseDto>(err.message));
       }
 
       errorMiddleware(err, req, res, () => {}, true);
@@ -67,44 +73,47 @@ export class MantencionDetalleController {
       if (isNaN(id)) {
         return res.status(400).json(respuestaError<MantencionDetalleUpdateResponseDto>("ID inválido"));
       }
+
       if (req.body == null) {
         return res.status(400).json(respuestaError<MantencionDetalleUpdateResponseDto>("No existen datos para actualizar"));
       }
+
       NormalizaBody(req.body);
+
       const validation = ValidataEstructuraUpdateBody(req.body);
       if (!validation.valid) {
         return res.status(400).json(respuestaError<MantencionDetalleUpdateResponseDto>(validation.errors?.join("; ") ?? "Body inválido"));
       }
+
       const updated = await this.mantencionDetalleCommandService.actualizarMantencionDetalle(id, req.body);
-      if (!updated) {
-        return res.status(404).json(respuestaError<MantencionDetalleUpdateResponseDto>("Detalle de mantención no encontrado"));
-      }
       return res.status(200).json(respuestaOk<MantencionDetalleUpdateResponseDto>(updated));
     } catch (err: any) {
-      if (err?.message === "IdMantencion no es válido") {
-        return res.status(400).json(respuestaError<MantencionDetalleUpdateResponseDto>(err.message));
+      if (err.message === "MantencionDetalle no encontrado" || err.message === "IdMantencion no es válido") {
+        return res.status(404).json(respuestaError<MantencionDetalleUpdateResponseDto>(err.message));
       }
+
       errorMiddleware(err, req, res, () => {}, true);
       return res.status(500).json(respuestaError<MantencionDetalleUpdateResponseDto>("ERROR CATCH: " + (err?.message ?? "error interno")));
     }
   }
 
-  public async eliminar(req: Request, res: Response<Respuesta<null>>): Promise<Response<Respuesta<null>>> {
+  public async eliminar(req: Request, res: Response<Respuesta<string>>): Promise<Response<Respuesta<string>>> {
     try {
       const id = Number(req.params.id);
+
       if (isNaN(id)) {
-        return res.status(400).json(respuestaError<null>("ID inválido"));
+        return res.status(400).json(respuestaError<string>("ID inválido"));
       }
+
       const deleted = await this.mantencionDetalleCommandService.eliminarMantencionDetalle(id);
-      if (!deleted) {
-        return res.status(404).json(respuestaError<null>("Detalle de mantención no encontrado"));
-      }
-      return res.status(200).json(respuestaOk<null>(null));
+      return res.status(200).json(respuestaOk<string>(deleted));
     } catch (err: any) {
+      if (err.message === "MantencionDetalle no encontrado") {
+        return res.status(404).json(respuestaError<string>(err.message));
+      }
+
       errorMiddleware(err, req, res, () => {}, true);
-      return res.status(500).json(respuestaError<null>("ERROR CATCH: " + (err?.message ?? "error interno")));
+      return res.status(500).json(respuestaError<string>("ERROR CATCH: " + (err?.message ?? "error interno")));
     }
   }
 }
-
-export default MantencionDetalleController;

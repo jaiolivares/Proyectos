@@ -96,7 +96,6 @@ export class MarcaController {
   public async eliminar(req: Request, res: Response<Respuesta<string>>): Promise<Response<Respuesta<string>>> {
     try {
       const id = Number(req.params.id);
-
       if (isNaN(id)) {
         return res.status(400).json(respuestaError<string>("ID inválido"));
       }

@@ -10,7 +10,7 @@ export class ModeloQueryService {
 
   public async obtenerModelos(): Promise<ModeloDto[]> {
     const modelos = await this.modeloQueryRepository.obtenerModelos();
-    return modelos.map((m) => new ModeloDto(m.Id, m.IdTipoVehiculo, m.Modelo, m.Descripcion));
+    return modelos.map((m) => this.mapModelo(m));
   }
 
   public async obtenerModelo(id: number): Promise<ModeloDto | null> {
@@ -20,6 +20,15 @@ export class ModeloQueryService {
       return null;
     }
 
-    return new ModeloDto(modelo.Id, modelo.IdTipoVehiculo, modelo.Modelo, modelo.Descripcion);
+    return this.mapModelo(modelo);
+  }
+
+  private mapModelo(record: any): ModeloDto {
+    return {
+      Id: record.Id,
+      IdTipoVehiculo: record.IdTipoVehiculo,
+      Modelo: record.Modelo,
+      Descripcion: record.Descripcion,
+    };
   }
 }

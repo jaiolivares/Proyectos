@@ -1,4 +1,4 @@
 export interface MarcaModeloVehiculoCreateRequestDto {
   IdMarca: number;
-  IdModeloVehiculo: number;
+  IdModelo: number;
 }

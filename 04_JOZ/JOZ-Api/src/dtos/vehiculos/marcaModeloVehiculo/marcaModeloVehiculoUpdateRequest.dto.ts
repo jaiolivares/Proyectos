@@ -1,4 +1,4 @@
 export interface MarcaModeloVehiculoUpdateRequestDto {
-  IdMarca?: number;
-  IdModeloVehiculo?: number;
+  IdMarca: number;
+  IdModelo: number;
 }

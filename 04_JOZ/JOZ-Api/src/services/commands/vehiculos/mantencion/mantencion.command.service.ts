@@ -21,6 +21,10 @@ export class MantencionCommandService {
   }
 
   public async crearMantencion(req: MantencionCreateRequestDto, idUsuario: number): Promise<MantencionCreateResponseDto> {
+    if (!idUsuario) {
+      throw new Error("IdUsuario no es válido");
+    }
+
     const idVehiculo = req.IdVehiculo;
     const vehiculo = await this.vehiculoQueryService.obtenerVehiculo(idVehiculo);
     if (!vehiculo) {
@@ -38,6 +42,11 @@ export class MantencionCommandService {
       Id: created.Id,
       IdVehiculo: created.IdVehiculo,
       Fecha: created.Fecha,
+      IdTaller: created.IdTaller,
+      Servicio: created.Servicio,
+      MontoTotal: created.MontoTotal,
+      Boleta: created.Boleta,
+      IdUsuarioCreacion: created.IdUsuarioCreacion,
     } as MantencionCreateResponseDto;
   }
 
@@ -47,11 +56,28 @@ export class MantencionCommandService {
       throw new Error("Mantención no encontrada");
     }
 
-    const update = await this.mantencionCommandRepository.actualizarMantencion(id, req);
+    const idVehiculo = req.IdVehiculo;
+    const vehiculo = await this.vehiculoQueryService.obtenerVehiculo(idVehiculo);
+    if (!vehiculo) {
+      throw new Error("IdVehiculo no es válido");
+    }
+
+    const idTaller = req.IdTaller;
+    const taller = await this.tallerQueryService.obtenerTaller(idTaller);
+    if (!taller) {
+      throw new Error("IdTaller no es válido");
+    }
+
+    const updated = await this.mantencionCommandRepository.actualizarMantencion(id, req);
     return {
-      Id: update.Id,
-      IdVehiculo: update.IdVehiculo,
-      Fecha: update.Fecha,
+      Id: updated.Id,
+      IdVehiculo: updated.IdVehiculo,
+      Fecha: updated.Fecha,
+      IdTaller: updated.IdTaller,
+      Servicio: updated.Servicio,
+      MontoTotal: updated.MontoTotal,
+      Boleta: updated.Boleta,
+      IdUsuarioCreacion: updated.IdUsuarioCreacion,
     } as MantencionUpdateResponseDto;
   }
 

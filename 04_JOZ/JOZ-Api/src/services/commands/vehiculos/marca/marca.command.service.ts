@@ -28,6 +28,7 @@ export class MarcaCommandService {
     if (!existent) {
       throw new Error("Marca no encontrada");
     }
+
     const updated = await this.marcaCommandRepository.actualizarMarca(id, req);
     return {
       Id: updated.Id,
