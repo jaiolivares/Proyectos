@@ -1,13 +1,12 @@
-import React from 'react'
-import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import { BrowserRouter, Route, Routes, useLocation } from 'react-router-dom'
+import ItemsArea from './components/ItemsArea'
+import LeftSidebar from './components/LeftSidebar'
+import NavBar from './components/NavBar'
+import { AuthProvider } from './contexts/AuthContext'
 import Landing from './pages/Landing'
 import LoginPage from './pages/LoginPage'
+import Talleres from './pages/Talleres'
 import Welcome from './pages/Welcome'
-import ItemsArea from './components/ItemsArea'
-import NavBar from './components/NavBar'
-import LeftSidebar from './components/LeftSidebar'
-import { AuthProvider } from './contexts/AuthContext'
-import { useLocation } from 'react-router-dom'
 
 function MainRoutes() {
   const location = useLocation()
@@ -27,6 +26,8 @@ function MainRoutes() {
               <Route path="/login" element={<LoginPage />} />
               <Route path="/welcome" element={<Welcome />} />
               <Route path="/items" element={<ItemsArea />} />
+              <Route path="/vehiculos/talleres" element={<Talleres />} />
+              {/* <Route path="/vehiculos" element={<Vehiculos />} /> */}
             </Routes>
           </div>
         </div>

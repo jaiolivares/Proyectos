@@ -1,15 +1,15 @@
-import React, { useState } from 'react'
+import MenuIcon from '@mui/icons-material/Menu'
 import {
   AppBar,
-  Toolbar,
-  Typography,
+  Box,
   Button,
   IconButton,
   Menu,
   MenuItem,
-  Box,
+  Toolbar,
+  Typography,
 } from '@mui/material'
-import MenuIcon from '@mui/icons-material/Menu'
+import React, { useState } from 'react'
 import { Link as RouterLink } from 'react-router-dom'
 import { useAuthContext } from '../contexts/AuthContext'
 
@@ -49,6 +49,9 @@ export default function NavBar() {
           <Button color="inherit" component={RouterLink} to="/items">
             Items
           </Button>
+          <Button color="inherit" component={RouterLink} to="/vehiculos">
+            Vehículos
+          </Button>
         </Box>
 
         {/* Right-aligned logout on desktop */}
@@ -85,6 +88,9 @@ export default function NavBar() {
             </MenuItem>
             <MenuItem component={RouterLink} to="/items" onClick={handleCloseNavMenu}>
               Items
+            </MenuItem>
+            <MenuItem component={RouterLink} to="/vehiculos" onClick={handleCloseNavMenu}>
+              Vehículos
             </MenuItem>
             <MenuItem component={RouterLink} to="/" onClick={handleCloseNavMenu}>
               Salir

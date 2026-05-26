@@ -1,13 +1,13 @@
+import LockOutlinedIcon from '@mui/icons-material/LockOutlined'
+import Alert from '@mui/material/Alert'
+import Avatar from '@mui/material/Avatar'
+import Box from '@mui/material/Box'
+import Button from '@mui/material/Button'
+import Container from '@mui/material/Container'
+import TextField from '@mui/material/TextField'
+import Typography from '@mui/material/Typography'
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import Avatar from '@mui/material/Avatar'
-import Button from '@mui/material/Button'
-import TextField from '@mui/material/TextField'
-import Box from '@mui/material/Box'
-import Typography from '@mui/material/Typography'
-import Container from '@mui/material/Container'
-import Alert from '@mui/material/Alert'
-import LockOutlinedIcon from '@mui/icons-material/LockOutlined'
 import { LoginRequest } from '../models/user'
 
 type Props = {
@@ -18,7 +18,7 @@ type Props = {
 
 export default function LoginForm({ onSubmit, loading, error }: Props) {
   const navigate = useNavigate()
-  const [nombreUsuario, setNombreUsuario] = useState('aaa2')
+  const [nombreUsuario, setNombreUsuario] = useState('jai')
   const [password, setPassword] = useState('123')
 
   const handle = async (e: React.FormEvent) => {

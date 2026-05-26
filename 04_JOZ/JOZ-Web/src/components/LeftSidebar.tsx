@@ -1,20 +1,20 @@
-import React, { useMemo, useState } from 'react'
-import { useLocation, Link as RouterLink } from 'react-router-dom'
+import ExpandLess from '@mui/icons-material/ExpandLess'
+import ExpandMore from '@mui/icons-material/ExpandMore'
+import MenuIcon from '@mui/icons-material/Menu'
+import MenuOpenIcon from '@mui/icons-material/MenuOpen'
 import {
   Box,
+  Collapse,
+  Divider,
   Drawer,
   IconButton,
   List,
   ListItemButton,
   ListItemText,
-  Divider,
-  Collapse,
   Typography,
 } from '@mui/material'
-import MenuOpenIcon from '@mui/icons-material/MenuOpen'
-import MenuIcon from '@mui/icons-material/Menu'
-import ExpandLess from '@mui/icons-material/ExpandLess'
-import ExpandMore from '@mui/icons-material/ExpandMore'
+import React, { useMemo, useState } from 'react'
+import { Link as RouterLink, useLocation } from 'react-router-dom'
 
 const drawerWidth = 220
 const collapsedWidth = 56
@@ -31,10 +31,38 @@ export default function LeftSidebar() {
     //     { title: 'Welcome', items: ['submenu1', 'submenu2'] },
     //   ]
     // }
+
+    if (location.pathname.startsWith('/vehiculos')) {
+      return [
+        { title: { label: 'Mantenciones', route: 'mantenciones' }, items: [] },
+        { title: { label: 'Talleres', route: 'talleres' }, items: [] },
+        { title: { label: 'Vehículos', route: 'vehiculos' }, items: [] },
+        {
+          title: { label: 'Marcas', route: 'marcas' },
+          items: [{ label: 'Asociar Marca-Modelo', route: 'asociar-marca-modelo' }],
+        },
+        { title: { label: 'Modelos', route: 'modelos' }, items: [] },
+      ]
+    }
+
     if (location.pathname.startsWith('/items')) {
       return [
-        { title: 'CRUD', items: ['Listar', 'Crear'] },
-        { title: 'ADMIN', items: ['Listar', 'Asignar', 'Activar', 'Quitar'] },
+        {
+          title: { label: 'CRUD', route: 'crud' },
+          items: [
+            { label: 'Listar', route: 'listar' },
+            { label: 'Crear', route: 'crear' },
+          ],
+        },
+        {
+          title: { label: 'ADMIN', route: 'admin' },
+          items: [
+            { label: 'Listar', route: 'listar' },
+            { label: 'Asignar de Marca y Modelo', route: 'AsociarMarcaModelo' },
+            { label: 'Activar', route: 'activar' },
+            { label: 'Quitar', route: 'quitar' },
+          ],
+        },
       ]
     }
     return []
@@ -44,6 +72,10 @@ export default function LeftSidebar() {
   const toggleSection = (title: string) => {
     setExpandedMap((prev) => ({ ...prev, [title]: !prev[title] }))
   }
+
+  const segments = location.pathname.split('/').filter(Boolean)
+  const baseSegment = segments[0] ?? ''
+  const basePath = baseSegment ? `/${baseSegment}` : '/'
 
   return (
     <Box component="nav" aria-label="sidebar">
@@ -73,27 +105,48 @@ export default function LeftSidebar() {
 
         <List>
           {menuForPath.map((section) => {
-            const isExpanded = !!expandedMap[section.title]
+            const titleLabel = typeof section.title === 'string' ? section.title : section.title.label
+            const titleRoute = typeof section.title === 'string' ? section.title.replace(/\s+/g, '-').toLowerCase() : section.title.route
+            const sectionKey = titleRoute
+            const isExpanded = !!expandedMap[sectionKey]
+            const hasChildren = section.items && section.items.length > 0
             return (
-              <React.Fragment key={section.title}>
-                <ListItemButton onClick={() => toggleSection(section.title)}>
-                  <ListItemText primary={open ? section.title : ''} />
-                  {open && (isExpanded ? <ExpandLess /> : <ExpandMore />)}
-                </ListItemButton>
-                <Collapse in={isExpanded} timeout="auto" unmountOnExit>
-                  <List component="div" disablePadding>
-                    {section.items.map((it) => (
-                      <ListItemButton
-                        key={it}
-                        sx={{ pl: 4 }}
-                        component={RouterLink}
-                        to={`${location.pathname}/${it.toLowerCase()}`}
-                      >
-                        <ListItemText primary={open ? it : ''} />
+              <React.Fragment key={sectionKey}>
+                {hasChildren ? (
+                  <>
+                    <ListItemButton onClick={() => toggleSection(sectionKey)}>
+                      <ListItemText primary={open ? titleLabel : ''} />
+                      {open && (isExpanded ? <ExpandLess /> : <ExpandMore />)}
+                    </ListItemButton>
+                    <Collapse in={isExpanded} timeout="auto" unmountOnExit>
+                      <List component="div" disablePadding>
+                        {section.items.map((it) => {
+                          const label = typeof it === 'string' ? it : it.label
+                          const route = typeof it === 'string' ? it.toLowerCase().replace(/\s+/g, '-') : it.route
+                          return (
+                            <ListItemButton
+                              key={route}
+                              sx={{ pl: 4 }}
+                              component={RouterLink}
+                              to={`${basePath}/${route}`}
+                            >
+                              <ListItemText primary={open ? label : ''} />
+                            </ListItemButton>
+                          )
+                        })}
+                      </List>
+                    </Collapse>
+                  </>
+                ) : (
+                  (() => {
+                    const target = titleRoute === baseSegment ? basePath : `${basePath}/${titleRoute}`
+                    return (
+                      <ListItemButton component={RouterLink} to={target}>
+                        <ListItemText primary={open ? titleLabel : ''} />
                       </ListItemButton>
-                    ))}
-                  </List>
-                </Collapse>
+                    )
+                  })()
+                )}
               </React.Fragment>
             )
           })}
