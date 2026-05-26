@@ -75,7 +75,7 @@ describe("Marca routes", () => {
   });
 
   it("retorna 404 cuando la marca no existe al eliminar", async () => {
-    eliminarMarcaMock.mockResolvedValue(false);
+    eliminarMarcaMock.mockRejectedValue(new Error("Marca no encontrada"));
 
     const response = await request(buildApp()).delete("/api/marca/eliminar/9");
 

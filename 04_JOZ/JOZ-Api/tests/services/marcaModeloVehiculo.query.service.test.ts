@@ -24,19 +24,19 @@ describe("MarcaModeloVehiculoQueryService", () => {
   });
 
   it("mapea correctamente una asociación", async () => {
-    obtenerMarcaModeloVehiculo.mockResolvedValue({ Id: 10, IdMarca: 1, IdModeloVehiculo: 2 });
+    obtenerMarcaModeloVehiculo.mockResolvedValue({ Id: 10, IdMarca: 1, IdModelo: 2 });
 
     const result = await buildService().obtenerMarcaModeloVehiculo(10);
 
-    expect(result).toEqual({ Id: 10, IdMarca: 1, IdModeloVehiculo: 2 });
+    expect(result).toEqual({ Id: 10, IdMarca: 1, IdModelo: 2 });
   });
 
   it("mapea una lista de asociaciones", async () => {
-    obtenerMarcaModeloVehiculos.mockResolvedValue([{ Id: 10, IdMarca: 1, IdModeloVehiculo: 2 }]);
+    obtenerMarcaModeloVehiculos.mockResolvedValue([{ Id: 10, IdMarca: 1, IdModelo: 2 }]);
 
     const result = await buildService().obtenerMarcaModeloVehiculos();
 
     expect(result).toHaveLength(1);
-    expect(result[0]).toEqual({ Id: 10, IdMarca: 1, IdModeloVehiculo: 2 });
+    expect(result[0]).toEqual({ Id: 10, IdMarca: 1, IdModelo: 2 });
   });
 });

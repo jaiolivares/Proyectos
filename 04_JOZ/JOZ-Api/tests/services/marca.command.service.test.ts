@@ -25,22 +25,20 @@ describe("MarcaCommandService", () => {
     expect(result).toEqual({ Id: 1, ...body });
   });
 
-  it("retorna null al actualizar si la marca no existe", async () => {
+  it("lanza error al actualizar si la marca no existe", async () => {
     obtenerMarca.mockResolvedValue(null);
 
-    const result = await buildService().actualizarMarca(1, { Marca: "Mazda" } as any);
-
+    await expect(buildService().actualizarMarca(1, { Marca: "Mazda" } as any)).rejects.toThrow("Marca no encontrada");
     expect(actualizarMarca).not.toHaveBeenCalled();
-    expect(result).toBeNull();
   });
 
   it("elimina solo si la marca existe", async () => {
     obtenerMarca.mockResolvedValue({ Id: 1 });
-    eliminarMarca.mockResolvedValue(true);
+    eliminarMarca.mockResolvedValue("OK");
 
     const result = await buildService().eliminarMarca(1);
 
     expect(eliminarMarca).toHaveBeenCalledWith(1);
-    expect(result).toBe(true);
+    expect(result).toBe("OK");
   });
 });

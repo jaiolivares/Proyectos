@@ -39,11 +39,9 @@ describe("MarcaCommandRepository", () => {
     expect(result).toEqual({ Id: 1, Marca: "Mazda", Descripcion: "Japon" });
   });
 
-  it("retorna false si falla al eliminar", async () => {
+  it("propaga el error si falla al eliminar", async () => {
     prismaMock.marcaVehiculo.delete.mockRejectedValue(new Error("db error"));
 
-    const result = await new MarcaCommandRepository().eliminarMarca(1);
-
-    expect(result).toBe(false);
+    await expect(new MarcaCommandRepository().eliminarMarca(1)).rejects.toThrow("db error");
   });
 });

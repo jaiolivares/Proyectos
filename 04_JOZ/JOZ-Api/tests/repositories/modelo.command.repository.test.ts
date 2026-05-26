@@ -39,11 +39,11 @@ describe("ModeloCommandRepository", () => {
     expect(result).toEqual({ Id: 2, IdTipoVehiculo: 2, Modelo: "Corolla", Descripcion: "Sedan" });
   });
 
-  it("retorna true si elimina correctamente", async () => {
+  it("retorna OK si elimina correctamente", async () => {
     prismaMock.modeloVehiculo.delete.mockResolvedValue({});
 
     const result = await new ModeloCommandRepository().eliminarModelo(2);
 
-    expect(result).toBe(true);
+    expect(result).toBe("OK");
   });
 });

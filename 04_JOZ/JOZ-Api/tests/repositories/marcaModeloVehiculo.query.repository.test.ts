@@ -25,7 +25,7 @@ describe("MarcaModeloVehiculoQueryRepository", () => {
     const result = await new MarcaModeloVehiculoQueryRepository().obtenerMarcaModeloVehiculo(10);
 
     expect(prismaMock.marcaModeloVehiculo.findFirst).toHaveBeenCalledWith({ where: { Id: 10 } });
-    expect(result).toEqual({ Id: 10, IdMarca: 1, IdModeloVehiculo: 2 });
+    expect(result).toEqual({ Id: 10, IdMarca: 1, IdModelo: 2 });
   });
 
   it("retorna null cuando no encuentra asociación", async () => {
@@ -42,6 +42,6 @@ describe("MarcaModeloVehiculoQueryRepository", () => {
     const result = await new MarcaModeloVehiculoQueryRepository().obtenerMarcaModeloVehiculos();
 
     expect(result).toHaveLength(1);
-    expect(result[0]).toEqual({ Id: 10, IdMarca: 1, IdModeloVehiculo: 2 });
+    expect(result[0]).toEqual({ Id: 10, IdMarca: 1, IdModelo: 2 });
   });
 });

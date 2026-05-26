@@ -25,22 +25,20 @@ describe("ModeloCommandService", () => {
     expect(result).toEqual({ Id: 2, ...body });
   });
 
-  it("retorna null al actualizar si el modelo no existe", async () => {
+  it("lanza error al actualizar si el modelo no existe", async () => {
     obtenerModelo.mockResolvedValue(null);
 
-    const result = await buildService().actualizarModelo(2, { Modelo: "Corolla" } as any);
-
+    await expect(buildService().actualizarModelo(2, { Modelo: "Corolla" } as any)).rejects.toThrow("Modelo no encontrado");
     expect(actualizarModelo).not.toHaveBeenCalled();
-    expect(result).toBeNull();
   });
 
   it("elimina solo si el modelo existe", async () => {
     obtenerModelo.mockResolvedValue({ Id: 2 });
-    eliminarModelo.mockResolvedValue(true);
+    eliminarModelo.mockResolvedValue("OK");
 
     const result = await buildService().eliminarModelo(2);
 
     expect(eliminarModelo).toHaveBeenCalledWith(2);
-    expect(result).toBe(true);
+    expect(result).toBe("OK");
   });
 });

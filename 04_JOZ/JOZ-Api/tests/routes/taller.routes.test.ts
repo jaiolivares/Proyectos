@@ -52,7 +52,7 @@ describe("Taller routes", () => {
     expect(response.body.Mensaje).toContain("Nombre debe ser texto y no vacío");
   });
 
-  it("retorna 400 cuando el servicio rechaza IdComuna", async () => {
+  it("retorna 404 cuando el servicio rechaza IdComuna", async () => {
     crearTallerMock.mockRejectedValue(new Error("IdComuna no es válido"));
 
     const response = await request(buildApp()).post("/api/taller/crear").send({
@@ -66,7 +66,7 @@ describe("Taller routes", () => {
       IdComuna: 4,
       Direccion: "Av. Siempre Viva 123",
     });
-    expect(response.status).toBe(400);
+    expect(response.status).toBe(404);
     expect(response.body).toEqual({
       EjecucionCorrecta: false,
       Mensaje: "IdComuna no es válido",
@@ -74,12 +74,12 @@ describe("Taller routes", () => {
     });
   });
 
-  it("retorna 400 cuando el taller no existe al actualizar", async () => {
+  it("retorna 404 cuando el taller no existe al actualizar", async () => {
     actualizarTallerMock.mockRejectedValue(new Error("Taller no encontrado"));
 
     const response = await request(buildApp()).patch("/api/taller/actualizar/8").send({ Nombre: "Centro", IdComuna: 1, Direccion: "Av. Central 100" });
 
-    expect(response.status).toBe(400);
+    expect(response.status).toBe(404);
     expect(response.body).toEqual({
       EjecucionCorrecta: false,
       Mensaje: "Taller no encontrado",

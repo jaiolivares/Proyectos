@@ -114,13 +114,13 @@ describe("Vehiculo routes", () => {
     });
   });
 
-  it("retorna 400 cuando el servicio informa vehículo no encontrado al eliminar", async () => {
+  it("retorna 404 cuando el servicio informa vehículo no encontrado al eliminar", async () => {
     eliminarVehiculoMock.mockRejectedValue(new Error("Vehículo no encontrado"));
 
     const response = await request(buildApp()).delete("/api/vehiculo/eliminar/9");
 
     expect(eliminarVehiculoMock).toHaveBeenCalledWith(9);
-    expect(response.status).toBe(400);
+    expect(response.status).toBe(404);
     expect(response.body).toEqual({
       EjecucionCorrecta: false,
       Mensaje: "Vehículo no encontrado",

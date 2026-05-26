@@ -78,7 +78,7 @@ describe("Modelo routes", () => {
   });
 
   it("retorna 404 cuando el modelo no existe al eliminar", async () => {
-    eliminarModeloMock.mockResolvedValue(false);
+    eliminarModeloMock.mockRejectedValue(new Error("Modelo no encontrado"));
 
     const response = await request(buildApp()).delete("/api/modelo/eliminar/7");
 

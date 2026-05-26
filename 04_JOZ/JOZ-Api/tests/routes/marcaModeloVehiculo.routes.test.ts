@@ -49,7 +49,7 @@ describe("MarcaModeloVehiculo routes", () => {
     expect(response.status).toBe(404);
     expect(response.body).toEqual({
       EjecucionCorrecta: false,
-      Mensaje: "No se encontraron Modelos asociados a la marca",
+      Mensaje: "Modelos asociados a la marca no encontrados",
       Dato: null,
     });
   });
@@ -57,7 +57,7 @@ describe("MarcaModeloVehiculo routes", () => {
   it("retorna 400 cuando el body de creación es inválido", async () => {
     const response = await request(buildApp()).post("/api/marcaModeloVehiculo/crear").send({
       IdMarca: "1",
-      IdModeloVehiculo: null,
+      IdModelo: null,
     });
 
     expect(crearMarcaModeloVehiculoMock).not.toHaveBeenCalled();
@@ -66,27 +66,27 @@ describe("MarcaModeloVehiculo routes", () => {
   });
 
   it("crea una asociación válida", async () => {
-    crearMarcaModeloVehiculoMock.mockResolvedValue({ Id: 10, IdMarca: 1, IdModeloVehiculo: 2 });
+    crearMarcaModeloVehiculoMock.mockResolvedValue({ Id: 10, IdMarca: 1, IdModelo: 2 });
 
     const response = await request(buildApp()).post("/api/marcaModeloVehiculo/crear").send({
       IdMarca: 1,
-      IdModeloVehiculo: 2,
+      IdModelo: 2,
     });
 
-    expect(crearMarcaModeloVehiculoMock).toHaveBeenCalledWith({ IdMarca: 1, IdModeloVehiculo: 2 });
+    expect(crearMarcaModeloVehiculoMock).toHaveBeenCalledWith({ IdMarca: 1, IdModelo: 2 });
     expect(response.status).toBe(201);
-    expect(response.body.Dato).toEqual({ Id: 10, IdMarca: 1, IdModeloVehiculo: 2 });
+    expect(response.body.Dato).toEqual({ Id: 10, IdMarca: 1, IdModelo: 2 });
   });
 
   it("retorna 404 cuando la asociación no existe al actualizar", async () => {
-    actualizarMarcaModeloVehiculoMock.mockResolvedValue(null);
+    actualizarMarcaModeloVehiculoMock.mockRejectedValue(new Error("MarcaModeloVehiculo no encontrado"));
 
-    const response = await request(buildApp()).patch("/api/marcaModeloVehiculo/actualizar/10").send({ IdMarca: 1, IdModeloVehiculo: 2 });
+    const response = await request(buildApp()).patch("/api/marcaModeloVehiculo/actualizar/10").send({ IdMarca: 1, IdModelo: 2 });
 
     expect(response.status).toBe(404);
     expect(response.body).toEqual({
       EjecucionCorrecta: false,
-      Mensaje: "Modelo asociado a la marca no encontrado",
+      Mensaje: "MarcaModeloVehiculo no encontrado",
       Dato: null,
     });
   });
