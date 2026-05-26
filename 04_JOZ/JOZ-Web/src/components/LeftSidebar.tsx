@@ -3,15 +3,15 @@ import ExpandMore from '@mui/icons-material/ExpandMore'
 import MenuIcon from '@mui/icons-material/Menu'
 import MenuOpenIcon from '@mui/icons-material/MenuOpen'
 import {
-  Box,
-  Collapse,
-  Divider,
-  Drawer,
-  IconButton,
-  List,
-  ListItemButton,
-  ListItemText,
-  Typography,
+    Box,
+    Collapse,
+    Divider,
+    Drawer,
+    IconButton,
+    List,
+    ListItemButton,
+    ListItemText,
+    Typography,
 } from '@mui/material'
 import React, { useMemo, useState } from 'react'
 import { Link as RouterLink, useLocation } from 'react-router-dom'
@@ -19,19 +19,22 @@ import { Link as RouterLink, useLocation } from 'react-router-dom'
 const drawerWidth = 220
 const collapsedWidth = 56
 
+type SidebarEntry = {
+  label: string
+  route: string
+}
+
+type SidebarSection = {
+  title: SidebarEntry
+  items: SidebarEntry[]
+}
+
 export default function LeftSidebar() {
   const location = useLocation()
   const [open, setOpen] = useState(true)
   const [expandedMap, setExpandedMap] = useState<Record<string, boolean>>({})
 
-  const menuForPath = useMemo(() => {
-    // mapea rutas a secciones con subitems
-    // if (location.pathname.startsWith('/welcome')) {
-    //   return [
-    //     { title: 'Welcome', items: ['submenu1', 'submenu2'] },
-    //   ]
-    // }
-
+  const menuForPath = useMemo<SidebarSection[]>(() => {
     if (location.pathname.startsWith('/vehiculos')) {
       return [
         { title: { label: 'Mantenciones', route: 'mantenciones' }, items: [] },
@@ -105,8 +108,8 @@ export default function LeftSidebar() {
 
         <List>
           {menuForPath.map((section) => {
-            const titleLabel = typeof section.title === 'string' ? section.title : section.title.label
-            const titleRoute = typeof section.title === 'string' ? section.title.replace(/\s+/g, '-').toLowerCase() : section.title.route
+            const titleLabel = section.title.label
+            const titleRoute = section.title.route
             const sectionKey = titleRoute
             const isExpanded = !!expandedMap[sectionKey]
             const hasChildren = section.items && section.items.length > 0
@@ -121,8 +124,8 @@ export default function LeftSidebar() {
                     <Collapse in={isExpanded} timeout="auto" unmountOnExit>
                       <List component="div" disablePadding>
                         {section.items.map((it) => {
-                          const label = typeof it === 'string' ? it : it.label
-                          const route = typeof it === 'string' ? it.toLowerCase().replace(/\s+/g, '-') : it.route
+                          const label = it.label
+                          const route = it.route
                           return (
                             <ListItemButton
                               key={route}

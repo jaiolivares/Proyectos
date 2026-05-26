@@ -1,4 +1,4 @@
-import { BrowserRouter, Route, Routes, useLocation } from 'react-router-dom'
+import { BrowserRouter, Navigate, Route, Routes, useLocation } from 'react-router-dom'
 import ItemsArea from './components/ItemsArea'
 import LeftSidebar from './components/LeftSidebar'
 import NavBar from './components/NavBar'
@@ -26,6 +26,7 @@ function MainRoutes() {
               <Route path="/login" element={<LoginPage />} />
               <Route path="/welcome" element={<Welcome />} />
               <Route path="/items" element={<ItemsArea />} />
+              <Route path="/vehiculos" element={<Navigate to="/vehiculos" replace />} />
               <Route path="/vehiculos/talleres" element={<Talleres />} />
               {/* <Route path="/vehiculos" element={<Vehiculos />} /> */}
             </Routes>

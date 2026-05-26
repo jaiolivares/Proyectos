@@ -2,6 +2,7 @@ import { Express } from "express";
 import { authMiddleware } from "../middleware/auth.middleware";
 import authRoutes from "./auths/auth.routes";
 import healtRoutes from "./healths/health.routes";
+import comunaRoutes from "./ubicaciones/comuna.routes";
 import usuarioRoutes from "./usuarios/usuario.routes";
 import mantencionRoutes from "./vehiculos/mantencion.routes";
 import mantencionDetalleRoutes from "./vehiculos/mantencionDetalle.routes";
@@ -18,6 +19,7 @@ const itemController = new ItemController();
 export const setRoutes = (app: Express) => {
   app.use("/api/health", healtRoutes);
   app.use("/api/auth", authRoutes);
+  app.use("/api/comuna", authMiddleware, comunaRoutes);
   app.use("/api/usuario", authMiddleware, usuarioRoutes);
   app.use("/api/vehiculo", authMiddleware, vehiculoRoutes);
   app.use("/api/marcaModeloVehiculo", authMiddleware, marcaModeloVehiculoRoutes);

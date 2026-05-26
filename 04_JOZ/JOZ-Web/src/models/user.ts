@@ -1,11 +1,17 @@
+export const AUTH_STORAGE_KEY = "joz.auth";
+
 export interface User {
-  id: string
-  email: string
-  name?: string
-  token?: string
+  Id: number;
+  NombreUsuario: string;
+  Nombre: string;
+  SegundoNombre?: string;
+  ApellidoPaterno?: string;
+  ApellidoMaterno?: string;
+  Email: string;
+  token: string;
 }
 
 export interface LoginRequest {
-  NombreUsuario: string
-  Password: string
+  NombreUsuario: string;
+  Password: string;
 }

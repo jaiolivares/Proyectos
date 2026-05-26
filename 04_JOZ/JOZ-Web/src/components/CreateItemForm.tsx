@@ -1,9 +1,9 @@
+import { Alert, Box, Button, TextField } from '@mui/material'
 import React, { useState } from 'react'
-import { TextField, Button, Box, Alert } from '@mui/material'
 import { CreateItemRequest } from '../models/item'
 
 type Props = {
-  onCreate: (payload: CreateItemRequest) => Promise<void>
+  onCreate: (payload: CreateItemRequest) => Promise<unknown>
   loading?: boolean
   error?: string | null
 }

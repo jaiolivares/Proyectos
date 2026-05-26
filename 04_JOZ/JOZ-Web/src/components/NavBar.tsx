@@ -1,20 +1,21 @@
 import MenuIcon from '@mui/icons-material/Menu'
 import {
-  AppBar,
-  Box,
-  Button,
-  IconButton,
-  Menu,
-  MenuItem,
-  Toolbar,
-  Typography,
+    AppBar,
+    Box,
+    Button,
+    IconButton,
+    Menu,
+    MenuItem,
+    Toolbar,
+    Typography,
 } from '@mui/material'
 import React, { useState } from 'react'
-import { Link as RouterLink } from 'react-router-dom'
+import { Link as RouterLink, useNavigate } from 'react-router-dom'
 import { useAuthContext } from '../contexts/AuthContext'
 
 export default function NavBar() {
-  const { user } = useAuthContext()
+  const navigate = useNavigate()
+  const { logout } = useAuthContext()
   const [anchorElNav, setAnchorElNav] = useState<null | HTMLElement>(null)
 
   const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
@@ -23,6 +24,12 @@ export default function NavBar() {
 
   const handleCloseNavMenu = () => {
     setAnchorElNav(null)
+  }
+
+  const handleLogout = () => {
+    handleCloseNavMenu()
+    logout()
+    navigate('/')
   }
 
   return (
@@ -56,7 +63,7 @@ export default function NavBar() {
 
         {/* Right-aligned logout on desktop */}
         <Box sx={{ ml: 'auto', display: { xs: 'none', md: 'block' } }}>
-          <Button color="inherit" component={RouterLink} to="/">
+          <Button color="inherit" onClick={handleLogout}>
             Salir
           </Button>
         </Box>
@@ -92,7 +99,7 @@ export default function NavBar() {
             <MenuItem component={RouterLink} to="/vehiculos" onClick={handleCloseNavMenu}>
               Vehículos
             </MenuItem>
-            <MenuItem component={RouterLink} to="/" onClick={handleCloseNavMenu}>
+            <MenuItem onClick={handleLogout}>
               Salir
             </MenuItem>
           </Menu>

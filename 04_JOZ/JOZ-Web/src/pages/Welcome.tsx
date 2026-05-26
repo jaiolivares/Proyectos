@@ -3,12 +3,13 @@ import { useAuthContext } from '../contexts/AuthContext'
 
 export default function Welcome() {
   const { user } = useAuthContext()
+  const displayName = user?.Nombre || user?.NombreUsuario || user?.Email
 
   return (
     <>
       <Container sx={{ mt: 4 }}>
         <Box>
-          <Typography variant="h4">Hola cx, {user?.name || user?.email}</Typography>
+          <Typography variant="h4">Hola, {displayName}</Typography>
           <Typography sx={{ mt: 2 }}>
             Desde aquí puedes navegar a las distintas secciones usando la barra superior.
           </Typography>
