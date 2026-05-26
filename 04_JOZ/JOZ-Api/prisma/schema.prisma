@@ -53,10 +53,11 @@ model mantencion {
   Servicio   String   @db.VarChar(150)
   MontoTotal Int
   Boleta     String?  @db.Text
-  IdUsuario  Int
+  Kilometraje Int?
+  IdUsuarioCreacion  Int
 
   @@index([IdTaller], map: "IdTaller")
-  @@index([IdUsuario], map: "IdUsuario")
+  @@index([IdUsuarioCreacion], map: "IdUsuarioCreacion")
   @@index([IdVehiculo], map: "IdVehiculo")
 }
 

@@ -32,7 +32,7 @@ export class MantencionQueryService {
       Servicio: record.Servicio,
       MontoTotal: record.MontoTotal,
       Boleta: record.Boleta ?? null,
-      IdUsuario: record.IdUsuario,
+      IdUsuarioCreacion: record.IdUsuarioCreacion,
     };
   }
 }
