@@ -24,6 +24,10 @@ export class UsuarioController {
 
   public async obtenerPorId(req: Request, res: Response<Respuesta<UsuarioDto>>): Promise<Response<Respuesta<UsuarioDto>>> {
     const userId = Number(req.params.id);
+    if (Number.isNaN(userId)) {
+      return res.status(400).json(respuestaError<UsuarioDto>("ID inválido"));
+    }
+
     const user = await this.usuarioQueryService.obtenerUsuario(userId);
     if (!user) {
       return res.status(404).json(respuestaError<UsuarioDto>("Usuario no encontrado"));
@@ -33,6 +37,23 @@ export class UsuarioController {
   }
 
   public async crear(req: Request<{}, {}, UsuarioCreateRequestDto>, res: Response<Respuesta<UsuarioCreateResponseDto>>): Promise<Response<Respuesta<UsuarioCreateResponseDto>>> {
+    const { NombreUsuario, Password, Nombre, ApellidoPaterno, Email } = req.body ?? ({} as UsuarioCreateRequestDto);
+
+    if (
+      typeof NombreUsuario !== "string" ||
+      NombreUsuario.trim() === "" ||
+      typeof Password !== "string" ||
+      Password.trim() === "" ||
+      typeof Nombre !== "string" ||
+      Nombre.trim() === "" ||
+      typeof ApellidoPaterno !== "string" ||
+      ApellidoPaterno.trim() === "" ||
+      typeof Email !== "string" ||
+      Email.trim() === ""
+    ) {
+      return res.status(400).json(respuestaError<UsuarioCreateResponseDto>("NombreUsuario, Password, Nombre, ApellidoPaterno y Email son obligatorios"));
+    }
+
     const newUser = await this.usuarioCommandService.crearUsuario(req.body);
     return res.status(201).json(respuestaOk<UsuarioCreateResponseDto>(newUser));
   }

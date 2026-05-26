@@ -78,6 +78,16 @@ describe("MarcaModeloVehiculo routes", () => {
     expect(response.body.Dato).toEqual({ Id: 10, IdMarca: 1, IdModelo: 2 });
   });
 
+  it("retorna 200 cuando obtiene una asociación por id", async () => {
+    obtenerMarcaModeloVehiculoMock.mockResolvedValue({ Id: 10, IdMarca: 1, IdModelo: 2 });
+
+    const response = await request(buildApp()).get("/api/marcaModeloVehiculo/obtenerPorId/10");
+
+    expect(obtenerMarcaModeloVehiculoMock).toHaveBeenCalledWith(10);
+    expect(response.status).toBe(200);
+    expect(response.body.Dato).toEqual({ Id: 10, IdMarca: 1, IdModelo: 2 });
+  });
+
   it("retorna 404 cuando la asociación no existe al actualizar", async () => {
     actualizarMarcaModeloVehiculoMock.mockRejectedValue(new Error("MarcaModeloVehiculo no encontrado"));
 
@@ -88,6 +98,30 @@ describe("MarcaModeloVehiculo routes", () => {
       EjecucionCorrecta: false,
       Mensaje: "MarcaModeloVehiculo no encontrado",
       Dato: null,
+    });
+  });
+
+  it("retorna 200 cuando actualiza una asociación existente", async () => {
+    actualizarMarcaModeloVehiculoMock.mockResolvedValue({ Id: 10, IdMarca: 1, IdModelo: 3 });
+
+    const response = await request(buildApp()).patch("/api/marcaModeloVehiculo/actualizar/10").send({ IdMarca: 1, IdModelo: 3 });
+
+    expect(actualizarMarcaModeloVehiculoMock).toHaveBeenCalledWith(10, { IdMarca: 1, IdModelo: 3 });
+    expect(response.status).toBe(200);
+    expect(response.body.Dato).toEqual({ Id: 10, IdMarca: 1, IdModelo: 3 });
+  });
+
+  it("retorna 200 cuando elimina una asociación existente", async () => {
+    eliminarMarcaModeloVehiculoMock.mockResolvedValue("OK");
+
+    const response = await request(buildApp()).delete("/api/marcaModeloVehiculo/eliminar/10");
+
+    expect(eliminarMarcaModeloVehiculoMock).toHaveBeenCalledWith(10);
+    expect(response.status).toBe(200);
+    expect(response.body).toEqual({
+      EjecucionCorrecta: true,
+      Mensaje: "",
+      Dato: "OK",
     });
   });
 });

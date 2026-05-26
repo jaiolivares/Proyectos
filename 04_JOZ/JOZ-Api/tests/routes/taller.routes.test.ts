@@ -52,6 +52,25 @@ describe("Taller routes", () => {
     expect(response.body.Mensaje).toContain("Nombre debe ser texto y no vacío");
   });
 
+  it("retorna 200 cuando obtiene talleres", async () => {
+    obtenerTalleresMock.mockResolvedValue([{ Id: 8, Nombre: "Centro", IdComuna: 1, Direccion: "Av. Central 100" }]);
+
+    const response = await request(buildApp()).get("/api/taller/obtenerTodos");
+
+    expect(response.status).toBe(200);
+    expect(response.body.Dato).toEqual([{ Id: 8, Nombre: "Centro", IdComuna: 1, Direccion: "Av. Central 100" }]);
+  });
+
+  it("retorna 200 cuando obtiene un taller por id", async () => {
+    obtenerTallerMock.mockResolvedValue({ Id: 8, Nombre: "Centro", IdComuna: 1, Direccion: "Av. Central 100" });
+
+    const response = await request(buildApp()).get("/api/taller/obtenerPorId/8");
+
+    expect(obtenerTallerMock).toHaveBeenCalledWith(8);
+    expect(response.status).toBe(200);
+    expect(response.body.Dato).toEqual({ Id: 8, Nombre: "Centro", IdComuna: 1, Direccion: "Av. Central 100" });
+  });
+
   it("retorna 404 cuando el servicio rechaza IdComuna", async () => {
     crearTallerMock.mockRejectedValue(new Error("IdComuna no es válido"));
 
@@ -85,6 +104,20 @@ describe("Taller routes", () => {
       Mensaje: "Taller no encontrado",
       Dato: null,
     });
+  });
+
+  it("retorna 200 cuando actualiza un taller existente", async () => {
+    actualizarTallerMock.mockResolvedValue({ Id: 8, Nombre: "Centro", IdComuna: 1, Direccion: "Av. Central 100" });
+
+    const response = await request(buildApp()).patch("/api/taller/actualizar/8").send({
+      Nombre: "  Centro  ",
+      IdComuna: 1,
+      Direccion: "  Av. Central 100  ",
+    });
+
+    expect(actualizarTallerMock).toHaveBeenCalledWith(8, { Nombre: "Centro", IdComuna: 1, Direccion: "Av. Central 100" });
+    expect(response.status).toBe(200);
+    expect(response.body.Dato).toEqual({ Id: 8, Nombre: "Centro", IdComuna: 1, Direccion: "Av. Central 100" });
   });
 
   it("retorna 200 cuando elimina un taller existente", async () => {

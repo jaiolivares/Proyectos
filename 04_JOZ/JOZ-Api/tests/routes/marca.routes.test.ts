@@ -74,6 +74,42 @@ describe("Marca routes", () => {
     expect(response.body.Dato).toEqual({ Id: 1, Marca: "Toyota", Descripcion: "Japon" });
   });
 
+  it("retorna 200 cuando obtiene una marca por id", async () => {
+    obtenerMarcaMock.mockResolvedValue({ Id: 1, Marca: "Toyota", Descripcion: "Japon" });
+
+    const response = await request(buildApp()).get("/api/marca/obtenerPorId/1");
+
+    expect(obtenerMarcaMock).toHaveBeenCalledWith(1);
+    expect(response.status).toBe(200);
+    expect(response.body.Dato).toEqual({ Id: 1, Marca: "Toyota", Descripcion: "Japon" });
+  });
+
+  it("retorna 200 cuando actualiza una marca existente", async () => {
+    actualizarMarcaMock.mockResolvedValue({ Id: 1, Marca: "Mazda", Descripcion: "Japon" });
+
+    const response = await request(buildApp()).patch("/api/marca/actualizar/1").send({
+      Marca: "  Mazda  ",
+      Descripcion: "  Japon  ",
+    });
+
+    expect(actualizarMarcaMock).toHaveBeenCalledWith(1, { Marca: "Mazda", Descripcion: "Japon" });
+    expect(response.status).toBe(200);
+    expect(response.body.Dato).toEqual({ Id: 1, Marca: "Mazda", Descripcion: "Japon" });
+  });
+
+  it("retorna 200 cuando elimina una marca existente", async () => {
+    eliminarMarcaMock.mockResolvedValue("OK");
+
+    const response = await request(buildApp()).delete("/api/marca/eliminar/9");
+
+    expect(response.status).toBe(200);
+    expect(response.body).toEqual({
+      EjecucionCorrecta: true,
+      Mensaje: "",
+      Dato: "OK",
+    });
+  });
+
   it("retorna 404 cuando la marca no existe al eliminar", async () => {
     eliminarMarcaMock.mockRejectedValue(new Error("Marca no encontrada"));
 

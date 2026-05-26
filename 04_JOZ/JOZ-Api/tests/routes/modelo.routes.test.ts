@@ -77,6 +77,51 @@ describe("Modelo routes", () => {
     expect(response.body.Dato).toEqual({ Id: 2, IdTipoVehiculo: 1, Modelo: "Yaris", Descripcion: "Sedan" });
   });
 
+  it("retorna 200 cuando obtiene modelos", async () => {
+    obtenerModelosMock.mockResolvedValue([{ Id: 2, IdTipoVehiculo: 1, Modelo: "Yaris", Descripcion: "Sedan" }]);
+
+    const response = await request(buildApp()).get("/api/modelo/obtenerTodos");
+
+    expect(response.status).toBe(200);
+    expect(response.body.Dato).toEqual([{ Id: 2, IdTipoVehiculo: 1, Modelo: "Yaris", Descripcion: "Sedan" }]);
+  });
+
+  it("retorna 200 cuando obtiene un modelo por id", async () => {
+    obtenerModeloMock.mockResolvedValue({ Id: 2, IdTipoVehiculo: 1, Modelo: "Yaris", Descripcion: "Sedan" });
+
+    const response = await request(buildApp()).get("/api/modelo/obtenerPorId/2");
+
+    expect(obtenerModeloMock).toHaveBeenCalledWith(2);
+    expect(response.status).toBe(200);
+    expect(response.body.Dato).toEqual({ Id: 2, IdTipoVehiculo: 1, Modelo: "Yaris", Descripcion: "Sedan" });
+  });
+
+  it("retorna 200 cuando actualiza un modelo existente", async () => {
+    actualizarModeloMock.mockResolvedValue({ Id: 2, IdTipoVehiculo: 1, Modelo: "Corolla", Descripcion: "Sedan" });
+
+    const response = await request(buildApp()).patch("/api/modelo/actualizar/2").send({
+      Modelo: "  Corolla  ",
+      Descripcion: "  Sedan  ",
+    });
+
+    expect(actualizarModeloMock).toHaveBeenCalledWith(2, { Modelo: "Corolla", Descripcion: "Sedan" });
+    expect(response.status).toBe(200);
+    expect(response.body.Dato).toEqual({ Id: 2, IdTipoVehiculo: 1, Modelo: "Corolla", Descripcion: "Sedan" });
+  });
+
+  it("retorna 200 cuando elimina un modelo existente", async () => {
+    eliminarModeloMock.mockResolvedValue("OK");
+
+    const response = await request(buildApp()).delete("/api/modelo/eliminar/7");
+
+    expect(response.status).toBe(200);
+    expect(response.body).toEqual({
+      EjecucionCorrecta: true,
+      Mensaje: "",
+      Dato: "OK",
+    });
+  });
+
   it("retorna 404 cuando el modelo no existe al eliminar", async () => {
     eliminarModeloMock.mockRejectedValue(new Error("Modelo no encontrado"));
 

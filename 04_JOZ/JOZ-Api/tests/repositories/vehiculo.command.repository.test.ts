@@ -100,6 +100,6 @@ describe("VehiculoCommandRepository", () => {
 
     const result = await new VehiculoCommandRepository().eliminarVehiculo(9);
 
-    expect(result).toBe("Ok");
+    expect(result).toBe("OK");
   });
 });
