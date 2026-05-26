@@ -5,6 +5,7 @@ export interface MantencionUpdateResponseDto {
   IdTaller: number;
   Servicio: string;
   MontoTotal: number;
+  Kilometraje?: number | null;
   Boleta?: string | null;
   IdUsuarioCreacion: number;
 }

@@ -24,20 +24,17 @@ export class VehiculoCommandService {
       throw new Error("IdMarcaModeloVehiculo no es válido");
     }
 
-    const vehiculoModel = await this.vehiculoCommandRepository.crearVehiculo(req);
-
-    const vehiculoCreateResponseDto = {
-      Id: vehiculoModel.Id,
-      IdMarcaModeloVehiculo: vehiculoModel.IdMarcaModeloVehiculo,
-      Ano: vehiculoModel.Ano,
-      NumeroMotor: vehiculoModel.NumeroMotor,
-      NumeroChasis: vehiculoModel.NumeroChasis,
-      Color: vehiculoModel.Color,
-      FechaCompra: vehiculoModel.FechaCompra,
-      MontoCompra: vehiculoModel.MontoCompra,
-    };
-
-    return vehiculoCreateResponseDto;
+    const created = await this.vehiculoCommandRepository.crearVehiculo(req);
+    return {
+      Id: created.Id,
+      IdMarcaModeloVehiculo: created.IdMarcaModeloVehiculo,
+      Ano: created.Ano,
+      NumeroMotor: created.NumeroMotor,
+      NumeroChasis: created.NumeroChasis,
+      Color: created.Color,
+      FechaCompra: created.FechaCompra,
+      MontoCompra: created.MontoCompra,
+    } as VehiculoCreateResponseDto;
   }
 
   public async actualizarVehiculo(id: number, req: VehiculoUpdateRequestDto): Promise<VehiculoUpdateResponseDto | null> {
@@ -52,23 +49,21 @@ export class VehiculoCommandService {
       throw new Error("IdMarcaModeloVehiculo no es válido");
     }
 
-    const vehiculoModel = await this.vehiculoCommandRepository.actualizarVehiculo(id, req);
+    const updated = await this.vehiculoCommandRepository.actualizarVehiculo(id, req);
 
-    const vehiculoUpdateResponseDto = {
-      Id: vehiculoModel.Id,
-      IdMarcaModeloVehiculo: vehiculoModel.IdMarcaModeloVehiculo,
-      Ano: vehiculoModel.Ano,
-      NumeroMotor: vehiculoModel.NumeroMotor,
-      NumeroChasis: vehiculoModel.NumeroChasis,
-      Color: vehiculoModel.Color,
-      FechaCompra: vehiculoModel.FechaCompra,
-      MontoCompra: vehiculoModel.MontoCompra,
-      Vendido: vehiculoModel.Vendido,
-      FechaVenta: vehiculoModel.FechaVenta,
-      MontoVenta: vehiculoModel.MontoVenta,
-    };
-
-    return vehiculoUpdateResponseDto;
+    return {
+      Id: updated.Id,
+      IdMarcaModeloVehiculo: updated.IdMarcaModeloVehiculo,
+      Ano: updated.Ano,
+      NumeroMotor: updated.NumeroMotor,
+      NumeroChasis: updated.NumeroChasis,
+      Color: updated.Color,
+      FechaCompra: updated.FechaCompra,
+      MontoCompra: updated.MontoCompra,
+      Vendido: updated.Vendido,
+      FechaVenta: updated.FechaVenta,
+      MontoVenta: updated.MontoVenta,
+    } as VehiculoUpdateResponseDto;
   }
 
   public async eliminarVehiculo(id: number): Promise<string> {

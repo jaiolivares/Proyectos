@@ -14,16 +14,16 @@ import { ValidataEstructuraCreateBody } from "./validators/tallerCreate.validato
 import { ValidataEstructuraUpdateBody } from "./validators/tallerUpdate.validator";
 
 export class TallerController {
-  private commandService: TallerCommandService;
-  private queryService: TallerQueryService;
+  private tallerCommandService: TallerCommandService;
+  private tallerQueryService: TallerQueryService;
 
-  constructor(commandService: TallerCommandService, queryService: TallerQueryService) {
-    this.commandService = commandService;
-    this.queryService = queryService;
+  constructor(tallerCommandService: TallerCommandService, tallerQueryService: TallerQueryService) {
+    this.tallerCommandService = tallerCommandService;
+    this.tallerQueryService = tallerQueryService;
   }
 
   public async obtenerTodos(_: Request, res: Response<Respuesta<TallerDto[]>>): Promise<Response<Respuesta<TallerDto[]>>> {
-    const items = await this.queryService.obtenerTalleres();
+    const items = await this.tallerQueryService.obtenerTalleres();
 
     if (items.length === 0) {
       return res.status(404).json(respuestaError<TallerDto[]>("No se encontraron Talleres"));
@@ -34,13 +34,11 @@ export class TallerController {
 
   public async obtenerPorId(req: Request, res: Response<Respuesta<TallerDto>>): Promise<Response<Respuesta<TallerDto>>> {
     const id = Number(req.params.id);
-
     if (isNaN(id)) {
       return res.status(400).json(respuestaError<TallerDto>("ID inválido"));
     }
 
-    const found = await this.queryService.obtenerTaller(id);
-
+    const found = await this.tallerQueryService.obtenerTaller(id);
     if (!found) {
       return res.status(404).json(respuestaError<TallerDto>("Taller no encontrado"));
     }
@@ -51,17 +49,17 @@ export class TallerController {
   public async crear(req: Request<{}, {}, TallerCreateRequestDto>, res: Response<Respuesta<TallerCreateResponseDto>>): Promise<Response<Respuesta<TallerCreateResponseDto>>> {
     try {
       NormalizaBody(req.body);
-      const validation = ValidataEstructuraCreateBody(req.body);
 
+      const validation = ValidataEstructuraCreateBody(req.body);
       if (!validation.valid) {
         return res.status(400).json(respuestaError<TallerCreateResponseDto>(validation.errors?.join("; ") ?? "Body inválido"));
       }
 
-      const created = await this.commandService.crearTaller(req.body);
+      const created = await this.tallerCommandService.crearTaller(req.body);
       return res.status(201).json(respuestaOk<TallerCreateResponseDto>(created));
     } catch (err: any) {
-      if (err?.message === "IdComuna no es válido") {
-        return res.status(400).json(respuestaError<TallerCreateResponseDto>(err.message));
+      if (err.message === "IdComuna no es válido") {
+        return res.status(404).json(respuestaError<TallerCreateResponseDto>(err.message));
       }
       errorMiddleware(err, req, res, () => {}, true);
       return res.status(500).json(respuestaError<TallerCreateResponseDto>("ERROR CATCH: " + (err?.message ?? "error interno")));
@@ -71,32 +69,28 @@ export class TallerController {
   public async actualizar(req: Request<{ id: string }, {}, TallerUpdateRequestDto>, res: Response<Respuesta<TallerUpdateResponseDto>>): Promise<Response<Respuesta<TallerUpdateResponseDto>>> {
     try {
       const id = Number(req.params.id);
-
       if (isNaN(id)) {
         return res.status(400).json(respuestaError<TallerUpdateResponseDto>("ID inválido"));
       }
 
       if (req.body == null) {
-        return res.status(400).json(respuestaError<TallerUpdateResponseDto>("No existen datos para actualizar"));
+        return res.status(404).json(respuestaError<TallerUpdateResponseDto>("No existen datos para actualizar"));
       }
 
       NormalizaBody(req.body);
-      const validation = ValidataEstructuraUpdateBody(req.body);
 
+      const validation = ValidataEstructuraUpdateBody(req.body);
       if (!validation.valid) {
         return res.status(400).json(respuestaError<TallerUpdateResponseDto>(validation.errors?.join("; ") ?? "Body inválido"));
       }
 
-      const updated = await this.commandService.actualizarTaller(id, req.body);
+      const updated = await this.tallerCommandService.actualizarTaller(id, req.body);
       return res.status(200).json(respuestaOk<TallerUpdateResponseDto>(updated));
     } catch (err: any) {
-      if (err?.message === "Taller no encontrado") {
-        return res.status(400).json(respuestaError<TallerUpdateResponseDto>(err.message));
+      if (err.message === "Taller no encontrado" || err.message === "IdComuna no es válido") {
+        return res.status(404).json(respuestaError<TallerUpdateResponseDto>(err.message));
       }
 
-      if (err?.message === "IdComuna no es válido") {
-        return res.status(400).json(respuestaError<TallerUpdateResponseDto>(err.message));
-      }
       errorMiddleware(err, req, res, () => {}, true);
       return res.status(500).json(respuestaError<TallerUpdateResponseDto>("ERROR CATCH: " + (err?.message ?? "error interno")));
     }
@@ -105,18 +99,17 @@ export class TallerController {
   public async eliminar(req: Request, res: Response<Respuesta<string>>): Promise<Response<Respuesta<string>>> {
     try {
       const id = Number(req.params.id);
-
       if (isNaN(id)) {
         return res.status(400).json(respuestaError<string>("ID inválido"));
       }
 
-      const deleted = await this.commandService.eliminarTaller(id);
-
+      const deleted = await this.tallerCommandService.eliminarTaller(id);
       return res.status(200).json(respuestaOk<string>(deleted));
     } catch (err: any) {
-      if (err?.message === "Taller no encontrado") {
-        return res.status(400).json(respuestaError<string>(err.message));
+      if (err.message === "Taller no encontrado") {
+        return res.status(404).json(respuestaError<string>(err.message));
       }
+
       errorMiddleware(err, req, res, () => {}, true);
       return res.status(500).json(respuestaError<string>("ERROR CATCH: " + (err?.message ?? "error interno")));
     }

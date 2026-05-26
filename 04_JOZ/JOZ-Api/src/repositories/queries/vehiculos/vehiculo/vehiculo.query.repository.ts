@@ -1,21 +1,18 @@
-import { Vehiculo } from "../../../../models/vehiculos/vehiculo.model";
+import { VehiculoModel } from "../../../../models/vehiculos/vehiculo.model";
 import prisma from "../../../../prisma";
 
 export class VehiculoQueryRepository {
-  public async obtenerVehiculos(): Promise<Vehiculo[]> {
+  public async obtenerVehiculos(): Promise<VehiculoModel[]> {
     const results = await prisma.vehiculo.findMany();
     return results.map((r: any) => this.mapPrismaVehiculo(r));
   }
 
-  public async obtenerVehiculo(id: number): Promise<Vehiculo | null> {
-    const found = await prisma.vehiculo.findFirst({
-      where: { Id: Number(id) },
-    });
-
+  public async obtenerVehiculo(id: number): Promise<VehiculoModel | null> {
+    const found = await prisma.vehiculo.findFirst({ where: { Id: Number(id) } });
     return found ? this.mapPrismaVehiculo(found) : null;
   }
 
-  private mapPrismaVehiculo(record: any): Vehiculo {
+  private mapPrismaVehiculo(record: any): VehiculoModel {
     return {
       Id: record.Id,
       IdMarcaModeloVehiculo: record.IdMarcaModeloVehiculo,

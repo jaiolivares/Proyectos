@@ -5,6 +5,7 @@ export interface MantencionModel {
   IdTaller: number;
   Servicio: string;
   MontoTotal: number;
-  Boleta: string | null;
+  Kilometraje?: number | null;
+  Boleta?: string | null;
   IdUsuarioCreacion: number;
 }

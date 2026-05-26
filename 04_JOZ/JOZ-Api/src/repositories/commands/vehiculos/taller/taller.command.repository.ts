@@ -1,9 +1,10 @@
 import { TallerCreateRequestDto } from "../../../../dtos/vehiculos/taller/tallerCreateRequest.dto";
 import { TallerUpdateRequestDto } from "../../../../dtos/vehiculos/taller/tallerUpdateRequest.dto";
+import { TallerModel } from "../../../../models/vehiculos/taller.model";
 import prisma from "../../../../prisma";
 
 export class TallerCommandRepository {
-  public async crearTaller(req: TallerCreateRequestDto): Promise<any> {
+  public async crearTaller(req: TallerCreateRequestDto): Promise<TallerModel> {
     try {
       const created = await prisma.taller.create({
         data: {
@@ -18,7 +19,7 @@ export class TallerCommandRepository {
     }
   }
 
-  public async actualizarTaller(id: number, req: TallerUpdateRequestDto): Promise<any> {
+  public async actualizarTaller(id: number, req: TallerUpdateRequestDto): Promise<TallerModel> {
     try {
       const data: any = {};
       if (req.Nombre !== undefined) data.Nombre = req.Nombre;
@@ -36,8 +37,8 @@ export class TallerCommandRepository {
     try {
       await prisma.taller.delete({ where: { Id: id } });
       return "OK";
-    } catch (error: any) {
-      return error;
+    } catch (error) {
+      throw error;
     }
   }
 }

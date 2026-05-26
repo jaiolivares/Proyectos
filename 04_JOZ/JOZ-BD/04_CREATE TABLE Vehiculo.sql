@@ -69,6 +69,7 @@ CREATE TABLE `Mantencion` (
   `Servicio` varchar(150) not null,
   `MontoTotal` int not null,
   `Boleta` text,
+  `Kilometraje` int,
   `IdUsuarioCreacion` int not null,
   PRIMARY KEY (`Id`),
   FOREIGN KEY (`IdVehiculo`) REFERENCES `Vehiculo`(`Id`),

@@ -42,6 +42,7 @@ export class MarcaCommandService {
     if (!existent) {
       throw new Error("Marca no encontrada");
     }
+
     return await this.marcaCommandRepository.eliminarMarca(id);
   }
 }

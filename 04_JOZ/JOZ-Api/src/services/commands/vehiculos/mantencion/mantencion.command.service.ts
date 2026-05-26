@@ -45,6 +45,7 @@ export class MantencionCommandService {
       IdTaller: created.IdTaller,
       Servicio: created.Servicio,
       MontoTotal: created.MontoTotal,
+      Kilometraje: created.Kilometraje,
       Boleta: created.Boleta,
       IdUsuarioCreacion: created.IdUsuarioCreacion,
     } as MantencionCreateResponseDto;
@@ -76,6 +77,7 @@ export class MantencionCommandService {
       IdTaller: updated.IdTaller,
       Servicio: updated.Servicio,
       MontoTotal: updated.MontoTotal,
+      Kilometraje: updated.Kilometraje,
       Boleta: updated.Boleta,
       IdUsuarioCreacion: updated.IdUsuarioCreacion,
     } as MantencionUpdateResponseDto;

@@ -24,16 +24,14 @@ export class TallerCommandService {
       throw new Error("IdComuna no es válido");
     }
 
-    const tallerModel = await this.tallerCommandRepository.crearTaller(req);
+    const created = await this.tallerCommandRepository.crearTaller(req);
 
-    const tallerCreateResponseDto = {
-      Id: tallerModel.Id,
-      Nombre: tallerModel.Nombre,
-      Direccion: tallerModel.Direccion,
-      IdComuna: tallerModel.IdComuna,
-    };
-
-    return tallerCreateResponseDto;
+    return {
+      Id: created.Id,
+      Nombre: created.Nombre,
+      Direccion: created.Direccion,
+      IdComuna: created.IdComuna,
+    } as TallerCreateResponseDto;
   }
 
   public async actualizarTaller(id: number, req: TallerUpdateRequestDto): Promise<TallerUpdateResponseDto | null> {
@@ -48,15 +46,14 @@ export class TallerCommandService {
       throw new Error("IdComuna no es válido");
     }
 
-    const tallerModel = await this.tallerCommandRepository.actualizarTaller(id, req);
+    const updated = await this.tallerCommandRepository.actualizarTaller(id, req);
 
-    const tallerUpdateResponseDto = {
-      Id: tallerModel.Id,
-      Nombre: tallerModel.Nombre,
-      Direccion: tallerModel.Direccion,
-      IdComuna: tallerModel.IdComuna,
-    };
-    return tallerUpdateResponseDto;
+    return {
+      Id: updated.Id,
+      Nombre: updated.Nombre,
+      Direccion: updated.Direccion,
+      IdComuna: updated.IdComuna,
+    } as TallerUpdateResponseDto;
   }
 
   public async eliminarTaller(id: number): Promise<string> {

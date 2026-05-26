@@ -1,18 +1,18 @@
-import { Taller } from "../../../../models/vehiculos/taller.model";
+import { TallerModel } from "../../../../models/vehiculos/taller.model";
 import prisma from "../../../../prisma";
 
 export class TallerQueryRepository {
-  public async obtenerTalleres(): Promise<Taller[]> {
+  public async obtenerTalleres(): Promise<TallerModel[]> {
     const results = await prisma.taller.findMany();
     return results.map((r: any) => this.mapPrismaTaller(r));
   }
 
-  public async obtenerTaller(id: number): Promise<Taller | null> {
+  public async obtenerTaller(id: number): Promise<TallerModel | null> {
     const found = await prisma.taller.findFirst({ where: { Id: Number(id) } });
     return found ? this.mapPrismaTaller(found) : null;
   }
 
-  private mapPrismaTaller(record: any): Taller {
+  private mapPrismaTaller(record: any): TallerModel {
     return {
       Id: record.Id,
       Nombre: record.Nombre,

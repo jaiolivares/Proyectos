@@ -14,8 +14,8 @@ import { ValidataEstructuraCreateBody } from "./validators/marcaCreate.validator
 import { ValidataEstructuraUpdateBody } from "./validators/marcaUpdate.validator";
 
 export class MarcaController {
-  private marcaQueryService: MarcaQueryService;
   private marcaCommandService: MarcaCommandService;
+  private marcaQueryService: MarcaQueryService;
 
   constructor(marcaCommandService: MarcaCommandService, marcaQueryService: MarcaQueryService) {
     this.marcaCommandService = marcaCommandService;

@@ -13,6 +13,7 @@ export class MantencionCommandRepository {
           IdTaller: req.IdTaller,
           Servicio: req.Servicio,
           MontoTotal: req.MontoTotal,
+          Kilonmetraje: req.Kilometraje,
           Boleta: req.Boleta,
           IdUsuarioCreacion: idUsuario,
         },
@@ -30,6 +31,7 @@ export class MantencionCommandRepository {
       if (req.IdTaller !== undefined) data.IdTaller = req.IdTaller;
       if (req.Servicio !== undefined) data.Servicio = req.Servicio;
       if (req.MontoTotal !== undefined) data.MontoTotal = req.MontoTotal;
+      if (req.Kilometraje !== undefined) data.Kilometraje = req.Kilometraje;
       if (req.Boleta !== undefined) data.Boleta = req.Boleta;
 
       const updated = await prisma.mantencion.update({ where: { Id: id }, data });

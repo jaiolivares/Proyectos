@@ -5,17 +5,19 @@ export class MantencionDto {
   IdTaller: number;
   Servicio: string;
   MontoTotal: number;
+  Kilometraje?: number | null;
   Boleta?: string | null;
-  IdUsuario: number;
+  IdUsuarioCreacion: number;
 
-  constructor(Id: number, IdVehiculo: number, Fecha: Date, IdTaller: number, Servicio: string, MontoTotal: number, Boleta: string | null, IdUsuario: number) {
+  constructor(Id: number, IdVehiculo: number, Fecha: Date, IdTaller: number, Servicio: string, MontoTotal: number, IdUsuarioCreacion: number, Kilometraje?: number | null, Boleta?: string | null) {
     this.Id = Id;
     this.IdVehiculo = IdVehiculo;
     this.Fecha = Fecha;
     this.IdTaller = IdTaller;
     this.Servicio = Servicio;
     this.MontoTotal = MontoTotal;
+    this.Kilometraje = Kilometraje;
     this.Boleta = Boleta;
-    this.IdUsuario = IdUsuario;
+    this.IdUsuarioCreacion = IdUsuarioCreacion;
   }
 }

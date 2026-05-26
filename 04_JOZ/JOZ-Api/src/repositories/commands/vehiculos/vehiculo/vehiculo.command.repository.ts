@@ -1,10 +1,10 @@
 import { VehiculoCreateRequestDto } from "../../../../dtos/vehiculos/vehiculo/vehiculoCreateRequest.dto";
 import { VehiculoUpdateRequestDto } from "../../../../dtos/vehiculos/vehiculo/vehiculoUpdateRequest.dto";
-import { Vehiculo } from "../../../../models/vehiculos/vehiculo.model";
+import { VehiculoModel } from "../../../../models/vehiculos/vehiculo.model";
 import prisma from "../../../../prisma";
 
 export class VehiculoCommandRepository {
-  public async crearVehiculo(req: VehiculoCreateRequestDto): Promise<Vehiculo> {
+  public async crearVehiculo(req: VehiculoCreateRequestDto): Promise<VehiculoModel> {
     try {
       const created = await prisma.vehiculo.create({
         data: {
@@ -20,25 +20,13 @@ export class VehiculoCommandRepository {
           MontoVenta: null,
         },
       });
-      return {
-        Id: created.Id,
-        IdMarcaModeloVehiculo: created.IdMarcaModeloVehiculo,
-        Ano: created.Ano,
-        NumeroMotor: created.NumeroMotor,
-        NumeroChasis: created.NumeroChasis,
-        Color: created.Color,
-        FechaCompra: created.FechaCompra,
-        MontoCompra: created.MontoCompra,
-        Vendido: created.Vendido === 1,
-        FechaVenta: created.FechaVenta,
-        MontoVenta: created.MontoVenta,
-      };
+      return { ...created, Vendido: Boolean(created.Vendido) } as VehiculoModel;
     } catch (error) {
       throw error;
     }
   }
 
-  public async actualizarVehiculo(id: number, req: VehiculoUpdateRequestDto): Promise<Vehiculo> {
+  public async actualizarVehiculo(id: number, req: VehiculoUpdateRequestDto): Promise<VehiculoModel> {
     try {
       const data: any = {};
       if (req.IdMarcaModeloVehiculo !== undefined) data.IdMarcaModeloVehiculo = req.IdMarcaModeloVehiculo;
@@ -52,23 +40,9 @@ export class VehiculoCommandRepository {
       if (req.FechaVenta !== undefined) data.FechaVenta = req.FechaVenta;
       if (req.MontoVenta !== undefined) data.MontoVenta = req.MontoVenta;
 
-      const updated = await prisma.vehiculo.update({
-        where: { Id: id },
-        data,
-      });
-      return {
-        Id: updated.Id,
-        IdMarcaModeloVehiculo: updated.IdMarcaModeloVehiculo,
-        Ano: updated.Ano,
-        NumeroMotor: updated.NumeroMotor,
-        NumeroChasis: updated.NumeroChasis,
-        Color: updated.Color,
-        FechaCompra: updated.FechaCompra,
-        MontoCompra: updated.MontoCompra,
-        Vendido: updated.Vendido === 1,
-        FechaVenta: updated.FechaVenta,
-        MontoVenta: updated.MontoVenta,
-      };
+      const updated = await prisma.vehiculo.update({ where: { Id: id }, data });
+
+      return { ...updated, Vendido: Boolean(updated.Vendido) } as VehiculoModel;
     } catch (error) {
       throw error;
     }
@@ -78,8 +52,8 @@ export class VehiculoCommandRepository {
     try {
       await prisma.vehiculo.delete({ where: { Id: id } });
       return "OK";
-    } catch (error: any) {
-      return error;
+    } catch (error) {
+      throw error;
     }
   }
 }

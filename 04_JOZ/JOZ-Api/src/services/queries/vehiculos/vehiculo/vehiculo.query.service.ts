@@ -10,7 +10,7 @@ export class VehiculoQueryService {
 
   public async obtenerVehiculos(): Promise<VehiculoDto[]> {
     const vehiculos = await this.vehiculoQueryRepository.obtenerVehiculos();
-    return vehiculos.map((v) => new VehiculoDto(v.Id, v.IdMarcaModeloVehiculo, v.Ano, v.NumeroMotor, v.NumeroChasis, v.Color, v.FechaCompra, v.MontoCompra, v.Vendido, v.FechaVenta ?? null, v.MontoVenta ?? null));
+    return vehiculos.map((v) => this.mapVehiculo(v));
   }
 
   public async obtenerVehiculo(id: number): Promise<VehiculoDto | null> {
@@ -20,18 +20,22 @@ export class VehiculoQueryService {
       return null;
     }
 
-    return new VehiculoDto(
-      vehiculo.Id,
-      vehiculo.IdMarcaModeloVehiculo,
-      vehiculo.Ano,
-      vehiculo.NumeroMotor,
-      vehiculo.NumeroChasis,
-      vehiculo.Color,
-      vehiculo.FechaCompra,
-      vehiculo.MontoCompra,
-      vehiculo.Vendido,
-      vehiculo.FechaVenta ?? null,
-      vehiculo.MontoVenta ?? null,
-    );
+    return this.mapVehiculo(vehiculo);
+  }
+
+  private mapVehiculo(record: any): VehiculoDto {
+    return {
+      Id: record.Id,
+      IdMarcaModeloVehiculo: record.IdMarcaModeloVehiculo,
+      Ano: record.Ano,
+      NumeroMotor: record.NumeroMotor,
+      NumeroChasis: record.NumeroChasis,
+      Color: record.Color,
+      FechaCompra: record.FechaCompra,
+      MontoCompra: record.MontoCompra,
+      Vendido: record.Vendido,
+      FechaVenta: record.FechaVenta ?? null,
+      MontoVenta: record.MontoVenta ?? null,
+    };
   }
 }

@@ -10,7 +10,7 @@ export class TallerQueryService {
 
   public async obtenerTalleres(): Promise<TallerDto[]> {
     const talleres = await this.tallerQueryRepository.obtenerTalleres();
-    return talleres.map((t) => new TallerDto(t.Id, t.Nombre, t.IdComuna, t.Direccion));
+    return talleres.map((t) => this.mapTaller(t));
   }
 
   public async obtenerTaller(id: number): Promise<TallerDto | null> {
@@ -20,6 +20,15 @@ export class TallerQueryService {
       return null;
     }
 
-    return new TallerDto(taller.Id, taller.Nombre, taller.IdComuna, taller.Direccion);
+    return this.mapTaller(taller);
+  }
+
+  private mapTaller(record: any): TallerDto {
+    return {
+      Id: record.Id,
+      Nombre: record.Nombre,
+      IdComuna: record.IdComuna,
+      Direccion: record.Direccion,
+    };
   }
 }
