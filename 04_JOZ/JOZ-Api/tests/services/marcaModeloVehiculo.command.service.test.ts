@@ -9,12 +9,7 @@ describe("MarcaModeloVehiculoCommandService", () => {
   const obtenerModelo = jest.fn();
 
   const buildService = () =>
-    new MarcaModeloVehiculoCommandService(
-      { crearMarcaModeloVehiculo, actualizarMarcaModeloVehiculo, eliminarMarcaModeloVehiculo } as any,
-      { obtenerMarcaModeloVehiculo } as any,
-      { obtenerMarca } as any,
-      { obtenerModelo } as any,
-    );
+    new MarcaModeloVehiculoCommandService({ crearMarcaModeloVehiculo, actualizarMarcaModeloVehiculo, eliminarMarcaModeloVehiculo } as any, { obtenerMarcaModeloVehiculo } as any, { obtenerMarca } as any, { obtenerModelo } as any);
 
   beforeEach(() => {
     crearMarcaModeloVehiculo.mockReset();
