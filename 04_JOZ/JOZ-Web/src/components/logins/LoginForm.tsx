@@ -8,7 +8,8 @@ import TextField from '@mui/material/TextField'
 import Typography from '@mui/material/Typography'
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { LoginRequest } from '../models/user'
+import { PUBLIC_SITE_URL } from '../../config/appConfig'
+import { LoginRequest } from '../../models/user'
 
 type Props = {
   onSubmit: (payload: LoginRequest) => Promise<void>
@@ -83,7 +84,18 @@ export default function LoginForm({ onSubmit, loading, error }: Props) {
         </Box>
 
         <Box sx={{ display: 'flex', justifyContent: 'center', mt: 2 }}>
-                <Button variant="text" onClick={() => navigate('/')}>Cancelar</Button>
+          <Button
+            variant="text"
+            onClick={() => {
+              if (typeof window !== 'undefined') {
+                window.location.replace(PUBLIC_SITE_URL)
+                return
+              }
+              navigate('/')
+            }}
+          >
+            Cancelar
+          </Button>
         </Box>
 
       </Box>

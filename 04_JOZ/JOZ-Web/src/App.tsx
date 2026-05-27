@@ -1,18 +1,62 @@
 import { BrowserRouter, Navigate, Route, Routes, useLocation } from 'react-router-dom'
-import ItemsArea from './components/ItemsArea'
-import LeftSidebar from './components/LeftSidebar'
-import NavBar from './components/NavBar'
-import { AuthProvider } from './contexts/AuthContext'
-import Landing from './pages/Landing'
-import LoginPage from './pages/LoginPage'
-import Talleres from './pages/Talleres'
-import Welcome from './pages/Welcome'
+import LeftSidebar from './components/menus/LeftSidebar'
+import NavBar from './components/menus/NavBar'
+import { AuthProvider, useAuthContext } from './contexts/AuthContext'
+// import Home from './pages/Home'
+import Home from './pages/Home'
+import LoginPage from './pages/logins/LoginPage'
+import Talleres from './pages/vehiculos/Talleres'
+
+function ProtectedRoute({ children }: { children: React.ReactNode }) {
+  const { user } = useAuthContext()
+  const location = useLocation()
+
+  if (!user) {
+    return <Navigate to="/login" replace state={{ from: location }} />
+  }
+
+  return <>{children}</>
+}
 
 function MainRoutes() {
+  const { user } = useAuthContext()
   const location = useLocation()
   const hideNavOn = ['/', '/login']
-  const showNav = !hideNavOn.includes(location.pathname)
-  const showSidebar = showNav && location.pathname !== '/welcome'
+  const showNav = Boolean(user) && !hideNavOn.includes(location.pathname)
+  const showSidebar = showNav && location.pathname !== '/home'
+
+  const routes = (
+    <Routes>
+      <Route path="/" element={<Home />} />
+      <Route path="*" element={<Navigate to={user ? '/home' : '/'} replace />} />
+      <Route path="/login" element={<LoginPage />} />
+      {/* <Route path="/home" element={<Home />} /> */}
+      <Route
+        path="/home"
+        element={
+          <ProtectedRoute>
+            <Home />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/vehiculos"
+        element={
+          <ProtectedRoute>
+            <Navigate to="/vehiculos/talleres" replace />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/vehiculos/talleres"
+        element={
+          <ProtectedRoute>
+            <Talleres />
+          </ProtectedRoute>
+        }
+      />
+    </Routes>
+  )
 
   return (
     <>
@@ -21,22 +65,11 @@ function MainRoutes() {
         <div style={{ display: 'flex', minHeight: 'calc(100vh - 64px)' }}>
           {showSidebar && <LeftSidebar />}
           <div style={{ flex: 1 }}>
-            <Routes>
-              <Route path="/" element={<Landing />} />
-              <Route path="/login" element={<LoginPage />} />
-              <Route path="/welcome" element={<Welcome />} />
-              <Route path="/items" element={<ItemsArea />} />
-              <Route path="/vehiculos" element={<Navigate to="/vehiculos" replace />} />
-              <Route path="/vehiculos/talleres" element={<Talleres />} />
-              {/* <Route path="/vehiculos" element={<Vehiculos />} /> */}
-            </Routes>
+            {routes}
           </div>
         </div>
       ) : (
-        <Routes>
-          <Route path="/" element={<Landing />} />
-          <Route path="/login" element={<LoginPage />} />
-        </Routes>
+        routes
       )}
     </>
   )

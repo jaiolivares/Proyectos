@@ -6,7 +6,7 @@ import {
   DialogTitle,
   Typography,
 } from '@mui/material'
-import { Taller } from '../models/taller'
+import { Taller } from '../../models/taller'
 
 type Props = {
   open: boolean

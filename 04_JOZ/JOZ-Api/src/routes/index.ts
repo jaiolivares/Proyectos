@@ -12,10 +12,6 @@ import modeloRoutes from "./vehiculos/modelo.routes";
 import tallerRoutes from "./vehiculos/taller.routes";
 import vehiculoRoutes from "./vehiculos/vehiculo.routes";
 
-//TODO: BorraritemController que era solo de prueas para el Front
-import { ItemController } from "../controllers/item.controller";
-const itemController = new ItemController();
-
 export const setRoutes = (app: Express) => {
   app.use("/api/health", healtRoutes);
   app.use("/api/auth", authRoutes);
@@ -28,5 +24,4 @@ export const setRoutes = (app: Express) => {
   app.use("/api/taller", authMiddleware, tallerRoutes);
   app.use("/api/mantencion", authMiddleware, mantencionRoutes);
   app.use("/api/mantencionDetalle", authMiddleware, mantencionDetalleRoutes);
-  app.use("/api/item", authMiddleware, itemController.all.bind(itemController));
 };

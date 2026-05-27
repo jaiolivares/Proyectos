@@ -11,7 +11,9 @@ import {
 } from '@mui/material'
 import React, { useState } from 'react'
 import { Link as RouterLink, useNavigate } from 'react-router-dom'
-import { useAuthContext } from '../contexts/AuthContext'
+import { PUBLIC_SITE_URL } from '../../config/appConfig'
+import { useAuthContext } from '../../contexts/AuthContext'
+import { AUTH_STORAGE_KEY } from '../../models/user'
 
 export default function NavBar() {
   const navigate = useNavigate()
@@ -28,6 +30,17 @@ export default function NavBar() {
 
   const handleLogout = () => {
     handleCloseNavMenu()
+
+    // Eliminar credenciales locales y redirigir al sitio público
+    if (typeof window !== 'undefined') {
+      try {
+        window.localStorage.removeItem(AUTH_STORAGE_KEY)
+      } catch {}
+      window.location.replace(PUBLIC_SITE_URL)
+      return
+    }
+
+    // Fallback para entornos no navegador
     logout()
     navigate('/')
   }
@@ -50,11 +63,8 @@ export default function NavBar() {
             alignItems: 'center',
           }}
         >
-          <Button color="inherit" component={RouterLink} to="/welcome">
+          <Button color="inherit" component={RouterLink} to="/home">
             Inicio
-          </Button>
-          <Button color="inherit" component={RouterLink} to="/items">
-            Items
           </Button>
           <Button color="inherit" component={RouterLink} to="/vehiculos">
             Vehículos
@@ -90,11 +100,8 @@ export default function NavBar() {
             onClose={handleCloseNavMenu}
             sx={{ display: { xs: 'block', md: 'none' } }}
           >
-            <MenuItem component={RouterLink} to="/welcome" onClick={handleCloseNavMenu}>
+            <MenuItem component={RouterLink} to="/home" onClick={handleCloseNavMenu}>
               Inicio
-            </MenuItem>
-            <MenuItem component={RouterLink} to="/items" onClick={handleCloseNavMenu}>
-              Items
             </MenuItem>
             <MenuItem component={RouterLink} to="/vehiculos" onClick={handleCloseNavMenu}>
               Vehículos

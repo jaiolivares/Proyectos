@@ -1,28 +1,20 @@
-import { Container, Typography } from '@mui/material'
-import ItemsArea from '../components/ItemsArea'
-import LoginForm from '../components/LoginForm'
-import { useAuth } from '../hooks/useAuth'
-import { AuthService } from '../services/auth.service'
+import { Box, Container, Typography } from '@mui/material'
+import { useAuthContext } from '../contexts/AuthContext'
 
 export default function Home() {
-  const authService = new AuthService()
-
-  const { user, loading: authLoading, error: authError, login } = useAuth(authService)
+  const { user } = useAuthContext()
+  const displayName = user?.Nombre || user?.NombreUsuario || user?.Email
 
   return (
-    <Container className="container">
-
-      {!user ? (
-        // <Box  component="section" sx={{ maxWidth: 400, margin: '0 auto' }}>
-          <LoginForm onSubmit={async p => { await login(p) }} loading={authLoading} error={authError} />
-        // </Box>
-      ) : (
-          <>
-          <Typography variant="h6">Hola x, {user.Nombre || user.NombreUsuario || user.Email}</Typography>
-          <ItemsArea />
-        </>
-      )}
-
-    </Container>
+    <>
+      <Container sx={{ mt: 4 }}>
+        <Box>
+          <Typography variant="h4">Hola, {displayName}</Typography>
+          <Typography sx={{ mt: 2 }}>
+            Desde aquí puedes navegar a las distintas secciones usando la barra superior.
+          </Typography>
+        </Box>
+      </Container>
+    </>
   )
 }

@@ -1,22 +1,22 @@
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline'
 import RefreshIcon from '@mui/icons-material/Refresh'
 import {
-    Alert,
-    Box,
-    Button,
-    CircularProgress,
-    Container,
-    Paper,
-    Stack,
-    Typography,
+  Alert,
+  Box,
+  Button,
+  CircularProgress,
+  Container,
+  Paper,
+  Stack,
+  Typography,
 } from '@mui/material'
 import { useCallback, useEffect, useMemo, useState } from 'react'
-import TallerDeleteDialog from '../components/TallerDeleteDialog'
-import TallerFormDialog from '../components/TallerFormDialog'
-import TallerTable from '../components/TallerTable'
-import { useAuthContext } from '../contexts/AuthContext'
-import { Taller, TallerPayload } from '../models/taller'
-import { TallerService } from '../services/taller.service'
+import TallerDeleteDialog from '../../components/vehiculos/TallerDeleteDialog'
+import TallerFormDialog from '../../components/vehiculos/TallerFormDialog'
+import TallerTable from '../../components/vehiculos/TallerTable'
+import { useAuthContext } from '../../contexts/AuthContext'
+import { Taller, TallerPayload } from '../../models/taller'
+import { TallerService } from '../../services/taller.service'
 
 function sortTalleres(items: Taller[]) {
   return [...items].sort((left, right) => right.Id - left.Id)

@@ -3,15 +3,15 @@ import ExpandMore from '@mui/icons-material/ExpandMore'
 import MenuIcon from '@mui/icons-material/Menu'
 import MenuOpenIcon from '@mui/icons-material/MenuOpen'
 import {
-    Box,
-    Collapse,
-    Divider,
-    Drawer,
-    IconButton,
-    List,
-    ListItemButton,
-    ListItemText,
-    Typography,
+  Box,
+  Collapse,
+  Divider,
+  Drawer,
+  IconButton,
+  List,
+  ListItemButton,
+  ListItemText,
+  Typography,
 } from '@mui/material'
 import React, { useMemo, useState } from 'react'
 import { Link as RouterLink, useLocation } from 'react-router-dom'
@@ -39,33 +39,12 @@ export default function LeftSidebar() {
       return [
         { title: { label: 'Mantenciones', route: 'mantenciones' }, items: [] },
         { title: { label: 'Talleres', route: 'talleres' }, items: [] },
-        { title: { label: 'Vehículos', route: 'vehiculos' }, items: [] },
+        { title: { label: 'Vehículos', route: 'mis-vehiculos' }, items: [] },
         {
           title: { label: 'Marcas', route: 'marcas' },
           items: [{ label: 'Asociar Marca-Modelo', route: 'asociar-marca-modelo' }],
         },
         { title: { label: 'Modelos', route: 'modelos' }, items: [] },
-      ]
-    }
-
-    if (location.pathname.startsWith('/items')) {
-      return [
-        {
-          title: { label: 'CRUD', route: 'crud' },
-          items: [
-            { label: 'Listar', route: 'listar' },
-            { label: 'Crear', route: 'crear' },
-          ],
-        },
-        {
-          title: { label: 'ADMIN', route: 'admin' },
-          items: [
-            { label: 'Listar', route: 'listar' },
-            { label: 'Asignar de Marca y Modelo', route: 'AsociarMarcaModelo' },
-            { label: 'Activar', route: 'activar' },
-            { label: 'Quitar', route: 'quitar' },
-          ],
-        },
       ]
     }
     return []

@@ -1,21 +1,21 @@
 import {
-  Alert,
-  Button,
-  Dialog,
-  DialogActions,
-  DialogContent,
-  DialogTitle,
-  FormControl,
-  InputLabel,
-  MenuItem,
-  Select,
-  Stack,
-  TextField,
+    Alert,
+    Button,
+    Dialog,
+    DialogActions,
+    DialogContent,
+    DialogTitle,
+    FormControl,
+    InputLabel,
+    MenuItem,
+    Select,
+    Stack,
+    TextField,
 } from '@mui/material'
 import { useEffect, useMemo, useState } from 'react'
-import { Comuna } from '../models/comuna'
-import { Taller, TallerPayload } from '../models/taller'
-import { ComunaService } from '../services/comuna.service'
+import { Comuna } from '../../models/comuna'
+import { Taller, TallerPayload } from '../../models/taller'
+import { ComunaService } from '../../services/comuna.service'
 
 type TallerFormValues = {
   Nombre: string

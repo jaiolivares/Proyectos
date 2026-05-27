@@ -1,0 +1,53 @@
+:root {
+  --color-page: #f5ead8;
+  --color-page-deep: #ead3b4;
+  --color-surface: #fffaf2;
+  --color-border: rgba(109, 78, 48, 0.18);
+  --color-body: #655642;
+  --color-title: #1f1b17;
+  --color-accent: #d67f45;
+  --color-accent-strong: #c75822;
+  --font-body: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  --font-display: Georgia, "Times New Roman", serif;
+  font-family: var(--font-body);
+  line-height: 1.5;
+  font-weight: 400;
+  color: var(--color-body);
+  background: radial-gradient(circle at top left, rgba(255, 214, 168, 0.85), transparent 35%), linear-gradient(180deg, var(--color-page), var(--color-page-deep));
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  min-height: 100vh;
+}
+
+body,
+button,
+a {
+  font-family: var(--font-body);
+}
+
+a {
+  color: inherit;
+}
+
+#root {
+  min-height: 100vh;
+}
+
+p {
+  margin: 0;
+}
