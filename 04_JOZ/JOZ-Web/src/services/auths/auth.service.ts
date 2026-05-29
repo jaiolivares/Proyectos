@@ -1,6 +1,6 @@
-import http from "../api/httpClient";
-import { ApiResponse } from "../models/api";
-import { LoginRequest, User } from "../models/user";
+import http from "../../api/httpClient";
+import { ApiResponse } from "../../models/api";
+import { LoginRequest, User } from "../../models/auths/user";
 
 type LoginApiPayload = {
   token: string;

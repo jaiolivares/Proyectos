@@ -1,22 +1,22 @@
-import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline'
-import EditOutlinedIcon from '@mui/icons-material/EditOutlined'
-import IconButton from '@mui/material/IconButton'
-import Paper from '@mui/material/Paper'
-import Table from '@mui/material/Table'
-import TableBody from '@mui/material/TableBody'
-import TableCell from '@mui/material/TableCell'
-import TableContainer from '@mui/material/TableContainer'
-import TableHead from '@mui/material/TableHead'
-import TableRow from '@mui/material/TableRow'
-import Tooltip from '@mui/material/Tooltip'
-import Typography from '@mui/material/Typography'
-import { Taller } from '../../models/taller'
+import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
+import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
+import IconButton from "@mui/material/IconButton";
+import Paper from "@mui/material/Paper";
+import Table from "@mui/material/Table";
+import TableBody from "@mui/material/TableBody";
+import TableCell from "@mui/material/TableCell";
+import TableContainer from "@mui/material/TableContainer";
+import TableHead from "@mui/material/TableHead";
+import TableRow from "@mui/material/TableRow";
+import Tooltip from "@mui/material/Tooltip";
+import Typography from "@mui/material/Typography";
+import { Taller } from "../../../models/vehiculos/taller";
 
 type Props = {
-  talleres: Taller[]
-  onEdit: (taller: Taller) => void
-  onDelete: (taller: Taller) => void
-}
+  talleres: Taller[];
+  onEdit: (taller: Taller) => void;
+  onDelete: (taller: Taller) => void;
+};
 
 export default function TallerTable({ talleres, onEdit, onDelete }: Props) {
   return (
@@ -35,13 +35,11 @@ export default function TallerTable({ talleres, onEdit, onDelete }: Props) {
           {talleres.length === 0 ? (
             <TableRow>
               <TableCell colSpan={5}>
-                <Typography color="text.secondary">
-                  No hay talleres cargados. Usa el botón Agregar taller para crear el primero.
-                </Typography>
+                <Typography color="text.secondary">No hay talleres cargados. Usa el botón Agregar taller para crear el primero.</Typography>
               </TableCell>
             </TableRow>
           ) : (
-            talleres.map(taller => (
+            talleres.map((taller) => (
               <TableRow key={taller.Id} hover>
                 <TableCell>{taller.Id}</TableCell>
                 <TableCell>{taller.Nombre}</TableCell>
@@ -65,5 +63,5 @@ export default function TallerTable({ talleres, onEdit, onDelete }: Props) {
         </TableBody>
       </Table>
     </TableContainer>
-  )
+  );
 }

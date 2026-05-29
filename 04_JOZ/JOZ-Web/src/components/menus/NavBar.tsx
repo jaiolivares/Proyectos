@@ -12,7 +12,7 @@ import { Link as RouterLink, useNavigate } from "react-router-dom";
 import { PUBLIC_SITE_URL } from "../../config/appConfig";
 import { APP_ROUTES } from "../../config/routes";
 import { useAuthContext } from "../../contexts/AuthContext";
-import { AUTH_STORAGE_KEY } from "../../models/user";
+import { AUTH_STORAGE_KEY } from "../../models/auths/user";
 
 export default function NavBar() {
   const navigate = useNavigate();

@@ -1,45 +1,45 @@
-import LockOutlinedIcon from '@mui/icons-material/LockOutlined'
-import Alert from '@mui/material/Alert'
-import Avatar from '@mui/material/Avatar'
-import Box from '@mui/material/Box'
-import Button from '@mui/material/Button'
-import Container from '@mui/material/Container'
-import TextField from '@mui/material/TextField'
-import Typography from '@mui/material/Typography'
-import React, { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
-import { PUBLIC_SITE_URL } from '../../config/appConfig'
-import { LoginRequest } from '../../models/user'
+import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
+import Alert from "@mui/material/Alert";
+import Avatar from "@mui/material/Avatar";
+import Box from "@mui/material/Box";
+import Button from "@mui/material/Button";
+import Container from "@mui/material/Container";
+import TextField from "@mui/material/TextField";
+import Typography from "@mui/material/Typography";
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { PUBLIC_SITE_URL } from "../../config/appConfig";
+import { LoginRequest } from "../../models/auths/user";
 
 type Props = {
-  onSubmit: (payload: LoginRequest) => Promise<void>
-  loading?: boolean
-  error?: string | null
-}
+  onSubmit: (payload: LoginRequest) => Promise<void>;
+  loading?: boolean;
+  error?: string | null;
+};
 
 export default function LoginForm({ onSubmit, loading, error }: Props) {
-  const navigate = useNavigate()
-  const [nombreUsuario, setNombreUsuario] = useState('jai')
-  const [password, setPassword] = useState('123')
+  const navigate = useNavigate();
+  const [nombreUsuario, setNombreUsuario] = useState("jai");
+  const [password, setPassword] = useState("123");
 
   const handle = async (e: React.FormEvent) => {
-    e.preventDefault()
-    await onSubmit({ NombreUsuario: nombreUsuario, Password: password } as LoginRequest)
-  }
+    e.preventDefault();
+    await onSubmit({ NombreUsuario: nombreUsuario, Password: password } as LoginRequest);
+  };
 
   return (
     <Container component="main" maxWidth="xs" disableGutters>
       <Box
         sx={{
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
-          backgroundColor: '#fff',
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          backgroundColor: "#fff",
           borderRadius: 5,
           padding: 4,
         }}
       >
-        <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
+        <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
           <LockOutlinedIcon />
         </Avatar>
         <Typography component="h1" variant="h5">
@@ -47,58 +47,34 @@ export default function LoginForm({ onSubmit, loading, error }: Props) {
         </Typography>
 
         {error && (
-          <Alert severity="error" sx={{ width: '100%', mt: 2 }}>
+          <Alert severity="error" sx={{ width: "100%", mt: 2 }}>
             {error}
           </Alert>
         )}
 
         <Box component="form" onSubmit={handle} noValidate sx={{ mt: 1 }}>
-          <TextField
-            margin="normal"
-            required
-            fullWidth
-            id="nombreUsuario"
-            label="Nombre de usuario"
-            name="nombreUsuario"
-            autoComplete="username"
-            autoFocus
-            value={nombreUsuario}
-            onChange={e => setNombreUsuario(e.target.value)}
-          />
-          <TextField
-            margin="normal"
-            required
-            fullWidth
-            name="password"
-            label="Contraseña"
-            type="password"
-            id="password"
-            autoComplete="current-password"
-            value={password}
-            onChange={e => setPassword(e.target.value)}
-          />
+          <TextField margin="normal" required fullWidth id="nombreUsuario" label="Nombre de usuario" name="nombreUsuario" autoComplete="username" autoFocus value={nombreUsuario} onChange={(e) => setNombreUsuario(e.target.value)} />
+          <TextField margin="normal" required fullWidth name="password" label="Contraseña" type="password" id="password" autoComplete="current-password" value={password} onChange={(e) => setPassword(e.target.value)} />
           <Button type="submit" fullWidth variant="contained" disabled={loading} sx={{ mt: 3, mb: 2 }}>
-            {loading ? 'Ingresando...' : 'Ingresar'}
+            {loading ? "Ingresando..." : "Ingresar"}
           </Button>
-          
         </Box>
 
-        <Box sx={{ display: 'flex', justifyContent: 'center', mt: 2 }}>
+        <Box sx={{ display: "flex", justifyContent: "center", mt: 2 }}>
           <Button
             variant="text"
             onClick={() => {
-              if (typeof window !== 'undefined') {
-                window.location.replace(PUBLIC_SITE_URL)
-                return
+              if (typeof window !== "undefined") {
+                window.location.replace(PUBLIC_SITE_URL);
+                return;
               }
-              navigate('/')
+              navigate("/");
             }}
           >
             Cancelar
           </Button>
         </Box>
-
       </Box>
     </Container>
-  )
+  );
 }

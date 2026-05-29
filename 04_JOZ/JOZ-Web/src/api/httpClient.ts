@@ -1,5 +1,5 @@
 import axios from "axios";
-import { AUTH_STORAGE_KEY } from "../models/user";
+import { AUTH_STORAGE_KEY } from "../models/auths/user";
 
 const http = axios.create({
   baseURL: "http://localhost:3000/api",

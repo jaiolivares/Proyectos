@@ -1,20 +1,28 @@
-import express from 'express';
-import cors from 'cors';
-import { setRoutes } from './routes/index';
-import { errorMiddleware } from './middleware/error.middleware';
+import cors from "cors";
+import express from "express";
+import { errorMiddleware } from "./middleware/error.middleware";
+import { setRoutes } from "./routes/index";
 
 const app = express();
+
+const allowedOrigins = new Set(["http://localhost:5173", "http://127.0.0.1:5173", "http://localhost:4173", "http://127.0.0.1:4173"]);
 
 // Middleware
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-// Enable CORS for the frontend dev origin
 app.use(
-	cors({
-		origin: 'http://localhost:5173',
-		methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-		credentials: true,
-	})
+  cors({
+    origin: (origin, callback) => {
+      if (!origin || allowedOrigins.has(origin)) {
+        callback(null, true);
+        return;
+      }
+
+      callback(new Error(`Origin not allowed by CORS: ${origin}`));
+    },
+    methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
+    credentials: true,
+  }),
 );
 
 // Set routes

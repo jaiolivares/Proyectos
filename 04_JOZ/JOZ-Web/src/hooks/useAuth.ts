@@ -1,6 +1,6 @@
 import { useState } from "react";
-import { AUTH_STORAGE_KEY, LoginRequest, User } from "../models/user";
-import { AuthService, IAuthService } from "../services/auth.service";
+import { AUTH_STORAGE_KEY, LoginRequest, User } from "../models/auths/user";
+import { AuthService, IAuthService } from "../services/auths/auth.service";
 
 function loadStoredUser(): User | null {
   if (typeof window === "undefined") {
