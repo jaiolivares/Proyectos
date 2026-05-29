@@ -1,11 +1,12 @@
+import React, { Suspense } from 'react'
 import { BrowserRouter, Navigate, Route, Routes, useLocation } from 'react-router-dom'
-import LeftSidebar from './components/menus/LeftSidebar'
-import NavBar from './components/menus/NavBar'
 import { AuthProvider, useAuthContext } from './contexts/AuthContext'
-// import Home from './pages/Home'
-import Home from './pages/Home'
-import LoginPage from './pages/logins/LoginPage'
-import Talleres from './pages/vehiculos/Talleres'
+const LeftSidebar = React.lazy(() => import('./components/menus/LeftSidebar'))
+const NavBar = React.lazy(() => import('./components/menus/NavBar'))
+
+const Home = React.lazy(() => import('./pages/Home'))
+const LoginPage = React.lazy(() => import('./pages/logins/LoginPage'))
+const Talleres = React.lazy(() => import('./pages/vehiculos/Talleres'))
 
 function ProtectedRoute({ children }: { children: React.ReactNode }) {
   const { user } = useAuthContext()
@@ -26,10 +27,11 @@ function MainRoutes() {
   const showSidebar = showNav && location.pathname !== '/home'
 
   const routes = (
-    <Routes>
-      <Route path="/" element={<Home />} />
-      <Route path="*" element={<Navigate to={user ? '/home' : '/'} replace />} />
-      <Route path="/login" element={<LoginPage />} />
+    <Suspense fallback={<div>Loading...</div>}>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="*" element={<Navigate to={user ? '/home' : '/'} replace />} />
+        <Route path="/login" element={<LoginPage />} />
       {/* <Route path="/home" element={<Home />} /> */}
       <Route
         path="/home"
@@ -56,14 +58,23 @@ function MainRoutes() {
         }
       />
     </Routes>
+    </Suspense>
   )
 
   return (
     <>
-      {showNav && <NavBar />}
+      {showNav && (
+        <Suspense fallback={null}>
+          <NavBar />
+        </Suspense>
+      )}
       {showNav ? (
         <div style={{ display: 'flex', minHeight: 'calc(100vh - 64px)' }}>
-          {showSidebar && <LeftSidebar />}
+          {showSidebar && (
+            <Suspense fallback={null}>
+              <LeftSidebar />
+            </Suspense>
+          )}
           <div style={{ flex: 1 }}>
             {routes}
           </div>

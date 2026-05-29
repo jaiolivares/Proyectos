@@ -1,4 +1,4 @@
-import { Box } from '@mui/material'
+import Box from '@mui/material/Box'
 import { Navigate, useLocation, useNavigate } from 'react-router-dom'
 import LoginForm from '../../components/logins/LoginForm'
 import { useAuthContext } from '../../contexts/AuthContext'

@@ -1,15 +1,13 @@
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline'
 import RefreshIcon from '@mui/icons-material/Refresh'
-import {
-  Alert,
-  Box,
-  Button,
-  CircularProgress,
-  Container,
-  Paper,
-  Stack,
-  Typography,
-} from '@mui/material'
+import Alert from '@mui/material/Alert'
+import Box from '@mui/material/Box'
+import Button from '@mui/material/Button'
+import CircularProgress from '@mui/material/CircularProgress'
+import Container from '@mui/material/Container'
+import Paper from '@mui/material/Paper'
+import Stack from '@mui/material/Stack'
+import Typography from '@mui/material/Typography'
 import { useCallback, useEffect, useMemo, useState } from 'react'
 import TallerDeleteDialog from '../../components/vehiculos/TallerDeleteDialog'
 import TallerFormDialog from '../../components/vehiculos/TallerFormDialog'
