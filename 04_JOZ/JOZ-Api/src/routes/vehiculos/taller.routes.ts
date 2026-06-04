@@ -2,13 +2,15 @@ import { Router } from "express";
 import { TallerController } from "../../controllers/vehiculos/taller.controller";
 import { TallerCommandService } from "../../services/commands/vehiculos/taller/taller.command.service";
 import { TallerQueryService } from "../../services/queries/vehiculos/taller/taller.query.service";
+import { createRateLimiter } from "../../utils/rateLimiter";
 
 const router = Router();
 const tallerCommandService = new TallerCommandService();
 const tallerQueryService = new TallerQueryService();
 const tallerController = new TallerController(tallerCommandService, tallerQueryService);
+const obtenerTodosLimiter = createRateLimiter();
 
-router.get("/obtenerTodos", tallerController.obtenerTodos.bind(tallerController));
+router.get("/obtenerTodos", obtenerTodosLimiter, tallerController.obtenerTodos.bind(tallerController));
 router.get("/obtenerPorId/:id", tallerController.obtenerPorId.bind(tallerController));
 router.post("/crear", tallerController.crear.bind(tallerController));
 router.patch("/actualizar/:id", tallerController.actualizar.bind(tallerController));
