@@ -11,6 +11,12 @@ const LeftSidebar = React.lazy(() => import("./components/menus/LeftSidebar"));
 const NavBar = React.lazy(() => import("./components/menus/NavBar"));
 const Home = React.lazy(() => import("./pages/Home"));
 const LoginPage = React.lazy(() => import("./pages/logins/LoginPage"));
+const Marcas = React.lazy(() => import("./pages/vehiculos/Marcas"));
+const Modelos = React.lazy(() => import("./pages/vehiculos/Modelos"));
+const AsociarMarcaModelo = React.lazy(() => import("./pages/vehiculos/AsociarMarcaModelo"));
+const MantencionDetalles = React.lazy(() => import("./pages/vehiculos/MantencionDetalles"));
+const Mantenciones = React.lazy(() => import("./pages/vehiculos/Mantenciones"));
+const MisVehiculos = React.lazy(() => import("./pages/vehiculos/MisVehiculos"));
 const Talleres = React.lazy(() => import("./pages/vehiculos/Talleres"));
 
 function ProtectedRoute({ children }: { children: React.ReactNode }) {
@@ -57,8 +63,55 @@ function MainRoutes() {
           path={ROUTE_PATHS.vehiculos}
           element={
             <ProtectedRoute>
-              {/* <Vehiculos /> */}
-              <Navigate to={ROUTE_PATHS.vehiculos} replace />
+              <Navigate to={ROUTE_PATHS.vehiculosTalleres} replace />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path={ROUTE_PATHS.vehiculosMantenciones}
+          element={
+            <ProtectedRoute>
+              <Mantenciones />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path={ROUTE_PATHS.vehiculosDetalleMantenciones}
+          element={
+            <ProtectedRoute>
+              <MantencionDetalles />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path={ROUTE_PATHS.vehiculosMisVehiculos}
+          element={
+            <ProtectedRoute>
+              <MisVehiculos />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path={ROUTE_PATHS.vehiculosMarcas}
+          element={
+            <ProtectedRoute>
+              <Marcas />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path={ROUTE_PATHS.vehiculosModelos}
+          element={
+            <ProtectedRoute>
+              <Modelos />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path={ROUTE_PATHS.vehiculosAsociarMarcaModelo}
+          element={
+            <ProtectedRoute>
+              <AsociarMarcaModelo />
             </ProtectedRoute>
           }
         />

@@ -4,6 +4,12 @@ export const ROUTE_PATHS = {
   home: "/home",
   vehiculos: "/vehiculos",
   vehiculosTalleres: "/vehiculos/talleres",
+  vehiculosMantenciones: "/vehiculos/mantenciones",
+  vehiculosDetalleMantenciones: "/vehiculos/detalle-mantenciones",
+  vehiculosMisVehiculos: "/vehiculos/mis-vehiculos",
+  vehiculosMarcas: "/vehiculos/marcas",
+  vehiculosModelos: "/vehiculos/modelos",
+  vehiculosAsociarMarcaModelo: "/vehiculos/asociar-marca-modelo",
 } as const;
 
 type AppRoute = {
@@ -36,6 +42,36 @@ export const APP_ROUTES: Record<string, AppRoute> = {
   vehiculosTalleres: {
     path: ROUTE_PATHS.vehiculosTalleres,
     label: "Talleres",
+    breadcrumbClickable: true,
+  },
+  vehiculosMantenciones: {
+    path: ROUTE_PATHS.vehiculosMantenciones,
+    label: "Mantenciones",
+    breadcrumbClickable: true,
+  },
+  vehiculosDetalleMantenciones: {
+    path: ROUTE_PATHS.vehiculosDetalleMantenciones,
+    label: "Detalle mantenciones",
+    breadcrumbClickable: true,
+  },
+  vehiculosMisVehiculos: {
+    path: ROUTE_PATHS.vehiculosMisVehiculos,
+    label: "Vehículos",
+    breadcrumbClickable: true,
+  },
+  vehiculosMarcas: {
+    path: ROUTE_PATHS.vehiculosMarcas,
+    label: "Marcas",
+    breadcrumbClickable: true,
+  },
+  vehiculosModelos: {
+    path: ROUTE_PATHS.vehiculosModelos,
+    label: "Modelos",
+    breadcrumbClickable: true,
+  },
+  vehiculosAsociarMarcaModelo: {
+    path: ROUTE_PATHS.vehiculosAsociarMarcaModelo,
+    label: "Asociar Marca-Modelo",
     breadcrumbClickable: true,
   },
 } as const;

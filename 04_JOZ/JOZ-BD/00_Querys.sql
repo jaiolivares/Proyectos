@@ -18,3 +18,6 @@ select * from ErrorApi;
 
 
 
+
+
+insert into Comuna values (1,'Vit','Vitacura')

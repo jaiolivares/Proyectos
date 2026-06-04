@@ -65,7 +65,7 @@ export default function NavBar() {
           <Button color="inherit" component={RouterLink} to={APP_ROUTES.home.path}>
             {APP_ROUTES.home.label}
           </Button>
-          <Button color="inherit" component={RouterLink} to={APP_ROUTES.vehiculosTalleres.path}>
+          <Button color="inherit" component={RouterLink} to={APP_ROUTES.vehiculos.path}>
             {APP_ROUTES.vehiculos.label}
           </Button>
         </Box>
@@ -95,7 +95,7 @@ export default function NavBar() {
             <MenuItem component={RouterLink} to={APP_ROUTES.home.path} onClick={handleCloseNavMenu}>
               {APP_ROUTES.home.label}
             </MenuItem>
-            <MenuItem component={RouterLink} to={APP_ROUTES.vehiculosTalleres.path} onClick={handleCloseNavMenu}>
+            <MenuItem component={RouterLink} to={APP_ROUTES.vehiculos.path} onClick={handleCloseNavMenu}>
               {APP_ROUTES.vehiculos.label}
             </MenuItem>
             <MenuItem onClick={handleLogout}>Salir</MenuItem>
