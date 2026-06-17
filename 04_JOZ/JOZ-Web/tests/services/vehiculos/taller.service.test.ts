@@ -11,6 +11,7 @@ describe("TallerService", () => {
   const taller: Taller = {
     Id: 99,
     ...payload,
+    Comuna: { Codigo: "C01", Descripcion: "Comuna Centro" },
   };
 
   it("fetchAll retorna talleres y tolera respuesta sin Dato", async () => {

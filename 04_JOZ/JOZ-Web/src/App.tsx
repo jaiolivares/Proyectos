@@ -1,5 +1,7 @@
 import Box from "@mui/material/Box";
-import React, { Suspense } from "react";
+import { useTheme } from "@mui/material/styles";
+import useMediaQuery from "@mui/material/useMediaQuery";
+import React, { Suspense, useEffect, useState } from "react";
 import { BrowserRouter, Navigate, Route, Routes, useLocation } from "react-router-dom";
 import PageLoader from "./components/feedback/PageLoader";
 import PageBreadcrumbs from "./components/navigation/PageBreadcrumbs";
@@ -33,10 +35,18 @@ function ProtectedRoute({ children }: { children: React.ReactNode }) {
 function MainRoutes() {
   const { user } = useAuthContext();
   const location = useLocation();
+  const theme = useTheme();
+  const isMdUp = useMediaQuery(theme.breakpoints.up("md"));
+  const [mobileSidebarOpen, setMobileSidebarOpen] = useState(false);
   const hideNavOn: string[] = [ROUTE_PATHS.root, ROUTE_PATHS.login];
   const showNav = Boolean(user) && !hideNavOn.includes(location.pathname);
-  const showSidebar = showNav && location.pathname !== ROUTE_PATHS.home;
+  const hasSidebar = showNav && location.pathname !== ROUTE_PATHS.home;
+  const showSidebar = hasSidebar && isMdUp;
   const rootElement = user ? <Navigate to={ROUTE_PATHS.home} replace /> : <Navigate to={ROUTE_PATHS.login} replace />;
+
+  useEffect(() => {
+    setMobileSidebarOpen(false);
+  }, [location.pathname]);
 
   const routes = (
     <Suspense fallback={<PageLoader label="Cargando página..." />}>
@@ -63,7 +73,7 @@ function MainRoutes() {
           path={ROUTE_PATHS.vehiculos}
           element={
             <ProtectedRoute>
-              <Navigate to={ROUTE_PATHS.vehiculosTalleres} replace />
+              <Navigate to={ROUTE_PATHS.vehiculos} replace />
             </ProtectedRoute>
           }
         />
@@ -131,17 +141,22 @@ function MainRoutes() {
     <>
       {showNav && (
         <Suspense fallback={null}>
-          <NavBar />
+          <NavBar showSidebarToggle={hasSidebar && !isMdUp} onOpenSidebar={() => setMobileSidebarOpen(true)} />
         </Suspense>
       )}
       {showNav ? (
         <div style={{ display: "flex", minHeight: "calc(100vh - 64px)" }}>
+          {hasSidebar && !isMdUp && (
+            <Suspense fallback={null}>
+              <LeftSidebar variant="temporary" open={mobileSidebarOpen} onClose={() => setMobileSidebarOpen(false)} />
+            </Suspense>
+          )}
           {showSidebar && (
             <Suspense fallback={null}>
               <LeftSidebar />
             </Suspense>
           )}
-          <Box sx={{ flex: 1, px: 3, py: 3 }}>
+          <Box sx={{ flex: 1, minWidth: 0, px: { xs: 2, sm: 3 }, py: 3 }}>
             <PageBreadcrumbs />
             {routes}
           </Box>

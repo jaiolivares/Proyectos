@@ -8,12 +8,12 @@ const router = Router();
 const tallerCommandService = new TallerCommandService();
 const tallerQueryService = new TallerQueryService();
 const tallerController = new TallerController(tallerCommandService, tallerQueryService);
-const obtenerTodosLimiter = createRateLimiter();
+const rateLimiter = createRateLimiter();
 
-router.get("/obtenerTodos", obtenerTodosLimiter, tallerController.obtenerTodos.bind(tallerController));
-router.get("/obtenerPorId/:id", tallerController.obtenerPorId.bind(tallerController));
-router.post("/crear", tallerController.crear.bind(tallerController));
-router.patch("/actualizar/:id", tallerController.actualizar.bind(tallerController));
-router.delete("/eliminar/:id", tallerController.eliminar.bind(tallerController));
+router.get("/obtenerTodos", rateLimiter, tallerController.obtenerTodos.bind(tallerController));
+router.get("/obtenerPorId/:id", rateLimiter, tallerController.obtenerPorId.bind(tallerController));
+router.post("/crear", rateLimiter, tallerController.crear.bind(tallerController));
+router.patch("/actualizar/:id", rateLimiter, tallerController.actualizar.bind(tallerController));
+router.delete("/eliminar/:id", rateLimiter, tallerController.eliminar.bind(tallerController));
 
 export default router;

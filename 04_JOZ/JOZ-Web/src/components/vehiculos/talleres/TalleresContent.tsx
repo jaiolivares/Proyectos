@@ -6,6 +6,7 @@ import TallerTable from "./TallerTable";
 
 interface Props {
   talleres: Taller[];
+  totalCount?: number;
   loading: boolean;
   error: string | null;
   success: string | null;
@@ -14,7 +15,7 @@ interface Props {
   onDelete: (taller: Taller) => void;
 }
 
-export default function TalleresContent({ talleres, loading, error, success, onCloseSuccess, onEdit, onDelete }: Props) {
+export default function TalleresContent({ talleres, totalCount, loading, error, success, onCloseSuccess, onEdit, onDelete }: Props) {
   return (
     <>
       {error && <Alert severity="error">{error}</Alert>}
@@ -29,7 +30,7 @@ export default function TalleresContent({ talleres, loading, error, success, onC
           <PageLoader label="Cargando talleres..." />
         </Paper>
       ) : (
-        <TallerTable talleres={talleres} onEdit={onEdit} onDelete={onDelete} />
+        <TallerTable talleres={talleres} totalCount={totalCount} onEdit={onEdit} onDelete={onDelete} />
       )}
     </>
   );

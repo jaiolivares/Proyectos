@@ -3,6 +3,7 @@ export interface Taller {
   Nombre: string;
   IdComuna: number;
   Direccion: string;
+  Comuna?: { Codigo: string; Descripcion: string };
 }
 
 export interface TallerPayload {

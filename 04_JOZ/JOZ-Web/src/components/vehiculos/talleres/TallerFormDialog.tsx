@@ -148,9 +148,7 @@ export default function TallerFormDialog({ open, mode, taller, loading, onClose,
                   label="Comuna"
                   required
                   error={comunaIsInvalid || selectedComunaIsMissing}
-                  helperText={
-                    loadingComunas ? "Cargando comunas..." : comunas.length === 0 ? "No hay comunas disponibles desde la API" : selectedComunaIsMissing ? "La comuna seleccionada ya no existe en la API" : "Busca por nombre y selecciona una comuna"
-                  }
+                  helperText={loadingComunas ? "Cargando comunas..." : comunas.length === 0 ? "No hay comunas disponibles desde la API" : selectedComunaIsMissing ? "La comuna seleccionada ya no existe en la API" : ""}
                 />
               )}
             />

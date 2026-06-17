@@ -8,16 +8,27 @@ import MenuItem from "@mui/material/MenuItem";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import React, { useState } from "react";
-import { Link as RouterLink, useNavigate } from "react-router-dom";
+import { Link as RouterLink, useLocation, useNavigate } from "react-router-dom";
 import { PUBLIC_SITE_URL } from "../../config/appConfig";
 import { APP_ROUTES } from "../../config/routes";
 import { useAuthContext } from "../../contexts/AuthContext";
 import { AUTH_STORAGE_KEY } from "../../models/auths/user";
 
-export default function NavBar() {
+interface Props {
+  showSidebarToggle?: boolean;
+  onOpenSidebar?: () => void;
+}
+
+export default function NavBar({ showSidebarToggle = false, onOpenSidebar }: Props) {
   const navigate = useNavigate();
+  const location = useLocation();
   const { logout } = useAuthContext();
   const [anchorElNav, setAnchorElNav] = useState<null | HTMLElement>(null);
+
+  const isActive = (path: string) => {
+    if (!path) return false;
+    return location.pathname === path || location.pathname.startsWith(path + "/");
+  };
 
   const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorElNav(event.currentTarget);
@@ -47,6 +58,11 @@ export default function NavBar() {
   return (
     <AppBar position="static">
       <Toolbar sx={{ position: "relative" }}>
+        {showSidebarToggle && (
+          <IconButton size="large" aria-label="abrir menú lateral" onClick={onOpenSidebar} color="inherit" sx={{ mr: 1, display: { xs: "inline-flex", md: "none" } }}>
+            <MenuIcon />
+          </IconButton>
+        )}
         <Typography variant="h6" sx={{ mr: 2 }}>
           JOZ
         </Typography>
@@ -62,10 +78,26 @@ export default function NavBar() {
             alignItems: "center",
           }}
         >
-          <Button color="inherit" component={RouterLink} to={APP_ROUTES.home.path}>
+          <Button
+            color="inherit"
+            component={RouterLink}
+            to={APP_ROUTES.home.path}
+            sx={{
+              bgcolor: isActive(APP_ROUTES.home.path) ? "rgba(255,255,255,0.15)" : "transparent",
+              borderRadius: 1,
+            }}
+          >
             {APP_ROUTES.home.label}
           </Button>
-          <Button color="inherit" component={RouterLink} to={APP_ROUTES.vehiculos.path}>
+          <Button
+            color="inherit"
+            component={RouterLink}
+            to={APP_ROUTES.vehiculos.path}
+            sx={{
+              bgcolor: isActive(APP_ROUTES.vehiculos.path) ? "rgba(255,255,255,0.15)" : "transparent",
+              borderRadius: 1,
+            }}
+          >
             {APP_ROUTES.vehiculos.label}
           </Button>
         </Box>
@@ -92,10 +124,10 @@ export default function NavBar() {
             onClose={handleCloseNavMenu}
             sx={{ display: { xs: "block", md: "none" } }}
           >
-            <MenuItem component={RouterLink} to={APP_ROUTES.home.path} onClick={handleCloseNavMenu}>
+            <MenuItem component={RouterLink} to={APP_ROUTES.home.path} onClick={handleCloseNavMenu} selected={isActive(APP_ROUTES.home.path)}>
               {APP_ROUTES.home.label}
             </MenuItem>
-            <MenuItem component={RouterLink} to={APP_ROUTES.vehiculos.path} onClick={handleCloseNavMenu}>
+            <MenuItem component={RouterLink} to={APP_ROUTES.vehiculos.path} onClick={handleCloseNavMenu} selected={isActive(APP_ROUTES.vehiculos.path)}>
               {APP_ROUTES.vehiculos.label}
             </MenuItem>
             <MenuItem onClick={handleLogout}>Salir</MenuItem>

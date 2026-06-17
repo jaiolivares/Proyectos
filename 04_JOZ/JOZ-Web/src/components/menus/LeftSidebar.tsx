@@ -27,10 +27,18 @@ type SidebarSection = {
   items: SidebarEntry[];
 };
 
-export default function LeftSidebar() {
+interface Props {
+  variant?: "permanent" | "temporary";
+  open?: boolean;
+  onClose?: () => void;
+}
+
+export default function LeftSidebar({ variant = "permanent", open: mobileOpen = false, onClose }: Props) {
   const location = useLocation();
   const [open, setOpen] = useState(true);
   const [expandedMap, setExpandedMap] = useState<Record<string, boolean>>({});
+  const isTemporary = variant === "temporary";
+  const clickable = open || isTemporary;
 
   const menuForPath = useMemo<SidebarSection[]>(() => {
     if (location.pathname.startsWith("/vehiculos")) {
@@ -53,29 +61,43 @@ export default function LeftSidebar() {
     setExpandedMap((prev) => ({ ...prev, [title]: !prev[title] }));
   };
 
+  const handleNavigate = () => {
+    if (isTemporary) {
+      onClose?.();
+    }
+  };
+
   const segments = location.pathname.split("/").filter(Boolean);
   const baseSegment = segments[0] ?? "";
   const basePath = baseSegment ? `/${baseSegment}` : "/";
+  const drawerDisplayWidth = isTemporary ? drawerWidth : open ? drawerWidth : collapsedWidth;
+
+  const isActivePath = (path: string) => {
+    if (!path) return false;
+    return location.pathname === path || location.pathname.startsWith(path + "/");
+  };
 
   return (
     <Box component="nav" aria-label="sidebar">
       <Drawer
-        variant="permanent"
-        open={open}
+        variant={variant}
+        open={isTemporary ? mobileOpen : open}
+        onClose={onClose}
+        ModalProps={isTemporary ? { keepMounted: true } : undefined}
         sx={{
-          width: open ? drawerWidth : collapsedWidth,
+          width: drawerDisplayWidth,
           flexShrink: 0,
           "& .MuiDrawer-paper": {
-            width: open ? drawerWidth : collapsedWidth,
+            width: drawerDisplayWidth,
             boxSizing: "border-box",
           },
         }}
       >
         <Box sx={{ display: "flex", alignItems: "center", px: 1, py: 1 }}>
-          <IconButton onClick={toggleOpen} size="small">
+          <IconButton onClick={isTemporary ? onClose : toggleOpen} size="small">
             {open ? <MenuOpenIcon /> : <MenuIcon />}
           </IconButton>
-          {open && (
+          {(open || isTemporary) && (
             <Typography variant="subtitle1" sx={{ ml: 1 }}>
               Menú
             </Typography>
@@ -94,18 +116,30 @@ export default function LeftSidebar() {
               <React.Fragment key={sectionKey}>
                 {hasChildren ? (
                   <>
-                    <ListItemButton onClick={() => toggleSection(sectionKey)}>
-                      <ListItemText primary={open ? titleLabel : ""} />
-                      {open && (isExpanded ? <ExpandLess /> : <ExpandMore />)}
-                    </ListItemButton>
+                    {(() => {
+                      const titleTarget = titleRoute === baseSegment ? basePath : `${basePath}/${titleRoute}`;
+                      return (
+                        <ListItemButton
+                          onClick={() => toggleSection(sectionKey)}
+                          selected={isActivePath(titleTarget)}
+                          sx={{
+                            bgcolor: isActivePath(titleTarget) ? "rgba(0,0,0,0.08)" : "transparent",
+                          }}
+                        >
+                          <ListItemText primary={open || isTemporary ? titleLabel : ""} />
+                          {(open || isTemporary) && (isExpanded ? <ExpandLess /> : <ExpandMore />)}
+                        </ListItemButton>
+                      );
+                    })()}
                     <Collapse in={isExpanded} timeout="auto" unmountOnExit>
                       <List component="div" disablePadding>
                         {section.items.map((it) => {
                           const label = it.label;
                           const route = it.route;
+                          const itemTarget = `${basePath}/${route}`;
                           return (
-                            <ListItemButton key={route} sx={{ pl: 4 }} component={RouterLink} to={`${basePath}/${route}`}>
-                              <ListItemText primary={open ? label : ""} />
+                            <ListItemButton key={route} sx={{ pl: 4 }} component={clickable ? RouterLink : undefined} to={clickable ? itemTarget : undefined} onClick={clickable ? handleNavigate : undefined} selected={isActivePath(itemTarget)}>
+                              <ListItemText primary={open || isTemporary ? label : ""} />
                             </ListItemButton>
                           );
                         })}
@@ -116,8 +150,16 @@ export default function LeftSidebar() {
                   (() => {
                     const target = titleRoute === baseSegment ? basePath : `${basePath}/${titleRoute}`;
                     return (
-                      <ListItemButton component={RouterLink} to={target}>
-                        <ListItemText primary={open ? titleLabel : ""} />
+                      <ListItemButton
+                        component={clickable ? RouterLink : undefined}
+                        to={clickable ? target : undefined}
+                        onClick={clickable ? handleNavigate : undefined}
+                        selected={isActivePath(target)}
+                        sx={{
+                          bgcolor: isActivePath(target) ? "rgba(0,0,0,0.08)" : "transparent",
+                        }}
+                      >
+                        <ListItemText primary={open || isTemporary ? titleLabel : ""} />
                       </ListItemButton>
                     );
                   })()

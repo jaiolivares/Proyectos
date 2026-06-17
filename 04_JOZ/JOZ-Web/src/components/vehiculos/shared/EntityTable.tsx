@@ -32,8 +32,8 @@ interface Props<TItem extends CrudEntity> {
 
 export default function EntityTable<TItem extends CrudEntity>({ items, columns, emptyText, editLabel, deleteLabel, onEdit, onDelete }: Props<TItem>) {
   return (
-    <TableContainer component={Paper} elevation={0} variant="outlined">
-      <Table>
+    <TableContainer component={Paper} elevation={0} variant="outlined" sx={{ width: "100%", overflowX: "auto" }}>
+      <Table sx={{ minWidth: "max-content" }}>
         <TableHead>
           <TableRow>
             {columns.map((column) => (
