@@ -15,6 +15,9 @@ const config = {
   jwt: {
     secret: process.env.JWT_SECRET || "dev-secret",
     expiresIn: process.env.JWT_EXPIRES_IN || "1h",
+    // Acces token para refrescar ("accestoken")
+    refreshSecret: process.env.JWT_REFRESH_SECRET || "dev-refresh-secret",
+    refreshExpiresIn: process.env.JWT_REFRESH_EXPIRES_IN || "2h",
   },
 };
 

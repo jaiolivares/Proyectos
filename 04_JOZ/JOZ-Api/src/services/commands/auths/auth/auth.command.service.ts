@@ -34,6 +34,19 @@ export class AuthCommandService {
     const payload = { Id: user.Id, NombreUsuario: user.NombreUsuario };
     const token = jwt.sign(payload as any, config.jwt.secret as any, { expiresIn: config.jwt.expiresIn } as any);
 
-    return { token, usuario: user } as LoginResponseDto;
+    // generar accestoken (refresh token) con distinto secreto y 2h de vigencia
+    const accestoken = jwt.sign(payload as any, config.jwt.refreshSecret as any, { expiresIn: config.jwt.refreshExpiresIn } as any);
+
+    return { token, accestoken, usuario: user } as LoginResponseDto;
+  }
+
+  public async refreshAccesToken(accestoken: string): Promise<{ token: string } | null> {
+    try {
+      const payload = jwt.verify(accestoken, config.jwt.refreshSecret as any) as any;
+      const newToken = jwt.sign({ Id: payload.Id, NombreUsuario: payload.NombreUsuario } as any, config.jwt.secret as any, { expiresIn: config.jwt.expiresIn } as any);
+      return { token: newToken };
+    } catch (err) {
+      return null;
+    }
   }
 }

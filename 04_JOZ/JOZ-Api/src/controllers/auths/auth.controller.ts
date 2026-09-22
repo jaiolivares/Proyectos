@@ -24,4 +24,18 @@ export class AuthController {
 
     return res.status(200).json(respuestaOk<LoginResponseDto>(result, "Login exitoso"));
   }
+
+  public async refresh(req: Request<{}, {}, { accestoken: string }>, res: Response<Respuesta<{ token: string }>>): Promise<Response<Respuesta<{ token: string }>>> {
+    const { accestoken } = req.body;
+    if (!accestoken) {
+      return res.status(400).json(respuestaError<{ token: string }>("accestoken es requerido"));
+    }
+
+    const result = await this.authCommandService.refreshAccesToken(accestoken);
+    if (!result) {
+      return res.status(401).json(respuestaError<{ token: string }>("accestoken inválido o expirado"));
+    }
+
+    return res.status(200).json(respuestaOk<{ token: string }>(result, "Token renovado"));
+  }
 }
