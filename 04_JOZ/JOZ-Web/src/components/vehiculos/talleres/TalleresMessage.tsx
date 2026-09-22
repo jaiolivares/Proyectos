@@ -15,7 +15,7 @@ interface Props {
   onDelete: (taller: Taller) => void;
 }
 
-export default function TalleresContent({ talleres, totalCount, loading, error, success, onCloseSuccess, onEdit, onDelete }: Props) {
+export default function TalleresMessage({ talleres, totalCount, loading, error, success, onCloseSuccess, onEdit, onDelete }: Props) {
   return (
     <>
       {error && <Alert severity="error">{error}</Alert>}

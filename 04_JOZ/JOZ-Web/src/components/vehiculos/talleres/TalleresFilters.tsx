@@ -1,5 +1,4 @@
-import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
-import RefreshIcon from "@mui/icons-material/Refresh";
+import { AddCircleOutline as AddCircleOutlineIcon, Refresh as RefreshIcon } from "@mui/icons-material";
 import Autocomplete from "@mui/material/Autocomplete";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
@@ -20,7 +19,7 @@ interface Props {
   direccionOptions?: string[];
 }
 
-export default function TalleresCrudPanel({ loading, submitting, onReload, onCreate, onFilterChange, nombreOptions = [], comunaOptions = [], direccionOptions = [] }: Props) {
+export default function TalleresFilters({ loading, submitting, onReload, onCreate, onFilterChange, nombreOptions = [], comunaOptions = [], direccionOptions = [] }: Props) {
   const [nombre, setNombre] = React.useState("");
   const [comuna, setComuna] = React.useState("");
   const [direccion, setDireccion] = React.useState("");
@@ -71,7 +70,7 @@ export default function TalleresCrudPanel({ loading, submitting, onReload, onCre
             gap: 2,
             gridTemplateColumns: {
               xs: "1fr",
-              md: "minmax(320px, 2.4fr) minmax(220px, 1.2fr) minmax(220px, 1.4fr) auto",
+              md: "1fr 1fr 1fr auto",
             },
             alignItems: "center",
           }}

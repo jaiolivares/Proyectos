@@ -3,11 +3,12 @@ import Stack from "@mui/material/Stack";
 import { useMemo, useState } from "react";
 import TallerDeleteDialog from "../../components/vehiculos/talleres/TallerDeleteDialog";
 import TallerFormDialog from "../../components/vehiculos/talleres/TallerFormDialog";
-import TalleresContent from "../../components/vehiculos/talleres/TalleresContent";
-import TalleresCrudPanel from "../../components/vehiculos/talleres/TalleresCrudPanel";
+import TalleresFilters from "../../components/vehiculos/talleres/TalleresFilters.tsx";
+import TalleresMessage from "../../components/vehiculos/talleres/TalleresMessage";
 import TalleresPageHeader from "../../components/vehiculos/talleres/TalleresPageHeader";
 import { useAuthContext } from "../../contexts/AuthContext";
 import { useTalleresCrud } from "../../hooks/useTalleresCrud";
+import { includesNormalized } from "../../utils/text";
 
 export default function Talleres() {
   const { user } = useAuthContext();
@@ -18,23 +19,23 @@ export default function Talleres() {
   const [filters, setFilters] = useState<{ Nombre?: string; Comuna?: string; Direccion?: string }>({});
 
   const filteredTalleres = useMemo(() => {
-    const fNombre = filters.Nombre?.toLowerCase();
-    const fComuna = filters.Comuna?.toLowerCase();
-    const fDireccion = filters.Direccion?.toLowerCase();
+    const fNombre = filters.Nombre ?? "";
+    const fComuna = filters.Comuna ?? "";
+    const fDireccion = filters.Direccion ?? "";
 
     return talleres.filter((t) => {
-      if (fNombre && !(t.Nombre || "").toLowerCase().includes(fNombre)) return false;
+      if (fNombre && !includesNormalized(t.Nombre, fNombre)) return false;
       if (fComuna) {
         const desc = t.Comuna?.Descripcion ?? "";
-        if (!desc.toLowerCase().includes(fComuna)) return false;
+        if (!includesNormalized(desc, fComuna)) return false;
       }
-      if (fDireccion && !(t.Direccion || "").toLowerCase().includes(fDireccion)) return false;
+      if (fDireccion && !includesNormalized(t.Direccion, fDireccion)) return false;
       return true;
     });
   }, [talleres, filters]);
 
   const nombreOptions = useMemo(() => Array.from(new Set(talleres.map((t) => t.Nombre).filter(Boolean))), [talleres]);
-  const comunaOptions = useMemo(() => Array.from(new Set(talleres.map((t) => t.Comuna?.Descripcion).filter(Boolean as any))), [talleres]);
+  const comunaOptions = useMemo(() => Array.from(new Set(talleres.map((t) => t.Comuna?.Descripcion).filter((v): v is string => typeof v === "string"))), [talleres]);
   const direccionOptions = useMemo(() => Array.from(new Set(talleres.map((t) => t.Direccion).filter(Boolean))), [talleres]);
 
   return (
@@ -42,7 +43,7 @@ export default function Talleres() {
       <Stack spacing={3}>
         <TalleresPageHeader displayName={displayName} />
 
-        <TalleresCrudPanel
+        <TalleresFilters
           loading={loading}
           submitting={submitting}
           onReload={() => void loadTalleres()}
@@ -53,7 +54,7 @@ export default function Talleres() {
           direccionOptions={direccionOptions}
         />
 
-        <TalleresContent talleres={filteredTalleres} totalCount={talleres.length} loading={loading} error={error} success={success} onCloseSuccess={clearSuccess} onEdit={openEditForm} onDelete={openDeleteDialog} />
+        <TalleresMessage talleres={filteredTalleres} totalCount={talleres.length} loading={loading} error={error} success={success} onCloseSuccess={clearSuccess} onEdit={openEditForm} onDelete={openDeleteDialog} />
       </Stack>
 
       <TallerFormDialog open={formOpen} mode={formMode} taller={selectedTaller} loading={submitting} onClose={closeForm} onSubmit={submitForm} />

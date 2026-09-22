@@ -57,7 +57,7 @@ vi.mock("../../../src/components/vehiculos/talleres/TalleresPageHeader", () => (
   default: ({ displayName }: { displayName?: string }) => <div data-testid="page-header">{displayName}</div>,
 }));
 
-vi.mock("../../../src/components/vehiculos/talleres/TalleresCrudPanel", () => ({
+vi.mock("../../../src/components/vehiculos/talleres/TalleresFilters", () => ({
   default: ({ onReload, onCreate }: { onReload: () => void; onCreate: () => void }) => (
     <div>
       <button onClick={onReload}>recargar</button>
@@ -66,7 +66,7 @@ vi.mock("../../../src/components/vehiculos/talleres/TalleresCrudPanel", () => ({
   ),
 }));
 
-vi.mock("../../../src/components/vehiculos/talleres/TalleresContent", () => ({
+vi.mock("../../../src/components/vehiculos/talleres/TalleresMessage", () => ({
   default: ({ onEdit, onDelete, onCloseSuccess }: { onEdit: (taller: typeof sampleTaller) => void; onDelete: (taller: typeof sampleTaller) => void; onCloseSuccess: () => void }) => (
     <div>
       <button onClick={() => onEdit(sampleTaller)}>editar</button>

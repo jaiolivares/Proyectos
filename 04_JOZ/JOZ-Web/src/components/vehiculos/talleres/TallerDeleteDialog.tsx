@@ -19,7 +19,7 @@ export default function TallerDeleteDialog({ open, taller, loading, onClose, onC
     <Dialog open={open} onClose={loading ? undefined : onClose} fullWidth maxWidth="xs">
       <DialogTitle>Eliminar taller</DialogTitle>
       <DialogContent>
-        <Typography>{taller ? `Se eliminará el taller ${taller.Nombre}. Esta acción no se puede deshacer.` : "Selecciona un taller válido para eliminar."}</Typography>
+        <Typography>{taller ? `Se eliminará el taller: ${taller.Nombre}. Esta acción no se puede deshacer.` : "Selecciona un taller válido para eliminar."}</Typography>
       </DialogContent>
       <DialogActions>
         <Button onClick={onClose} disabled={loading}>

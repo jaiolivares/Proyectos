@@ -81,12 +81,34 @@ export function useTalleresCrud(tallerService?: ITallerService) {
     try {
       if (formMode === "create") {
         const created = await service.create(payload);
-        setTalleres((prev) => sortTalleres([created, ...prev]));
+
+        // Intentamos recargar desde servidor para obtener la relación `Comuna` completa.
+        try {
+          await loadTalleres();
+        } catch {
+          // Si falla la recarga, añadimos localmente el creado (sin comuna completa).
+          setTalleres((prev) => sortTalleres([created, ...prev]));
+        }
+
         setSuccess(`Taller ${created.Nombre} creado correctamente.`);
       } else if (selectedTaller) {
         const updated = await service.update(selectedTaller.Id, payload);
-        setTalleres((prev) => sortTalleres(prev.map((item) => (item.Id === updated.Id ? updated : item))));
-        setSuccess(`Taller ${updated.Nombre} actualizado correctamente.`);
+
+        // Si la API no devuelve la relación completa de `Comuna`, recargamos
+        // la lista completa desde el servidor para asegurar que la grilla
+        // muestre la comuna correcta asociada al `IdComuna` actualizado.
+        try {
+          await loadTalleres();
+          setSuccess(`Taller ${updated.Nombre} actualizado correctamente.`);
+        } catch (err) {
+          // Si la recarga falla, intentamos mantener el registro actualizado localmente
+          const merged = { ...updated } as typeof updated;
+          if (!merged.Comuna && selectedTaller.Comuna) {
+            merged.Comuna = selectedTaller.Comuna;
+          }
+          setTalleres((prev) => sortTalleres(prev.map((item) => (item.Id === merged.Id ? merged : item))));
+          setSuccess(`Taller ${merged.Nombre} actualizado correctamente.`);
+        }
       }
 
       setFormOpen(false);
