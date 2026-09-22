@@ -45,7 +45,7 @@ export default function LeftSidebar({ variant = "permanent", open: mobileOpen = 
       return [
         { title: { label: "Mantenciones", route: "mantenciones" }, items: [{ label: "Detalle mantenciones", route: "detalle-mantenciones" }] },
         { title: { label: "Talleres", route: "talleres" }, items: [] },
-        { title: { label: "Vehículos", route: "mis-vehiculos" }, items: [] },
+        { title: { label: "Mis vehículos", route: "mis-vehiculos" }, items: [] },
         {
           title: { label: "Marcas", route: "marcas" },
           items: [{ label: "Asociar Marca-Modelo", route: "asociar-marca-modelo" }],

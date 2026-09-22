@@ -37,7 +37,7 @@ export const APP_ROUTES: Record<string, AppRoute> = {
   vehiculos: {
     path: ROUTE_PATHS.vehiculos,
     label: "Vehículos",
-    breadcrumbClickable: false,
+    breadcrumbClickable: true,
   },
   vehiculosTalleres: {
     path: ROUTE_PATHS.vehiculosTalleres,
@@ -56,7 +56,7 @@ export const APP_ROUTES: Record<string, AppRoute> = {
   },
   vehiculosMisVehiculos: {
     path: ROUTE_PATHS.vehiculosMisVehiculos,
-    label: "Vehículos",
+    label: "Mis vehículos",
     breadcrumbClickable: true,
   },
   vehiculosMarcas: {

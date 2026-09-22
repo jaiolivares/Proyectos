@@ -12,7 +12,7 @@ import { includesNormalized } from "../../utils/text";
 
 export default function Talleres() {
   const { user } = useAuthContext();
-  const displayName = user?.Nombre || user?.NombreUsuario || user?.Email || "ccc";
+  const displayName = user?.Nombre || user?.NombreUsuario || user?.Email;
   const { talleres, loading, submitting, error, success, formMode, formOpen, selectedTaller, deleteTarget, loadTalleres, openCreateForm, openEditForm, closeForm, openDeleteDialog, closeDeleteDialog, submitForm, confirmDelete, clearSuccess } =
     useTalleresCrud();
 

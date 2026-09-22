@@ -20,6 +20,7 @@ const MantencionDetalles = React.lazy(() => import("./pages/vehiculos/Mantencion
 const Mantenciones = React.lazy(() => import("./pages/vehiculos/Mantenciones"));
 const MisVehiculos = React.lazy(() => import("./pages/vehiculos/MisVehiculos"));
 const Talleres = React.lazy(() => import("./pages/vehiculos/Talleres"));
+const Vehiculos = React.lazy(() => import("./pages/vehiculos/Vehiculos"));
 
 function ProtectedRoute({ children }: { children: React.ReactNode }) {
   const { user } = useAuthContext();
@@ -73,7 +74,7 @@ function MainRoutes() {
           path={ROUTE_PATHS.vehiculos}
           element={
             <ProtectedRoute>
-              <Navigate to={ROUTE_PATHS.vehiculos} replace />
+              <Vehiculos />
             </ProtectedRoute>
           }
         />
